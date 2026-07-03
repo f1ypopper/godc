@@ -1,0 +1,524 @@
+main.main
+  0x1402eb68e -> main.run
+  0x1402eb6d8 -> fmt.Fprintf("Error: %v\n")
+  0x1402eb6e2 -> os.Exit
+main.run
+  0x1402eb712 -> main.relayCommand
+  0x1402eb720 -> main.listenCommand
+  0x1402eb7ea -> github.com/spf13/cobra.(*Command).AddCommand
+  0x1402eb80b -> github.com/spf13/cobra.(*Command).AddCommand
+  0x1402eb82c -> github.com/spf13/cobra.(*Command).AddCommand
+  0x1402eb836 -> github.com/spf13/cobra.(*Command).ExecuteC
+main.relayCommand
+  0x1402eb9e3 -> os.LookupEnv("RESOCKS_KEY")
+  0x1402eba81 -> main.binaryName
+  0x1402ebac7 -> fmt.Sprintf("%s <connect back address> --key <connection key>")
+  0x1402ebad9 -> main.binaryName
+  0x1402ebb20 -> fmt.Sprintf("Connect back to an %s listener and relay the SOCKS5 traffic")
+  0x1402ebc8f -> github.com/spf13/cobra.(*Command).Flags
+  0x1402ebcc0 -> github.com/spf13/pflag.(*FlagSet).DurationVar("timeout")
+  0x1402ebcf7 -> github.com/spf13/pflag.(*FlagSet).DurationVar("reconnect-after")
+  0x1402ebd36 -> fmt.Sprintf("Connection key that is displayed when starting a listener (default can be set using environment variable %s)")
+  0x1402ebd74 -> github.com/spf13/pflag.(*FlagSet).StringVarP("key", "k")
+  0x1402ebda5 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("insecure")
+main.binaryName
+  0x1402eb90e -> os.Executable
+  0x1402eb930 -> internal/filepathlite.Base
+  0x1402eb94d -> internal/filepathlite.Base("resocks")
+internal/filepathlite.Base
+  0x1400d7f74 -> internal/filepathlite.VolumeName
+internal/filepathlite.VolumeName
+  0x1400d8058 -> internal/filepathlite.volumeNameLen
+  0x1400d8079 -> internal/filepathlite.replaceStringByte
+internal/filepathlite.volumeNameLen
+  0x1400d8220 -> internal/filepathlite.pathHasPrefixFold("\\\\.\\UNC")
+  0x1400d8255 -> internal/filepathlite.pathHasPrefixFold("\\\\.")
+  0x1400d8280 -> internal/filepathlite.pathHasPrefixFold("\\\\?")
+  0x1400d82a6 -> internal/filepathlite.pathHasPrefixFold("\\??")
+internal/filepathlite.pathHasPrefixFold
+  <no direct calls>
+internal/filepathlite.replaceStringByte
+  0x1400d7e72 -> internal/bytealg.IndexByteString
+github.com/spf13/cobra.(*Command).Flags
+  0x1402e0eab -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).Name
+  0x1402e072c -> internal/stringslite.Index(" ")
+internal/stringslite.Index
+  0x14000ea39 -> internal/bytealg.IndexString
+  0x14000eace -> internal/bytealg.IndexByteString
+  0x14000eb60 -> internal/bytealg.IndexByteString
+  0x14000ecc0 -> internal/bytealg.IndexRabinKarp[go.shape.string]
+  0x14000eda0 -> internal/bytealg.IndexByteString
+  0x14000ef03 -> internal/bytealg.IndexString
+github.com/spf13/pflag.(*FlagSet).DurationVar
+  0x1402be340 -> github.com/spf13/pflag.(*FlagSet).VarPF
+github.com/spf13/pflag.(*FlagSet).VarPF
+  0x1402c24a6 -> indirect_call
+  0x1402c2560 -> github.com/spf13/pflag.(*FlagSet).AddFlag
+github.com/spf13/pflag.(*FlagSet).AddFlag
+  0x1402c26b7 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402c2a04 -> fmt.Sprintf("unable to redefine %q shorthand in %q flagset: it's already used for %q flag")
+  0x1402c2a45 -> fmt.Fprintf
+  0x1402c2ace -> fmt.Sprintf("%q shorthand is more than one ASCII character")
+  0x1402c2b0f -> fmt.Fprintf
+  0x1402c2bca -> fmt.Sprintf("%s flag redefined: %s")
+  0x1402c2c46 -> fmt.Fprintln
+github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402bf912 -> indirect_call
+github.com/spf13/pflag.(*FlagSet).StringVarP
+  0x1402cec04 -> github.com/spf13/pflag.(*FlagSet).VarPF
+github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x1402bb559 -> github.com/spf13/pflag.(*FlagSet).VarPF
+main.listenCommand
+  0x1402ea277 -> main.withDefaultPort
+  0x1402ea2c8 -> main.withDefaultPort("localhost")
+  0x1402ea345 -> os.LookupEnv("RESOCKS_KEY")
+  0x1402ea496 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402ea4c8 -> github.com/spf13/pflag.(*FlagSet).StringVar("on", "Address to listen on for reverse connections")
+  0x1402ea50e -> github.com/spf13/pflag.(*FlagSet).StringVarP("proxy-address", "p")
+  0x1402ea542 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("abort-on-disconnect")
+  0x1402ea581 -> fmt.Sprintf("Configures a static connection key instead of generating a key (default can be set using environment variable %s)")
+  0x1402ea5c0 -> github.com/spf13/pflag.(*FlagSet).StringVarP("key", "k")
+  0x1402ea5f1 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("insecure")
+  0x1402ea628 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("no-color")
+main.withDefaultPort
+  0x1402eb880 -> net.SplitHostPort
+  0x1402eb894 -> strconv.FormatInt
+github.com/spf13/pflag.(*FlagSet).StringVar
+  0x1402ceb20 -> github.com/spf13/pflag.(*FlagSet).VarPF
+github.com/spf13/cobra.(*Command).AddCommand
+  0x1402df0a2 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x1402df0c1 -> github.com/spf13/cobra.(*Command).Name
+  0x1402df0ec -> github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc
+github.com/spf13/cobra.(*Command).CommandPath
+  0x1402dfb22 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x1402dfb36 -> github.com/spf13/cobra.(*Command).Name
+  0x1402dfb64 -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc
+  0x1402daa40 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402daa4a -> github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x1402daa54 -> github.com/spf13/cobra.(*Command).PersistentFlags
+  0x1402daa60 -> github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x1402daac0 -> github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc
+github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x1402bf70c -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+github.com/spf13/cobra.(*Command).PersistentFlags
+  0x1402e176b -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).ExecuteC
+  0x1402ddd40 -> indirect_call
+  0x1402ddd4a -> github.com/spf13/cobra.(*Command).InitDefaultHelpCmd
+  0x1402ddd57 -> github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd
+  0x1402ddd64 -> github.com/spf13/cobra.(*Command).checkCommandGroups
+  0x1402dddba -> internal/filepathlite.Base
+  0x1402dde4d -> github.com/spf13/cobra.(*Command).initCompleteCmd
+  0x1402dde72 -> github.com/spf13/cobra.(*Command).Traverse
+  0x1402dde88 -> github.com/spf13/cobra.(*Command).Find
+  0x1402ddec6 -> indirect_call
+  0x1402ddf29 -> github.com/spf13/cobra.(*Command).PrintErrln
+  0x1402ddf33 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x1402ddf77 -> github.com/spf13/cobra.(*Command).PrintErrf
+  0x1402ddfc0 -> github.com/spf13/cobra.(*Command).Name
+  0x1402de053 -> github.com/spf13/cobra.(*Command).execute
+  0x1402de081 -> errors.Is
+  0x1402de0cc -> indirect_call
+  0x1402de134 -> github.com/spf13/cobra.(*Command).PrintErrln
+  0x1402de158 -> github.com/spf13/cobra.(*Command).UsageString
+  0x1402de191 -> github.com/spf13/cobra.(*Command).Println
+  0x1402de1c0 -> github.com/spf13/cobra.(*Command).HelpFunc
+  0x1402de1e2 -> indirect_call
+  0x1402de1f9 -> github.com/spf13/cobra.(*Command).Root
+  0x1402de200 -> github.com/spf13/cobra.(*Command).ExecuteC
+github.com/spf13/cobra.(*Command).InitDefaultHelpCmd
+  0x1402deb79 -> github.com/spf13/cobra.(*Command).Name
+  0x1402decae -> github.com/spf13/cobra.(*Command).RemoveCommand
+  0x1402decda -> github.com/spf13/cobra.(*Command).AddCommand
+github.com/spf13/cobra.(*Command).RemoveCommand
+  0x1402df6a1 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x1402df6c3 -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd
+  0x1402e56ae -> github.com/spf13/cobra.(*Command).Name
+  0x1402e56e4 -> github.com/spf13/cobra.(*Command).HasAlias
+  0x1402e5720 -> github.com/spf13/cobra.(*Command).Root
+  0x1402e5725 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e576b -> fmt.Sprintf("Generate the autocompletion script for %[1]s for the specified shell.\nSee each sub-command's help for details on how to use the generated script.\n")
+  0x1402e5860 -> github.com/spf13/cobra.(*Command).AddCommand
+  0x1402e586d -> github.com/spf13/cobra.(*Command).OutOrStdout
+  0x1402e58e0 -> fmt.Sprintf("Generate the autocompletion script for %s")
+  0x1402e5909 -> github.com/spf13/cobra.(*Command).Root
+  0x1402e5914 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e595a -> fmt.Sprintf("Generate the autocompletion script for the bash shell.\n\nThis script depends on the 'bash-completion' package.\nIf it is not installed already, you can install it via your OS's package manager.\n\nTo load completions in your current shell session:\n\n\tsource <(%[1]s completion bash)\n\nTo load completions for every new session, execute once:\n\n#### Linux:\n\n\t%[1]s completion bash > /etc/bash_completion.d/%[1]s\n\n#### macOS:\n\n\t%[1]s completion bash > $(brew --prefix)/etc/bash_completion.d/%[1]s\n\nYou will need to start a new shell for this setup to take effect.\n")
+  0x1402e5a92 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e5ac0 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("no-descriptions")
+  0x1402e5b00 -> fmt.Sprintf("Generate the autocompletion script for %s")
+  0x1402e5b29 -> github.com/spf13/cobra.(*Command).Root
+  0x1402e5b34 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e5b7a -> fmt.Sprintf("Generate the autocompletion script for the zsh shell.\n\nIf shell completion is not already enabled in your environment you will need\nto enable it.  You can execute the following once:\n\n\techo \"autoload -U compinit; compinit\" >> ~/.zshrc\n\nTo load completions in your current shell session:\n\n\tsource <(%[1]s completion zsh); compdef _%[1]s %[1]s\n\nTo load completions for every new session, execute once:\n\n#### Linux:\n\n\t%[1]s completion zsh > \"${fpath[1]}/_%[1]s\"\n\n#### macOS:\n\n\t%[1]s completion zsh > $(brew --prefix)/share/zsh/site-functions/_%[1]s\n\nYou will need to start a new shell for this setup to take effect.\n")
+  0x1402e5caf -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e5ce0 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("no-descriptions")
+  0x1402e5d20 -> fmt.Sprintf("Generate the autocompletion script for %s")
+  0x1402e5d49 -> github.com/spf13/cobra.(*Command).Root
+  0x1402e5d54 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e5d9a -> fmt.Sprintf("Generate the autocompletion script for the fish shell.\n\nTo load completions in your current shell session:\n\n\t%[1]s completion fish | source\n\nTo load completions for every new session, execute once:\n\n\t%[1]s completion fish > ~/.config/fish/completions/%[1]s.fish\n\nYou will need to start a new shell for this setup to take effect.\n")
+  0x1402e5ed8 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e5f06 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("no-descriptions")
+  0x1402e5f45 -> fmt.Sprintf("Generate the autocompletion script for %s")
+  0x1402e5f6e -> github.com/spf13/cobra.(*Command).Root
+  0x1402e5f79 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e5fc0 -> fmt.Sprintf("Generate the autocompletion script for powershell.\n\nTo load completions in your current shell session:\n\n\t%[1]s completion powershell | Out-String | Invoke-Expression\n\nTo load completions for every new session, add the output of the above command\nto your powershell profile.\n")
+  0x1402e60ef -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e6120 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("no-descriptions")
+  0x1402e6177 -> github.com/spf13/cobra.(*Command).AddCommand
+github.com/spf13/cobra.(*Command).HasAlias
+  0x1402e0800 -> strings.EqualFold
+github.com/spf13/cobra.(*Command).Root
+  0x1402dcf26 -> github.com/spf13/cobra.(*Command).Root
+github.com/spf13/cobra.(*Command).OutOrStdout
+  0x1402dab66 -> github.com/spf13/cobra.(*Command).getOut
+github.com/spf13/cobra.(*Command).getOut
+  0x1402dad80 -> github.com/spf13/cobra.(*Command).getOut
+github.com/spf13/cobra.(*Command).checkCommandGroups
+  0x1402de561 -> github.com/spf13/cobra.(*Command).checkCommandGroups
+  0x1402de5e0 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x1402de660 -> fmt.Sprintf("group id '%s' is not defined for subcommand '%s'")
+github.com/spf13/cobra.(*Command).initCompleteCmd
+  0x1402e2ef4 -> fmt.Sprintf("%s [command-line]")
+  0x1402e2f68 -> fmt.Sprintf("%[2]s is a special command that is used by the shell completion logic\n%[1]s", "to request completion choices for the specified command-line.")
+  0x1402e30c0 -> github.com/spf13/cobra.(*Command).AddCommand
+  0x1402e30e5 -> github.com/spf13/cobra.(*Command).Find
+  0x1402e30f6 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e3148 -> github.com/spf13/cobra.(*Command).RemoveCommand
+github.com/spf13/cobra.(*Command).Find
+  0x1402dbb7c -> indirect_call -> github.com/spf13/cobra.(*Command).Find.func1
+  0x1402dbbb6 -> github.com/spf13/cobra.stripFlags
+  0x1402dbbc9 -> github.com/spf13/cobra.legacyArgs
+github.com/spf13/cobra.(*Command).Find.func1
+  0x1402dbc95 -> github.com/spf13/cobra.stripFlags
+  0x1402dbcb8 -> github.com/spf13/cobra.(*Command).findNext
+  0x1402dbefa -> indirect_call
+github.com/spf13/cobra.stripFlags
+  0x1402db72a -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x1402db737 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402db838 -> internal/stringslite.Index("=")
+  0x1402db8c4 -> github.com/spf13/cobra.hasNoOptDefVal
+  0x1402db949 -> internal/stringslite.Index("=")
+  0x1402db9c7 -> github.com/spf13/cobra.shortHasNoOptDefVal
+github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x1402e2317 -> github.com/spf13/cobra.(*Command).updateParentsPflags
+  0x1402e2321 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e2330 -> github.com/spf13/cobra.(*Command).PersistentFlags
+  0x1402e2355 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x1402e2360 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e238f -> github.com/spf13/pflag.(*FlagSet).VisitAll
+github.com/spf13/cobra.(*Command).updateParentsPflags
+  0x1402e24a6 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e259a -> github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x1402e25b3 -> github.com/spf13/cobra.(*Command).Root
+  0x1402e25b8 -> github.com/spf13/cobra.(*Command).PersistentFlags
+  0x1402e25e2 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x1402e2602 -> github.com/spf13/cobra.(*Command).VisitParents
+github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x1402bfa15 -> github.com/spf13/pflag.sortFlags
+  0x1402bfa97 -> indirect_call
+github.com/spf13/pflag.sortFlags
+  0x1402bf574 -> sort.Sort
+github.com/spf13/cobra.(*Command).VisitParents
+  0x1402dcead -> indirect_call
+  0x1402dcec0 -> github.com/spf13/cobra.(*Command).VisitParents
+github.com/spf13/cobra.hasNoOptDefVal
+  0x1402db5e8 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+github.com/spf13/cobra.shortHasNoOptDefVal
+  0x1402db683 -> github.com/spf13/pflag.(*FlagSet).ShorthandLookup
+github.com/spf13/pflag.(*FlagSet).ShorthandLookup
+  0x1402bfdb6 -> fmt.Sprintf("can not look up shorthand which is more than one ASCII character: %q")
+  0x1402bfdf1 -> fmt.Fprintf
+github.com/spf13/cobra.(*Command).findNext
+  0x1402dc155 -> github.com/spf13/cobra.(*Command).Name
+  0x1402dc1a0 -> strings.EqualFold
+  0x1402dc1c2 -> github.com/spf13/cobra.(*Command).HasAlias
+  0x1402dc1f1 -> github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix
+github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix
+  0x1402e08c1 -> github.com/spf13/cobra.(*Command).Name
+  0x1402e08f8 -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.legacyArgs
+  0x1402d68b1 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x1402d68d7 -> github.com/spf13/cobra.(*Command).findSuggestions
+  0x1402d6976 -> fmt.Errorf("unknown command %q for %q%s")
+github.com/spf13/cobra.(*Command).findSuggestions
+  0x1402dbf78 -> github.com/spf13/cobra.(*Command).SuggestionsFor
+  0x1402dc021 -> fmt.Sprintf("\t%v\n")
+github.com/spf13/cobra.(*Command).SuggestionsFor
+  0x1402dcb6f -> github.com/spf13/cobra.(*Command).IsAvailableCommand
+  0x1402dcb97 -> github.com/spf13/cobra.(*Command).Name
+  0x1402dcbb7 -> github.com/spf13/cobra.ld
+  0x1402dcbe3 -> github.com/spf13/cobra.(*Command).Name
+  0x1402dcbe8 -> strings.ToLower
+  0x1402dcc0a -> strings.ToLower
+  0x1402dcc7a -> github.com/spf13/cobra.(*Command).Name
+  0x1402dcd86 -> strings.EqualFold
+  0x1402dcdab -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).IsAvailableCommand
+  0x1402e0c22 -> github.com/spf13/cobra.(*Command).IsAvailableCommand
+github.com/spf13/cobra.ld
+  0x1402d9dd7 -> strings.ToLower
+  0x1402d9df6 -> strings.ToLower
+github.com/spf13/cobra.(*Command).Traverse
+  0x1402dc445 -> internal/stringslite.Index("=")
+  0x1402dc4eb -> internal/stringslite.Index("=")
+  0x1402dc559 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dc577 -> github.com/spf13/cobra.shortHasNoOptDefVal
+  0x1402dc815 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dc844 -> github.com/spf13/cobra.hasNoOptDefVal
+  0x1402dc965 -> github.com/spf13/cobra.(*Command).findNext
+  0x1402dc992 -> github.com/spf13/cobra.(*Command).ParseFlags
+  0x1402dca0e -> github.com/spf13/cobra.(*Command).Traverse
+github.com/spf13/cobra.(*Command).ParseFlags
+  0x1402e2198 -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x1402e21a2 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e21b9 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e21cd -> github.com/spf13/pflag.(*FlagSet).Parse
+  0x1402e2268 -> github.com/spf13/cobra.(*Command).Print
+github.com/spf13/pflag.(*FlagSet).Parse
+  0x1402c422d -> github.com/spf13/pflag.(*FlagSet).parseArgs
+  0x1402c4282 -> fmt.Fprintln
+  0x1402c428c -> os.Exit
+  0x1402c42c9 -> flag.(*FlagSet).Parse
+github.com/spf13/pflag.(*FlagSet).parseArgs
+  0x1402c3e2b -> github.com/spf13/pflag.(*FlagSet).parseLongArg
+  0x1402c3e41 -> github.com/spf13/pflag.(*FlagSet).parseShortArg
+github.com/spf13/pflag.(*FlagSet).parseLongArg
+  0x1402c2fc3 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c3022 -> strings.genSplit("=")
+  0x1402c3053 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402c314c -> indirect_call
+  0x1402c3164 -> indirect_call
+  0x1402c3180 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c3200 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c324c -> github.com/spf13/pflag.(*FlagSet).usage
+  0x1402c3391 -> github.com/spf13/pflag.(*FlagSet).failf
+github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c2db0 -> fmt.Errorf
+  0x1402c2e22 -> fmt.Fprintln
+  0x1402c2e2c -> github.com/spf13/pflag.(*FlagSet).usage
+github.com/spf13/pflag.(*FlagSet).usage
+  0x1402c2ec2 -> indirect_call
+  0x1402c2ec6 -> github.com/spf13/pflag.defaultUsage
+  0x1402c2ed7 -> indirect_call
+github.com/spf13/pflag.defaultUsage
+  0x1402c22ef -> fmt.Fprintf("Usage of %s:\n")
+  0x1402c22f9 -> github.com/spf13/pflag.(*FlagSet).PrintDefaults
+github.com/spf13/pflag.(*FlagSet).PrintDefaults
+  0x1402c0c3a -> github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped
+  0x1402c0ca4 -> fmt.Fprint
+github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped
+  0x1402c1931 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x1402c1980 -> github.com/spf13/pflag.wrap
+  0x1402c1a44 -> fmt.Fprintln
+  0x1402c1a90 -> internal/stringslite.Index
+  0x1402c1aae -> strings.Repeat(" ")
+github.com/spf13/pflag.wrap
+  0x1402c14e5 -> strings.Repeat(" ")
+  0x1402c1567 -> github.com/spf13/pflag.wrapN
+  0x1402c15a0 -> strings.Repeat(" ")
+  0x1402c15ee -> strings.Replace("\n")
+  0x1402c1641 -> strings.Replace("\n")
+  0x1402c1660 -> strings.Repeat(" ")
+  0x1402c16ae -> strings.Replace("\n")
+  0x1402c16e0 -> github.com/spf13/pflag.wrapN
+  0x1402c1719 -> strings.Repeat(" ")
+  0x1402c1742 -> strings.Repeat(" ")
+  0x1402c178e -> strings.Replace("\n")
+github.com/spf13/pflag.wrapN
+  0x1402c1313 -> strings.LastIndexAny(" \t\n")
+  0x1402c1344 -> strings.LastIndex("\n")
+github.com/spf13/pflag.(*FlagSet).parseShortArg
+  0x1402c3bea -> github.com/spf13/pflag.(*FlagSet).parseSingleShortArg
+github.com/spf13/pflag.(*FlagSet).parseSingleShortArg
+  0x1402c3745 -> fmt.Fprintf("Flag shorthand -%s has been deprecated, %s\n")
+  0x1402c376d -> indirect_call
+  0x1402c3788 -> indirect_call
+  0x1402c37a0 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c3866 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c3a20 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x1402c3a61 -> github.com/spf13/pflag.(*FlagSet).usage
+github.com/spf13/cobra.(*Command).Print
+  0x1402df760 -> github.com/spf13/cobra.(*Command).OutOrStderr
+  0x1402df774 -> fmt.Fprint
+github.com/spf13/cobra.(*Command).OutOrStderr
+  0x1402dabe6 -> github.com/spf13/cobra.(*Command).getOut
+github.com/spf13/cobra.(*Command).PrintErrln
+  0x1402df9c1 -> fmt.Sprintln
+  0x1402df9f4 -> github.com/spf13/cobra.(*Command).PrintErr
+github.com/spf13/cobra.(*Command).PrintErr
+  0x1402df940 -> github.com/spf13/cobra.(*Command).ErrOrStderr
+  0x1402df954 -> fmt.Fprint
+github.com/spf13/cobra.(*Command).ErrOrStderr
+  0x1402dac66 -> github.com/spf13/cobra.(*Command).getErr
+github.com/spf13/cobra.(*Command).getErr
+  0x1402dae40 -> github.com/spf13/cobra.(*Command).getErr
+github.com/spf13/cobra.(*Command).PrintErrf
+  0x1402dfa6c -> fmt.Sprintf
+  0x1402dfaa0 -> github.com/spf13/cobra.(*Command).PrintErr
+github.com/spf13/cobra.(*Command).execute
+  0x1402dd006 -> github.com/spf13/cobra.(*Command).Name
+  0x1402dd092 -> github.com/spf13/cobra.(*Command).Printf
+  0x1402dd0a0 -> github.com/spf13/cobra.(*Command).InitDefaultHelpFlag
+  0x1402dd0ad -> github.com/spf13/cobra.(*Command).InitDefaultVersionFlag
+  0x1402dd0d2 -> github.com/spf13/cobra.(*Command).ParseFlags
+  0x1402dd0f8 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dd11a -> github.com/spf13/pflag.(*FlagSet).getFlagType("bool")
+  0x1402dd185 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dd1a9 -> github.com/spf13/pflag.(*FlagSet).getFlagType("bool")
+  0x1402dd26f -> github.com/spf13/cobra.(*Command).OutOrStdout
+  0x1402dd2c0 -> github.com/spf13/cobra.(*Command).VersionTemplate
+  0x1402dd2f0 -> github.com/spf13/cobra.tmpl
+  0x1402dd343 -> github.com/spf13/cobra.(*Command).Println
+  0x1402dd3c6 -> github.com/spf13/cobra.(*Command).Println
+  0x1402dd478 -> github.com/spf13/cobra.(*Command).Println
+  0x1402dd4a6 -> github.com/spf13/cobra.(*Command).FlagErrorFunc
+  0x1402dd4d2 -> indirect_call
+  0x1402dd515 -> fmt.Errorf("Called Execute() on a nil Command")
+  0x1402dd557 -> indirect_call
+  0x1402dd5c0 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dd640 -> indirect_call -> github.com/spf13/cobra.(*Command).execute.deferwrap1
+  0x1402dd6eb -> indirect_call
+  0x1402dd710 -> indirect_call
+  0x1402dd780 -> indirect_call
+  0x1402dd7a5 -> indirect_call
+  0x1402dd7b9 -> github.com/spf13/cobra.(*Command).ValidateRequiredFlags
+  0x1402dd7d1 -> github.com/spf13/cobra.(*Command).ValidateFlagGroups
+  0x1402dd80f -> indirect_call
+  0x1402dd828 -> indirect_call
+  0x1402dd868 -> indirect_call
+  0x1402dd889 -> indirect_call
+  0x1402dd9cc -> indirect_call
+  0x1402dd9e8 -> indirect_call
+github.com/spf13/cobra.(*Command).Printf
+  0x1402df88c -> fmt.Sprintf
+  0x1402df8c0 -> github.com/spf13/cobra.(*Command).Print
+github.com/spf13/cobra.(*Command).InitDefaultHelpFlag
+  0x1402de75a -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x1402de767 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402de780 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402de7b7 -> github.com/spf13/cobra.(*Command).Name
+  0x1402de7ef -> github.com/spf13/cobra.(*Command).Name
+  0x1402de820 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402de864 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("help", "h")
+  0x1402de871 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402de8c2 -> github.com/spf13/pflag.(*FlagSet).SetAnnotation
+github.com/spf13/pflag.(*FlagSet).SetAnnotation
+  0x1402c0a00 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402c0b20 -> fmt.Errorf("no such flag -%v")
+github.com/spf13/cobra.(*Command).InitDefaultVersionFlag
+  0x1402de92e -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x1402de940 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402de956 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402de98e -> github.com/spf13/cobra.(*Command).Name
+  0x1402de9c0 -> github.com/spf13/cobra.(*Command).Name
+  0x1402de9f0 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dea01 -> github.com/spf13/pflag.(*FlagSet).ShorthandLookup
+  0x1402dea13 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402dea50 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("version")
+  0x1402dea60 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402deaa4 -> github.com/spf13/pflag.(*FlagSet).BoolVarP("version", "v")
+  0x1402deab1 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402deb02 -> github.com/spf13/pflag.(*FlagSet).SetAnnotation
+github.com/spf13/pflag.(*FlagSet).getFlagType
+  0x1402bfea3 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x1402bfee6 -> indirect_call
+  0x1402bff20 -> indirect_call
+  0x1402bff97 -> fmt.Errorf("trying to get %s value of flag of type %s")
+  0x1402bffbd -> indirect_call
+  0x1402bffca -> indirect_call
+  0x1402c002f -> fmt.Errorf("flag accessed but not defined: %s")
+github.com/spf13/cobra.(*Command).VersionTemplate
+  0x1402db559 -> github.com/spf13/cobra.(*Command).VersionTemplate
+github.com/spf13/cobra.tmpl
+  0x1402d9d06 -> text/template.(*Template).Funcs
+  0x1402d9d1a -> text/template.(*Template).Parse
+  0x1402d9d40 -> text/template.(*Template).execute
+github.com/spf13/cobra.(*Command).Println
+  0x1402df7e1 -> fmt.Sprintln
+  0x1402df814 -> github.com/spf13/cobra.(*Command).Print
+github.com/spf13/cobra.(*Command).FlagErrorFunc
+  0x1402db286 -> github.com/spf13/cobra.(*Command).FlagErrorFunc
+github.com/spf13/cobra.(*Command).execute.deferwrap1
+  0x1402ddae0 -> indirect_call
+github.com/spf13/cobra.(*Command).ValidateRequiredFlags
+  0x1402de2e0 -> github.com/spf13/cobra.(*Command).Flags
+  0x1402de310 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x1402de335 -> strings.Join
+  0x1402de36f -> fmt.Errorf("required flag(s) \"%s\" not set")
+github.com/spf13/cobra.(*Command).ValidateFlagGroups
+  0x1402e72ea -> github.com/spf13/cobra.(*Command).Flags
+  0x1402e7411 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x1402e7420 -> github.com/spf13/cobra.validateRequiredFlagGroups
+  0x1402e7432 -> github.com/spf13/cobra.validateExclusiveFlagGroups
+github.com/spf13/cobra.validateRequiredFlagGroups
+  0x1402e7865 -> github.com/spf13/cobra.sortedKeys
+  0x1402e7a25 -> sort.Strings
+  0x1402e7aaf -> fmt.Errorf("if any flags in the group [%v] are set they must all be set; missing %v")
+github.com/spf13/cobra.sortedKeys
+  0x1402e7e85 -> sort.Strings
+github.com/spf13/cobra.validateExclusiveFlagGroups
+  0x1402e7b05 -> github.com/spf13/cobra.sortedKeys
+  0x1402e7cb5 -> sort.Strings
+  0x1402e7d40 -> fmt.Errorf("if any flags in the group [%v] are set none of the others can be; %v were all set")
+github.com/spf13/cobra.(*Command).UsageString
+  0x1402db16d -> github.com/spf13/cobra.(*Command).Usage
+  0x1402db180 -> github.com/spf13/cobra.CheckErr
+github.com/spf13/cobra.(*Command).Usage
+  0x1402dafd3 -> github.com/spf13/cobra.(*Command).UsageFunc
+  0x1402dafe3 -> indirect_call
+github.com/spf13/cobra.(*Command).UsageFunc
+  0x1402daf86 -> github.com/spf13/cobra.(*Command).UsageFunc
+github.com/spf13/cobra.CheckErr
+  0x1402da1fa -> fmt.Fprintln
+  0x1402da204 -> os.Exit
+github.com/spf13/cobra.(*Command).HelpFunc
+  0x1402db026 -> github.com/spf13/cobra.(*Command).HelpFunc
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x1402e732a call -> runtime.duffzero+0x12b classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x1402e7392 call -> runtime.duffzero+0x12b classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.sortedKeys:0x1402e7dea call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.validateExclusiveFlagGroups:0x1402e7b8a call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.validateRequiredFlagGroups:0x1402e78ea call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc:0x1402bf6aa call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/spf13/pflag.sortFlags:0x1402bf4ca call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x1402ddd40 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x1402ddec6 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x1402de0cc call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x1402de1e2 call rsi [interface_method_or_object_dispatch] evidence=target comes from register RSI; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).Find:0x1402dbb7c call rsi [stack_closure_or_defer_call] evidence=target comes from register RSI; target is loaded from stack memory
+    - github.com/spf13/cobra.(*Command).Find.func1:0x1402dbefa call rsi [interface_method_or_object_dispatch] evidence=target comes from register RSI; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).Usage:0x1402dafe3 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).VisitParents:0x1402dcead call rsi [interface_method_or_object_dispatch] evidence=target comes from register RSI; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).execute:0x1402dd4d2 call rdi [interface_method_or_object_dispatch] evidence=target comes from register RDI; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).execute:0x1402dd557 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x1406fa000 size=0x1000 entropy=7.405 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x140702000 size=0x2000 entropy=7.955 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x140755000 size=0x18000 entropy=7.996 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_3 .rdata:0x140386000 size=0x2000 entropy=4.243 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .rdata:0x140389000 size=0x1000 entropy=2.558 reasons=referenced_by_reachable_code,contains_magic_bytes refs=github.com/spf13/cobra.(*Command).InitDefaultHelpFlag, github.com/spf13/cobra.(*Command).InitDefaultVersionFlag, github.com/spf13/cobra.(*Command).initCompleteCmd
+    - blob_5 .rdata:0x14038f000 size=0x1000 entropy=2.584 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x1403b5000 size=0x5000 entropy=3.517 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x1403f5000 size=0x1000 entropy=4.647 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x1405f8000 size=0x1000 entropy=5.64 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .rdata:0x14062b000 size=0x1000 entropy=5.383 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - internal/filepathlite.volumeNameLen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.pathHasPrefixFold ops=add,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.replaceStringByte ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - internal/stringslite.Index ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/pflag.(*FlagSet).AddFlag ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/pflag.(*FlagSet).BoolVarP ops=add,sub confidence=medium sources=blob_4
+    - github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc ops=add,sub confidence=medium sources=<unknown>
+    - github.com/spf13/cobra.(*Command).ExecuteC ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/cobra.(*Command).initCompleteCmd ops=add,sub confidence=medium sources=blob_4

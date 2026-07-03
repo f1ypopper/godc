@@ -1,0 +1,2075 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x6c97b0",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c9812",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c9874",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c98d6",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c9938",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c999a",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c99fc",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c9a5e",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c9ac0",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6c9b2b",
+        "target": "encoding/base64.(*Encoding).DecodeString",
+        "target_address": "0x4ec160",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/base64.(*Encoding).DecodeString"
+      },
+      {
+        "address": "0x6c9b8b",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6c9deb",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6ca03f",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6ca29f",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6ca4ff",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6ca7d6",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6ca8e5",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6ca947",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6ca9a9",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6caa0b",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6caa6d",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6caacf",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6cab31",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6cab93",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6cac49",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6cac60",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46cf00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x6cad64",
+        "target": "sync.(*WaitGroup).Wait",
+        "target_address": "0x46d090",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Wait"
+      },
+      {
+        "address": "0x6cae07",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6cae8b",
+        "target": "path/filepath.join",
+        "target_address": "0x4d1b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x6caf04",
+        "target": "path/filepath.join",
+        "target_address": "0x4d1b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x6caf2b",
+        "target": "main.createLogFile2",
+        "target_address": "0x6c7890",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.createLogFile2"
+      },
+      {
+        "address": "0x6caf3a",
+        "target": "sync.(*WaitGroup).Wait",
+        "target_address": "0x46d090",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Wait"
+      },
+      {
+        "address": "0x6cafb6",
+        "target": "path/filepath.join",
+        "target_address": "0x4d1b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x6cafca",
+        "target": "main.zipFolder",
+        "target_address": "0x6bff40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.zipFolder"
+      },
+      {
+        "address": "0x6cb037",
+        "target": "log.Fatal",
+        "target_address": "0x511e00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.Fatal"
+      },
+      {
+        "address": "0x6cb04e",
+        "target": "main.gofileUpload",
+        "target_address": "0x6c2750",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.gofileUpload"
+      },
+      {
+        "address": "0x6cb06a",
+        "target": "main.sendWebhook",
+        "target_address": "0x6cd030",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.sendWebhook"
+      },
+      {
+        "address": "0x6cb078",
+        "target": "os.Exit",
+        "target_address": "0x4cc2d0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Exit"
+      }
+    ],
+    "main.createLogFile2": [
+      {
+        "address": "0x6c78f4",
+        "target": "os.WriteFile",
+        "target_address": "0x4cab00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.WriteFile"
+      }
+    ],
+    "main.zipFolder": [
+      {
+        "address": "0x6bffb5",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6c001b",
+        "target": "path/filepath.join",
+        "target_address": "0x4d1b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x6c003f",
+        "target": "os.OpenFile",
+        "target_address": "0x4ca5b0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.OpenFile"
+      },
+      {
+        "address": "0x6c01fe",
+        "target": "path/filepath.Walk",
+        "target_address": "0x4d0f20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.Walk"
+      },
+      {
+        "address": "0x6c0245",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x6c0255",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x6c02a4",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x6c02b4",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "main.gofileUpload": [
+      {
+        "address": "0x6c279b",
+        "target": "main.getServerURL",
+        "target_address": "0x6c3120",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.getServerURL"
+      },
+      {
+        "address": "0x6c27b0",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x6c27c6",
+        "target": "main.getServerURL",
+        "target_address": "0x6c3120",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.getServerURL"
+      },
+      {
+        "address": "0x6c2876",
+        "target": "os/exec.Command",
+        "target_address": "0x67ab60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.Command"
+      },
+      {
+        "address": "0x6c2882",
+        "target": "os/exec.(*Cmd).Output",
+        "target_address": "0x67d9c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Output"
+      },
+      {
+        "address": "0x6c28f3",
+        "target": "encoding/json.Unmarshal",
+        "target_address": "0x4ecb00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/json.Unmarshal"
+      }
+    ],
+    "main.getServerURL": [
+      {
+        "address": "0x6c3183",
+        "target": "net/http.(*Client).Get",
+        "target_address": "0x640070",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net/http.(*Client).Get"
+      },
+      {
+        "address": "0x6c327e",
+        "target": "encoding/json.(*Decoder).Decode",
+        "target_address": "0x4ff620",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/json.(*Decoder).Decode"
+      },
+      {
+        "address": "0x6c32b6",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x6c3328",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "main.sendWebhook": [
+      {
+        "address": "0x6cd06b",
+        "target": "encoding/base64.(*Encoding).DecodeString",
+        "target_address": "0x4ec160",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/base64.(*Encoding).DecodeString"
+      },
+      {
+        "address": "0x6cd09b",
+        "target": "encoding/base64.(*Encoding).DecodeString",
+        "target_address": "0x4ec160",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/base64.(*Encoding).DecodeString"
+      },
+      {
+        "address": "0x6cd750",
+        "target": "encoding/json.Marshal",
+        "target_address": "0x4f41c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/json.Marshal"
+      },
+      {
+        "address": "0x6cd78a",
+        "target": "encoding/base64.(*Encoding).DecodeString",
+        "target_address": "0x4ec160",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/base64.(*Encoding).DecodeString"
+      },
+      {
+        "address": "0x6cd7c4",
+        "target": "encoding/base64.(*Encoding).DecodeString",
+        "target_address": "0x4ec160",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/base64.(*Encoding).DecodeString"
+      },
+      {
+        "address": "0x6cd871",
+        "target": "net/http.(*Client).Post",
+        "target_address": "0x641b90",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net/http.(*Client).Post"
+      },
+      {
+        "address": "0x6cd8d3",
+        "target": "log.Fatal",
+        "target_address": "0x511e00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.Fatal"
+      },
+      {
+        "address": "0x6cd8e8",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x6cd8fb",
+        "target": "os.Getenv",
+        "target_address": "0x4c8570",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Getenv"
+      },
+      {
+        "address": "0x6cd974",
+        "target": "path/filepath.join",
+        "target_address": "0x4d1b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x6cd988",
+        "target": "os.Remove",
+        "target_address": "0x4cb8d0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Remove"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateFileA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetEnvironmentStringsW",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryA",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "ResumeThread",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetUnhandledExceptionFilter",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "main.gofileUpload",
+        "instruction": "0x6c27e8",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x46462a",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x7a",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.gofileUpload:0x6c27e8 call -> runtime.duffzero+0x7a"
+      },
+      {
+        "source_function": "main.main",
+        "instruction": "0x6c9b4c",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x464629",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x79",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.main:0x6c9b4c call -> runtime.duffzero+0x79"
+      },
+      {
+        "source_function": "main.main",
+        "instruction": "0x6c9b58",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x464605",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x55",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.main:0x6c9b58 call -> runtime.duffzero+0x55"
+      },
+      {
+        "source_function": "main.main",
+        "instruction": "0x6ca745",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x464624",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x74",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.main:0x6ca745 call -> runtime.duffzero+0x74"
+      },
+      {
+        "source_function": "main.zipFolder",
+        "instruction": "0x6c012a",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x464626",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x76",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.zipFolder:0x6c012a call -> runtime.duffzero+0x76"
+      },
+      {
+        "source_function": "main.zipFolder",
+        "instruction": "0x6c01b2",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x46462a",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x7a",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.zipFolder:0x6c01b2 call -> runtime.duffzero+0x7a"
+      }
+    ],
+    "indirect_calls": [
+      {
+        "function": "main.getServerURL",
+        "address": "0x6c32b6",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c32b4",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.getServerURL:0x6c32b6 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.getServerURL",
+        "address": "0x6c3328",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c3326",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.getServerURL:0x6c3328 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.gofileUpload",
+        "address": "0x6c27b0",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "stack_closure_or_defer_call",
+        "evidence": [
+          "target comes from register RAX",
+          "target is loaded from stack memory"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c27a8",
+          "base": "RSP",
+          "index": null,
+          "scale": 1,
+          "disp": "0x34",
+          "memory_kind": "stack"
+        },
+        "display": "main.gofileUpload:0x6c27b0 call rax [stack_closure_or_defer_call]"
+      },
+      {
+        "function": "main.sendWebhook",
+        "address": "0x6cd8e8",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6cd8e2",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x10",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.sendWebhook:0x6cd8e8 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.zipFolder",
+        "address": "0x6c0245",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c0243",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.zipFolder:0x6c0245 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.zipFolder",
+        "address": "0x6c0255",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c0253",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.zipFolder:0x6c0255 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.zipFolder",
+        "address": "0x6c02a4",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c02a2",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.zipFolder:0x6c02a4 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.zipFolder",
+        "address": "0x6c02b4",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6c02b2",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.zipFolder:0x6c02b4 call rax [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x94f000",
+        "size": "0x2000",
+        "entropy": 7.994,
+        "sha256_prefix": "64119aff15ac09bb",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x960000",
+        "size": "0x2000",
+        "entropy": 7.952,
+        "sha256_prefix": "3d3863c26c33f7d2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".rdata",
+        "va": "0x754000",
+        "size": "0x1000",
+        "entropy": 6.24,
+        "sha256_prefix": "3b2c74bff4ca8690",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x191",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".rdata",
+        "va": "0x807000",
+        "size": "0x1000",
+        "entropy": 5.544,
+        "sha256_prefix": "affd43d1340ecfc4",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x508",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x82c000",
+        "size": "0x1000",
+        "entropy": 5.495,
+        "sha256_prefix": "c7a2b53e563fb3e3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xca2",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": ".rdata",
+        "va": "0x83e000",
+        "size": "0x1000",
+        "entropy": 5.831,
+        "sha256_prefix": "36f7840982177196",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xf87",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": ".rdata",
+        "va": "0x843000",
+        "size": "0x1000",
+        "entropy": 5.598,
+        "sha256_prefix": "bf290632245206c3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x53",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": ".rdata",
+        "va": "0x850000",
+        "size": "0x1000",
+        "entropy": 5.932,
+        "sha256_prefix": "fa7502558700392c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x148",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_8",
+        "section": ".rdata",
+        "va": "0x868000",
+        "size": "0x1000",
+        "entropy": 5.506,
+        "sha256_prefix": "fefdafb2f0f4b40e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_9",
+        "section": ".rdata",
+        "va": "0x86e000",
+        "size": "0x1000",
+        "entropy": 5.817,
+        "sha256_prefix": "52ed54e7e0665394",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6b6",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc74",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_10",
+        "section": ".rdata",
+        "va": "0x89e000",
+        "size": "0x1000",
+        "entropy": 5.694,
+        "sha256_prefix": "c715eb17be99d595",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x64c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_11",
+        "section": ".rdata",
+        "va": "0x8a9000",
+        "size": "0x1000",
+        "entropy": 6.007,
+        "sha256_prefix": "67b9d2e580eefe61",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xf42",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_12",
+        "section": ".rdata",
+        "va": "0x91d000",
+        "size": "0x1000",
+        "entropy": 4.541,
+        "sha256_prefix": "b1744adb10f40e09",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe40",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_13",
+        "section": ".rdata",
+        "va": "0x92c000",
+        "size": "0x1000",
+        "entropy": 4.493,
+        "sha256_prefix": "e45c591bd22494f6",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xfd4",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_14",
+        "section": ".rdata",
+        "va": "0x92e000",
+        "size": "0x1000",
+        "entropy": 4.511,
+        "sha256_prefix": "1e879ce8e0e8169d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9a0",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_15",
+        "section": "/19",
+        "va": "0x9bd000",
+        "size": "0x7d000",
+        "entropy": 7.954,
+        "sha256_prefix": "bc1c37d0399acbe9",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x83e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x652",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa86",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x680",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xeb4",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc9f",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x27e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x195",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9df",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x2e3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe52",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe41",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x492",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8cf",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbae",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xbe9",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x36b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xfba",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x47c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x903",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xcd6",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xacf",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x22e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x92b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x477",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x592",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf5d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc87",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6c0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x48e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x300",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_16",
+        "section": "/32",
+        "va": "0xa3b000",
+        "size": "0x15000",
+        "entropy": 7.936,
+        "sha256_prefix": "7d3be93792ee3657",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x12d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x2b5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1e7",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x54e",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcdf",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x35b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xa6d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xacb",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x456",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5b2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x593",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x22a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x28a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa69",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x184",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_17",
+        "section": "/65",
+        "va": "0xa52000",
+        "size": "0xf5000",
+        "entropy": 7.957,
+        "sha256_prefix": "61d183dc8f875659",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x96c",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x788",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe92",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3c0",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x64f",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xef9",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa09",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc73",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x5ed",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x421",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xdee",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x82c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xde",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x41c",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x24a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x214",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb72",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc50",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x820",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x84a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x558",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc15",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf6e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1ad",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xff3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8c9",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xfac",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x44",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb77",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa41",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc43",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x7cd",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcab",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd86",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x52d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x674",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x606",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xaaf",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x141",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x292",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xdc1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x133",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x27a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xea4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x594",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x580",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x873",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x7cc",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x12f",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x49c",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x698",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x52e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x16a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x1c3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xaf4",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x868",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x67c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd13",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x386",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xcd3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf41",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa76",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc05",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_18",
+        "section": "/78",
+        "va": "0xb48000",
+        "size": "0xaabd4",
+        "entropy": 7.952,
+        "sha256_prefix": "03fe780425c78524",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x34d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa25",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x996",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x919",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x33c",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x67b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x76d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xfb5",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xff7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x322",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x9f1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbd0",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4a8",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x395",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc39",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x490",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x82c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x4d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x51a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x919",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x1db",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd28",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd7",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x684",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc31",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x437",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xeaa",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x7ae",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xce5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x3e7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe0c",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x187",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x2ad",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x974",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc4",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xfbc",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa38",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x11e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x7ed",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x52d",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_19",
+        "section": "/90",
+        "va": "0xbf3000",
+        "size": "0x32ca3",
+        "entropy": 7.918,
+        "sha256_prefix": "6a83f71c06683a15",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x2cd",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x394",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x243",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc5b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd63",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8d4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc9c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xeca",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4bf",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa5e",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "main.main",
+        "operations": [
+          "add",
+          "base64",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 5,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.zipFolder",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 8
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.getServerURL",
+        "operations": [
+          "add",
+          "sub"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 5
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.sendWebhook",
+        "operations": [
+          "add",
+          "base64",
+          "bytes_to_string",
+          "sub"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime."
+    ]
+  }
+}

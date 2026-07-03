@@ -1,0 +1,158 @@
+main.main
+  0x66d107 -> time.Sleep
+  0x66d215 -> main.UserHomeDir
+  0x66d2c5 -> path/filepath.join
+  0x66d327 -> path/filepath.join
+  0x66d341 -> os.MkdirAll
+  0x66d359 -> main.caldeiroes
+  0x66d3a0 -> fmt.Sprintf("%s.zip")
+  0x66d3f7 -> path/filepath.join
+  0x66d416 -> time.Sleep
+  0x66d48c -> main.aperfeicoei("Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUDFQgFHxIIGwNVBBUKABMTAlhGAAwX", "gihze")
+  0x66d4a1 -> main.ensoparieis
+  0x66d4d6 -> main.coletivizes
+  0x66d55a -> main.troteavam
+  0x66d5a1 -> main.aperfeicoei("JFM0KhcIDhobCEcvARYAFDU8FRUGE0g1IyM=", "gihze")
+  0x66d5a6 -> main.esfomearemos
+  0x66d5c7 -> os.Getenv("USERNAME")
+  0x66d5f4 -> main.aperfeicoei("JhkYPgQTCDQ2CgQIBCYkFwUBGQQTAB4VRS4dCQ8=", "gihze")
+  0x66d62f -> main.esfomearemos
+  0x66d6ca -> os.rename
+  0x66d6d9 -> time.Sleep
+  0x66d7aa -> main.Executar
+  0x66d7c7 -> main.aperfeicoei("Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUNAgUYVVRIBAceBAtHGBIVWAhV", "gihze")
+  0x66d806 -> main.pecaminosos
+main.UserHomeDir
+  0x66c03a -> os.Getenv("homepath")
+  0x66c051 -> os.Getenv("WINDIR")
+main.caldeiroes
+  0x66cd37 -> time.Now
+  0x66cda0 -> math/rand.(*rngSource).Seed
+  0x66ce74 -> math/rand.(*Rand).Intn
+main.aperfeicoei
+  0x66d8a8 -> encoding/base64.(*Encoding).DecodeString
+  0x66d940 -> fmt.Fprintln
+main.ensoparieis
+  0x66bd60 -> net/http.(*Client).Get
+  0x66bdc6 -> os.OpenFile
+  0x66be36 -> indirect_call -> main.ensoparieis.deferwrap2
+  0x66be79 -> io.copyBuffer
+  0x66be98 -> indirect_call
+  0x66beab -> indirect_call
+main.ensoparieis.deferwrap2
+  0x66bf88 -> os.(*file).close
+main.coletivizes
+  0x66c0e2 -> archive/zip.OpenReader
+  0x66c248 -> path/filepath.join
+  0x66c26a -> internal/filepathlite.Clean
+  0x66c34d -> archive/zip.(*FileHeader).Mode
+  0x66c36b -> os.MkdirAll
+  0x66c382 -> internal/filepathlite.Dir
+  0x66c38c -> os.MkdirAll
+  0x66c3a2 -> archive/zip.(*FileHeader).Mode
+  0x66c3c0 -> os.OpenFile
+  0x66c3e0 -> archive/zip.(*File).Open
+  0x66c439 -> io.copyBuffer
+  0x66c460 -> os.(*file).close
+  0x66c479 -> indirect_call -> main.coletivizes.deferwrap1
+  0x66c4db -> indirect_call
+  0x66c558 -> indirect_call
+  0x66c5d5 -> indirect_call
+  0x66c658 -> fmt.Errorf("%s: ile pa")
+  0x66c6a7 -> indirect_call
+  0x66c70b -> indirect_call
+  0x66c790 -> indirect_call
+internal/filepathlite.Clean
+  0x4c2ced -> internal/filepathlite.volumeNameLen
+  0x4c2f46 -> internal/filepathlite.replaceStringByte
+  0x4c35a5 -> internal/filepathlite.postClean
+  0x4c365a -> internal/filepathlite.replaceStringByte
+internal/filepathlite.volumeNameLen
+  0x4c43c0 -> internal/filepathlite.pathHasPrefixFold("\\\\.\\UNC")
+  0x4c43f5 -> internal/filepathlite.pathHasPrefixFold("\\\\.")
+  0x4c4420 -> internal/filepathlite.pathHasPrefixFold("\\\\?")
+  0x4c4446 -> internal/filepathlite.pathHasPrefixFold("\\??")
+internal/filepathlite.pathHasPrefixFold
+  <no direct calls>
+internal/filepathlite.replaceStringByte
+  0x4c3972 -> internal/bytealg.IndexByteString
+internal/filepathlite.postClean
+  0x4c4706 -> slices.Insert[go.shape.[]uint8,go.shape.uint8]
+  0x4c478d -> slices.Insert[go.shape.[]uint8,go.shape.uint8]
+slices.Insert[go.shape.[]uint8,go.shape.uint8]
+  0x4c4b47 -> slices.rotateLeft[go.shape.uint8]
+slices.rotateLeft[go.shape.uint8]
+  <no direct calls>
+internal/filepathlite.Dir
+  0x4c3b60 -> internal/filepathlite.VolumeName
+  0x4c3bd2 -> internal/filepathlite.Clean
+internal/filepathlite.VolumeName
+  0x4c3c78 -> internal/filepathlite.volumeNameLen
+  0x4c3c99 -> internal/filepathlite.replaceStringByte
+main.coletivizes.deferwrap1
+  0x66c8a8 -> os.(*file).close
+main.troteavam
+  0x66ca4a -> io/ioutil.ReadDir
+  0x66ca92 -> fmt.Errorf("er di: %w")
+  0x66caec -> indirect_call
+  0x66cb04 -> indirect_call
+  0x66cb3c -> indirect_call
+  0x66cb90 -> path/filepath.join
+  0x66cba4 -> main.caldeiroes
+  0x66cc18 -> path/filepath.join
+  0x66cc38 -> os.rename
+  0x66ccd2 -> fmt.Errorf("nenhum %s")
+main.esfomearemos
+  0x66d073 -> os.Stat
+  0x66d092 -> os.underlyingErrorIs
+main.Executar
+  0x66c9b7 -> os/exec.Command("cmd")
+  0x66c9c0 -> os/exec.(*Cmd).Run
+main.pecaminosos
+  0x66cefa -> net/http.(*Client).Get
+  0x66cf5d -> indirect_call -> main.pecaminosos.deferwrap1
+  0x66cf82 -> fmt.Errorf("die")
+  0x66cfa0 -> indirect_call
+main.pecaminosos.deferwrap1
+  0x66d023 -> indirect_call
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - main.Executar:0x66c92a call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - main.main:0x66d230 call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+  indirect_calls:
+    - main.coletivizes:0x66c479 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.coletivizes:0x66c4db call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.coletivizes:0x66c558 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.coletivizes:0x66c5d5 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.coletivizes:0x66c6a7 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.coletivizes:0x66c70b call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.coletivizes:0x66c790 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.ensoparieis:0x66be36 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.ensoparieis:0x66be98 call r10 [interface_method_or_object_dispatch] evidence=target comes from register R10; target uses register-indirect memory addressing
+    - main.ensoparieis:0x66beab call r10 [interface_method_or_object_dispatch] evidence=target comes from register R10; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x8fe000 size=0x2000 entropy=7.994 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x905000 size=0x1000 entropy=7.866 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x90d000 size=0x2000 entropy=7.954 reasons=high_entropy refs=<none>
+    - blob_3 .data:0x911000 size=0x1000 entropy=6.713 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .data:0x91f000 size=0x1000 entropy=5.757 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .data:0x925000 size=0x1000 entropy=6.142 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .data:0x92a000 size=0x2000 entropy=5.73 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .data:0x92d000 size=0x1000 entropy=6.185 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .data:0x92f000 size=0x1000 entropy=6.192 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .data:0x932000 size=0x5000 entropy=6.461 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.caldeiroes ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.aperfeicoei ops=add,base64,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - main.ensoparieis ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.coletivizes ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.Clean ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.volumeNameLen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.pathHasPrefixFold ops=add,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.replaceStringByte ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.postClean ops=add,sub,xor confidence=medium sources=<unknown>
+    - slices.rotateLeft[go.shape.uint8] ops=add,shift,sub,xor confidence=medium sources=<unknown>

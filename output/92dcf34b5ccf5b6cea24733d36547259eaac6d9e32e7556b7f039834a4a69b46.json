@@ -1,0 +1,791 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x6247ea",
+        "target": "net/http.(*Client).Get",
+        "target_address": "0x5e23c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net/http.(*Client).Get"
+      },
+      {
+        "address": "0x624877",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4c9200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x624885",
+        "target": "io.ReadAll",
+        "target_address": "0x49d9a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "io.ReadAll"
+      },
+      {
+        "address": "0x6248c0",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4c9200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x6248d2",
+        "target": "main.main.deferwrap1",
+        "target_address": "0x624960",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> main.main.deferwrap1"
+      },
+      {
+        "address": "0x6248e0",
+        "target": "gpx/runtime.LoadPEFromMemory",
+        "target_address": "0x518d60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "gpx/runtime.LoadPEFromMemory"
+      },
+      {
+        "address": "0x6248f2",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "main.main.deferwrap1": [
+      {
+        "address": "0x624983",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "gpx/runtime.LoadPEFromMemory": [
+      {
+        "address": "0x518e43",
+        "target": "encoding/binary.Read",
+        "target_address": "0x50ea20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/binary.Read"
+      },
+      {
+        "address": "0x518e88",
+        "target": "fmt.Errorf",
+        "target_address": "0x4c5da0",
+        "kind": "std",
+        "string_args": [
+          "failed to read DOS header: %v"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "failed to read DOS header: %v"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"failed to read DOS header: %v\")"
+      },
+      {
+        "address": "0x518f18",
+        "target": "encoding/binary.Read",
+        "target_address": "0x50ea20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/binary.Read"
+      },
+      {
+        "address": "0x518f60",
+        "target": "fmt.Errorf",
+        "target_address": "0x4c5da0",
+        "kind": "std",
+        "string_args": [
+          "failed to read NT headers: %v"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "failed to read NT headers: %v"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"failed to read NT headers: %v\")"
+      },
+      {
+        "address": "0x518fc0",
+        "target": "golang.org/x/sys/windows.VirtualAlloc",
+        "target_address": "0x518400",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.VirtualAlloc"
+      },
+      {
+        "address": "0x519068",
+        "target": "encoding/binary.Size",
+        "target_address": "0x50f900",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/binary.Size"
+      },
+      {
+        "address": "0x5190b5",
+        "target": "fmt.Errorf",
+        "target_address": "0x4c5da0",
+        "kind": "std",
+        "string_args": [
+          "invalid NT header signature"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "invalid NT header signature"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"invalid NT header signature\")"
+      },
+      {
+        "address": "0x5190d6",
+        "target": "fmt.Errorf",
+        "target_address": "0x4c5da0",
+        "kind": "std",
+        "string_args": [
+          "invalid DOS header magic"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "invalid DOS header magic"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"invalid DOS header magic\")"
+      },
+      {
+        "address": "0x519162",
+        "target": "encoding/binary.Read",
+        "target_address": "0x50ea20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/binary.Read"
+      },
+      {
+        "address": "0x519300",
+        "target": "fmt.Errorf",
+        "target_address": "0x4c5da0",
+        "kind": "std",
+        "string_args": [
+          "section data out of bounds"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "section data out of bounds"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"section data out of bounds\")"
+      },
+      {
+        "address": "0x5193ed",
+        "target": "gpx/runtime.resolveImports",
+        "target_address": "0x518b40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "gpx/runtime.resolveImports"
+      },
+      {
+        "address": "0x5194ca",
+        "target": "golang.org/x/sys/windows.VirtualProtect",
+        "target_address": "0x518520",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.VirtualProtect"
+      },
+      {
+        "address": "0x519524",
+        "target": "fmt.Errorf",
+        "target_address": "0x4c5da0",
+        "kind": "std",
+        "string_args": [
+          "VirtualProtect failed for section: %v"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "VirtualProtect failed for section: %v"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"VirtualProtect failed for section: %v\")"
+      },
+      {
+        "address": "0x519600",
+        "target": "golang.org/x/sys/windows.(*LazyProc).Call",
+        "target_address": "0x517740",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.(*LazyProc).Call"
+      },
+      {
+        "address": "0x519620",
+        "target": "golang.org/x/sys/windows.WaitForSingleObject",
+        "target_address": "0x518640",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.WaitForSingleObject"
+      },
+      {
+        "address": "0x51968c",
+        "target": "encoding/binary.Read",
+        "target_address": "0x50ea20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/binary.Read"
+      },
+      {
+        "address": "0x519727",
+        "target": "encoding/binary.Read",
+        "target_address": "0x50ea20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/binary.Read"
+      }
+    ],
+    "gpx/runtime.resolveImports": [
+      {
+        "address": "0x518bb5",
+        "target": "golang.org/x/sys/windows.LoadLibrary",
+        "target_address": "0x5182a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.LoadLibrary"
+      },
+      {
+        "address": "0x518c68",
+        "target": "gpx/runtime.getProcAddressOrdinal",
+        "target_address": "0x518a20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "gpx/runtime.getProcAddressOrdinal"
+      },
+      {
+        "address": "0x518c87",
+        "target": "golang.org/x/sys/windows.GetProcAddress",
+        "target_address": "0x517d80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.GetProcAddress"
+      }
+    ],
+    "gpx/runtime.getProcAddressOrdinal": [
+      {
+        "address": "0x518ae6",
+        "target": "golang.org/x/sys/windows.(*LazyProc).Call",
+        "target_address": "0x517740",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/sys/windows.(*LazyProc).Call"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredContinueHandler",
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetCurrentThreadId",
+        "GetEnvironmentStringsW",
+        "GetErrorMode",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryExW",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "RaiseFailFastException",
+        "ResumeThread",
+        "RtlLookupFunctionEntry",
+        "RtlVirtualUnwind",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "TlsAlloc",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WerGetFlags",
+        "WerSetFlags",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "gpx/runtime.LoadPEFromMemory",
+        "instruction": "0x518eeb",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x4763d4",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x114",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "gpx/runtime.LoadPEFromMemory:0x518eeb call -> runtime.duffzero+0x114"
+      },
+      {
+        "source_function": "gpx/runtime.LoadPEFromMemory",
+        "instruction": "0x519050",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x4766e0",
+        "target_function": "runtime.duffcopy",
+        "target_kind": "std",
+        "target_offset": "0x2a0",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "gpx/runtime.LoadPEFromMemory:0x519050 call -> runtime.duffcopy+0x2a0"
+      }
+    ],
+    "indirect_calls": [
+      {
+        "function": "main.main",
+        "address": "0x6248d2",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6248cf",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main:0x6248d2 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main",
+        "address": "0x6248f2",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x6248ef",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main:0x6248f2 call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main.deferwrap1",
+        "address": "0x624983",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x62497f",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main.deferwrap1:0x624983 call rcx [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x92d000",
+        "size": "0x1000",
+        "entropy": 7.27,
+        "sha256_prefix": "bd685f4861a94bea",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x935000",
+        "size": "0x3000",
+        "entropy": 7.744,
+        "sha256_prefix": "fd995e4787e77b11",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".data",
+        "va": "0x939000",
+        "size": "0x2000",
+        "entropy": 6.75,
+        "sha256_prefix": "bdeb240523b99f50",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xdf9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf1b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x29",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".data",
+        "va": "0x948000",
+        "size": "0x18000",
+        "entropy": 7.994,
+        "sha256_prefix": "d86c0789addebce4",
+        "referenced_by": [
+          "main.main"
+        ],
+        "reference_count": 1,
+        "magic_offsets": [
+          {
+            "offset": "0x996",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xa96",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x16",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc2a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x1c2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x84d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xdc",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x85",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xdff",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy",
+          "referenced_by_reachable_code"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x724000",
+        "size": "0x1000",
+        "entropy": 4.807,
+        "sha256_prefix": "bb16b9fa478720cc",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb08",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": ".rdata",
+        "va": "0x781000",
+        "size": "0x1000",
+        "entropy": 3.054,
+        "sha256_prefix": "8b03685de8ee59e4",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x408",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": ".rdata",
+        "va": "0x89c000",
+        "size": "0x1000",
+        "entropy": 4.611,
+        "sha256_prefix": "6d4b11fed2276b55",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x8d6",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": ".rdata",
+        "va": "0x8c0000",
+        "size": "0x1000",
+        "entropy": 4.189,
+        "sha256_prefix": "fb791ad8c698b97f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb58",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "main.main",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 4,
+          "byte_memory_ops": 5
+        },
+        "input_sources": [
+          "blob_3"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "gpx/runtime.resolveImports",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 8,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [
+      {
+        "function": "<reachable_component>",
+        "kind": "reflective_pe_loader",
+        "confidence": "high",
+        "evidence": [
+          "dynamic_import_resolution",
+          "dynamic_library_load",
+          "executable_memory_allocation",
+          "executable_memory_requested",
+          "memory_protection_change",
+          "pe_header_parsing"
+        ],
+        "functions": [
+          "gpx/runtime.LoadPEFromMemory",
+          "gpx/runtime.resolveImports"
+        ],
+        "called_transformers": [
+          "main.main"
+        ],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": [
+          "PAGE_EXECUTE_READ",
+          "PAGE_EXECUTE_READWRITE"
+        ]
+      },
+      {
+        "function": "gpx/runtime.LoadPEFromMemory",
+        "kind": "suspicious_runtime_behavior",
+        "confidence": "high",
+        "evidence": [
+          "executable_memory_allocation",
+          "executable_memory_requested",
+          "memory_protection_change",
+          "pe_header_parsing"
+        ],
+        "called_transformers": [
+          "gpx/runtime.resolveImports"
+        ],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": [
+          "PAGE_EXECUTE_READ",
+          "PAGE_EXECUTE_READWRITE"
+        ]
+      },
+      {
+        "function": "gpx/runtime.resolveImports",
+        "kind": "dynamic_api_resolution",
+        "confidence": "medium",
+        "evidence": [
+          "dynamic_import_resolution",
+          "dynamic_library_load"
+        ],
+        "called_transformers": [],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": []
+      }
+    ],
+    "embedded_payloads": [
+      {
+        "kind": "encrypted_or_encoded_embedded_payload",
+        "confidence": "medium",
+        "source_blob": "blob_3",
+        "source": {
+          "section": ".data",
+          "va": "0x948000",
+          "size": "0x18000",
+          "entropy": 7.994
+        },
+        "transformers": [
+          "main.main"
+        ],
+        "loaders": [
+          "<reachable_component>"
+        ],
+        "evidence": [
+          "suspicious data blob exists in a data section",
+          "reachable code contains loader-like API/syscall behavior",
+          "reachable code contains byte transformation loops"
+        ]
+      }
+    ],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.",
+      "The binary contains behavior consistent with manual PE loading or reflective payload execution.",
+      "A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding."
+    ]
+  }
+}

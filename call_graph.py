@@ -7,61 +7,9 @@ from typing import Any
 
 import lief
 from capstone import CS_ARCH_X86, CS_MODE_64, Cs
-from capstone.x86 import (
-    X86_OP_IMM,
-    X86_OP_MEM,
-    X86_OP_REG,
-    X86_REG_AH,
-    X86_REG_AL,
-    X86_REG_AX,
-    X86_REG_BH,
-    X86_REG_BL,
-    X86_REG_BP,
-    X86_REG_BPL,
-    X86_REG_BX,
-    X86_REG_CH,
-    X86_REG_CL,
-    X86_REG_CX,
-    X86_REG_DH,
-    X86_REG_DIL,
-    X86_REG_DI,
-    X86_REG_DL,
-    X86_REG_DX,
-    X86_REG_EAX,
-    X86_REG_EBP,
-    X86_REG_EBX,
-    X86_REG_ECX,
-    X86_REG_EDI,
-    X86_REG_EDX,
-    X86_REG_ESI,
-    X86_REG_R10,
-    X86_REG_R10B,
-    X86_REG_R10D,
-    X86_REG_R10W,
-    X86_REG_R11,
-    X86_REG_R11B,
-    X86_REG_R11D,
-    X86_REG_R11W,
-    X86_REG_R8,
-    X86_REG_R8B,
-    X86_REG_R8D,
-    X86_REG_R8W,
-    X86_REG_R9,
-    X86_REG_R9B,
-    X86_REG_R9D,
-    X86_REG_R9W,
-    X86_REG_RAX,
-    X86_REG_RBP,
-    X86_REG_RBX,
-    X86_REG_RCX,
-    X86_REG_RDI,
-    X86_REG_RDX,
-    X86_REG_RIP,
-    X86_REG_RSI,
-    X86_REG_SIL,
-    X86_REG_SI,
-)
+from capstone.x86 import *
 
+from semantic_analysis import analyze_semantics
 
 DEFAULT_BINARY = Path(
     "data/8851adcfe1aea93461dec645a4d15180ae75fd7719797be0cc443e0f59fb164a.exe"
@@ -170,6 +118,12 @@ class Analyzer:
         self.std_functions = self.goresym.get("StdFunctions") or []
         self.user_by_start = {f["Start"]: f for f in self.user_functions}
         self.std_by_start = {f["Start"]: f for f in self.std_functions}
+        self.user_ranges = sorted(
+            self.user_functions, key=lambda function: function["Start"]
+        )
+        self.std_ranges = sorted(
+            self.std_functions, key=lambda function: function["Start"]
+        )
         self.user_by_name = {f["FullName"]: f for f in self.user_functions}
         self.user_by_short_name = {
             f["FullName"].split("/")[-1]: f for f in self.user_functions
@@ -218,6 +172,14 @@ class Analyzer:
             return self.user_by_start[target]["FullName"], "user"
         if target in self.std_by_start:
             return self.std_by_start[target]["FullName"], "std"
+        containing_user = function_containing(self.user_ranges, target)
+        if containing_user is not None:
+            offset = target - containing_user["Start"]
+            return f"{containing_user['FullName']}+0x{offset:x}", "user"
+        containing_std = function_containing(self.std_ranges, target)
+        if containing_std is not None:
+            offset = target - containing_std["Start"]
+            return f"{containing_std['FullName']}+0x{offset:x}", "std"
         return f"unknown_{target:x}", "unknown"
 
     def value_from_operand(
@@ -434,7 +396,29 @@ class Analyzer:
 
         self.calls_by_function[name] = calls
         return calls
+    def find_function_end(self, start: int) -> int:
+        MAX_SCAN = 0x10000
 
+        code = bytes(
+            self.binary.get_content_from_virtual_address(start, MAX_SCAN)
+        )
+
+        offset = code.find(b"\xCC")  # INT3
+
+        if offset == -1:
+            raise RuntimeError(f"Couldn't find function end for {hex(start)}")
+
+        return start + offset
+
+    def synthetic_function(self, call: Call)->dict[str, Any]:
+        if call.target_address is None:
+            raise ValueError("Call has no target address")
+        return {
+            "Start": call.target_address,
+            "End": self.find_function_end(call.target_address),
+            "FullName": call.target,
+        }
+        
     def build_reachable_graph(self, entry_name: str) -> dict[str, list[Call]]:
         entry = self.function_by_entry_name(entry_name)
         graph: dict[str, list[Call]] = {}
@@ -448,10 +432,19 @@ class Analyzer:
 
             calls = self.analyze_function(function)
             graph[name] = calls
+            #for call in calls:
+            #    if call.kind == "user" and call.target_address in self.user_by_start:
+            #        visit(self.user_by_start[call.target_address])
+            #    elif call.kind == "unknown":
+            #        visit(self.synthetic_function(call))
             for call in calls:
-                if call.kind == "user" and call.target_address in self.user_by_start:
-                    visit(self.user_by_start[call.target_address])
+                if call.target_address is None:
+                    continue
 
+                if call.target_address in self.user_by_start:
+                    visit(self.user_by_start[call.target_address])
+                elif call.kind == "unknown":
+                    visit(self.synthetic_function(call))
         visit(entry)
         return graph
 
@@ -462,6 +455,13 @@ def canonical_reg(reg_id: int) -> str | None:
 
 def rip_target(insn, operand) -> int:
     return insn.address + insn.size + operand.mem.disp
+
+
+def function_containing(functions: list[dict[str, Any]], address: int) -> dict[str, Any] | None:
+    for function in functions:
+        if function["Start"] <= address < function["End"]:
+            return function
+    return None
 
 
 def decode_printable(data: bytes) -> str | None:
@@ -488,15 +488,92 @@ def call_to_dict(call: Call) -> dict[str, Any]:
     }
 
 
-def print_graph(graph: dict[str, list[Call]]) -> None:
+def format_graph(graph: dict[str, list[Call]]) -> str:
+    lines = []
     for function, calls in graph.items():
         visible_calls = [call for call in calls if call.visible]
-        print(function)
+        lines.append(function)
         if not visible_calls:
-            print("  <no direct calls>")
+            lines.append("  <no direct calls>")
             continue
         for call in visible_calls:
-            print(f"  {hex(call.address)} -> {call.display()}")
+            lines.append(f"  {hex(call.address)} -> {call.display()}")
+    return "\n".join(lines)
+
+
+def print_graph(graph: dict[str, list[Call]]) -> None:
+    print(format_graph(graph))
+
+
+def format_semantics(semantics: dict[str, Any]) -> str:
+    lines = ["Semantic analysis"]
+    hints = semantics.get("assessment_hints") or []
+    if hints:
+        lines.append("  assessment_hints:")
+        for hint in hints:
+            lines.append(f"    - {hint}")
+
+    transfers = semantics.get("mid_function_control_transfers") or []
+    if transfers:
+        lines.append("  mid_function_control_transfers:")
+        for transfer in transfers[:10]:
+            lines.append(
+                "    - "
+                f"{transfer['display']} "
+                f"classification={transfer['classification']}"
+            )
+
+    indirect_calls = semantics.get("indirect_calls") or []
+    if indirect_calls:
+        lines.append("  indirect_calls:")
+        for indirect_call in indirect_calls[:10]:
+            lines.append(
+                "    - "
+                f"{indirect_call['display']} "
+                f"evidence={'; '.join(indirect_call['evidence'])}"
+            )
+
+    blobs = semantics.get("suspicious_data_blobs") or []
+    if blobs:
+        lines.append("  suspicious_data_blobs:")
+        for blob in blobs[:10]:
+            refs = ", ".join(blob["referenced_by"]) or "<none>"
+            lines.append(
+                "    - "
+                f"{blob['id']} {blob['section']}:{blob['va']} size={blob['size']} "
+                f"entropy={blob['entropy']} reasons={','.join(blob['reasons'])} refs={refs}"
+            )
+
+    transformers = semantics.get("data_transformers") or []
+    if transformers:
+        lines.append("  data_transformers:")
+        for transformer in transformers[:10]:
+            lines.append(
+                "    - "
+                f"{transformer['function']} ops={','.join(transformer['operations'])} "
+                f"confidence={transformer['confidence']} sources={','.join(transformer['input_sources']) or '<unknown>'}"
+            )
+
+    loaders = semantics.get("loader_behaviors") or []
+    if loaders:
+        lines.append("  loader_behaviors:")
+        for loader in loaders[:10]:
+            lines.append(
+                "    - "
+                f"{loader['function']} kind={loader['kind']} confidence={loader['confidence']} "
+                f"evidence={','.join(loader['evidence'])}"
+            )
+    return "\n".join(lines)
+
+
+def print_semantics(semantics: dict[str, Any]) -> None:
+    print(format_semantics(semantics))
+
+
+def format_human_readable_report(
+    graph: dict[str, list[Call]], semantics: dict[str, Any]
+) -> str:
+    return f"{format_graph(graph)}\n\n{format_semantics(semantics)}\n"
 
 
 def parse_args() -> argparse.Namespace:
@@ -529,21 +606,36 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
-    args = parse_args()
-    analyzer = Analyzer(args.binary, args.goresym)
-    graph = analyzer.build_reachable_graph(args.entry)
+def main(binary, goresym, entry, ojson=True) -> None:
+    analyzer = Analyzer(binary, goresym)
+    graph = analyzer.build_reachable_graph(entry)
+    semantics = analyze_semantics(analyzer, graph)
 
-    if args.json:
+    if ojson:
         serializable = {
-            function: [call_to_dict(call) for call in calls if call.visible]
-            for function, calls in graph.items()
+            "call_graph": {
+                function: [call_to_dict(call) for call in calls if call.visible]
+                for function, calls in graph.items()
+            },
+            "semantic_analysis": semantics,
         }
-        print(json.dumps(serializable, indent=2))
-        return
-
-    print_graph(graph)
+        #print(json.dumps(serializable, indent=2))
+        return graph, semantics, serializable
 
 
 if __name__ == "__main__":
-    main()
+    #args = parse_args()
+    data = Path("data").glob("*.exe")
+    output = Path("output")
+    output.mkdir(parents=True, exist_ok=True)
+    for binary in data:
+        try:
+            graph, semantics, seri = main(binary, Path("GoReSym"), "main.main")
+            binName = binary.name.split('.', 1)[0]
+            with open(str(output/binName)+".json", "w") as f:
+                json.dump(seri, f, indent=2)
+            with open(str(output/binName)+".txt", "w") as f:
+                f.write(format_human_readable_report(graph, semantics))
+
+        except:
+            pass

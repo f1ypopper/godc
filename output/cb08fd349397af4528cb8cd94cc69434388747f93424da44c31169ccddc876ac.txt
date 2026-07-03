@@ -1,0 +1,553 @@
+main.main
+  0x770697 -> main.run
+  0x770701 -> fmt.Fprintf
+  0x77070d -> os.Exit
+main.run
+  0x770737 -> main.relayCommand
+  0x770743 -> main.listenCommand
+  0x77080a -> github.com/spf13/cobra.(*Command).AddCommand
+  0x770836 -> github.com/spf13/cobra.(*Command).AddCommand
+  0x770862 -> github.com/spf13/cobra.(*Command).AddCommand
+  0x77086e -> github.com/spf13/cobra.(*Command).ExecuteC
+main.relayCommand
+  0x770a7e -> os.LookupEnv
+  0x770b25 -> main.binaryName
+  0x770b88 -> fmt.Sprintf
+  0x770b9d -> main.binaryName
+  0x770c00 -> fmt.Sprintf
+  0x770d33 -> github.com/spf13/cobra.(*Command).Flags
+  0x770d7c -> github.com/spf13/pflag.(*FlagSet).DurationVar
+  0x770dc6 -> github.com/spf13/pflag.(*FlagSet).DurationVar
+  0x770e08 -> fmt.Sprintf
+  0x770e5d -> github.com/spf13/pflag.(*FlagSet).StringVarP
+  0x770eac -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+main.binaryName
+  0x770973 -> os.Executable
+  0x77099c -> internal/filepathlite.Base
+  0x7709cb -> internal/filepathlite.Base
+internal/filepathlite.Base
+  0x4ecf9a -> internal/filepathlite.VolumeName
+internal/filepathlite.VolumeName
+  0x4ed062 -> internal/filepathlite.volumeNameLen
+  0x4ed085 -> internal/filepathlite.replaceStringByte
+internal/filepathlite.volumeNameLen
+  0x4ed1fc -> internal/filepathlite.pathHasPrefixFold
+  0x4ed23f -> internal/filepathlite.pathHasPrefixFold
+  0x4ed275 -> internal/filepathlite.pathHasPrefixFold
+  0x4ed2ab -> internal/filepathlite.pathHasPrefixFold
+internal/filepathlite.pathHasPrefixFold
+  <no direct calls>
+internal/filepathlite.replaceStringByte
+  0x4ece9f -> internal/bytealg.IndexByteString
+github.com/spf13/cobra.(*Command).Flags
+  0x765ecc -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).Name
+  0x76572e -> internal/stringslite.Index
+internal/stringslite.Index
+  0x4101fd -> internal/bytealg.IndexByteString
+  0x410305 -> internal/bytealg.IndexByteString
+  0x4103c4 -> internal/bytealg.IndexByteString
+  0x4104d9 -> internal/bytealg.IndexRabinKarp[go.shape.string]
+github.com/spf13/pflag.(*FlagSet).DurationVar
+  0x7453eb -> github.com/spf13/pflag.(*FlagSet).VarPF
+github.com/spf13/pflag.(*FlagSet).VarPF
+  0x749635 -> indirect_call
+  0x7496e0 -> github.com/spf13/pflag.(*FlagSet).AddFlag
+github.com/spf13/pflag.(*FlagSet).AddFlag
+  0x7497ac -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x749af6 -> fmt.Sprintf
+  0x749b43 -> fmt.Fprintf
+  0x749be6 -> fmt.Sprintf
+  0x749c33 -> fmt.Fprintf
+  0x749d1a -> fmt.Sprintf
+  0x749da1 -> fmt.Fprintln
+github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x74670c -> indirect_call
+github.com/spf13/pflag.(*FlagSet).StringVarP
+  0x7548eb -> github.com/spf13/pflag.(*FlagSet).VarPF
+github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x742ae7 -> github.com/spf13/pflag.(*FlagSet).VarPF
+main.listenCommand
+  0x76f2c4 -> main.withDefaultPort
+  0x76f31f -> main.withDefaultPort
+  0x76f39c -> os.LookupEnv
+  0x76f4cc -> github.com/spf13/cobra.(*Command).Flags
+  0x76f515 -> github.com/spf13/pflag.(*FlagSet).StringVar
+  0x76f56c -> github.com/spf13/pflag.(*FlagSet).StringVarP
+  0x76f5ba -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76f5fc -> fmt.Sprintf
+  0x76f651 -> github.com/spf13/pflag.(*FlagSet).StringVarP
+  0x76f6a0 -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76f6f4 -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+main.withDefaultPort
+  0x7708c6 -> net.SplitHostPort
+  0x7708eb -> strconv.FormatInt
+github.com/spf13/pflag.(*FlagSet).StringVar
+  0x75484b -> github.com/spf13/pflag.(*FlagSet).VarPF
+github.com/spf13/cobra.(*Command).AddCommand
+  0x7640b3 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x7640d5 -> github.com/spf13/cobra.(*Command).Name
+  0x764105 -> github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc
+github.com/spf13/cobra.(*Command).CommandPath
+  0x764a58 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x764a74 -> github.com/spf13/cobra.(*Command).Name
+  0x764ace -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc
+  0x75fb6e -> github.com/spf13/cobra.(*Command).Flags
+  0x75fb82 -> github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x75fb8e -> github.com/spf13/cobra.(*Command).PersistentFlags
+  0x75fba2 -> github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x75fbfd -> github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc
+github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x7464ed -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+github.com/spf13/cobra.(*Command).PersistentFlags
+  0x76677c -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).ExecuteC
+  0x762be1 -> indirect_call
+  0x762bea -> github.com/spf13/cobra.(*Command).InitDefaultHelpCmd
+  0x762bf6 -> github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd
+  0x762c02 -> github.com/spf13/cobra.(*Command).checkCommandGroups
+  0x762c51 -> internal/filepathlite.Base
+  0x762cef -> github.com/spf13/cobra.(*Command).initCompleteCmd
+  0x762d1e -> github.com/spf13/cobra.(*Command).Traverse
+  0x762d58 -> github.com/spf13/cobra.(*Command).Find
+  0x762da6 -> indirect_call
+  0x762e21 -> github.com/spf13/cobra.(*Command).PrintErrln
+  0x762e2d -> github.com/spf13/cobra.(*Command).CommandPath
+  0x762e99 -> github.com/spf13/cobra.(*Command).PrintErrf
+  0x762ede -> github.com/spf13/cobra.(*Command).Name
+  0x762f80 -> github.com/spf13/cobra.(*Command).execute
+  0x762fb8 -> errors.Is
+  0x763003 -> indirect_call
+  0x76307e -> github.com/spf13/cobra.(*Command).PrintErrln
+  0x7630a4 -> github.com/spf13/cobra.(*Command).UsageString
+  0x7630fe -> github.com/spf13/cobra.(*Command).Println
+  0x76312a -> github.com/spf13/cobra.(*Command).HelpFunc
+  0x763154 -> indirect_call
+  0x763175 -> github.com/spf13/cobra.(*Command).Root
+  0x763181 -> github.com/spf13/cobra.(*Command).ExecuteC
+github.com/spf13/cobra.(*Command).InitDefaultHelpCmd
+  0x763bfa -> github.com/spf13/cobra.(*Command).Name
+  0x763d3d -> github.com/spf13/cobra.(*Command).RemoveCommand
+  0x763d73 -> github.com/spf13/cobra.(*Command).AddCommand
+github.com/spf13/cobra.(*Command).RemoveCommand
+  0x764653 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x764675 -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd
+  0x76a82b -> github.com/spf13/cobra.(*Command).Name
+  0x76a87b -> github.com/spf13/cobra.(*Command).HasAlias
+  0x76a8be -> github.com/spf13/cobra.(*Command).Root
+  0x76a8ca -> github.com/spf13/cobra.(*Command).Name
+  0x76a92e -> fmt.Sprintf
+  0x76aa09 -> github.com/spf13/cobra.(*Command).AddCommand
+  0x76aa18 -> github.com/spf13/cobra.(*Command).OutOrStdout
+  0x76aa93 -> fmt.Sprintf
+  0x76aabc -> github.com/spf13/cobra.(*Command).Root
+  0x76aac8 -> github.com/spf13/cobra.(*Command).Name
+  0x76ab2c -> fmt.Sprintf
+  0x76ac32 -> github.com/spf13/cobra.(*Command).Flags
+  0x76ac82 -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76acc4 -> fmt.Sprintf
+  0x76aced -> github.com/spf13/cobra.(*Command).Root
+  0x76acf9 -> github.com/spf13/cobra.(*Command).Name
+  0x76ad5d -> fmt.Sprintf
+  0x76ae68 -> github.com/spf13/cobra.(*Command).Flags
+  0x76aeb8 -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76aefa -> fmt.Sprintf
+  0x76af23 -> github.com/spf13/cobra.(*Command).Root
+  0x76af2f -> github.com/spf13/cobra.(*Command).Name
+  0x76af93 -> fmt.Sprintf
+  0x76b09e -> github.com/spf13/cobra.(*Command).Flags
+  0x76b0ee -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76b130 -> fmt.Sprintf
+  0x76b159 -> github.com/spf13/cobra.(*Command).Root
+  0x76b165 -> github.com/spf13/cobra.(*Command).Name
+  0x76b1c9 -> fmt.Sprintf
+  0x76b2cf -> github.com/spf13/cobra.(*Command).Flags
+  0x76b31f -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76b363 -> github.com/spf13/cobra.(*Command).AddCommand
+github.com/spf13/cobra.(*Command).HasAlias
+  0x76580c -> strings.EqualFold
+github.com/spf13/cobra.(*Command).Root
+  0x761eee -> github.com/spf13/cobra.(*Command).Root
+github.com/spf13/cobra.(*Command).OutOrStdout
+  0x75fc88 -> github.com/spf13/cobra.(*Command).getOut
+github.com/spf13/cobra.(*Command).getOut
+  0x75fe98 -> github.com/spf13/cobra.(*Command).getOut
+github.com/spf13/cobra.(*Command).checkCommandGroups
+  0x763516 -> github.com/spf13/cobra.(*Command).checkCommandGroups
+  0x763587 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x763633 -> fmt.Sprintf
+github.com/spf13/cobra.(*Command).initCompleteCmd
+  0x767e84 -> fmt.Sprintf
+  0x767f09 -> fmt.Sprintf
+  0x768047 -> github.com/spf13/cobra.(*Command).AddCommand
+  0x76806b -> github.com/spf13/cobra.(*Command).Find
+  0x768086 -> github.com/spf13/cobra.(*Command).Name
+  0x7680ea -> github.com/spf13/cobra.(*Command).RemoveCommand
+github.com/spf13/cobra.(*Command).Find
+  0x760c64 -> indirect_call
+  0x760cc0 -> github.com/spf13/cobra.stripFlags
+  0x760ce4 -> github.com/spf13/cobra.legacyArgs
+github.com/spf13/cobra.stripFlags
+  0x760806 -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x760812 -> github.com/spf13/cobra.(*Command).Flags
+  0x760945 -> internal/stringslite.Index
+  0x76099d -> github.com/spf13/cobra.hasNoOptDefVal
+  0x760a46 -> internal/stringslite.Index
+  0x760a95 -> github.com/spf13/cobra.shortHasNoOptDefVal
+github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x76722e -> github.com/spf13/cobra.(*Command).updateParentsPflags
+  0x76723a -> github.com/spf13/cobra.(*Command).Flags
+  0x76724e -> github.com/spf13/cobra.(*Command).PersistentFlags
+  0x767278 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x767284 -> github.com/spf13/cobra.(*Command).Flags
+  0x7672b4 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+github.com/spf13/cobra.(*Command).updateParentsPflags
+  0x7673bc -> github.com/spf13/cobra.(*Command).Name
+  0x767494 -> github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc
+  0x7674aa -> github.com/spf13/cobra.(*Command).Root
+  0x7674b6 -> github.com/spf13/cobra.(*Command).PersistentFlags
+  0x7674e2 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x767504 -> github.com/spf13/cobra.(*Command).VisitParents
+github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x7467c6 -> github.com/spf13/pflag.sortFlags
+  0x74682d -> indirect_call
+github.com/spf13/pflag.sortFlags
+  0x746365 -> sort.Sort
+github.com/spf13/cobra.(*Command).VisitParents
+  0x761e8a -> indirect_call
+  0x761ea1 -> github.com/spf13/cobra.(*Command).VisitParents
+github.com/spf13/cobra.hasNoOptDefVal
+  0x76070b -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+github.com/spf13/cobra.shortHasNoOptDefVal
+  0x7607a2 -> github.com/spf13/pflag.(*FlagSet).ShorthandLookup
+github.com/spf13/pflag.(*FlagSet).ShorthandLookup
+  0x746b25 -> fmt.Sprintf
+  0x746b6f -> fmt.Fprintf
+github.com/spf13/cobra.legacyArgs
+  0x75ba82 -> github.com/spf13/cobra.(*Command).CommandPath
+  0x75baaf -> github.com/spf13/cobra.(*Command).findSuggestions
+  0x75bb6b -> fmt.Errorf
+github.com/spf13/cobra.(*Command).findSuggestions
+  0x761041 -> github.com/spf13/cobra.(*Command).SuggestionsFor
+  0x76112c -> fmt.Sprintf
+github.com/spf13/cobra.(*Command).SuggestionsFor
+  0x761b96 -> github.com/spf13/cobra.(*Command).IsAvailableCommand
+  0x761bb9 -> github.com/spf13/cobra.(*Command).Name
+  0x761be2 -> github.com/spf13/cobra.ld
+  0x761c06 -> github.com/spf13/cobra.(*Command).Name
+  0x761c1a -> strings.ToLower
+  0x761c3e -> strings.ToLower
+  0x761ca5 -> github.com/spf13/cobra.(*Command).Name
+  0x761da4 -> strings.EqualFold
+  0x761dc7 -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).IsAvailableCommand
+  0x765c5a -> github.com/spf13/cobra.(*Command).IsAvailableCommand
+github.com/spf13/cobra.ld
+  0x75f191 -> strings.ToLower
+  0x75f1b5 -> strings.ToLower
+github.com/spf13/cobra.(*Command).Traverse
+  0x76151d -> internal/stringslite.Index
+  0x7615ca -> internal/stringslite.Index
+  0x76160c -> github.com/spf13/cobra.(*Command).Flags
+  0x761629 -> github.com/spf13/cobra.shortHasNoOptDefVal
+  0x761821 -> github.com/spf13/cobra.(*Command).Flags
+  0x76184c -> github.com/spf13/cobra.hasNoOptDefVal
+  0x76194c -> github.com/spf13/cobra.(*Command).findNext
+  0x761983 -> github.com/spf13/cobra.(*Command).ParseFlags
+  0x761a1f -> github.com/spf13/cobra.(*Command).Traverse
+github.com/spf13/cobra.(*Command).findNext
+  0x76120c -> github.com/spf13/cobra.(*Command).Name
+  0x761264 -> strings.EqualFold
+  0x76128d -> github.com/spf13/cobra.(*Command).HasAlias
+  0x7612c5 -> github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix
+github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix
+  0x7658be -> github.com/spf13/cobra.(*Command).Name
+  0x765910 -> github.com/spf13/cobra.(*Command).Name
+github.com/spf13/cobra.(*Command).ParseFlags
+  0x767093 -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x76709f -> github.com/spf13/cobra.(*Command).Flags
+  0x7670b9 -> github.com/spf13/cobra.(*Command).Flags
+  0x7670dd -> github.com/spf13/pflag.(*FlagSet).Parse
+  0x76719f -> github.com/spf13/cobra.(*Command).Print
+github.com/spf13/pflag.(*FlagSet).Parse
+  0x74b203 -> github.com/spf13/pflag.(*FlagSet).parseArgs
+  0x74b272 -> fmt.Fprintln
+  0x74b27e -> os.Exit
+  0x74b2e1 -> flag.(*FlagSet).Parse
+github.com/spf13/pflag.(*FlagSet).parseArgs
+  0x74ae86 -> github.com/spf13/pflag.(*FlagSet).parseLongArg
+  0x74aec4 -> github.com/spf13/pflag.(*FlagSet).parseShortArg
+github.com/spf13/pflag.(*FlagSet).parseLongArg
+  0x74a0be -> github.com/spf13/pflag.(*FlagSet).failf
+  0x74a11c -> strings.genSplit
+  0x74a155 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x74a221 -> indirect_call
+  0x74a23d -> indirect_call
+  0x74a25e -> github.com/spf13/pflag.(*FlagSet).failf
+  0x74a2f9 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x74a349 -> github.com/spf13/pflag.(*FlagSet).usage
+  0x74a48f -> github.com/spf13/pflag.(*FlagSet).failf
+github.com/spf13/pflag.(*FlagSet).failf
+  0x749f0e -> fmt.Errorf
+  0x749f88 -> fmt.Fprintln
+  0x749f94 -> github.com/spf13/pflag.(*FlagSet).usage
+github.com/spf13/pflag.(*FlagSet).usage
+  0x749fe7 -> indirect_call
+  0x749fee -> github.com/spf13/pflag.defaultUsage
+  0x749ffd -> indirect_call
+github.com/spf13/pflag.defaultUsage
+  0x749488 -> fmt.Fprintf
+  0x749494 -> github.com/spf13/pflag.(*FlagSet).PrintDefaults
+github.com/spf13/pflag.(*FlagSet).PrintDefaults
+  0x747aa7 -> github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped
+  0x747b2d -> fmt.Fprint
+github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped
+  0x7488e2 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x74893f -> github.com/spf13/pflag.wrap
+  0x748a09 -> fmt.Fprintln
+  0x748a4f -> internal/stringslite.Index
+  0x748a77 -> strings.Repeat
+github.com/spf13/pflag.wrap
+  0x74839a -> strings.Repeat
+  0x74843f -> github.com/spf13/pflag.wrapN
+  0x74848c -> strings.Repeat
+  0x7484ee -> strings.Replace
+  0x748577 -> strings.Replace
+  0x7485b5 -> strings.Repeat
+  0x748617 -> strings.Replace
+  0x748661 -> github.com/spf13/pflag.wrapN
+  0x7486ae -> strings.Repeat
+  0x7486e5 -> strings.Repeat
+  0x748747 -> strings.Replace
+github.com/spf13/pflag.wrapN
+  0x748202 -> strings.LastIndexAny
+  0x748238 -> strings.LastIndex
+github.com/spf13/pflag.(*FlagSet).parseShortArg
+  0x74aca6 -> github.com/spf13/pflag.(*FlagSet).parseSingleShortArg
+github.com/spf13/pflag.(*FlagSet).parseSingleShortArg
+  0x74a772 -> fmt.Fprintf
+  0x74a799 -> indirect_call
+  0x74a7b5 -> indirect_call
+  0x74a7d6 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x74a8c0 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x74aad4 -> github.com/spf13/pflag.(*FlagSet).failf
+  0x74ab3a -> github.com/spf13/pflag.(*FlagSet).usage
+github.com/spf13/cobra.(*Command).Print
+  0x7646ea -> github.com/spf13/cobra.(*Command).OutOrStderr
+  0x764716 -> fmt.Fprint
+github.com/spf13/cobra.(*Command).OutOrStderr
+  0x75fd08 -> github.com/spf13/cobra.(*Command).getOut
+github.com/spf13/cobra.(*Command).PrintErrln
+  0x76490a -> fmt.Sprintln
+  0x764964 -> github.com/spf13/cobra.(*Command).PrintErr
+github.com/spf13/cobra.(*Command).PrintErr
+  0x76489a -> github.com/spf13/cobra.(*Command).ErrOrStderr
+  0x7648c6 -> fmt.Fprint
+github.com/spf13/cobra.(*Command).ErrOrStderr
+  0x75fd88 -> github.com/spf13/cobra.(*Command).getErr
+github.com/spf13/cobra.(*Command).getErr
+  0x75ff58 -> github.com/spf13/cobra.(*Command).getErr
+github.com/spf13/cobra.(*Command).PrintErrf
+  0x7649be -> fmt.Sprintf
+  0x764a18 -> github.com/spf13/cobra.(*Command).PrintErr
+github.com/spf13/cobra.(*Command).execute
+  0x761fa1 -> github.com/spf13/cobra.(*Command).Name
+  0x762057 -> github.com/spf13/cobra.(*Command).Printf
+  0x762066 -> github.com/spf13/cobra.(*Command).InitDefaultHelpFlag
+  0x762075 -> github.com/spf13/cobra.(*Command).InitDefaultVersionFlag
+  0x7620a5 -> github.com/spf13/cobra.(*Command).ParseFlags
+  0x7620d2 -> github.com/spf13/cobra.(*Command).Flags
+  0x76210c -> github.com/spf13/pflag.(*FlagSet).getFlagType
+  0x762179 -> github.com/spf13/cobra.(*Command).Flags
+  0x7621b3 -> github.com/spf13/pflag.(*FlagSet).getFlagType
+  0x76225b -> github.com/spf13/cobra.(*Command).OutOrStdout
+  0x7622a6 -> github.com/spf13/cobra.(*Command).VersionTemplate
+  0x7622e2 -> github.com/spf13/cobra.tmpl
+  0x76233e -> github.com/spf13/cobra.(*Command).Println
+  0x7623a3 -> github.com/spf13/cobra.(*Command).Println
+  0x762426 -> github.com/spf13/cobra.(*Command).Println
+  0x762441 -> github.com/spf13/cobra.(*Command).FlagErrorFunc
+  0x76246c -> indirect_call
+  0x7624b9 -> fmt.Errorf
+  0x7624e9 -> indirect_call
+  0x762534 -> github.com/spf13/cobra.(*Command).Flags
+  0x762597 -> indirect_call
+  0x762618 -> indirect_call
+  0x762642 -> indirect_call
+  0x7626a6 -> indirect_call
+  0x7626d0 -> indirect_call
+  0x7626e8 -> github.com/spf13/cobra.(*Command).ValidateRequiredFlags
+  0x762703 -> github.com/spf13/cobra.(*Command).ValidateFlagGroups
+  0x762748 -> indirect_call
+  0x762769 -> indirect_call
+  0x7627af -> indirect_call
+  0x7627d7 -> indirect_call
+  0x7628c0 -> indirect_call
+  0x7628e1 -> indirect_call
+github.com/spf13/cobra.(*Command).Printf
+  0x76480e -> fmt.Sprintf
+  0x764868 -> github.com/spf13/cobra.(*Command).Print
+github.com/spf13/cobra.(*Command).InitDefaultHelpFlag
+  0x76370e -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x76371a -> github.com/spf13/cobra.(*Command).Flags
+  0x76373c -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x76377f -> github.com/spf13/cobra.(*Command).Name
+  0x7637cd -> github.com/spf13/cobra.(*Command).Name
+  0x763817 -> github.com/spf13/cobra.(*Command).Flags
+  0x763872 -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x76387e -> github.com/spf13/cobra.(*Command).Flags
+  0x7638eb -> github.com/spf13/pflag.(*FlagSet).SetAnnotation
+github.com/spf13/pflag.(*FlagSet).SetAnnotation
+  0x74788e -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x7479d2 -> fmt.Errorf
+github.com/spf13/cobra.(*Command).InitDefaultVersionFlag
+  0x763929 -> github.com/spf13/cobra.(*Command).mergePersistentFlags
+  0x763935 -> github.com/spf13/cobra.(*Command).Flags
+  0x763957 -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x76399a -> github.com/spf13/cobra.(*Command).Name
+  0x7639e8 -> github.com/spf13/cobra.(*Command).Name
+  0x763a32 -> github.com/spf13/cobra.(*Command).Flags
+  0x763a50 -> github.com/spf13/pflag.(*FlagSet).ShorthandLookup
+  0x763a64 -> github.com/spf13/cobra.(*Command).Flags
+  0x763abe -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x763acc -> github.com/spf13/cobra.(*Command).Flags
+  0x763b27 -> github.com/spf13/pflag.(*FlagSet).BoolVarP
+  0x763b33 -> github.com/spf13/cobra.(*Command).Flags
+  0x763ba0 -> github.com/spf13/pflag.(*FlagSet).SetAnnotation
+github.com/spf13/pflag.(*FlagSet).getFlagType
+  0x746bef -> github.com/spf13/pflag.(*FlagSet).normalizeFlagName
+  0x746c3b -> indirect_call
+  0x746c78 -> indirect_call
+  0x746d1f -> fmt.Errorf
+  0x746d58 -> indirect_call
+  0x746d6f -> indirect_call
+  0x746e1c -> fmt.Errorf
+github.com/spf13/cobra.(*Command).VersionTemplate
+  0x76068b -> github.com/spf13/cobra.(*Command).VersionTemplate
+github.com/spf13/cobra.tmpl
+  0x75f0c4 -> text/template.(*Template).Funcs
+  0x75f0e0 -> text/template.(*Template).Parse
+  0x75f114 -> text/template.(*Template).execute
+github.com/spf13/cobra.(*Command).Println
+  0x76475a -> fmt.Sprintln
+  0x7647b4 -> github.com/spf13/cobra.(*Command).Print
+github.com/spf13/cobra.(*Command).FlagErrorFunc
+  0x7603ae -> github.com/spf13/cobra.(*Command).FlagErrorFunc
+github.com/spf13/cobra.(*Command).ValidateRequiredFlags
+  0x76326d -> github.com/spf13/cobra.(*Command).Flags
+  0x7632ab -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x7632e1 -> strings.Join
+  0x763345 -> fmt.Errorf
+github.com/spf13/cobra.(*Command).ValidateFlagGroups
+  0x76c50a -> github.com/spf13/cobra.(*Command).Flags
+  0x76c5e1 -> github.com/spf13/pflag.(*FlagSet).VisitAll
+  0x76c5ed -> github.com/spf13/cobra.validateRequiredFlagGroups
+  0x76c604 -> github.com/spf13/cobra.validateExclusiveFlagGroups
+github.com/spf13/cobra.validateRequiredFlagGroups
+  0x76ca68 -> github.com/spf13/cobra.sortedKeys
+  0x76cc1a -> slices.Sort[go.shape.[]string,go.shape.string]
+  0x76ccbc -> fmt.Errorf
+github.com/spf13/cobra.sortedKeys
+  0x76d075 -> slices.Sort[go.shape.[]string,go.shape.string]
+slices.Sort[go.shape.[]string,go.shape.string]
+  0x604954 -> slices.pdqsortOrdered[go.shape.string]
+slices.pdqsortOrdered[go.shape.string]
+  0x604a5a -> slices.breakPatternsOrdered[go.shape.string]
+  0x604aa8 -> slices.choosePivotOrdered[go.shape.string]
+  0x604b38 -> slices.partialInsertionSortOrdered[go.shape.string]
+  0x604c88 -> slices.partitionEqualOrdered[go.shape.string]
+  0x604ce4 -> slices.partitionOrdered[go.shape.string]
+  0x604d5d -> slices.pdqsortOrdered[go.shape.string]
+  0x604dc1 -> slices.pdqsortOrdered[go.shape.string]
+  0x604e03 -> slices.heapSortOrdered[go.shape.string]
+  0x604e29 -> slices.insertionSortOrdered[go.shape.string]
+slices.breakPatternsOrdered[go.shape.string]
+  <no direct calls>
+slices.choosePivotOrdered[go.shape.string]
+  0x605e93 -> slices.medianOrdered[go.shape.string]
+  0x605ee3 -> slices.medianOrdered[go.shape.string]
+  0x605f33 -> slices.medianOrdered[go.shape.string]
+  0x605f7a -> slices.medianOrdered[go.shape.string]
+slices.medianOrdered[go.shape.string]
+  <no direct calls>
+slices.partialInsertionSortOrdered[go.shape.string]
+  <no direct calls>
+slices.partitionEqualOrdered[go.shape.string]
+  <no direct calls>
+slices.partitionOrdered[go.shape.string]
+  <no direct calls>
+slices.heapSortOrdered[go.shape.string]
+  0x60651a -> slices.siftDownOrdered[go.shape.string]
+  0x60658c -> slices.siftDownOrdered[go.shape.string]
+slices.siftDownOrdered[go.shape.string]
+  <no direct calls>
+slices.insertionSortOrdered[go.shape.string]
+  <no direct calls>
+github.com/spf13/cobra.validateExclusiveFlagGroups
+  0x76cd18 -> github.com/spf13/cobra.sortedKeys
+  0x76ceb9 -> slices.Sort[go.shape.[]string,go.shape.string]
+  0x76cf5b -> fmt.Errorf
+github.com/spf13/cobra.(*Command).UsageString
+  0x760291 -> github.com/spf13/cobra.(*Command).Usage
+  0x7602ac -> github.com/spf13/cobra.CheckErr
+github.com/spf13/cobra.(*Command).Usage
+  0x7600ea -> github.com/spf13/cobra.(*Command).UsageFunc
+  0x7600fc -> indirect_call
+github.com/spf13/cobra.(*Command).UsageFunc
+  0x76009e -> github.com/spf13/cobra.(*Command).UsageFunc
+github.com/spf13/cobra.CheckErr
+  0x75f556 -> fmt.Fprintln
+  0x75f562 -> os.Exit
+github.com/spf13/cobra.(*Command).HelpFunc
+  0x76014e -> github.com/spf13/cobra.(*Command).HelpFunc
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - github.com/spf13/cobra.(*Command).Traverse:0x761892 call -> runtime.duffzero+0x78 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x76c51d call -> runtime.duffzero+0x78 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x76c526 call -> runtime.duffzero+0x66 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x76c55e call -> runtime.duffzero+0x78 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x76c56a call -> runtime.duffzero+0x66 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.(*Command).findNext:0x76130b call -> runtime.duffzero+0x78 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.ld:0x75f209 call -> runtime.duffzero+0x7a classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.legacyArgs:0x75baca call -> runtime.duffzero+0x7a classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.sortedKeys:0x76cfdd call -> runtime.duffzero+0x70 classification=go_runtime_duff_helper
+    - github.com/spf13/cobra.validateExclusiveFlagGroups:0x76cd8d call -> runtime.duffzero+0x70 classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x762be1 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x762da6 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x763003 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).ExecuteC:0x763154 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).Find:0x760c64 call rax [stack_closure_or_defer_call] evidence=target comes from register RAX; target is loaded from stack memory
+    - github.com/spf13/cobra.(*Command).Usage:0x7600fc call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).VisitParents:0x761e8a call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).execute:0x76246c call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).execute:0x7624e9 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/spf13/cobra.(*Command).execute:0x762597 call rsi [interface_method_or_object_dispatch] evidence=target comes from register RSI; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0xac5000 size=0x2000 entropy=7.994 reasons=high_entropy refs=<none>
+    - blob_1 .data:0xacb000 size=0x1000 entropy=7.954 reasons=high_entropy refs=<none>
+    - blob_2 .data:0xace000 size=0x2000 entropy=7.952 reasons=high_entropy refs=<none>
+    - blob_3 .data:0xaf9000 size=0x15000 entropy=7.96 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_4 .rdata:0x7bd000 size=0x1000 entropy=3.175 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x934000 size=0x1000 entropy=5.709 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x95c000 size=0x1000 entropy=5.941 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x960000 size=0x1000 entropy=5.678 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x984000 size=0x1000 entropy=5.944 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .rdata:0x9ab000 size=0x1000 entropy=5.654 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.relayCommand ops=add,sub confidence=medium sources=<unknown>
+    - internal/filepathlite.volumeNameLen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.pathHasPrefixFold ops=add,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.replaceStringByte ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - internal/stringslite.Index ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/pflag.(*FlagSet).AddFlag ops=add,sub,xor confidence=medium sources=<unknown>
+    - main.listenCommand ops=add,sub confidence=medium sources=<unknown>
+    - github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/cobra.(*Command).ExecuteC ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd ops=add,sub,xor confidence=medium sources=<unknown>

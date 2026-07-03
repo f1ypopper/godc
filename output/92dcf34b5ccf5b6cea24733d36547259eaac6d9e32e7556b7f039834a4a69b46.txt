@@ -1,0 +1,64 @@
+main.main
+  0x6247ea -> net/http.(*Client).Get
+  0x624877 -> fmt.Fprintln
+  0x624885 -> io.ReadAll
+  0x6248c0 -> fmt.Fprintln
+  0x6248d2 -> indirect_call -> main.main.deferwrap1
+  0x6248e0 -> gpx/runtime.LoadPEFromMemory
+  0x6248f2 -> indirect_call
+main.main.deferwrap1
+  0x624983 -> indirect_call
+gpx/runtime.LoadPEFromMemory
+  0x518e43 -> encoding/binary.Read
+  0x518e88 -> fmt.Errorf("failed to read DOS header: %v")
+  0x518f18 -> encoding/binary.Read
+  0x518f60 -> fmt.Errorf("failed to read NT headers: %v")
+  0x518fc0 -> golang.org/x/sys/windows.VirtualAlloc
+  0x519068 -> encoding/binary.Size
+  0x5190b5 -> fmt.Errorf("invalid NT header signature")
+  0x5190d6 -> fmt.Errorf("invalid DOS header magic")
+  0x519162 -> encoding/binary.Read
+  0x519300 -> fmt.Errorf("section data out of bounds")
+  0x5193ed -> gpx/runtime.resolveImports
+  0x5194ca -> golang.org/x/sys/windows.VirtualProtect
+  0x519524 -> fmt.Errorf("VirtualProtect failed for section: %v")
+  0x519600 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x519620 -> golang.org/x/sys/windows.WaitForSingleObject
+  0x51968c -> encoding/binary.Read
+  0x519727 -> encoding/binary.Read
+gpx/runtime.resolveImports
+  0x518bb5 -> golang.org/x/sys/windows.LoadLibrary
+  0x518c68 -> gpx/runtime.getProcAddressOrdinal
+  0x518c87 -> golang.org/x/sys/windows.GetProcAddress
+gpx/runtime.getProcAddressOrdinal
+  0x518ae6 -> golang.org/x/sys/windows.(*LazyProc).Call
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with manual PE loading or reflective payload execution.
+    - A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding.
+  mid_function_control_transfers:
+    - gpx/runtime.LoadPEFromMemory:0x518eeb call -> runtime.duffzero+0x114 classification=go_runtime_duff_helper
+    - gpx/runtime.LoadPEFromMemory:0x519050 call -> runtime.duffcopy+0x2a0 classification=go_runtime_duff_helper
+  indirect_calls:
+    - main.main:0x6248d2 call r8 [interface_method_or_object_dispatch] evidence=target comes from register R8; target uses register-indirect memory addressing
+    - main.main:0x6248f2 call rsi [interface_method_or_object_dispatch] evidence=target comes from register RSI; target uses register-indirect memory addressing
+    - main.main.deferwrap1:0x624983 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x92d000 size=0x1000 entropy=7.27 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x935000 size=0x3000 entropy=7.744 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x939000 size=0x2000 entropy=6.75 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .data:0x948000 size=0x18000 entropy=7.994 reasons=contains_magic_bytes,high_entropy,referenced_by_reachable_code refs=main.main
+    - blob_4 .rdata:0x724000 size=0x1000 entropy=4.807 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x781000 size=0x1000 entropy=3.054 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x89c000 size=0x1000 entropy=4.611 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x8c0000 size=0x1000 entropy=4.189 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.main ops=add,shift,sub,xor confidence=medium sources=blob_3
+    - gpx/runtime.resolveImports ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - <reachable_component> kind=reflective_pe_loader confidence=high evidence=dynamic_import_resolution,dynamic_library_load,executable_memory_allocation,executable_memory_requested,memory_protection_change,pe_header_parsing
+    - gpx/runtime.LoadPEFromMemory kind=suspicious_runtime_behavior confidence=high evidence=executable_memory_allocation,executable_memory_requested,memory_protection_change,pe_header_parsing
+    - gpx/runtime.resolveImports kind=dynamic_api_resolution confidence=medium evidence=dynamic_import_resolution,dynamic_library_load

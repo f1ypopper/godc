@@ -1,0 +1,1785 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x484186",
+        "target": "time.Now",
+        "target_address": "0x471960",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Now"
+      },
+      {
+        "address": "0x484207",
+        "target": "math/rand.(*rngSource).Seed",
+        "target_address": "0x4710e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*rngSource).Seed"
+      },
+      {
+        "address": "0x4842c0",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x4842ee",
+        "target": "main.fuppuknejfkhzpl",
+        "target_address": "0x480440",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.fuppuknejfkhzpl"
+      },
+      {
+        "address": "0x484300",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x48430b",
+        "target": "main.mowxzdakpefhrk",
+        "target_address": "0x480660",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.mowxzdakpefhrk"
+      },
+      {
+        "address": "0x484331",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x48436b",
+        "target": "main.alqxlzrt",
+        "target_address": "0x480580",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.alqxlzrt"
+      },
+      {
+        "address": "0x484391",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x4843db",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x484438",
+        "target": "main.lrtvykbbasabfok",
+        "target_address": "0x4806c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.lrtvykbbasabfok"
+      },
+      {
+        "address": "0x484440",
+        "target": "main.wsynxyxmi",
+        "target_address": "0x482360",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.wsynxyxmi"
+      }
+    ],
+    "main.fuppuknejfkhzpl": [],
+    "main.mowxzdakpefhrk": [],
+    "main.alqxlzrt": [
+      {
+        "address": "0x4805e0",
+        "target": "math.Pow",
+        "target_address": "0x46fb80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math.Pow"
+      },
+      {
+        "address": "0x48060a",
+        "target": "math.Pow",
+        "target_address": "0x46fb80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math.Pow"
+      }
+    ],
+    "main.lrtvykbbasabfok": [
+      {
+        "address": "0x480727",
+        "target": "math.Sin",
+        "target_address": "0x4700e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math.Sin"
+      }
+    ],
+    "main.wsynxyxmi": [
+      {
+        "address": "0x482407",
+        "target": "main.iylvoad",
+        "target_address": "0x47fc00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.iylvoad"
+      },
+      {
+        "address": "0x482424",
+        "target": "main.ypaclbafcmxgtg",
+        "target_address": "0x47ff40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.ypaclbafcmxgtg"
+      },
+      {
+        "address": "0x482444",
+        "target": "main.zxwuot",
+        "target_address": "0x4802e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.zxwuot"
+      },
+      {
+        "address": "0x48246a",
+        "target": "main.zxwuot",
+        "target_address": "0x4802e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.zxwuot"
+      },
+      {
+        "address": "0x482588",
+        "target": "main.cuhcgq",
+        "target_address": "0x47f4c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.cuhcgq"
+      },
+      {
+        "address": "0x4825c0",
+        "target": "main.qgkjskfpd",
+        "target_address": "0x47f760",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.qgkjskfpd"
+      },
+      {
+        "address": "0x4825f0",
+        "target": "syscall.Syscall",
+        "target_address": "0x455fe0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.Syscall"
+      },
+      {
+        "address": "0x482612",
+        "target": "time.Now",
+        "target_address": "0x471960",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Now"
+      },
+      {
+        "address": "0x482617",
+        "target": "time.Time.UnixNano",
+        "target_address": "0x471a40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Time.UnixNano"
+      },
+      {
+        "address": "0x482620",
+        "target": "math/rand.NewSource",
+        "target_address": "0x470c20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.NewSource"
+      },
+      {
+        "address": "0x4826e0",
+        "target": "time.Now",
+        "target_address": "0x471960",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Now"
+      },
+      {
+        "address": "0x4826e5",
+        "target": "time.Time.Unix",
+        "target_address": "0x471a00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Time.Unix"
+      },
+      {
+        "address": "0x482779",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x48278e",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4827a3",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x48298b",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4829a0",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4829b5",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4829ca",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4829e0",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482a20",
+        "target": "main.lrtvykbbasabfok",
+        "target_address": "0x4806c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.lrtvykbbasabfok"
+      },
+      {
+        "address": "0x482b3a",
+        "target": "main.mowxzdakpefhrk",
+        "target_address": "0x480660",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.mowxzdakpefhrk"
+      },
+      {
+        "address": "0x482bc3",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482bd8",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482bed",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482d99",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482dc0",
+        "target": "main.alqxlzrt",
+        "target_address": "0x480580",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.alqxlzrt"
+      },
+      {
+        "address": "0x482dda",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x482df1",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482f0e",
+        "target": "main.vjrgclpgmlcip",
+        "target_address": "0x481b40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.vjrgclpgmlcip"
+      },
+      {
+        "address": "0x482f34",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x482f4b",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x482f65",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x482f81",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x483089",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4830a0",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4830b5",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x4830ca",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483240",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483255",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x48326a",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483280",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483340",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x483357",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483519",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x48352e",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483543",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483560",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x470ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      },
+      {
+        "address": "0x483700",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483715",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x48372a",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483740",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x483902",
+        "target": "main.fuppuknejfkhzpl",
+        "target_address": "0x480440",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.fuppuknejfkhzpl"
+      },
+      {
+        "address": "0x483910",
+        "target": "main.mfmjozsflqwqu",
+        "target_address": "0x4804c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.mfmjozsflqwqu"
+      },
+      {
+        "address": "0x483941",
+        "target": "main.wbopepuvy",
+        "target_address": "0x480f60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.wbopepuvy"
+      },
+      {
+        "address": "0x4839a0",
+        "target": "main.roabztbduuzhstz",
+        "target_address": "0x4807c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.roabztbduuzhstz"
+      },
+      {
+        "address": "0x483a4b",
+        "target": "main.hmpybop",
+        "target_address": "0x4809e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.hmpybop"
+      },
+      {
+        "address": "0x483a50",
+        "target": "main.ffsepeeqmyw",
+        "target_address": "0x4811c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.ffsepeeqmyw"
+      },
+      {
+        "address": "0x483a82",
+        "target": "main.qbwxnxrnrvxsz",
+        "target_address": "0x480c20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.qbwxnxrnrvxsz"
+      },
+      {
+        "address": "0x483a99",
+        "target": "main.zawxcgnfrywjkxe",
+        "target_address": "0x480d00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.zawxcgnfrywjkxe"
+      },
+      {
+        "address": "0x483aca",
+        "target": "main.ifrsbdyw",
+        "target_address": "0x480e60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.ifrsbdyw"
+      },
+      {
+        "address": "0x483b84",
+        "target": "main.mhaitlhdqszk",
+        "target_address": "0x481060",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.mhaitlhdqszk"
+      },
+      {
+        "address": "0x483bd8",
+        "target": "main.tkdrrbytzp",
+        "target_address": "0x481340",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.tkdrrbytzp"
+      },
+      {
+        "address": "0x483bf8",
+        "target": "main.uugwtcibhhl",
+        "target_address": "0x4813c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.uugwtcibhhl"
+      },
+      {
+        "address": "0x483c2a",
+        "target": "main.drxpsx",
+        "target_address": "0x4814e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.drxpsx"
+      },
+      {
+        "address": "0x483c2f",
+        "target": "main.sgvsxhsgsyx",
+        "target_address": "0x481840",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.sgvsxhsgsyx"
+      },
+      {
+        "address": "0x483c34",
+        "target": "main.xsbclgfuilgidi",
+        "target_address": "0x481aa0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.xsbclgfuilgidi"
+      },
+      {
+        "address": "0x483c6d",
+        "target": "main.okevtzwmvjviq",
+        "target_address": "0x481740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.okevtzwmvjviq"
+      },
+      {
+        "address": "0x483c8a",
+        "target": "main.ewglgfezlq",
+        "target_address": "0x481de0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.ewglgfezlq"
+      },
+      {
+        "address": "0x483d1a",
+        "target": "main.erbknumflysma",
+        "target_address": "0x481ee0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.erbknumflysma"
+      },
+      {
+        "address": "0x483d58",
+        "target": "main.jtvcyxkbdrj",
+        "target_address": "0x4821e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.jtvcyxkbdrj"
+      },
+      {
+        "address": "0x483e52",
+        "target": "main.fiqlbgivppbd",
+        "target_address": "0x481fc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.fiqlbgivppbd"
+      },
+      {
+        "address": "0x483e80",
+        "target": "os.Getenv",
+        "target_address": "0x4764e0",
+        "kind": "std",
+        "string_args": [
+          "TERM"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "TERM"
+        },
+        "via": null,
+        "display": "os.Getenv(\"TERM\")"
+      },
+      {
+        "address": "0x483ee3",
+        "target": "main.fuppuknejfkhzpl",
+        "target_address": "0x480440",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.fuppuknejfkhzpl"
+      },
+      {
+        "address": "0x483f89",
+        "target": "main.gskeywmiwmsl",
+        "target_address": "0x480fe0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.gskeywmiwmsl"
+      }
+    ],
+    "main.iylvoad": [],
+    "main.ypaclbafcmxgtg": [],
+    "main.zxwuot": [
+      {
+        "address": "0x4803d1",
+        "target": "syscall.(*LazyProc).Call",
+        "target_address": "0x461b60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.(*LazyProc).Call"
+      }
+    ],
+    "main.cuhcgq": [],
+    "main.qgkjskfpd": [
+      {
+        "address": "0x47f8cf",
+        "target": "syscall.LoadLibrary",
+        "target_address": "0x462d60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.LoadLibrary"
+      },
+      {
+        "address": "0x47fa58",
+        "target": "main.horzevengpgvyj",
+        "target_address": "0x47fe40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.horzevengpgvyj"
+      },
+      {
+        "address": "0x47faf2",
+        "target": "syscall.GetProcAddress",
+        "target_address": "0x462960",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.GetProcAddress"
+      }
+    ],
+    "main.horzevengpgvyj": [
+      {
+        "address": "0x47fe71",
+        "target": "syscall.(*LazyProc).Find",
+        "target_address": "0x461940",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.(*LazyProc).Find"
+      },
+      {
+        "address": "0x47fec0",
+        "target": "syscall.SyscallN",
+        "target_address": "0x456140",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.SyscallN"
+      }
+    ],
+    "main.vjrgclpgmlcip": [
+      {
+        "address": "0x481c49",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      },
+      {
+        "address": "0x481c60",
+        "target": "math/rand.(*Rand).Float64",
+        "target_address": "0x470f40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Float64"
+      }
+    ],
+    "main.mfmjozsflqwqu": [
+      {
+        "address": "0x480524",
+        "target": "math.Tan",
+        "target_address": "0x4703a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math.Tan"
+      }
+    ],
+    "main.wbopepuvy": [],
+    "main.roabztbduuzhstz": [],
+    "main.hmpybop": [],
+    "main.ffsepeeqmyw": [
+      {
+        "address": "0x481280",
+        "target": "sort.Slice",
+        "target_address": "0x472040",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sort.Slice"
+      }
+    ],
+    "main.qbwxnxrnrvxsz": [],
+    "main.zawxcgnfrywjkxe": [],
+    "main.ifrsbdyw": [
+      {
+        "address": "0x480eb8",
+        "target": "math.Log10",
+        "target_address": "0x46f9c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math.Log10"
+      }
+    ],
+    "main.mhaitlhdqszk": [
+      {
+        "address": "0x4810e8",
+        "target": "math.Exp",
+        "target_address": "0x46f780",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math.Exp"
+      }
+    ],
+    "main.tkdrrbytzp": [],
+    "main.uugwtcibhhl": [
+      {
+        "address": "0x4813f5",
+        "target": "strconv.FormatFloat",
+        "target_address": "0x47a320",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strconv.FormatFloat"
+      },
+      {
+        "address": "0x481424",
+        "target": "bytes.(*Buffer).WriteString",
+        "target_address": "0x46d2a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.(*Buffer).WriteString"
+      },
+      {
+        "address": "0x48143a",
+        "target": "bytes.(*Buffer).WriteString",
+        "target_address": "0x46d2a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.(*Buffer).WriteString"
+      },
+      {
+        "address": "0x481491",
+        "target": "unicode/utf8.RuneCount",
+        "target_address": "0x468d20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "unicode/utf8.RuneCount"
+      }
+    ],
+    "main.drxpsx": [
+      {
+        "address": "0x4815a2",
+        "target": "strconv.Itoa",
+        "target_address": "0x47de20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strconv.Itoa"
+      },
+      {
+        "address": "0x4815cc",
+        "target": "strconv.FormatFloat",
+        "target_address": "0x47a320",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strconv.FormatFloat"
+      },
+      {
+        "address": "0x4815f6",
+        "target": "strconv.FormatFloat",
+        "target_address": "0x47a320",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strconv.FormatFloat"
+      },
+      {
+        "address": "0x481648",
+        "target": "bytes.(*Buffer).WriteString",
+        "target_address": "0x46d2a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.(*Buffer).WriteString"
+      },
+      {
+        "address": "0x48165a",
+        "target": "bytes.(*Buffer).WriteByte",
+        "target_address": "0x46d500",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.(*Buffer).WriteByte"
+      }
+    ],
+    "main.sgvsxhsgsyx": [
+      {
+        "address": "0x481971",
+        "target": "bufio.(*Scanner).Scan",
+        "target_address": "0x46e960",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bufio.(*Scanner).Scan"
+      }
+    ],
+    "main.xsbclgfuilgidi": [
+      {
+        "address": "0x481ad2",
+        "target": "os.Getenv",
+        "target_address": "0x4764e0",
+        "kind": "std",
+        "string_args": [
+          "RADAR_CONFIG"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "RADAR_CONFIG"
+        },
+        "via": null,
+        "display": "os.Getenv(\"RADAR_CONFIG\")"
+      }
+    ],
+    "main.okevtzwmvjviq": [
+      {
+        "address": "0x481778",
+        "target": "strings.TrimSpace",
+        "target_address": "0x46e120",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.TrimSpace"
+      },
+      {
+        "address": "0x4817a0",
+        "target": "strings.SplitN",
+        "target_address": "0x46dd40",
+        "kind": "std",
+        "string_args": [
+          "="
+        ],
+        "arg_registers": {
+          "RCX/RDI": "="
+        },
+        "via": null,
+        "display": "strings.SplitN(\"=\")"
+      },
+      {
+        "address": "0x4817d1",
+        "target": "strings.TrimSpace",
+        "target_address": "0x46e120",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.TrimSpace"
+      },
+      {
+        "address": "0x4817e0",
+        "target": "strconv.ParseFloat",
+        "target_address": "0x479220",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strconv.ParseFloat"
+      }
+    ],
+    "main.ewglgfezlq": [],
+    "main.erbknumflysma": [],
+    "main.jtvcyxkbdrj": [
+      {
+        "address": "0x4822a0",
+        "target": "sort.Slice",
+        "target_address": "0x472040",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sort.Slice"
+      }
+    ],
+    "main.fiqlbgivppbd": [],
+    "main.gskeywmiwmsl": []
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateFileA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetEnvironmentStringsW",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryA",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "ResumeThread",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetUnhandledExceptionFilter",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "main.sgvsxhsgsyx",
+        "instruction": "0x48190a",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x459c22",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x142",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.sgvsxhsgsyx:0x48190a call -> runtime.duffzero+0x142"
+      },
+      {
+        "source_function": "main.ypaclbafcmxgtg",
+        "instruction": "0x4800aa",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x459f70",
+        "target_function": "runtime.duffcopy",
+        "target_kind": "std",
+        "target_offset": "0x310",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.ypaclbafcmxgtg:0x4800aa call -> runtime.duffcopy+0x310"
+      },
+      {
+        "source_function": "main.ypaclbafcmxgtg",
+        "instruction": "0x48012a",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x459f70",
+        "target_function": "runtime.duffcopy",
+        "target_kind": "std",
+        "target_offset": "0x310",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.ypaclbafcmxgtg:0x48012a call -> runtime.duffcopy+0x310"
+      }
+    ],
+    "indirect_calls": [
+      {
+        "function": "main.main",
+        "address": "0x4842c0",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x4842b8",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main:0x4842c0 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main",
+        "address": "0x484331",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x48432a",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main:0x484331 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main",
+        "address": "0x484391",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x48438a",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main:0x484391 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main",
+        "address": "0x4843db",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x4843d7",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main:0x4843db call rdx [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x554000",
+        "size": "0x4000",
+        "entropy": 7.957,
+        "sha256_prefix": "ce136f571135826d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".rdata",
+        "va": "0x498000",
+        "size": "0x1000",
+        "entropy": 3.786,
+        "sha256_prefix": "fbd9e1b5e3b808d2",
+        "referenced_by": [
+          "main.drxpsx",
+          "main.okevtzwmvjviq",
+          "main.uugwtcibhhl",
+          "main.wsynxyxmi"
+        ],
+        "reference_count": 4,
+        "magic_offsets": [
+          {
+            "offset": "0x158",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "referenced_by_reachable_code",
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".rdata",
+        "va": "0x4bc350",
+        "size": "0x35200",
+        "entropy": 7.593,
+        "sha256_prefix": "f4653a583c05bc6b",
+        "referenced_by": [
+          "main.wsynxyxmi"
+        ],
+        "reference_count": 1,
+        "magic_offsets": [
+          {
+            "offset": "0xdddd",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x1cd7f",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1db6f",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "large_copy_source"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "main.wsynxyxmi",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 31,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [
+          "blob_1",
+          "blob_2"
+        ],
+        "large_copies": [
+          {
+            "instruction": "0x4823cc",
+            "source": "0x4bc350",
+            "size": "0x35200",
+            "mnemonic": "rep movsq"
+          }
+        ],
+        "confidence": "high"
+      },
+      {
+        "function": "main.iylvoad",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 7,
+          "byte_memory_ops": 16
+        },
+        "input_sources": [
+          "blob_1",
+          "blob_2"
+        ],
+        "large_copies": [],
+        "confidence": "medium",
+        "source_inference": "called_by:main.wsynxyxmi"
+      },
+      {
+        "function": "main.cuhcgq",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 11,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [
+          "blob_1",
+          "blob_2"
+        ],
+        "large_copies": [],
+        "confidence": "medium",
+        "source_inference": "called_by:main.wsynxyxmi"
+      },
+      {
+        "function": "main.qgkjskfpd",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 13,
+          "byte_memory_ops": 10
+        },
+        "input_sources": [
+          "blob_1",
+          "blob_2"
+        ],
+        "large_copies": [],
+        "confidence": "medium",
+        "source_inference": "called_by:main.wsynxyxmi"
+      },
+      {
+        "function": "main.uugwtcibhhl",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 5,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [
+          "blob_1"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.drxpsx",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 6,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [
+          "blob_1"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.okevtzwmvjviq",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 5,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [
+          "blob_1"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [
+      {
+        "function": "<reachable_component>",
+        "kind": "reflective_pe_loader",
+        "confidence": "high",
+        "evidence": [
+          "dynamic_import_resolution",
+          "dynamic_library_load",
+          "dynamic_syscall_call",
+          "executable_memory_requested",
+          "pe_header_parsing",
+          "raw_syscall"
+        ],
+        "functions": [
+          "main.horzevengpgvyj",
+          "main.qgkjskfpd",
+          "main.wsynxyxmi",
+          "main.ypaclbafcmxgtg",
+          "main.zxwuot"
+        ],
+        "called_transformers": [
+          "main.cuhcgq",
+          "main.drxpsx",
+          "main.iylvoad",
+          "main.okevtzwmvjviq",
+          "main.qgkjskfpd",
+          "main.uugwtcibhhl",
+          "main.wsynxyxmi"
+        ],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": [
+          "PAGE_EXECUTE",
+          "PAGE_EXECUTE_READWRITE"
+        ]
+      },
+      {
+        "function": "main.wsynxyxmi",
+        "kind": "dynamic_code_loader",
+        "confidence": "high",
+        "evidence": [
+          "executable_memory_requested",
+          "raw_syscall"
+        ],
+        "called_transformers": [
+          "main.cuhcgq",
+          "main.drxpsx",
+          "main.iylvoad",
+          "main.okevtzwmvjviq",
+          "main.qgkjskfpd",
+          "main.uugwtcibhhl"
+        ],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": [
+          "PAGE_EXECUTE",
+          "PAGE_EXECUTE_READWRITE"
+        ]
+      },
+      {
+        "function": "main.ypaclbafcmxgtg",
+        "kind": "suspicious_runtime_behavior",
+        "confidence": "medium",
+        "evidence": [
+          "executable_memory_requested",
+          "pe_header_parsing"
+        ],
+        "called_transformers": [],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": [
+          "PAGE_EXECUTE_READWRITE"
+        ]
+      },
+      {
+        "function": "main.zxwuot",
+        "kind": "suspicious_runtime_behavior",
+        "confidence": "low",
+        "evidence": [
+          "dynamic_syscall_call"
+        ],
+        "called_transformers": [],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": []
+      },
+      {
+        "function": "main.qgkjskfpd",
+        "kind": "dynamic_api_resolution",
+        "confidence": "medium",
+        "evidence": [
+          "dynamic_import_resolution",
+          "dynamic_library_load"
+        ],
+        "called_transformers": [],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": []
+      },
+      {
+        "function": "main.horzevengpgvyj",
+        "kind": "dynamic_api_resolution",
+        "confidence": "medium",
+        "evidence": [
+          "dynamic_import_resolution",
+          "raw_syscall"
+        ],
+        "called_transformers": [],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": []
+      }
+    ],
+    "embedded_payloads": [
+      {
+        "kind": "encrypted_or_encoded_embedded_payload",
+        "confidence": "medium",
+        "source_blob": "blob_2",
+        "source": {
+          "section": ".rdata",
+          "va": "0x4bc350",
+          "size": "0x35200",
+          "entropy": 7.593
+        },
+        "transformers": [
+          "main.wsynxyxmi",
+          "main.iylvoad",
+          "main.cuhcgq",
+          "main.qgkjskfpd"
+        ],
+        "loaders": [
+          "<reachable_component>",
+          "main.wsynxyxmi"
+        ],
+        "evidence": [
+          "suspicious data blob exists in a data section",
+          "reachable code contains loader-like API/syscall behavior",
+          "reachable code contains byte transformation loops"
+        ]
+      }
+    ],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.",
+      "The binary contains behavior consistent with manual PE loading or reflective payload execution.",
+      "A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding."
+    ]
+  }
+}

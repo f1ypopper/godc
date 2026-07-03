@@ -1,0 +1,16 @@
+main.main
+  <no direct calls>
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+  suspicious_data_blobs:
+    - blob_0 .data:0x311e13000 size=0x1000 entropy=7.804 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x311e1b000 size=0x2000 entropy=7.953 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x311e1f000 size=0x1000 entropy=6.764 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .data:0x311e2e000 size=0x17000 entropy=7.996 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_4 .rdata:0x311f0a000 size=0x1000 entropy=5.156 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x312038000 size=0x1000 entropy=5.982 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x3120ab000 size=0x1000 entropy=4.67 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x3120d8000 size=0x1000 entropy=4.084 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x312114000 size=0x1000 entropy=4.315 reasons=contains_magic_bytes refs=<none>

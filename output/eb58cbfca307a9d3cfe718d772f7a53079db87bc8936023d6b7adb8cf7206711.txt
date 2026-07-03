@@ -1,0 +1,131 @@
+main.main
+  0x51630f -> enc/pkill.Pkill
+  0x516368 -> fmt.Fprintln("Proccess not found")
+  0x5163ba -> fmt.Fprint
+  0x5163c0 -> enc/shadowcopy.Delete
+  0x516419 -> fmt.Fprintln("Proccess not found")
+  0x51646c -> fmt.Fprint
+  0x51648d -> sync.(*WaitGroup).Wait
+  0x516512 -> path/filepath.Walk -> main.main.func1
+  0x516558 -> log.Fatal
+  0x516586 -> enc/messagebox.MessageBox("\u0412\u041d\u0418\u041c\u0410\u041d\u0418\u0415!\n\u0421\u0438\u0441\u0442\u0435\u043c\u0430 \u0432\u0430\u0448\u0435\u0439 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \u0431\u044b\u043b\u0430 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043a\u043e\u043c\u043f\u0440\u043e\u043c\u0435\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0430.\n\u0412\u0441\u0435 \u0432\u0430\u0448\u0438 \u043a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0435 \u0431\u044b\u043b\u0438 \u0437\u0430\u0448\u0438\u0444\u0440\u043e\u0432\u0430\u043d\u044b.\n\u041d\u0435 \u0432\u044b\u043a\u043b\u044e\u0447\u0430\u0439\u0442\u0435 \u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440 \u0438 \u043d\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435 \u043d\u0438\u043a\u0430\u043a\u0438\u0435 \u043c\u0430\u043d\u0438\u043f\u0443\u043b\u044f\u0446\u0438\u0438 \u0441 \u0444\u0430\u0439\u043b\u0430\u043c\u0438.\n\u041d\u0430\u0439\u0434\u0438\u0442\u0435 \u0432 \u0432\u0430\u0448\u0435\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u0435 \u0444\u0430\u0439\u043b \"\u0412\u041e\u0421\u0421\u0422\u0410\u041d\u041e\u0412\u0418\u0422\u042c \u0424\u0410\u0419\u041b\u042b.txt\" \u0438 \u043f\u0440\u043e\u0447\u0442\u0438\u0442\u0435 \u0435\u0433\u043e.\n", "Locker")
+enc/pkill.Pkill
+  0x4c4ce0 -> os/exec.Command("taskkill")
+  0x4c4ce5 -> os/exec.(*Cmd).Output
+  0x4c4d39 -> fmt.Fprintln("Proccess not found")
+enc/shadowcopy.Delete
+  0x4c49c2 -> log.(*Logger).output
+  0x4c4a73 -> os/exec.Command("vssadmin")
+  0x4c4a78 -> os/exec.(*Cmd).Output
+  0x4c4aa0 -> time.Sleep
+  0x4c4ae8 -> fmt.Fprintln
+main.main.func1
+  0x516660 -> fmt.Fprintln
+  0x516679 -> indirect_call
+  0x5166a0 -> path/filepath.Base
+  0x516711 -> strings.Index
+  0x516746 -> indirect_call
+  0x5167c9 -> fmt.Fprintf("Skipping dir %s\n")
+  0x5168ae -> strings.Index
+  0x5168e5 -> path/filepath.Base
+  0x516956 -> strings.Index
+  0x5169e0 -> fmt.Fprintf("Skiping file %s\n")
+  0x516a3a -> fmt.Fprintf("Good file %s\n")
+  0x516a53 -> indirect_call
+  0x516a61 -> strings.Index(".lock")
+  0x516a83 -> indirect_call
+  0x516b10 -> fmt.Fprintf("Pushing to queue: %s\n")
+  0x516b2f -> sync.(*WaitGroup).Wait
+  0x516b50 -> sync.(*WaitGroup).Add
+  0x516b63 -> enc/encryption.StringToType("-----BEGIN PUBLIC KEY-----\nMIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBmmNX/4tHiK+D3tCrFek9Y\nDVVyLQPAGPSAAamEzSOuE+B/bht/jYbapkT7B8GBJ8bkIm6nox+x2bcD+DVfy+u7\n88HFXCSoGNcE4VPbW42RgoCLXRWgGsaB2grLG44Js9vd6DkWHQcd4skeupMf914w\noFOWQGYq8dLVODNHP1IEL9+apyD7Vc0WAwXw3x3uqEhHvPGAZUHAX1vGNCoOmoMA\n2XxVBd1Wdhmllp3yXK9BmAWE1LlyBb6lUlYewSc6gsHyn/sCO/kQin0XxtY1EtYt\n0eJftCgXSTd+I11/Y7mfQvq7gHWPvsR2LoOmN9vid74nxzNmSb+abHhDY8BMbmC5\nAgMBAAE=\n-----END PUBLIC KEY-----\n")
+  0x516c6a -> os.WriteFile
+enc/encryption.StringToType
+  0x515247 -> encoding/pem.Decode
+  0x515260 -> crypto/x509.ParsePKIXPublicKey
+  0x5152d1 -> fmt.Fprintln
+main.main.func1.1
+  0x516ce7 -> enc/encryption.EncryptFiles
+enc/encryption.EncryptFiles
+  0x5154f4 -> crypto/rand.Read
+  0x515540 -> fmt.Fprintln
+  0x515555 -> indirect_call -> enc/encryption.EncryptFiles.func4
+  0x5155a0 -> os.rename
+  0x5155e7 -> fmt.Fprintln
+  0x5155fc -> indirect_call
+  0x515632 -> os.OpenFile
+  0x5156c7 -> log.(*Logger).output
+  0x515709 -> os.(*File).Stat
+  0x515740 -> crypto/aes.NewCipher
+  0x5157e0 -> log.(*Logger).output
+  0x5157fc -> indirect_call -> enc/encryption.EncryptFiles.Println.func2
+  0x515840 -> io.ReadAtLeast
+  0x5158cc -> log.(*Logger).output
+  0x5158e2 -> indirect_call -> enc/encryption.EncryptFiles.Println.func3
+  0x515909 -> crypto/cipher.NewCTR
+  0x5159b0 -> fmt.Fprintf("Large cipher mode for: %s\n")
+  0x515a4c -> fmt.Fprintf("Small cipher mode for: %s\n")
+  0x515a9a -> os.(*File).ReadAt
+  0x515ace -> indirect_call
+  0x515aea -> os.(*File).WriteAt
+  0x515b6e -> fmt.Fprintf("ERROR: %d != %d\n")
+  0x515b83 -> indirect_call
+  0x515b95 -> indirect_call
+  0x515be0 -> fmt.Fprintln
+  0x515bf5 -> indirect_call
+  0x515c08 -> indirect_call
+  0x515c24 -> enc/encryption.EncryptAESKey
+  0x515c40 -> os.(*File).WriteAt
+  0x515c69 -> os.(*File).WriteAt
+  0x515c80 -> indirect_call
+  0x515c92 -> indirect_call
+  0x515d6f -> fmt.Fprintf("Processing chunk %d\\%d (%s)\n")
+  0x515d91 -> os.(*File).ReadAt
+  0x515dc0 -> indirect_call
+  0x515de0 -> os.(*File).WriteAt
+enc/encryption.EncryptFiles.func4
+  0x516000 -> sync.(*WaitGroup).Done
+enc/encryption.EncryptFiles.Println.func2
+  0x515ee0 -> fmt.Appendln
+enc/encryption.EncryptFiles.Println.func3
+  0x515e80 -> fmt.Appendln
+enc/encryption.EncryptAESKey
+  0x515359 -> crypto/sha256.(*digest).Reset
+  0x5153a0 -> crypto/rsa.EncryptOAEP
+  0x5153e8 -> log.Fatal
+enc/messagebox.MessageBox
+  0x477a51 -> syscall.StringToUTF16Ptr
+  0x477a65 -> syscall.StringToUTF16Ptr
+  0x477b2c -> syscall.(*LazyProc).Call
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  indirect_calls:
+    - enc/encryption.EncryptFiles:0x515555 call r8 [interface_method_or_object_dispatch] evidence=target comes from register R8; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x5155fc call r8 [interface_method_or_object_dispatch] evidence=target comes from register R8; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x5157fc call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x5158e2 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x515ace call rdx [interface_method_or_object_dispatch] evidence=target comes from register RDX; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x515b83 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x515b95 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x515bf5 call r8 [interface_method_or_object_dispatch] evidence=target comes from register R8; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x515c08 call r8 [interface_method_or_object_dispatch] evidence=target comes from register R8; target uses register-indirect memory addressing
+    - enc/encryption.EncryptFiles:0x515c80 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x64b000 size=0x2000 entropy=7.996 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x650000 size=0x2000 entropy=7.879 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x659000 size=0x1000 entropy=1.391 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .rdata:0x554000 size=0x16000 entropy=7.961 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_4 .rdata:0x633000 size=0x1000 entropy=4.196 reasons=contains_magic_bytes refs=<none>
+    - blob_5 /19:0x6bc000 size=0x36e08 entropy=7.953 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_6 /32:0x6f3000 size=0xa9a7 entropy=7.912 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_7 /65:0x6ff000 size=0x62e39 entropy=7.956 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_8 /78:0x762000 size=0x45000 entropy=7.943 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_9 /90:0x7a8000 size=0x13b4a entropy=7.788 reasons=contains_magic_bytes,high_entropy refs=<none>
+  data_transformers:
+    - enc/pkill.Pkill ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - enc/shadowcopy.Delete ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - enc/encryption.EncryptFiles ops=add,aes,shift,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - enc/messagebox.MessageBox kind=suspicious_runtime_behavior confidence=medium evidence=dynamic_syscall_call,executable_memory_requested

@@ -1,0 +1,72 @@
+main.main
+  0x488a17 -> main.nubhkaocjld
+  0x48c30f -> main.mduievqarildd
+  0x48fc0f -> main.qbcfsiaabzc
+  0x493589 -> main.qbcfsiaabzc
+  0x4a9920 -> main.lqmfapeh
+  0x4b0a93 -> syscall.Syscall
+  0x4b3aa8 -> main.aimaqpqrmnlk
+main.nubhkaocjld
+  <no direct calls>
+main.mduievqarildd
+  0x53833a -> encoding/binary.littleEndian.Uint32
+main.qbcfsiaabzc
+  0x476c09 -> syscall.(*LazyProc).Call
+main.lqmfapeh
+  0x4deb74 -> main.eawwicxnnqfmtrl
+  0x4debb1 -> syscall.LoadLibrary
+  0x4ece47 -> main.eawwicxnnqfmtrl
+  0x4ece5a -> syscall.GetProcAddress
+  0x4ece78 -> main.kbchuzxoc
+main.eawwicxnnqfmtrl
+  <no direct calls>
+main.kbchuzxoc
+  0x5229a0 -> syscall.(*LazyProc).Addr
+  0x5229e4 -> syscall.SyscallN
+main.aimaqpqrmnlk
+  <no direct calls>
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with manual PE loading or reflective payload execution.
+    - A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding.
+  mid_function_control_transfers:
+    - main.aimaqpqrmnlk:0x4b744a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b746c call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b748e call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b74b0 call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b74d2 call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b74f1 call -> runtime.duffzero+0xc1 classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b7514 call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b754a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b756d call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.aimaqpqrmnlk:0x4b7590 call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+  suspicious_data_blobs:
+    - blob_0 .rdata:0x577000 size=0x1000 entropy=2.861 reasons=contains_magic_bytes refs=<none>
+    - blob_1 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_2 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_3 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_4 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_5 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_6 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_7 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_8 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+    - blob_9 .rdata:0x5888fd size=0xc000 entropy=5.217 reasons=large_copy_source refs=main.main
+  data_transformers:
+    - main.main ops=add,shift,sub,xor confidence=high sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.nubhkaocjld ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.mduievqarildd ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.qbcfsiaabzc ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.lqmfapeh ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.eawwicxnnqfmtrl ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.kbchuzxoc ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+    - main.aimaqpqrmnlk ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_10,blob_11,blob_12,blob_13,blob_14,blob_15,blob_16,blob_17,blob_18,blob_19,blob_2,blob_20,blob_21,blob_22,blob_23,blob_24,blob_25,blob_26,blob_27,blob_28,blob_29,blob_3,blob_30,blob_31,blob_32,blob_33,blob_34,blob_35,blob_36,blob_37,blob_38,blob_39,blob_4,blob_40,blob_41,blob_42,blob_43,blob_44,blob_45,blob_46,blob_47,blob_48,blob_49,blob_5,blob_50,blob_51,blob_52,blob_53,blob_54,blob_55,blob_56,blob_57,blob_58,blob_59,blob_6,blob_60,blob_61,blob_62,blob_63,blob_64,blob_65,blob_66,blob_67,blob_68,blob_69,blob_7,blob_70,blob_71,blob_72,blob_73,blob_74,blob_75,blob_76,blob_77,blob_78,blob_79,blob_8,blob_80,blob_81,blob_82,blob_83,blob_84,blob_85,blob_9
+  loader_behaviors:
+    - <reachable_component> kind=reflective_pe_loader confidence=high evidence=dynamic_import_resolution,dynamic_library_load,dynamic_syscall_call,executable_memory_requested,pe_header_parsing,raw_syscall
+    - main.main kind=dynamic_code_loader confidence=high evidence=executable_memory_requested,raw_syscall
+    - main.mduievqarildd kind=suspicious_runtime_behavior confidence=medium evidence=executable_memory_requested,pe_header_parsing
+    - main.qbcfsiaabzc kind=suspicious_runtime_behavior confidence=medium evidence=dynamic_syscall_call,executable_memory_requested
+    - main.lqmfapeh kind=dynamic_api_resolution confidence=high evidence=dynamic_import_resolution,dynamic_library_load,executable_memory_requested
+    - main.kbchuzxoc kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall

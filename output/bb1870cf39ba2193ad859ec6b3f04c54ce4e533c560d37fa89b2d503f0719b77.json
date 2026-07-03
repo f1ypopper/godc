@@ -1,0 +1,5720 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x66d107",
+        "target": "time.Sleep",
+        "target_address": "0x46e7e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Sleep"
+      },
+      {
+        "address": "0x66d215",
+        "target": "main.UserHomeDir",
+        "target_address": "0x66c020",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.UserHomeDir"
+      },
+      {
+        "address": "0x66d2c5",
+        "target": "path/filepath.join",
+        "target_address": "0x4d4c80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x66d327",
+        "target": "path/filepath.join",
+        "target_address": "0x4d4c80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x66d341",
+        "target": "os.MkdirAll",
+        "target_address": "0x4d0d40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.MkdirAll"
+      },
+      {
+        "address": "0x66d359",
+        "target": "main.caldeiroes",
+        "target_address": "0x66cd20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.caldeiroes"
+      },
+      {
+        "address": "0x66d3a0",
+        "target": "fmt.Sprintf",
+        "target_address": "0x4dc9c0",
+        "kind": "std",
+        "string_args": [
+          "%s.zip"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%s.zip"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"%s.zip\")"
+      },
+      {
+        "address": "0x66d3f7",
+        "target": "path/filepath.join",
+        "target_address": "0x4d4c80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x66d416",
+        "target": "time.Sleep",
+        "target_address": "0x46e7e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Sleep"
+      },
+      {
+        "address": "0x66d48c",
+        "target": "main.aperfeicoei",
+        "target_address": "0x66d860",
+        "kind": "user",
+        "string_args": [
+          "Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUDFQgFHxIIGwNVBBUKABMTAlhGAAwX",
+          "gihze"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUDFQgFHxIIGwNVBBUKABMTAlhGAAwX",
+          "RCX/RDI": "gihze"
+        },
+        "via": null,
+        "display": "main.aperfeicoei(\"Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUDFQgFHxIIGwNVBBUKABMTAlhGAAwX\", \"gihze\")"
+      },
+      {
+        "address": "0x66d4a1",
+        "target": "main.ensoparieis",
+        "target_address": "0x66bd00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.ensoparieis"
+      },
+      {
+        "address": "0x66d4d6",
+        "target": "main.coletivizes",
+        "target_address": "0x66c080",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.coletivizes"
+      },
+      {
+        "address": "0x66d55a",
+        "target": "main.troteavam",
+        "target_address": "0x66ca20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.troteavam"
+      },
+      {
+        "address": "0x66d5a1",
+        "target": "main.aperfeicoei",
+        "target_address": "0x66d860",
+        "kind": "user",
+        "string_args": [
+          "JFM0KhcIDhobCEcvARYAFDU8FRUGE0g1IyM=",
+          "gihze"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "JFM0KhcIDhobCEcvARYAFDU8FRUGE0g1IyM=",
+          "RCX/RDI": "gihze"
+        },
+        "via": null,
+        "display": "main.aperfeicoei(\"JFM0KhcIDhobCEcvARYAFDU8FRUGE0g1IyM=\", \"gihze\")"
+      },
+      {
+        "address": "0x66d5a6",
+        "target": "main.esfomearemos",
+        "target_address": "0x66d060",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.esfomearemos"
+      },
+      {
+        "address": "0x66d5c7",
+        "target": "os.Getenv",
+        "target_address": "0x4cd740",
+        "kind": "std",
+        "string_args": [
+          "USERNAME"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "USERNAME"
+        },
+        "via": null,
+        "display": "os.Getenv(\"USERNAME\")"
+      },
+      {
+        "address": "0x66d5f4",
+        "target": "main.aperfeicoei",
+        "target_address": "0x66d860",
+        "kind": "user",
+        "string_args": [
+          "JhkYPgQTCDQ2CgQIBCYkFwUBGQQTAB4VRS4dCQ8=",
+          "gihze"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "JhkYPgQTCDQ2CgQIBCYkFwUBGQQTAB4VRS4dCQ8=",
+          "RCX/RDI": "gihze"
+        },
+        "via": null,
+        "display": "main.aperfeicoei(\"JhkYPgQTCDQ2CgQIBCYkFwUBGQQTAB4VRS4dCQ8=\", \"gihze\")"
+      },
+      {
+        "address": "0x66d62f",
+        "target": "main.esfomearemos",
+        "target_address": "0x66d060",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.esfomearemos"
+      },
+      {
+        "address": "0x66d6ca",
+        "target": "os.rename",
+        "target_address": "0x4d0aa0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.rename"
+      },
+      {
+        "address": "0x66d6d9",
+        "target": "time.Sleep",
+        "target_address": "0x46e7e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Sleep"
+      },
+      {
+        "address": "0x66d7aa",
+        "target": "main.Executar",
+        "target_address": "0x66c8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.Executar"
+      },
+      {
+        "address": "0x66d7c7",
+        "target": "main.aperfeicoei",
+        "target_address": "0x66d860",
+        "kind": "user",
+        "string_args": [
+          "Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUNAgUYVVRIBAceBAtHGBIVWAhV",
+          "gihze"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUNAgUYVVRIBAceBAtHGBIVWAhV",
+          "RCX/RDI": "gihze"
+        },
+        "via": null,
+        "display": "main.aperfeicoei(\"Dx0cChZdRkcYDBQNAQkRFQAKDwwDBhobSwQGBVUNAgUYVVRIBAceBAtHGBIVWAhV\", \"gihze\")"
+      },
+      {
+        "address": "0x66d806",
+        "target": "main.pecaminosos",
+        "target_address": "0x66cec0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.pecaminosos"
+      }
+    ],
+    "main.UserHomeDir": [
+      {
+        "address": "0x66c03a",
+        "target": "os.Getenv",
+        "target_address": "0x4cd740",
+        "kind": "std",
+        "string_args": [
+          "homepath"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "homepath"
+        },
+        "via": null,
+        "display": "os.Getenv(\"homepath\")"
+      },
+      {
+        "address": "0x66c051",
+        "target": "os.Getenv",
+        "target_address": "0x4cd740",
+        "kind": "std",
+        "string_args": [
+          "WINDIR"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "WINDIR"
+        },
+        "via": null,
+        "display": "os.Getenv(\"WINDIR\")"
+      }
+    ],
+    "main.caldeiroes": [
+      {
+        "address": "0x66cd37",
+        "target": "time.Now",
+        "target_address": "0x4c14e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Now"
+      },
+      {
+        "address": "0x66cda0",
+        "target": "math/rand.(*rngSource).Seed",
+        "target_address": "0x4f84c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*rngSource).Seed"
+      },
+      {
+        "address": "0x66ce74",
+        "target": "math/rand.(*Rand).Intn",
+        "target_address": "0x4f7d60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/rand.(*Rand).Intn"
+      }
+    ],
+    "main.aperfeicoei": [
+      {
+        "address": "0x66d8a8",
+        "target": "encoding/base64.(*Encoding).DecodeString",
+        "target_address": "0x4f51e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/base64.(*Encoding).DecodeString"
+      },
+      {
+        "address": "0x66d940",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4dcda0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      }
+    ],
+    "main.ensoparieis": [
+      {
+        "address": "0x66bd60",
+        "target": "net/http.(*Client).Get",
+        "target_address": "0x626fc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net/http.(*Client).Get"
+      },
+      {
+        "address": "0x66bdc6",
+        "target": "os.OpenFile",
+        "target_address": "0x4cfec0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.OpenFile"
+      },
+      {
+        "address": "0x66be36",
+        "target": "main.ensoparieis.deferwrap2",
+        "target_address": "0x66bf60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> main.ensoparieis.deferwrap2"
+      },
+      {
+        "address": "0x66be79",
+        "target": "io.copyBuffer",
+        "target_address": "0x4800c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "io.copyBuffer"
+      },
+      {
+        "address": "0x66be98",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66beab",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "main.ensoparieis.deferwrap2": [
+      {
+        "address": "0x66bf88",
+        "target": "os.(*file).close",
+        "target_address": "0x4d08e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*file).close"
+      }
+    ],
+    "main.coletivizes": [
+      {
+        "address": "0x66c0e2",
+        "target": "archive/zip.OpenReader",
+        "target_address": "0x4efa80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "archive/zip.OpenReader"
+      },
+      {
+        "address": "0x66c248",
+        "target": "path/filepath.join",
+        "target_address": "0x4d4c80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x66c26a",
+        "target": "internal/filepathlite.Clean",
+        "target_address": "0x4c2cc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Clean"
+      },
+      {
+        "address": "0x66c34d",
+        "target": "archive/zip.(*FileHeader).Mode",
+        "target_address": "0x4f3e60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "archive/zip.(*FileHeader).Mode"
+      },
+      {
+        "address": "0x66c36b",
+        "target": "os.MkdirAll",
+        "target_address": "0x4d0d40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.MkdirAll"
+      },
+      {
+        "address": "0x66c382",
+        "target": "internal/filepathlite.Dir",
+        "target_address": "0x4c3b40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Dir"
+      },
+      {
+        "address": "0x66c38c",
+        "target": "os.MkdirAll",
+        "target_address": "0x4d0d40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.MkdirAll"
+      },
+      {
+        "address": "0x66c3a2",
+        "target": "archive/zip.(*FileHeader).Mode",
+        "target_address": "0x4f3e60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "archive/zip.(*FileHeader).Mode"
+      },
+      {
+        "address": "0x66c3c0",
+        "target": "os.OpenFile",
+        "target_address": "0x4cfec0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.OpenFile"
+      },
+      {
+        "address": "0x66c3e0",
+        "target": "archive/zip.(*File).Open",
+        "target_address": "0x4f0380",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "archive/zip.(*File).Open"
+      },
+      {
+        "address": "0x66c439",
+        "target": "io.copyBuffer",
+        "target_address": "0x4800c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "io.copyBuffer"
+      },
+      {
+        "address": "0x66c460",
+        "target": "os.(*file).close",
+        "target_address": "0x4d08e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*file).close"
+      },
+      {
+        "address": "0x66c479",
+        "target": "main.coletivizes.deferwrap1",
+        "target_address": "0x66c880",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> main.coletivizes.deferwrap1"
+      },
+      {
+        "address": "0x66c4db",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66c558",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66c5d5",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66c658",
+        "target": "fmt.Errorf",
+        "target_address": "0x4d9a40",
+        "kind": "std",
+        "string_args": [
+          "%s: ile pa"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%s: ile pa"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"%s: ile pa\")"
+      },
+      {
+        "address": "0x66c6a7",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66c70b",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66c790",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "internal/filepathlite.Clean": [
+      {
+        "address": "0x4c2ced",
+        "target": "internal/filepathlite.volumeNameLen",
+        "target_address": "0x4c4360",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.volumeNameLen"
+      },
+      {
+        "address": "0x4c2f46",
+        "target": "internal/filepathlite.replaceStringByte",
+        "target_address": "0x4c3940",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.replaceStringByte"
+      },
+      {
+        "address": "0x4c35a5",
+        "target": "internal/filepathlite.postClean",
+        "target_address": "0x4c4680",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.postClean"
+      },
+      {
+        "address": "0x4c365a",
+        "target": "internal/filepathlite.replaceStringByte",
+        "target_address": "0x4c3940",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.replaceStringByte"
+      }
+    ],
+    "internal/filepathlite.volumeNameLen": [
+      {
+        "address": "0x4c43c0",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4c45e0",
+        "kind": "user",
+        "string_args": [
+          "\\\\.\\UNC"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\.\\UNC"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\.\\\\UNC\")"
+      },
+      {
+        "address": "0x4c43f5",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4c45e0",
+        "kind": "user",
+        "string_args": [
+          "\\\\."
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\."
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\.\")"
+      },
+      {
+        "address": "0x4c4420",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4c45e0",
+        "kind": "user",
+        "string_args": [
+          "\\\\?"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\?"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\?\")"
+      },
+      {
+        "address": "0x4c4446",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4c45e0",
+        "kind": "user",
+        "string_args": [
+          "\\??"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\??"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\??\")"
+      }
+    ],
+    "internal/filepathlite.pathHasPrefixFold": [],
+    "internal/filepathlite.replaceStringByte": [
+      {
+        "address": "0x4c3972",
+        "target": "internal/bytealg.IndexByteString",
+        "target_address": "0x403b20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexByteString"
+      }
+    ],
+    "internal/filepathlite.postClean": [
+      {
+        "address": "0x4c4706",
+        "target": "slices.Insert[go.shape.[]uint8,go.shape.uint8]",
+        "target_address": "0x4c47e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "slices.Insert[go.shape.[]uint8,go.shape.uint8]"
+      },
+      {
+        "address": "0x4c478d",
+        "target": "slices.Insert[go.shape.[]uint8,go.shape.uint8]",
+        "target_address": "0x4c47e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "slices.Insert[go.shape.[]uint8,go.shape.uint8]"
+      }
+    ],
+    "slices.Insert[go.shape.[]uint8,go.shape.uint8]": [
+      {
+        "address": "0x4c4b47",
+        "target": "slices.rotateLeft[go.shape.uint8]",
+        "target_address": "0x4c4ce0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "slices.rotateLeft[go.shape.uint8]"
+      }
+    ],
+    "slices.rotateLeft[go.shape.uint8]": [],
+    "internal/filepathlite.Dir": [
+      {
+        "address": "0x4c3b60",
+        "target": "internal/filepathlite.VolumeName",
+        "target_address": "0x4c3c60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.VolumeName"
+      },
+      {
+        "address": "0x4c3bd2",
+        "target": "internal/filepathlite.Clean",
+        "target_address": "0x4c2cc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Clean"
+      }
+    ],
+    "internal/filepathlite.VolumeName": [
+      {
+        "address": "0x4c3c78",
+        "target": "internal/filepathlite.volumeNameLen",
+        "target_address": "0x4c4360",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.volumeNameLen"
+      },
+      {
+        "address": "0x4c3c99",
+        "target": "internal/filepathlite.replaceStringByte",
+        "target_address": "0x4c3940",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.replaceStringByte"
+      }
+    ],
+    "main.coletivizes.deferwrap1": [
+      {
+        "address": "0x66c8a8",
+        "target": "os.(*file).close",
+        "target_address": "0x4d08e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*file).close"
+      }
+    ],
+    "main.troteavam": [
+      {
+        "address": "0x66ca4a",
+        "target": "io/ioutil.ReadDir",
+        "target_address": "0x4f5a20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "io/ioutil.ReadDir"
+      },
+      {
+        "address": "0x66ca92",
+        "target": "fmt.Errorf",
+        "target_address": "0x4d9a40",
+        "kind": "std",
+        "string_args": [
+          "er di: %w"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "er di: %w"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"er di: %w\")"
+      },
+      {
+        "address": "0x66caec",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66cb04",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66cb3c",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x66cb90",
+        "target": "path/filepath.join",
+        "target_address": "0x4d4c80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x66cba4",
+        "target": "main.caldeiroes",
+        "target_address": "0x66cd20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.caldeiroes"
+      },
+      {
+        "address": "0x66cc18",
+        "target": "path/filepath.join",
+        "target_address": "0x4d4c80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x66cc38",
+        "target": "os.rename",
+        "target_address": "0x4d0aa0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.rename"
+      },
+      {
+        "address": "0x66ccd2",
+        "target": "fmt.Errorf",
+        "target_address": "0x4d9a40",
+        "kind": "std",
+        "string_args": [
+          "nenhum %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "nenhum %s"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"nenhum %s\")"
+      }
+    ],
+    "main.esfomearemos": [
+      {
+        "address": "0x66d073",
+        "target": "os.Stat",
+        "target_address": "0x4d1420",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Stat"
+      },
+      {
+        "address": "0x66d092",
+        "target": "os.underlyingErrorIs",
+        "target_address": "0x4cd8e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.underlyingErrorIs"
+      }
+    ],
+    "main.Executar": [
+      {
+        "address": "0x66c9b7",
+        "target": "os/exec.Command",
+        "target_address": "0x667200",
+        "kind": "std",
+        "string_args": [
+          "cmd"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "cmd"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"cmd\")"
+      },
+      {
+        "address": "0x66c9c0",
+        "target": "os/exec.(*Cmd).Run",
+        "target_address": "0x6685e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Run"
+      }
+    ],
+    "main.pecaminosos": [
+      {
+        "address": "0x66cefa",
+        "target": "net/http.(*Client).Get",
+        "target_address": "0x626fc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net/http.(*Client).Get"
+      },
+      {
+        "address": "0x66cf5d",
+        "target": "main.pecaminosos.deferwrap1",
+        "target_address": "0x66d000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> main.pecaminosos.deferwrap1"
+      },
+      {
+        "address": "0x66cf82",
+        "target": "fmt.Errorf",
+        "target_address": "0x4d9a40",
+        "kind": "std",
+        "string_args": [
+          "die"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "die"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"die\")"
+      },
+      {
+        "address": "0x66cfa0",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "main.pecaminosos.deferwrap1": [
+      {
+        "address": "0x66d023",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredContinueHandler",
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetCurrentThreadId",
+        "GetEnvironmentStringsW",
+        "GetErrorMode",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryExW",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "RaiseFailFastException",
+        "ResumeThread",
+        "RtlLookupFunctionEntry",
+        "RtlVirtualUnwind",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "TlsAlloc",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WerGetFlags",
+        "WerSetFlags",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "main.Executar",
+        "instruction": "0x66c92a",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x47316b",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.Executar:0x66c92a call -> runtime.duffzero+0x14b"
+      },
+      {
+        "source_function": "main.main",
+        "instruction": "0x66d230",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x473170",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x150",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.main:0x66d230 call -> runtime.duffzero+0x150"
+      }
+    ],
+    "indirect_calls": [
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c479",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c46d",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c479 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c4db",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c4d8",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c4db call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c558",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c555",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c558 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c5d5",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c5d2",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c5d5 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c6a7",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c6a4",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c6a7 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c70b",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c708",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c70b call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.coletivizes",
+        "address": "0x66c790",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66c78d",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.coletivizes:0x66c790 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.ensoparieis",
+        "address": "0x66be36",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66be33",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.ensoparieis:0x66be36 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.ensoparieis",
+        "address": "0x66be98",
+        "operand": "r10",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R10",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66be95",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.ensoparieis:0x66be98 call r10 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.ensoparieis",
+        "address": "0x66beab",
+        "operand": "r10",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R10",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66bea8",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.ensoparieis:0x66beab call r10 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.pecaminosos",
+        "address": "0x66cf5d",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66cf5a",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.pecaminosos:0x66cf5d call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.pecaminosos",
+        "address": "0x66cfa0",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66cf9b",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.pecaminosos:0x66cfa0 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.pecaminosos.deferwrap1",
+        "address": "0x66d023",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66d01f",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.pecaminosos.deferwrap1:0x66d023 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.troteavam",
+        "address": "0x66caec",
+        "operand": "rbx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RBX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66cae5",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.troteavam:0x66caec call rbx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.troteavam",
+        "address": "0x66cb04",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66cafb",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x30",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.troteavam:0x66cb04 call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.troteavam",
+        "address": "0x66cb3c",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x66cb33",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x30",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.troteavam:0x66cb3c call rcx [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x8fe000",
+        "size": "0x2000",
+        "entropy": 7.994,
+        "sha256_prefix": "387f56ffe22f21e1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x905000",
+        "size": "0x1000",
+        "entropy": 7.866,
+        "sha256_prefix": "abcc0072389d0b4c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".data",
+        "va": "0x90d000",
+        "size": "0x2000",
+        "entropy": 7.954,
+        "sha256_prefix": "8ca427afc1663941",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".data",
+        "va": "0x911000",
+        "size": "0x1000",
+        "entropy": 6.713,
+        "sha256_prefix": "cfa038d828eec330",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x7f9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x91b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa29",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".data",
+        "va": "0x91f000",
+        "size": "0x1000",
+        "entropy": 5.757,
+        "sha256_prefix": "8fd60807c5307f4d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x900",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x9f8",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": ".data",
+        "va": "0x925000",
+        "size": "0x1000",
+        "entropy": 6.142,
+        "sha256_prefix": "5f20cd5b113cdd80",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x14b",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": ".data",
+        "va": "0x92a000",
+        "size": "0x2000",
+        "entropy": 5.73,
+        "sha256_prefix": "c47039dcd47372da",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x7ba",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x7d0",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xa4a",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": ".data",
+        "va": "0x92d000",
+        "size": "0x1000",
+        "entropy": 6.185,
+        "sha256_prefix": "a3c457835e232d37",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x76a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8ef",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa3f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_8",
+        "section": ".data",
+        "va": "0x92f000",
+        "size": "0x1000",
+        "entropy": 6.192,
+        "sha256_prefix": "97a207a609c70e98",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x74c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_9",
+        "section": ".data",
+        "va": "0x932000",
+        "size": "0x5000",
+        "entropy": 6.461,
+        "sha256_prefix": "82a5d70c24c9e99f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd29",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x14f",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x230",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x587",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xabc",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd18",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd03",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x60",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_10",
+        "section": ".data",
+        "va": "0x93c000",
+        "size": "0x3000",
+        "entropy": 7.413,
+        "sha256_prefix": "42c2219c1ccf42de",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb40",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc38",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_11",
+        "section": ".data",
+        "va": "0x948000",
+        "size": "0x1000",
+        "entropy": 6.226,
+        "sha256_prefix": "e853ae52276f28fc",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe2d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_12",
+        "section": ".data",
+        "va": "0x94c000",
+        "size": "0x3000",
+        "entropy": 6.538,
+        "sha256_prefix": "1a6ff5f003bc6915",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xf99",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe2c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x2ff",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x9fe",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_13",
+        "section": ".data",
+        "va": "0x951000",
+        "size": "0x2000",
+        "entropy": 6.258,
+        "sha256_prefix": "65f63fa7ce54949f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6b3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x3ab",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x5e9",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_14",
+        "section": ".data",
+        "va": "0x954000",
+        "size": "0x1000",
+        "entropy": 6.167,
+        "sha256_prefix": "9c16a9fb68d733e9",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x303",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xaa2",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb90",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf34",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_15",
+        "section": ".data",
+        "va": "0x95b000",
+        "size": "0x1000",
+        "entropy": 5.975,
+        "sha256_prefix": "01cec58bf49fda64",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xbe9",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xbff",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_16",
+        "section": ".data",
+        "va": "0x95e000",
+        "size": "0x1000",
+        "entropy": 6.384,
+        "sha256_prefix": "56e3de435bea386e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd66",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_17",
+        "section": ".data",
+        "va": "0x964000",
+        "size": "0x1000",
+        "entropy": 6.07,
+        "sha256_prefix": "516bf9f50455c391",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x684",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x86a",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_18",
+        "section": ".data",
+        "va": "0x96e000",
+        "size": "0x1000",
+        "entropy": 6.412,
+        "sha256_prefix": "f5bcc25c844f14fd",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x974",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbb1",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_19",
+        "section": ".data",
+        "va": "0x975000",
+        "size": "0x1000",
+        "entropy": 6.468,
+        "sha256_prefix": "2d57eac9955db1a8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3f3",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_20",
+        "section": ".data",
+        "va": "0x983000",
+        "size": "0x1000",
+        "entropy": 6.475,
+        "sha256_prefix": "81659acad9d6a846",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x268",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_21",
+        "section": ".data",
+        "va": "0x985000",
+        "size": "0x1000",
+        "entropy": 6.38,
+        "sha256_prefix": "4da4a3ba9d16a7b1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9ba",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3c7",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x21d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_22",
+        "section": ".data",
+        "va": "0x987000",
+        "size": "0x1000",
+        "entropy": 4.269,
+        "sha256_prefix": "eb92c55c260119a1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x2b0",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_23",
+        "section": ".data",
+        "va": "0x990000",
+        "size": "0x3000",
+        "entropy": 7.7,
+        "sha256_prefix": "632647f78ebd356d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd20",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe10",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_24",
+        "section": ".data",
+        "va": "0x999000",
+        "size": "0x1000",
+        "entropy": 5.612,
+        "sha256_prefix": "48be1018b49ca939",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb4c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_25",
+        "section": ".data",
+        "va": "0x9a7000",
+        "size": "0x1000",
+        "entropy": 6.328,
+        "sha256_prefix": "db02bea4262386b6",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x365",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_26",
+        "section": ".data",
+        "va": "0x9b5000",
+        "size": "0x1000",
+        "entropy": 6.164,
+        "sha256_prefix": "b628c2d41e05c4dc",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xcf2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xd08",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x2ef",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_27",
+        "section": ".data",
+        "va": "0x9b7000",
+        "size": "0x1000",
+        "entropy": 4.816,
+        "sha256_prefix": "36ef58d4007b0e97",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb7c",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_28",
+        "section": ".data",
+        "va": "0x9ca000",
+        "size": "0x2000",
+        "entropy": 6.331,
+        "sha256_prefix": "f11f336dd1d82103",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x677",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x81e",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_29",
+        "section": ".data",
+        "va": "0x9d2000",
+        "size": "0x1000",
+        "entropy": 6.066,
+        "sha256_prefix": "70182d856f25b056",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa64",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd14",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_30",
+        "section": ".data",
+        "va": "0x9eb000",
+        "size": "0x3000",
+        "entropy": 7.473,
+        "sha256_prefix": "198d1ec5ac320dee",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x420",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x530",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_31",
+        "section": ".data",
+        "va": "0x9f0000",
+        "size": "0x1000",
+        "entropy": 6.149,
+        "sha256_prefix": "3d6914a3500c05eb",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xab4",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xad4",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_32",
+        "section": ".data",
+        "va": "0x9f6000",
+        "size": "0x1000",
+        "entropy": 6.284,
+        "sha256_prefix": "9dfa47d27a8d8f2a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x951",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x963",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_33",
+        "section": ".data",
+        "va": "0x9f9000",
+        "size": "0x1000",
+        "entropy": 6.127,
+        "sha256_prefix": "53f43481c8019dad",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd0e",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd83",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xdab",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe9a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xec2",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf6c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf94",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_34",
+        "section": ".data",
+        "va": "0xa0f000",
+        "size": "0x1000",
+        "entropy": 5.802,
+        "sha256_prefix": "ac3582d49ae76eb6",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x1b8",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_35",
+        "section": ".data",
+        "va": "0xa1c000",
+        "size": "0x1000",
+        "entropy": 6.321,
+        "sha256_prefix": "da7498d06bfe65ad",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd8",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_36",
+        "section": ".data",
+        "va": "0xa48000",
+        "size": "0x3000",
+        "entropy": 7.862,
+        "sha256_prefix": "3ffb713bb3e8c50b",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x876",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_37",
+        "section": ".data",
+        "va": "0xa79000",
+        "size": "0x2000",
+        "entropy": 7.409,
+        "sha256_prefix": "974af114ca816207",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9c0",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xaa8",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_38",
+        "section": ".data",
+        "va": "0xa83000",
+        "size": "0x1000",
+        "entropy": 6.361,
+        "sha256_prefix": "9b144c68f9933ef5",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3c5",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_39",
+        "section": ".data",
+        "va": "0xa88000",
+        "size": "0x2000",
+        "entropy": 6.365,
+        "sha256_prefix": "a0fcdc31d598d1a7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x668",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcdf",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_40",
+        "section": ".data",
+        "va": "0xa8e000",
+        "size": "0x1000",
+        "entropy": 6.241,
+        "sha256_prefix": "c39a918374af730d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6a9",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_41",
+        "section": ".data",
+        "va": "0xa91000",
+        "size": "0x2000",
+        "entropy": 6.323,
+        "sha256_prefix": "190bf01ec4dfa4e1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xacb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa3f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_42",
+        "section": ".data",
+        "va": "0xa96000",
+        "size": "0x1000",
+        "entropy": 6.374,
+        "sha256_prefix": "9a53757bf6875db8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9f1",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_43",
+        "section": ".data",
+        "va": "0xa99000",
+        "size": "0x1000",
+        "entropy": 6.375,
+        "sha256_prefix": "9cd209880b487fc0",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6d5",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_44",
+        "section": ".data",
+        "va": "0xa9c000",
+        "size": "0x1000",
+        "entropy": 6.395,
+        "sha256_prefix": "58dd88f4576b1cae",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x4bb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4ca",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_45",
+        "section": ".data",
+        "va": "0xaa1000",
+        "size": "0x2000",
+        "entropy": 6.375,
+        "sha256_prefix": "89403b4d36e5e345",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x69a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x15a",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_46",
+        "section": ".data",
+        "va": "0xaad000",
+        "size": "0x2000",
+        "entropy": 6.383,
+        "sha256_prefix": "7058068883fd4a43",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x839",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x89a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x959",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x9b7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb5a",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_47",
+        "section": ".data",
+        "va": "0xab3000",
+        "size": "0x4000",
+        "entropy": 6.519,
+        "sha256_prefix": "7312a601e289b1dd",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x365",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x373",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x257",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x269",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe1b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe2a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xec0",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x142",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_48",
+        "section": ".data",
+        "va": "0xaba000",
+        "size": "0x1000",
+        "entropy": 6.287,
+        "sha256_prefix": "cd5a18363e1bd788",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x12",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_49",
+        "section": ".data",
+        "va": "0xabf000",
+        "size": "0x1000",
+        "entropy": 6.337,
+        "sha256_prefix": "dda6285b75713224",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x703",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x709",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x777",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x7bb",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_50",
+        "section": ".data",
+        "va": "0xac6000",
+        "size": "0x2000",
+        "entropy": 6.275,
+        "sha256_prefix": "b7e07e4750d1b7e8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x322",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x38f",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x546",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_51",
+        "section": ".data",
+        "va": "0xacc000",
+        "size": "0x4000",
+        "entropy": 6.57,
+        "sha256_prefix": "3d40089fba483994",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xff2",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd0",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x752",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc62",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa2",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x6e3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x982",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_52",
+        "section": ".data",
+        "va": "0xad3000",
+        "size": "0x1000",
+        "entropy": 6.192,
+        "sha256_prefix": "2677432bb6d56cfb",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x920",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_53",
+        "section": ".data",
+        "va": "0xadd000",
+        "size": "0x1000",
+        "entropy": 4.583,
+        "sha256_prefix": "dc94802a2a916a20",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xf96",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_54",
+        "section": ".data",
+        "va": "0xaee000",
+        "size": "0x2000",
+        "entropy": 5.496,
+        "sha256_prefix": "b5d1fffac7e66b03",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x652",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x668",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x15f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_55",
+        "section": ".data",
+        "va": "0xb01000",
+        "size": "0x1000",
+        "entropy": 6.562,
+        "sha256_prefix": "0f746e5ee10ca1f9",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd49",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_56",
+        "section": ".data",
+        "va": "0xb11000",
+        "size": "0x1000",
+        "entropy": 6.545,
+        "sha256_prefix": "9f815b5cdd81fc5d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xef4",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_57",
+        "section": ".data",
+        "va": "0xb15000",
+        "size": "0x1000",
+        "entropy": 6.109,
+        "sha256_prefix": "bbe19d84b7ee7254",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xbb5",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_58",
+        "section": ".data",
+        "va": "0xb22000",
+        "size": "0x1000",
+        "entropy": 6.575,
+        "sha256_prefix": "993a8e3f77ab4c51",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6c3",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_59",
+        "section": ".data",
+        "va": "0xb2f000",
+        "size": "0x2000",
+        "entropy": 6.617,
+        "sha256_prefix": "c4ed978a6e5f472b",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x392",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xea8",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_60",
+        "section": ".data",
+        "va": "0xb3f000",
+        "size": "0x2000",
+        "entropy": 6.361,
+        "sha256_prefix": "89557895d44f400f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x2b3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4d3",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_61",
+        "section": ".data",
+        "va": "0xb45000",
+        "size": "0x2000",
+        "entropy": 6.636,
+        "sha256_prefix": "24cd53fc18ad04ba",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc87",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x200",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_62",
+        "section": ".data",
+        "va": "0xb4b000",
+        "size": "0x1000",
+        "entropy": 6.435,
+        "sha256_prefix": "12d7cf5c531848e0",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6e5",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_63",
+        "section": ".data",
+        "va": "0xb52000",
+        "size": "0x1000",
+        "entropy": 6.6,
+        "sha256_prefix": "a9f38046321fe753",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd2c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_64",
+        "section": ".data",
+        "va": "0xb55000",
+        "size": "0x1000",
+        "entropy": 6.523,
+        "sha256_prefix": "615fa80e79d55058",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x7cf",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_65",
+        "section": ".data",
+        "va": "0xb59000",
+        "size": "0x1000",
+        "entropy": 6.476,
+        "sha256_prefix": "073cde726f61df5a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x33d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_66",
+        "section": ".data",
+        "va": "0xb5b000",
+        "size": "0x1000",
+        "entropy": 6.482,
+        "sha256_prefix": "14b7259a07df930e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa94",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_67",
+        "section": ".data",
+        "va": "0xb60000",
+        "size": "0x1000",
+        "entropy": 6.48,
+        "sha256_prefix": "41c468522e852617",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x10f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_68",
+        "section": ".data",
+        "va": "0xb73000",
+        "size": "0x1000",
+        "entropy": 6.376,
+        "sha256_prefix": "c74fd1801e226650",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x328",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_69",
+        "section": ".data",
+        "va": "0xb75000",
+        "size": "0x1000",
+        "entropy": 6.502,
+        "sha256_prefix": "a2a7dde999f462d2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe9c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_70",
+        "section": ".data",
+        "va": "0xb83000",
+        "size": "0x1000",
+        "entropy": 6.412,
+        "sha256_prefix": "c9f2956a5ed126cc",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe2f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_71",
+        "section": ".data",
+        "va": "0xb87000",
+        "size": "0x1000",
+        "entropy": 6.299,
+        "sha256_prefix": "583c2314152a09f5",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xcca",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_72",
+        "section": ".data",
+        "va": "0xb8a000",
+        "size": "0x1000",
+        "entropy": 6.461,
+        "sha256_prefix": "81c87afe5285f479",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3e0",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc79",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3ff",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xca3",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x3",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_73",
+        "section": ".data",
+        "va": "0xb8f000",
+        "size": "0x1000",
+        "entropy": 6.178,
+        "sha256_prefix": "6e0a645b7306e724",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb6",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x91b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe0",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x945",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_74",
+        "section": ".data",
+        "va": "0xb95000",
+        "size": "0x6000",
+        "entropy": 7.961,
+        "sha256_prefix": "54a803bbd2d46418",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x5d1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x776",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa06",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb4d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_75",
+        "section": ".data",
+        "va": "0xb9f000",
+        "size": "0x1000",
+        "entropy": 6.64,
+        "sha256_prefix": "61c1d43878aaa940",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x4cd",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb3e",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_76",
+        "section": ".data",
+        "va": "0xba1000",
+        "size": "0x2000",
+        "entropy": 6.671,
+        "sha256_prefix": "554d47253e899bce",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe52",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x6c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_77",
+        "section": ".data",
+        "va": "0xba4000",
+        "size": "0x2000",
+        "entropy": 6.449,
+        "sha256_prefix": "0bab778fb7dc543b",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xaa0",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x7a8",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x98f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_78",
+        "section": ".data",
+        "va": "0xbab000",
+        "size": "0x1000",
+        "entropy": 6.534,
+        "sha256_prefix": "15b7897d7cb14387",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb08",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_79",
+        "section": ".data",
+        "va": "0xbaf000",
+        "size": "0x1000",
+        "entropy": 6.427,
+        "sha256_prefix": "5afe7b2714f45ab3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x1aa",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_80",
+        "section": ".data",
+        "va": "0xbb6000",
+        "size": "0x3000",
+        "entropy": 6.292,
+        "sha256_prefix": "86b7cad95213f05e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa3e",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe58",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf1c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_81",
+        "section": ".data",
+        "va": "0xbc0000",
+        "size": "0x1000",
+        "entropy": 6.488,
+        "sha256_prefix": "8b66541f3b9a5a2e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3ac",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_82",
+        "section": ".data",
+        "va": "0xbc9000",
+        "size": "0x2000",
+        "entropy": 6.347,
+        "sha256_prefix": "66601f55a838aa84",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x989",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd26",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_83",
+        "section": ".data",
+        "va": "0xbcc000",
+        "size": "0x1000",
+        "entropy": 6.179,
+        "sha256_prefix": "1701d5e555f7f131",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9ba",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_84",
+        "section": ".data",
+        "va": "0xbd3000",
+        "size": "0x1000",
+        "entropy": 6.486,
+        "sha256_prefix": "50eb4163719a2473",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x831",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_85",
+        "section": ".data",
+        "va": "0xbdc000",
+        "size": "0x2000",
+        "entropy": 6.352,
+        "sha256_prefix": "86b1107ffad5ba26",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa4d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf37",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_86",
+        "section": ".data",
+        "va": "0xbf3000",
+        "size": "0x1000",
+        "entropy": 6.344,
+        "sha256_prefix": "6aa5d30219a09aa2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x53f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_87",
+        "section": ".data",
+        "va": "0xbf6000",
+        "size": "0x1000",
+        "entropy": 6.253,
+        "sha256_prefix": "59b7985e5b4f367f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3c2",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4dd",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_88",
+        "section": ".data",
+        "va": "0xbf8000",
+        "size": "0x3000",
+        "entropy": 6.53,
+        "sha256_prefix": "e0accf01fdddc567",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x984",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf02",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc03",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc72",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x37d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_89",
+        "section": ".data",
+        "va": "0xbff000",
+        "size": "0x1000",
+        "entropy": 6.366,
+        "sha256_prefix": "e77d497a6cd47f91",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x75f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_90",
+        "section": ".data",
+        "va": "0xc01000",
+        "size": "0x3000",
+        "entropy": 6.573,
+        "sha256_prefix": "843da0e0a3f14133",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc63",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf5e",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbb9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc7a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcea",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_91",
+        "section": ".data",
+        "va": "0xc05000",
+        "size": "0x1000",
+        "entropy": 6.303,
+        "sha256_prefix": "407845bbd3e88b13",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc6",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_92",
+        "section": ".data",
+        "va": "0xc0e000",
+        "size": "0x3000",
+        "entropy": 6.285,
+        "sha256_prefix": "06a94a380c712ca0",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe24",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x3ea",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xadb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x837",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa9a",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_93",
+        "section": ".data",
+        "va": "0xc13000",
+        "size": "0x4000",
+        "entropy": 6.473,
+        "sha256_prefix": "93b1788e70535286",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x587",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb02",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4a9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x5a7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8d7",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_94",
+        "section": ".data",
+        "va": "0xc27000",
+        "size": "0x1000",
+        "entropy": 6.207,
+        "sha256_prefix": "163c855a2d9ebd0b",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd59",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_95",
+        "section": ".data",
+        "va": "0xc46000",
+        "size": "0x7000",
+        "entropy": 7.786,
+        "sha256_prefix": "c65f5053c62360ec",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x268",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x794",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x480",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x578",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_96",
+        "section": ".data",
+        "va": "0xc50000",
+        "size": "0x1000",
+        "entropy": 6.244,
+        "sha256_prefix": "d6a76a5d80aba399",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa58",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_97",
+        "section": ".data",
+        "va": "0xc53000",
+        "size": "0x1000",
+        "entropy": 6.379,
+        "sha256_prefix": "53a80d63f9e8427a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x872",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc93",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_98",
+        "section": ".data",
+        "va": "0xc56000",
+        "size": "0x1000",
+        "entropy": 6.527,
+        "sha256_prefix": "87ee66bc7b76902d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9ac",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_99",
+        "section": ".data",
+        "va": "0xc5d000",
+        "size": "0x1000",
+        "entropy": 5.603,
+        "sha256_prefix": "99ff1b1369313f23",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x19f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_100",
+        "section": ".data",
+        "va": "0xc64000",
+        "size": "0x2000",
+        "entropy": 6.449,
+        "sha256_prefix": "75384cd87b740760",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x991",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xfdb",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_101",
+        "section": ".data",
+        "va": "0xc6a000",
+        "size": "0x1000",
+        "entropy": 6.55,
+        "sha256_prefix": "344104334475cbc8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xde1",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_102",
+        "section": ".data",
+        "va": "0xc6d000",
+        "size": "0x2000",
+        "entropy": 6.5,
+        "sha256_prefix": "9081e12991fb31ae",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x166",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x781",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_103",
+        "section": ".data",
+        "va": "0xc76000",
+        "size": "0x3000",
+        "entropy": 6.291,
+        "sha256_prefix": "80a6478710f0fdfc",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xafe",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf90",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8ea",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_104",
+        "section": ".data",
+        "va": "0xc7b000",
+        "size": "0x1000",
+        "entropy": 6.379,
+        "sha256_prefix": "bc75cee1ebd52388",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x729",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_105",
+        "section": ".data",
+        "va": "0xc7e000",
+        "size": "0x1000",
+        "entropy": 6.391,
+        "sha256_prefix": "596dae2992879795",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x2bc",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_106",
+        "section": ".data",
+        "va": "0xc84000",
+        "size": "0x1000",
+        "entropy": 6.449,
+        "sha256_prefix": "b94bf05edc54bb33",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa9b",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_107",
+        "section": ".data",
+        "va": "0xc8d000",
+        "size": "0x3000",
+        "entropy": 6.363,
+        "sha256_prefix": "424c8bde388a8622",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x5aa",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x93d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x990",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x12d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_108",
+        "section": ".data",
+        "va": "0xc91000",
+        "size": "0x1000",
+        "entropy": 6.16,
+        "sha256_prefix": "b8a8a0c3099426d2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x4ca",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_109",
+        "section": ".data",
+        "va": "0xc98000",
+        "size": "0x2000",
+        "entropy": 6.504,
+        "sha256_prefix": "726259b8ce7d09e7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x14b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x445",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbd5",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd7c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_110",
+        "section": ".data",
+        "va": "0xc9b000",
+        "size": "0x2000",
+        "entropy": 6.384,
+        "sha256_prefix": "4e5e3ec748e4e20a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xaee",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8cb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb29",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xced",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_111",
+        "section": ".data",
+        "va": "0xc9e000",
+        "size": "0x1000",
+        "entropy": 6.088,
+        "sha256_prefix": "82dc22305882ac4f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe0b",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_112",
+        "section": ".data",
+        "va": "0xcaf000",
+        "size": "0x1000",
+        "entropy": 5.943,
+        "sha256_prefix": "8cd50269005ca9d4",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xaf2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xb08",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_113",
+        "section": ".data",
+        "va": "0xcb9000",
+        "size": "0x1000",
+        "entropy": 5.125,
+        "sha256_prefix": "643488fd9d3d428e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x340",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_114",
+        "section": ".data",
+        "va": "0xcc8000",
+        "size": "0x1000",
+        "entropy": 6.33,
+        "sha256_prefix": "377687a0bc32c919",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xab0",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_115",
+        "section": ".data",
+        "va": "0xccc000",
+        "size": "0x1000",
+        "entropy": 5.589,
+        "sha256_prefix": "6e5980212b29ff94",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x99d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_116",
+        "section": ".data",
+        "va": "0xcd7000",
+        "size": "0x2000",
+        "entropy": 6.23,
+        "sha256_prefix": "bbc295fe3f83a03f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x21a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa8c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xfa1",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_117",
+        "section": ".data",
+        "va": "0xcdb000",
+        "size": "0x2000",
+        "entropy": 6.29,
+        "sha256_prefix": "2efaef27a2a9ea3f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x661",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x200",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x32f",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x478",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_118",
+        "section": ".data",
+        "va": "0xce5000",
+        "size": "0x1000",
+        "entropy": 6.245,
+        "sha256_prefix": "d42275b3b54f9755",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb8b",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_119",
+        "section": ".data",
+        "va": "0xce9000",
+        "size": "0x1000",
+        "entropy": 6.121,
+        "sha256_prefix": "563f485e55f2fc5c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3ca",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_120",
+        "section": ".data",
+        "va": "0xced000",
+        "size": "0x2000",
+        "entropy": 6.466,
+        "sha256_prefix": "e306e24ee0649c64",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x218",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x803",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_121",
+        "section": ".data",
+        "va": "0xcf0000",
+        "size": "0x1000",
+        "entropy": 6.443,
+        "sha256_prefix": "bd58cce866f2169a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xdee",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_122",
+        "section": ".data",
+        "va": "0xcf3000",
+        "size": "0x1000",
+        "entropy": 5.856,
+        "sha256_prefix": "f5fc24fc2f1cc395",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9da",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb49",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc02",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe02",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_123",
+        "section": ".data",
+        "va": "0xcff000",
+        "size": "0x1000",
+        "entropy": 6.383,
+        "sha256_prefix": "00ecea33f6687910",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_124",
+        "section": ".data",
+        "va": "0xd01000",
+        "size": "0x2000",
+        "entropy": 6.433,
+        "sha256_prefix": "cba1c2da6cd0a138",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x853",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc58",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4af",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_125",
+        "section": ".data",
+        "va": "0xd08000",
+        "size": "0x1000",
+        "entropy": 6.016,
+        "sha256_prefix": "6864902b47a69cbf",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x72b",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_126",
+        "section": ".data",
+        "va": "0xd1b000",
+        "size": "0x1000",
+        "entropy": 6.33,
+        "sha256_prefix": "d770d406ca987f36",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x106",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x2d2",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_127",
+        "section": ".data",
+        "va": "0xd1e000",
+        "size": "0x1000",
+        "entropy": 6.386,
+        "sha256_prefix": "16040c382eebaee0",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x510",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_128",
+        "section": ".data",
+        "va": "0xd27000",
+        "size": "0x1000",
+        "entropy": 6.41,
+        "sha256_prefix": "3c62357fe546a3bf",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x36f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_129",
+        "section": ".data",
+        "va": "0xd2f000",
+        "size": "0x2000",
+        "entropy": 6.611,
+        "sha256_prefix": "e4fc43b57d239866",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe69",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x454",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcd9",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_130",
+        "section": ".data",
+        "va": "0xd36000",
+        "size": "0x1000",
+        "entropy": 6.126,
+        "sha256_prefix": "925a3b1dc761cf0b",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x209",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x3de",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_131",
+        "section": ".data",
+        "va": "0xd41000",
+        "size": "0x2000",
+        "entropy": 6.114,
+        "sha256_prefix": "587203447b62faec",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x95b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x9cb",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_132",
+        "section": ".data",
+        "va": "0xd4a000",
+        "size": "0x1000",
+        "entropy": 6.071,
+        "sha256_prefix": "acd3f3109bac3156",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x1f2",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_133",
+        "section": ".data",
+        "va": "0xd4c000",
+        "size": "0x2000",
+        "entropy": 6.197,
+        "sha256_prefix": "2df89a3637a47f18",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x685",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x734",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbf9",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_134",
+        "section": ".data",
+        "va": "0xd78000",
+        "size": "0x1000",
+        "entropy": 6.417,
+        "sha256_prefix": "2574e51ab712784f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6d2",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x754",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_135",
+        "section": ".data",
+        "va": "0xd89000",
+        "size": "0x1000",
+        "entropy": 5.699,
+        "sha256_prefix": "918dccf2bc03fe05",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x60c",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_136",
+        "section": ".data",
+        "va": "0xd8b000",
+        "size": "0x1000",
+        "entropy": 5.47,
+        "sha256_prefix": "97b9b694472c5fc9",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe3f",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_137",
+        "section": ".data",
+        "va": "0xd8d000",
+        "size": "0x1000",
+        "entropy": 5.936,
+        "sha256_prefix": "d74b2ed928c49a1b",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x919",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb49",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb99",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_138",
+        "section": ".data",
+        "va": "0xdd5000",
+        "size": "0x1000",
+        "entropy": 3.852,
+        "sha256_prefix": "ca71b45ae9d312d0",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x334",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_139",
+        "section": ".data",
+        "va": "0xe11000",
+        "size": "0x1000",
+        "entropy": 3.367,
+        "sha256_prefix": "64f8e31ec392bb0a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x5b8",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5e8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_140",
+        "section": ".data",
+        "va": "0xe21000",
+        "size": "0x6000",
+        "entropy": 7.781,
+        "sha256_prefix": "9d48b9890c81ce97",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_141",
+        "section": ".rdata",
+        "va": "0x706000",
+        "size": "0x16000",
+        "entropy": 7.961,
+        "sha256_prefix": "885d09093c95dc74",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x7f9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x236",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x336",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8b6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x4ca",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xa62",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xed",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x97c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x925",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x69f",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_142",
+        "section": ".rdata",
+        "va": "0x73c000",
+        "size": "0x1000",
+        "entropy": 3.031,
+        "sha256_prefix": "739d8de7bcbe854c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd58",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_143",
+        "section": ".rdata",
+        "va": "0x87b000",
+        "size": "0x1000",
+        "entropy": 5.239,
+        "sha256_prefix": "c55cc0ecea4e247c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x534",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_144",
+        "section": ".rdata",
+        "va": "0x89a000",
+        "size": "0x1000",
+        "entropy": 3.679,
+        "sha256_prefix": "acdeca3147dcfc9a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe10",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_145",
+        "section": ".rdata",
+        "va": "0x8b7000",
+        "size": "0x1000",
+        "entropy": 4.202,
+        "sha256_prefix": "706b06146d99d935",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6cc",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_146",
+        "section": ".rdata",
+        "va": "0x8f1000",
+        "size": "0x1000",
+        "entropy": 4.441,
+        "sha256_prefix": "9ac3de61099cd910",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xcb8",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_147",
+        "section": "/19",
+        "va": "0xe95000",
+        "size": "0x6f85f",
+        "entropy": 7.954,
+        "sha256_prefix": "5004c6124be68f9e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xdf8",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6d1",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xedb",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x2ae",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x638",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xad1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4fe",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x78f",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x318",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x44a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x75e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x2cd",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xd0d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xddd",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x171",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9c4",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x84d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe43",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x3b7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x5cf",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd09",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd14",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x520",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc1",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x1b0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xffe",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb86",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x338",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa0c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x48f",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xebd",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4e0",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_148",
+        "section": "/32",
+        "va": "0xf05000",
+        "size": "0x17000",
+        "entropy": 7.904,
+        "sha256_prefix": "c39210bb3319b86e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x375",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb13",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x296",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x55c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xb50",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xada",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xaa9",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x64c",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_149",
+        "section": "/65",
+        "va": "0xf1e000",
+        "size": "0xc3000",
+        "entropy": 7.962,
+        "sha256_prefix": "d0a143f95737e07c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xdef",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x2f4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x165",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc0c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb7a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xdb4",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x8fb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc3e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6a7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x275",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc0a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1b2",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x35d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x849",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xba7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8cf",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4ec",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x8f4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x12e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x148",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x62",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xa99",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x84d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9a5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9fe",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa55",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x1a5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xae3",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xa04",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf1a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x91d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x7c3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x3fb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x182",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1ba",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x809",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x332",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xdb7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x19b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc3d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xf7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xea8",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8c7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8d3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x65b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x14e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x909",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x6c6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x450",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc31",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x7ef",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc49",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xbd3",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf72",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_150",
+        "section": "/78",
+        "va": "0xfe2000",
+        "size": "0x8e85a",
+        "entropy": 7.946,
+        "sha256_prefix": "1fc250b5be94acd3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x34a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xabe",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3bf",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x183",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8c7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd85",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x73e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x3cd",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5c3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xad",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf64",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd0c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x96a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x680",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xaac",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc45",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x4fb",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8c5",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x72c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8b4",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x343",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x75a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xfcb",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xb91",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x14",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9d7",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xf08",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x769",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x976",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe3a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe1b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x399",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x879",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xfaf",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x157",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_151",
+        "section": "/90",
+        "va": "0x1071000",
+        "size": "0x29c23",
+        "entropy": 7.789,
+        "sha256_prefix": "c279aad9d93313b6",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x406",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x3de",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x36f",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xcf8",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc5d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6d7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x79e",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc87",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x339",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3fa",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "main.caldeiroes",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 2
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.aperfeicoei",
+        "operations": [
+          "add",
+          "base64",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 5
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.ensoparieis",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 4,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.coletivizes",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 6,
+          "byte_memory_ops": 8
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.Clean",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 15,
+          "byte_memory_ops": 32
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.volumeNameLen",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 6,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.pathHasPrefixFold",
+        "operations": [
+          "add",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.replaceStringByte",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 11
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.postClean",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 2,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "slices.rotateLeft[go.shape.uint8]",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 13
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.pecaminosos",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 5
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime."
+    ]
+  }
+}

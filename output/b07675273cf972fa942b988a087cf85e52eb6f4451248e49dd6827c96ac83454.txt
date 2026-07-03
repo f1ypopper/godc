@@ -1,0 +1,201 @@
+main.main
+  0x484186 -> time.Now
+  0x484207 -> math/rand.(*rngSource).Seed
+  0x4842c0 -> indirect_call
+  0x4842ee -> main.fuppuknejfkhzpl
+  0x484300 -> math/rand.(*Rand).Intn
+  0x48430b -> main.mowxzdakpefhrk
+  0x484331 -> indirect_call
+  0x48436b -> main.alqxlzrt
+  0x484391 -> indirect_call
+  0x4843db -> indirect_call
+  0x484438 -> main.lrtvykbbasabfok
+  0x484440 -> main.wsynxyxmi
+main.fuppuknejfkhzpl
+  <no direct calls>
+main.mowxzdakpefhrk
+  <no direct calls>
+main.alqxlzrt
+  0x4805e0 -> math.Pow
+  0x48060a -> math.Pow
+main.lrtvykbbasabfok
+  0x480727 -> math.Sin
+main.wsynxyxmi
+  0x482407 -> main.iylvoad
+  0x482424 -> main.ypaclbafcmxgtg
+  0x482444 -> main.zxwuot
+  0x48246a -> main.zxwuot
+  0x482588 -> main.cuhcgq
+  0x4825c0 -> main.qgkjskfpd
+  0x4825f0 -> syscall.Syscall
+  0x482612 -> time.Now
+  0x482617 -> time.Time.UnixNano
+  0x482620 -> math/rand.NewSource
+  0x4826e0 -> time.Now
+  0x4826e5 -> time.Time.Unix
+  0x482779 -> math/rand.(*Rand).Float64
+  0x48278e -> math/rand.(*Rand).Float64
+  0x4827a3 -> math/rand.(*Rand).Float64
+  0x48298b -> math/rand.(*Rand).Float64
+  0x4829a0 -> math/rand.(*Rand).Float64
+  0x4829b5 -> math/rand.(*Rand).Float64
+  0x4829ca -> math/rand.(*Rand).Float64
+  0x4829e0 -> math/rand.(*Rand).Float64
+  0x482a20 -> main.lrtvykbbasabfok
+  0x482b3a -> main.mowxzdakpefhrk
+  0x482bc3 -> math/rand.(*Rand).Float64
+  0x482bd8 -> math/rand.(*Rand).Float64
+  0x482bed -> math/rand.(*Rand).Float64
+  0x482d99 -> math/rand.(*Rand).Float64
+  0x482dc0 -> main.alqxlzrt
+  0x482dda -> math/rand.(*Rand).Intn
+  0x482df1 -> math/rand.(*Rand).Float64
+  0x482f0e -> main.vjrgclpgmlcip
+  0x482f34 -> math/rand.(*Rand).Intn
+  0x482f4b -> math/rand.(*Rand).Float64
+  0x482f65 -> math/rand.(*Rand).Intn
+  0x482f81 -> math/rand.(*Rand).Intn
+  0x483089 -> math/rand.(*Rand).Float64
+  0x4830a0 -> math/rand.(*Rand).Float64
+  0x4830b5 -> math/rand.(*Rand).Float64
+  0x4830ca -> math/rand.(*Rand).Float64
+  0x483240 -> math/rand.(*Rand).Float64
+  0x483255 -> math/rand.(*Rand).Float64
+  0x48326a -> math/rand.(*Rand).Float64
+  0x483280 -> math/rand.(*Rand).Float64
+  0x483340 -> math/rand.(*Rand).Intn
+  0x483357 -> math/rand.(*Rand).Float64
+  0x483519 -> math/rand.(*Rand).Float64
+  0x48352e -> math/rand.(*Rand).Float64
+  0x483543 -> math/rand.(*Rand).Float64
+  0x483560 -> math/rand.(*Rand).Intn
+  0x483700 -> math/rand.(*Rand).Float64
+  0x483715 -> math/rand.(*Rand).Float64
+  0x48372a -> math/rand.(*Rand).Float64
+  0x483740 -> math/rand.(*Rand).Float64
+  0x483902 -> main.fuppuknejfkhzpl
+  0x483910 -> main.mfmjozsflqwqu
+  0x483941 -> main.wbopepuvy
+  0x4839a0 -> main.roabztbduuzhstz
+  0x483a4b -> main.hmpybop
+  0x483a50 -> main.ffsepeeqmyw
+  0x483a82 -> main.qbwxnxrnrvxsz
+  0x483a99 -> main.zawxcgnfrywjkxe
+  0x483aca -> main.ifrsbdyw
+  0x483b84 -> main.mhaitlhdqszk
+  0x483bd8 -> main.tkdrrbytzp
+  0x483bf8 -> main.uugwtcibhhl
+  0x483c2a -> main.drxpsx
+  0x483c2f -> main.sgvsxhsgsyx
+  0x483c34 -> main.xsbclgfuilgidi
+  0x483c6d -> main.okevtzwmvjviq
+  0x483c8a -> main.ewglgfezlq
+  0x483d1a -> main.erbknumflysma
+  0x483d58 -> main.jtvcyxkbdrj
+  0x483e52 -> main.fiqlbgivppbd
+  0x483e80 -> os.Getenv("TERM")
+  0x483ee3 -> main.fuppuknejfkhzpl
+  0x483f89 -> main.gskeywmiwmsl
+main.iylvoad
+  <no direct calls>
+main.ypaclbafcmxgtg
+  <no direct calls>
+main.zxwuot
+  0x4803d1 -> syscall.(*LazyProc).Call
+main.cuhcgq
+  <no direct calls>
+main.qgkjskfpd
+  0x47f8cf -> syscall.LoadLibrary
+  0x47fa58 -> main.horzevengpgvyj
+  0x47faf2 -> syscall.GetProcAddress
+main.horzevengpgvyj
+  0x47fe71 -> syscall.(*LazyProc).Find
+  0x47fec0 -> syscall.SyscallN
+main.vjrgclpgmlcip
+  0x481c49 -> math/rand.(*Rand).Float64
+  0x481c60 -> math/rand.(*Rand).Float64
+main.mfmjozsflqwqu
+  0x480524 -> math.Tan
+main.wbopepuvy
+  <no direct calls>
+main.roabztbduuzhstz
+  <no direct calls>
+main.hmpybop
+  <no direct calls>
+main.ffsepeeqmyw
+  0x481280 -> sort.Slice
+main.qbwxnxrnrvxsz
+  <no direct calls>
+main.zawxcgnfrywjkxe
+  <no direct calls>
+main.ifrsbdyw
+  0x480eb8 -> math.Log10
+main.mhaitlhdqszk
+  0x4810e8 -> math.Exp
+main.tkdrrbytzp
+  <no direct calls>
+main.uugwtcibhhl
+  0x4813f5 -> strconv.FormatFloat
+  0x481424 -> bytes.(*Buffer).WriteString
+  0x48143a -> bytes.(*Buffer).WriteString
+  0x481491 -> unicode/utf8.RuneCount
+main.drxpsx
+  0x4815a2 -> strconv.Itoa
+  0x4815cc -> strconv.FormatFloat
+  0x4815f6 -> strconv.FormatFloat
+  0x481648 -> bytes.(*Buffer).WriteString
+  0x48165a -> bytes.(*Buffer).WriteByte
+main.sgvsxhsgsyx
+  0x481971 -> bufio.(*Scanner).Scan
+main.xsbclgfuilgidi
+  0x481ad2 -> os.Getenv("RADAR_CONFIG")
+main.okevtzwmvjviq
+  0x481778 -> strings.TrimSpace
+  0x4817a0 -> strings.SplitN("=")
+  0x4817d1 -> strings.TrimSpace
+  0x4817e0 -> strconv.ParseFloat
+main.ewglgfezlq
+  <no direct calls>
+main.erbknumflysma
+  <no direct calls>
+main.jtvcyxkbdrj
+  0x4822a0 -> sort.Slice
+main.fiqlbgivppbd
+  <no direct calls>
+main.gskeywmiwmsl
+  <no direct calls>
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with manual PE loading or reflective payload execution.
+    - A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding.
+  mid_function_control_transfers:
+    - main.sgvsxhsgsyx:0x48190a call -> runtime.duffzero+0x142 classification=go_runtime_duff_helper
+    - main.ypaclbafcmxgtg:0x4800aa call -> runtime.duffcopy+0x310 classification=go_runtime_duff_helper
+    - main.ypaclbafcmxgtg:0x48012a call -> runtime.duffcopy+0x310 classification=go_runtime_duff_helper
+  indirect_calls:
+    - main.main:0x4842c0 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.main:0x484331 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.main:0x484391 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.main:0x4843db call rdx [interface_method_or_object_dispatch] evidence=target comes from register RDX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x554000 size=0x4000 entropy=7.957 reasons=high_entropy refs=<none>
+    - blob_1 .rdata:0x498000 size=0x1000 entropy=3.786 reasons=referenced_by_reachable_code,contains_magic_bytes refs=main.drxpsx, main.okevtzwmvjviq, main.uugwtcibhhl, main.wsynxyxmi
+    - blob_2 .rdata:0x4bc350 size=0x35200 entropy=7.593 reasons=large_copy_source refs=main.wsynxyxmi
+  data_transformers:
+    - main.wsynxyxmi ops=add,shift,sub,xor confidence=high sources=blob_1,blob_2
+    - main.iylvoad ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_2
+    - main.cuhcgq ops=add,shift,sub,xor confidence=medium sources=blob_1,blob_2
+    - main.qgkjskfpd ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=blob_1,blob_2
+    - main.uugwtcibhhl ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.drxpsx ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.okevtzwmvjviq ops=add,bytes_to_string,sub,xor confidence=medium sources=blob_1
+  loader_behaviors:
+    - <reachable_component> kind=reflective_pe_loader confidence=high evidence=dynamic_import_resolution,dynamic_library_load,dynamic_syscall_call,executable_memory_requested,pe_header_parsing,raw_syscall
+    - main.wsynxyxmi kind=dynamic_code_loader confidence=high evidence=executable_memory_requested,raw_syscall
+    - main.ypaclbafcmxgtg kind=suspicious_runtime_behavior confidence=medium evidence=executable_memory_requested,pe_header_parsing
+    - main.zxwuot kind=suspicious_runtime_behavior confidence=low evidence=dynamic_syscall_call
+    - main.qgkjskfpd kind=dynamic_api_resolution confidence=medium evidence=dynamic_import_resolution,dynamic_library_load
+    - main.horzevengpgvyj kind=dynamic_api_resolution confidence=medium evidence=dynamic_import_resolution,raw_syscall

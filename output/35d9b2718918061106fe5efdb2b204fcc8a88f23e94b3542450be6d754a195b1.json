@@ -1,0 +1,1273 @@
+{
+  "call_graph": {
+    "main.main": []
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "KERNEL32.dll": [
+        "AddVectoredContinueHandler",
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DeleteCriticalSection",
+        "DuplicateHandle",
+        "EnterCriticalSection",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetCurrentProcess",
+        "GetCurrentProcessId",
+        "GetCurrentThreadId",
+        "GetEnvironmentStringsW",
+        "GetErrorMode",
+        "GetLastError",
+        "GetModuleHandleA",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetSystemTimeAsFileTime",
+        "GetThreadContext",
+        "GetTickCount",
+        "InitializeCriticalSection",
+        "LeaveCriticalSection",
+        "LoadLibraryExW",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "QueryPerformanceCounter",
+        "RaiseFailFastException",
+        "ResumeThread",
+        "RtlAddFunctionTable",
+        "RtlCaptureContext",
+        "RtlLookupFunctionEntry",
+        "RtlVirtualUnwind",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetUnhandledExceptionFilter",
+        "SetWaitableTimer",
+        "Sleep",
+        "SuspendThread",
+        "SwitchToThread",
+        "TerminateProcess",
+        "TlsAlloc",
+        "TlsGetValue",
+        "UnhandledExceptionFilter",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualProtect",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WerGetFlags",
+        "WerSetFlags",
+        "WriteConsoleW",
+        "WriteFile"
+      ],
+      "msvcrt.dll": [
+        "__iob_func",
+        "_amsg_exit",
+        "_beginthread",
+        "_errno",
+        "_initterm",
+        "_lock",
+        "_unlock",
+        "abort",
+        "calloc",
+        "fprintf",
+        "free",
+        "fwrite",
+        "malloc",
+        "realloc",
+        "signal",
+        "strlen",
+        "strncmp",
+        "vfprintf"
+      ]
+    },
+    "mid_function_control_transfers": [],
+    "indirect_calls": [],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x65aac000",
+        "size": "0x1000",
+        "entropy": 7.941,
+        "sha256_prefix": "9d723b3a15c6e75c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x65ab5000",
+        "size": "0x3000",
+        "entropy": 7.9,
+        "sha256_prefix": "8e135507f1607138",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".data",
+        "va": "0x65ab9000",
+        "size": "0x1000",
+        "entropy": 6.715,
+        "sha256_prefix": "f24291589090ffba",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc59",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd7b",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe89",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".data",
+        "va": "0x65ae6000",
+        "size": "0x18000",
+        "entropy": 8.0,
+        "sha256_prefix": "cc24916882e3a3df",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x7b6",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x8b6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe36",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa4a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xfe2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x66d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xefc",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xea5",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xc1f",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x65ba9000",
+        "size": "0x1000",
+        "entropy": 4.884,
+        "sha256_prefix": "4ef3b74fe21166ee",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xee2",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": ".rdata",
+        "va": "0x65bb1000",
+        "size": "0x1000",
+        "entropy": 3.006,
+        "sha256_prefix": "b57741e049d1cd99",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xddc",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": ".rdata",
+        "va": "0x65cb2000",
+        "size": "0x1000",
+        "entropy": 5.988,
+        "sha256_prefix": "b1b20d303964f3ca",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xaad",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": ".rdata",
+        "va": "0x65cf2000",
+        "size": "0x1000",
+        "entropy": 4.634,
+        "sha256_prefix": "d8ee6d21276c677d",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x988",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_8",
+        "section": ".rdata",
+        "va": "0x65d1b000",
+        "size": "0x1000",
+        "entropy": 4.055,
+        "sha256_prefix": "937e53b9991a6a85",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x650",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_9",
+        "section": ".rdata",
+        "va": "0x65d3a000",
+        "size": "0x1000",
+        "entropy": 4.504,
+        "sha256_prefix": "fb01c8f2d59f8de9",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc70",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_10",
+        "section": ".rdata",
+        "va": "0x65d3d000",
+        "size": "0x1000",
+        "entropy": 3.946,
+        "sha256_prefix": "1e7921dc50c60899",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa68",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_11",
+        "section": "/19",
+        "va": "0x65def000",
+        "size": "0x1000",
+        "entropy": 5.376,
+        "sha256_prefix": "0ab2ed941861b39a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x8a8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_12",
+        "section": "/19",
+        "va": "0x65e1f000",
+        "size": "0x1000",
+        "entropy": 5.37,
+        "sha256_prefix": "fc0074ebf1080e08",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x607",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_13",
+        "section": "/19",
+        "va": "0x65e2c000",
+        "size": "0x1000",
+        "entropy": 5.418,
+        "sha256_prefix": "0e795357f7a7e0fe",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x380",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x3c9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x3f8",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x400",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x441",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x449",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x475",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x565",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_14",
+        "section": "/19",
+        "va": "0x65e3f000",
+        "size": "0x1000",
+        "entropy": 5.146,
+        "sha256_prefix": "71b39b63f938f3c6",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xbf5",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_15",
+        "section": "/19",
+        "va": "0x65e57000",
+        "size": "0x1000",
+        "entropy": 5.473,
+        "sha256_prefix": "de8d4176fb863a48",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x602",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_16",
+        "section": "/19",
+        "va": "0x65fd7000",
+        "size": "0x1000",
+        "entropy": 5.224,
+        "sha256_prefix": "12b47ef1850558e7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x74e",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_17",
+        "section": "/45",
+        "va": "0x660b6000",
+        "size": "0x1000",
+        "entropy": 5.719,
+        "sha256_prefix": "c8959a831d3f483f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x8d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xbf",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_18",
+        "section": "/57",
+        "va": "0x66169000",
+        "size": "0x1000",
+        "entropy": 3.809,
+        "sha256_prefix": "d7da3b90832740cf",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x1e5",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x215",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_19",
+        "section": "/81",
+        "va": "0x661cd000",
+        "size": "0x2000",
+        "entropy": 3.423,
+        "sha256_prefix": "ac4846bcdc6f17a4",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x7bb",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x4d5",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_20",
+        "section": "/81",
+        "va": "0x661e2000",
+        "size": "0x2000",
+        "entropy": 2.471,
+        "sha256_prefix": "4306f8a7aa3805d6",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x49f",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xcb8",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xe5f",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xefe",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xfd9",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x45",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x875",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xa1c",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xabb",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xb96",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_21",
+        "section": "/81",
+        "va": "0x66203000",
+        "size": "0x1000",
+        "entropy": 2.307,
+        "sha256_prefix": "85c1d13cd05b74cf",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xcf7",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xe37",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_22",
+        "section": "/81",
+        "va": "0x66217000",
+        "size": "0x1000",
+        "entropy": 2.218,
+        "sha256_prefix": "20871651c19eb0cf",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x549",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_23",
+        "section": "/81",
+        "va": "0x66222000",
+        "size": "0x2000",
+        "entropy": 2.39,
+        "sha256_prefix": "a08e23014bee4014",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc74",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xca7",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xcda",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd0d",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd53",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd9a",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xdf1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe38",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x11",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x44",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x77",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xf9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x18e",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x1c1",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x255",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x2a7",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_24",
+        "section": "/81",
+        "va": "0x66227000",
+        "size": "0x1000",
+        "entropy": 2.196,
+        "sha256_prefix": "c8d165a256d33bc8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x908",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_25",
+        "section": "/81",
+        "va": "0x6622e000",
+        "size": "0x1000",
+        "entropy": 2.253,
+        "sha256_prefix": "7bb0ea973576782c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb80",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_26",
+        "section": "/81",
+        "va": "0x66236000",
+        "size": "0x1000",
+        "entropy": 2.551,
+        "sha256_prefix": "ee875c3d4e164e6f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb08",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_27",
+        "section": "/81",
+        "va": "0x66238000",
+        "size": "0x1000",
+        "entropy": 2.774,
+        "sha256_prefix": "1e3ce991f301d183",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x491",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_28",
+        "section": "/81",
+        "va": "0x66257000",
+        "size": "0x1000",
+        "entropy": 2.261,
+        "sha256_prefix": "4127cb37df772a6a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc59",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xcd2",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_29",
+        "section": "/81",
+        "va": "0x6626e000",
+        "size": "0x1000",
+        "entropy": 2.246,
+        "sha256_prefix": "4917f05071fe6d42",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x289",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x3b6",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_30",
+        "section": "/81",
+        "va": "0x66272000",
+        "size": "0x1000",
+        "entropy": 2.308,
+        "sha256_prefix": "03d76d94dcad4d91",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x4ad",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x4f5",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_31",
+        "section": "/81",
+        "va": "0x662a1000",
+        "size": "0x1000",
+        "entropy": 2.258,
+        "sha256_prefix": "24474754ae66adf3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x74c",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x848",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_32",
+        "section": "/81",
+        "va": "0x662c2000",
+        "size": "0x1000",
+        "entropy": 2.162,
+        "sha256_prefix": "9ec86845aadfc28c",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x91d",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x964",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_33",
+        "section": "/81",
+        "va": "0x662d9000",
+        "size": "0x1000",
+        "entropy": 2.861,
+        "sha256_prefix": "bafec1f4845be8e7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xb58",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xd51",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xd97",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_34",
+        "section": "/81",
+        "va": "0x662df000",
+        "size": "0x2000",
+        "entropy": 2.15,
+        "sha256_prefix": "959736fac1f2d5e7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x923",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x96a",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xcb6",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xcfd",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x4dd",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_35",
+        "section": "/81",
+        "va": "0x662f7000",
+        "size": "0x1000",
+        "entropy": 2.649,
+        "sha256_prefix": "35202156269f6c0e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc7",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_36",
+        "section": "/81",
+        "va": "0x662fc000",
+        "size": "0x1000",
+        "entropy": 2.731,
+        "sha256_prefix": "49df718769d8c52f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x20b",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_37",
+        "section": "/81",
+        "va": "0x6633c000",
+        "size": "0x1000",
+        "entropy": 2.656,
+        "sha256_prefix": "d8f6119e0ebd40de",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xdbe",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_38",
+        "section": "/81",
+        "va": "0x66371000",
+        "size": "0x1000",
+        "entropy": 2.707,
+        "sha256_prefix": "a5414769d555338f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x381",
+            "magic": "PE"
+          },
+          {
+            "offset": "0xe9e",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_39",
+        "section": "/81",
+        "va": "0x663a3000",
+        "size": "0x1000",
+        "entropy": 2.609,
+        "sha256_prefix": "b7766b1234307456",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xd45",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_40",
+        "section": "/81",
+        "va": "0x663c0000",
+        "size": "0x1000",
+        "entropy": 2.466,
+        "sha256_prefix": "cf9791553bafce18",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x38e",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x3d5",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_41",
+        "section": "/81",
+        "va": "0x663c5000",
+        "size": "0x1000",
+        "entropy": 2.536,
+        "sha256_prefix": "d859ff06793fcb2e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xa5f",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_42",
+        "section": "/81",
+        "va": "0x663c8000",
+        "size": "0x1000",
+        "entropy": 2.538,
+        "sha256_prefix": "7ba70cb14a231ba1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x840",
+            "magic": "PE"
+          },
+          {
+            "offset": "0x97f",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_43",
+        "section": "/81",
+        "va": "0x663ce000",
+        "size": "0x1000",
+        "entropy": 2.729,
+        "sha256_prefix": "f772ea36885e69d1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x6a0",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_44",
+        "section": "/81",
+        "va": "0x663d8000",
+        "size": "0x1000",
+        "entropy": 2.743,
+        "sha256_prefix": "be3edd3c922136c1",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x236",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_45",
+        "section": "/81",
+        "va": "0x663dd000",
+        "size": "0x1000",
+        "entropy": 2.649,
+        "sha256_prefix": "fbbe1458e5df9449",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xbbe",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_46",
+        "section": "/81",
+        "va": "0x66439000",
+        "size": "0x1000",
+        "entropy": 2.787,
+        "sha256_prefix": "fcde55259818b8f8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x398",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_47",
+        "section": "/92",
+        "va": "0x66481000",
+        "size": "0x1000",
+        "entropy": 1.999,
+        "sha256_prefix": "536cd5b3597251e8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xbc9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xc19",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xce9",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd59",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xd99",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe09",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xe59",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xea9",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      }
+    ],
+    "data_transformers": [],
+    "loader_behaviors": [],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs."
+    ]
+  }
+}

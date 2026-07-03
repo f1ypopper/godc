@@ -1,0 +1,1461 @@
+main.main
+  0x468e56 -> main.garawi
+  0x468e5b -> main.probeer
+  0x468e60 -> main.silklike
+  0x468e65 -> main.Jatulian
+  0x468e6a -> main.amylopsin
+  0x468e6f -> main.hendecoic
+  0x468e74 -> main.ironback
+  0x468e79 -> main.doltishness
+  0x468e7e -> main.electroforming
+  0x468e83 -> main.functionarism
+  0x468e88 -> main.unmackly
+  0x468e8d -> main.hedgy
+  0x468e92 -> main.imitability
+  0x468e97 -> main.redecline
+  0x468e9c -> main.muscose
+  0x468ea1 -> main.microdrawing
+  0x468ea6 -> main.isomastigate
+  0x468eab -> main.deglutination
+  0x468eb0 -> main.pointer
+  0x468eb5 -> main.bordello
+  0x468eba -> main.echinodermic
+  0x468ebf -> main.nonrendition
+  0x468ec4 -> main.quadrumane
+  0x468ec9 -> main.Lentibulariaceae
+  0x468ece -> main.alkylic
+  0x468ed3 -> main.vastity
+  0x468ed8 -> main.existentially
+  0x468edd -> main.ambry
+  0x468ee2 -> main.Aglypha
+  0x468ee7 -> main.unpictorially
+  0x468eec -> main.lauder
+  0x468ef1 -> main.winrace
+  0x468ef6 -> main.Pygidium
+  0x468efb -> main.nonpresbyter
+  0x468f00 -> main.thoracoscopy
+  0x468f05 -> main.condensedness
+  0x468f0a -> main.purchase
+  0x468f0f -> main.torse
+  0x468f14 -> main.dephlegmator
+  0x468f19 -> main.imperence
+  0x468f1e -> main.adenia
+  0x468f23 -> main.trapped
+  0x468f28 -> main.goatlike
+  0x468f2d -> main.intersex
+  0x468f32 -> main.metapterygium
+  0x468f37 -> main.mandelic
+  0x468f3c -> main.primitivism
+  0x468f41 -> main.lupoid
+  0x468f46 -> main.Jeremian
+  0x468f4b -> main.yarl
+  0x468f69 -> main.nonloverquadrigamist
+  0x469055 -> indirect_call -> main.main.func2
+  0x4690b2 -> indirect_call -> main.main.func3
+  0x4690ce -> main.main.func1
+  0x4690dc -> main.erasedwashbasin
+  0x46923b -> main.main.func4
+  0x4692fb -> main.monolithicagitatorRajah
+  0x46934f -> main.borelepropaedeutical
+  0x469497 -> main.main.func5
+  0x469509 -> main.conceptionalmalacanthid
+  0x46953a -> main.dermatoxerasiabetso
+  0x46957c -> main.main.func7
+  0x469598 -> main.main.func8
+  0x4695f5 -> indirect_call -> main.main.func6
+  0x46967e -> indirect_call -> main.main.func10
+  0x4696db -> indirect_call -> main.main.func11
+  0x469738 -> indirect_call -> main.main.func9
+  0x469768 -> main.erasedwashbasin
+main.garawi
+  0x4730ee -> indirect_call -> main.garawi.func1
+main.garawi.func1
+  0x485985 -> indirect_call
+  0x4859a9 -> indirect_call
+main.probeer
+  0x473248 -> indirect_call -> main.probeer.func2
+  0x473269 -> main.probeer.func1
+main.probeer.func2
+  0x485be5 -> indirect_call
+  0x485c09 -> indirect_call
+main.probeer.func1
+  0x485b5f -> main.probeer.func1.1
+main.probeer.func1.1
+  <no direct calls>
+main.silklike
+  0x47332e -> indirect_call -> main.silklike.func2
+  0x473347 -> main.silklike.func3
+  0x47338f -> indirect_call -> main.silklike.func1
+main.silklike.func2
+  0x485d25 -> indirect_call
+  0x485d49 -> indirect_call
+main.silklike.func3
+  0x485eff -> main.silklike.func3.1
+main.silklike.func3.1
+  <no direct calls>
+main.silklike.func1
+  0x485c85 -> indirect_call
+  0x485ca9 -> indirect_call
+main.Jatulian
+  <no direct calls>
+main.amylopsin
+  0x47370d -> main.amylopsin.func1
+main.amylopsin.func1
+  0x4860bf -> main.amylopsin.func1.1
+main.amylopsin.func1.1
+  <no direct calls>
+main.hendecoic
+  0x4738ad -> main.hendecoic.func1
+main.hendecoic.func1
+  0x48627f -> main.hendecoic.func1.1
+main.hendecoic.func1.1
+  <no direct calls>
+main.ironback
+  0x473a04 -> indirect_call -> main.ironback.func1
+  0x473a66 -> indirect_call -> main.ironback.func2
+main.ironback.func1
+  0x486305 -> indirect_call
+  0x486329 -> indirect_call
+main.ironback.func2
+  0x4863a5 -> indirect_call
+  0x4863c9 -> indirect_call
+main.doltishness
+  0x473b6f -> main.doltishness.func2
+  0x473b90 -> main.doltishness.func1
+main.doltishness.func2
+  0x48673f -> main.doltishness.func2.1
+main.doltishness.func2.1
+  <no direct calls>
+main.doltishness.func1
+  0x48657f -> main.doltishness.func1.1
+main.doltishness.func1.1
+  <no direct calls>
+main.electroforming
+  0x473c4e -> indirect_call -> main.electroforming.func2
+  0x473c67 -> main.electroforming.func3
+  0x473caf -> indirect_call -> main.electroforming.func1
+main.electroforming.func2
+  0x486865 -> indirect_call
+  0x486889 -> indirect_call
+main.electroforming.func3
+  0x486a3f -> main.electroforming.func3.1
+main.electroforming.func3.1
+  <no direct calls>
+main.electroforming.func1
+  0x4867c5 -> indirect_call
+  0x4867e9 -> indirect_call
+main.functionarism
+  0x473d35 -> main.functionarism.func2
+  0x473d51 -> main.functionarism.func3
+  0x473d96 -> indirect_call -> main.functionarism.func1
+main.functionarism.func2
+  0x486c9f -> main.functionarism.func2.1
+main.functionarism.func2.1
+  <no direct calls>
+main.functionarism.func3
+  0x486e5f -> main.functionarism.func3.1
+main.functionarism.func3.1
+  <no direct calls>
+main.functionarism.func1
+  0x486ac5 -> indirect_call
+  0x486ae9 -> indirect_call
+main.unmackly
+  0x4671b5 -> main.unmackly.func2
+  0x4671fa -> indirect_call -> main.unmackly.func3
+  0x467216 -> main.unmackly.func1
+main.unmackly.func2
+  0x474fdf -> main.unmackly.func2.1
+main.unmackly.func2.1
+  <no direct calls>
+main.unmackly.func3
+  0x475065 -> indirect_call
+  0x475089 -> indirect_call
+main.unmackly.func1
+  0x474e1f -> main.unmackly.func1.1
+main.unmackly.func1.1
+  <no direct calls>
+main.hedgy
+  0x4673ea -> indirect_call -> main.hedgy.func1
+main.hedgy.func1
+  0x475105 -> indirect_call
+  0x475129 -> indirect_call
+main.imitability
+  0x467534 -> indirect_call -> main.imitability.func1
+  0x467555 -> main.imitability.func2
+main.imitability.func1
+  0x4751a5 -> indirect_call
+  0x4751c9 -> indirect_call
+main.imitability.func2
+  0x47537f -> main.imitability.func2.1
+main.imitability.func2.1
+  <no direct calls>
+main.redecline
+  0x46772a -> indirect_call -> main.redecline.func1
+main.redecline.func1
+  0x475405 -> indirect_call
+  0x475429 -> indirect_call
+main.muscose
+  0x4678b9 -> main.muscose.func1
+main.muscose.func1
+  0x4755df -> main.muscose.func1.1
+main.muscose.func1.1
+  <no direct calls>
+main.microdrawing
+  0x467a5d -> main.microdrawing.func1
+main.microdrawing.func1
+  0x47579f -> main.microdrawing.func1.1
+main.microdrawing.func1.1
+  <no direct calls>
+main.isomastigate
+  0x467b6f -> main.isomastigate.func1
+  0x467b90 -> main.isomastigate.func2
+main.isomastigate.func1
+  0x47595f -> main.isomastigate.func1.1
+main.isomastigate.func1.1
+  <no direct calls>
+main.isomastigate.func2
+  0x475b1f -> main.isomastigate.func2.1
+main.isomastigate.func2.1
+  <no direct calls>
+main.deglutination
+  0x467d29 -> main.deglutination.func1
+main.deglutination.func1
+  0x475cdf -> main.deglutination.func1.1
+main.deglutination.func1.1
+  <no direct calls>
+main.pointer
+  0x467e88 -> indirect_call -> main.pointer.func2
+  0x467eea -> indirect_call -> main.pointer.func1
+main.pointer.func2
+  0x475e05 -> indirect_call
+  0x475e29 -> indirect_call
+main.pointer.func1
+  0x475d65 -> indirect_call
+  0x475d89 -> indirect_call
+main.bordello
+  0x4680be -> indirect_call -> main.bordello.func1
+main.bordello.func1
+  0x475ea5 -> indirect_call
+  0x475ec9 -> indirect_call
+main.echinodermic
+  0x4681d3 -> main.echinodermic.func2
+  0x468235 -> indirect_call -> main.echinodermic.func1
+main.echinodermic.func2
+  0x47611f -> main.echinodermic.func2.1
+main.echinodermic.func2.1
+  <no direct calls>
+main.echinodermic.func1
+  0x475f45 -> indirect_call
+  0x475f69 -> indirect_call
+main.nonrendition
+  0x468384 -> indirect_call -> main.nonrendition.func1
+  0x4683a5 -> main.nonrendition.func2
+main.nonrendition.func1
+  0x4761a5 -> indirect_call
+  0x4761c9 -> indirect_call
+main.nonrendition.func2
+  0x47637f -> main.nonrendition.func2.1
+main.nonrendition.func2.1
+  <no direct calls>
+main.quadrumane
+  0x4684f8 -> indirect_call -> main.quadrumane.func2
+  0x46855a -> indirect_call -> main.quadrumane.func1
+main.quadrumane.func2
+  0x4764a5 -> indirect_call
+  0x4764c9 -> indirect_call
+main.quadrumane.func1
+  0x476405 -> indirect_call
+  0x476429 -> indirect_call
+main.Lentibulariaceae
+  0x468612 -> indirect_call -> main.Lentibulariaceae.func2
+  0x468654 -> indirect_call -> main.Lentibulariaceae.func3
+  0x468670 -> main.Lentibulariaceae.func1
+main.Lentibulariaceae.func2
+  0x476705 -> indirect_call
+  0x476729 -> indirect_call
+main.Lentibulariaceae.func3
+  0x4767a5 -> indirect_call
+  0x4767c9 -> indirect_call
+main.Lentibulariaceae.func1
+  0x47667f -> main.Lentibulariaceae.func1.1
+main.Lentibulariaceae.func1.1
+  <no direct calls>
+main.alkylic
+  0x4687b8 -> indirect_call -> main.alkylic.func2
+  0x46881a -> indirect_call -> main.alkylic.func1
+main.alkylic.func2
+  0x4768e5 -> indirect_call
+  0x476909 -> indirect_call
+main.alkylic.func1
+  0x476845 -> indirect_call
+  0x476869 -> indirect_call
+main.vastity
+  0x4688ce -> indirect_call -> main.vastity.func2
+  0x4688e7 -> main.vastity.func3
+  0x468906 -> main.vastity.func1
+main.vastity.func2
+  0x476b45 -> indirect_call
+  0x476b69 -> indirect_call
+main.vastity.func3
+  0x476d1f -> main.vastity.func3.1
+main.vastity.func3.1
+  <no direct calls>
+main.vastity.func1
+  0x476abf -> main.vastity.func1.1
+main.vastity.func1.1
+  <no direct calls>
+main.existentially
+  0x468995 -> main.existentially.func2
+  0x4689b1 -> main.existentially.func3
+  0x4689f6 -> indirect_call -> main.existentially.func1
+main.existentially.func2
+  0x476f7f -> main.existentially.func2.1
+main.existentially.func2.1
+  <no direct calls>
+main.existentially.func3
+  0x47713f -> main.existentially.func3.1
+main.existentially.func3.1
+  <no direct calls>
+main.existentially.func1
+  0x476da5 -> indirect_call
+  0x476dc9 -> indirect_call
+main.ambry
+  0x468aae -> indirect_call -> main.ambry.func2
+  0x468ac7 -> main.ambry.func3
+  0x468b0f -> indirect_call -> main.ambry.func1
+main.ambry.func2
+  0x477265 -> indirect_call
+  0x477289 -> indirect_call
+main.ambry.func3
+  0x47743f -> main.ambry.func3.1
+main.ambry.func3.1
+  <no direct calls>
+main.ambry.func1
+  0x4771c5 -> indirect_call
+  0x4771e9 -> indirect_call
+main.Aglypha
+  0x468b91 -> main.Aglypha.func2
+  0x468bad -> main.Aglypha.func3
+  0x468bc9 -> main.Aglypha.func1
+main.Aglypha.func2
+  0x4777bf -> main.Aglypha.func2.1
+main.Aglypha.func2.1
+  <no direct calls>
+main.Aglypha.func3
+  0x47797f -> main.Aglypha.func3.1
+main.Aglypha.func3.1
+  <no direct calls>
+main.Aglypha.func1
+  0x4775ff -> main.Aglypha.func1.1
+main.Aglypha.func1.1
+  <no direct calls>
+main.unpictorially
+  0x468d9a -> indirect_call -> main.unpictorially.func1
+main.unpictorially.func1
+  0x477a05 -> indirect_call
+  0x477a29 -> indirect_call
+main.lauder
+  0x473ee8 -> indirect_call -> main.lauder.func2
+  0x473f4a -> indirect_call -> main.lauder.func1
+main.lauder.func2
+  0x486f85 -> indirect_call
+  0x486fa9 -> indirect_call
+main.lauder.func1
+  0x486ee5 -> indirect_call
+  0x486f09 -> indirect_call
+main.winrace
+  0x47404f -> main.winrace.func1
+  0x474070 -> main.winrace.func2
+main.winrace.func1
+  0x48715f -> main.winrace.func1.1
+main.winrace.func1.1
+  <no direct calls>
+main.winrace.func2
+  0x48731f -> main.winrace.func2.1
+main.winrace.func2.1
+  <no direct calls>
+main.Pygidium
+  0x474183 -> main.Pygidium.func2
+  0x4741e5 -> indirect_call -> main.Pygidium.func1
+main.Pygidium.func2
+  0x48757f -> main.Pygidium.func2.1
+main.Pygidium.func2.1
+  <no direct calls>
+main.Pygidium.func1
+  0x4873a5 -> indirect_call
+  0x4873c9 -> indirect_call
+main.nonpresbyter
+  0x47437d -> main.nonpresbyter.func1
+main.nonpresbyter.func1
+  0x48773f -> main.nonpresbyter.func1.1
+main.nonpresbyter.func1.1
+  <no direct calls>
+main.thoracoscopy
+  0x4744d8 -> indirect_call -> main.thoracoscopy.func2
+  0x4744f9 -> main.thoracoscopy.func1
+main.thoracoscopy.func2
+  0x487985 -> indirect_call
+  0x4879a9 -> indirect_call
+main.thoracoscopy.func1
+  0x4878ff -> main.thoracoscopy.func1.1
+main.thoracoscopy.func1.1
+  <no direct calls>
+main.condensedness
+  0x474613 -> main.condensedness.func1
+  0x474675 -> indirect_call -> main.condensedness.func2
+main.condensedness.func1
+  0x487b5f -> main.condensedness.func1.1
+main.condensedness.func1.1
+  <no direct calls>
+main.condensedness.func2
+  0x487be5 -> indirect_call
+  0x487c09 -> indirect_call
+main.purchase
+  0x4747c4 -> indirect_call -> main.purchase.func1
+  0x474826 -> indirect_call -> main.purchase.func2
+main.purchase.func1
+  0x487c85 -> indirect_call
+  0x487ca9 -> indirect_call
+main.purchase.func2
+  0x487d25 -> indirect_call
+  0x487d49 -> indirect_call
+main.torse
+  0x4748b1 -> main.torse.func2
+  0x4748cd -> main.torse.func3
+  0x4748e9 -> main.torse.func1
+main.torse.func2
+  0x4880bf -> main.torse.func2.1
+main.torse.func2.1
+  <no direct calls>
+main.torse.func3
+  0x48827f -> main.torse.func3.1
+main.torse.func3.1
+  <no direct calls>
+main.torse.func1
+  0x487eff -> main.torse.func1.1
+main.torse.func1.1
+  <no direct calls>
+main.dephlegmator
+  0x474a79 -> main.dephlegmator.func1
+main.dephlegmator.func1
+  0x48843f -> main.dephlegmator.func1.1
+main.dephlegmator.func1.1
+  <no direct calls>
+main.imperence
+  0x474c5e -> indirect_call -> main.imperence.func1
+main.imperence.func1
+  0x4884c5 -> indirect_call
+  0x4884e9 -> indirect_call
+main.adenia
+  <no direct calls>
+main.trapped
+  0x4723c3 -> main.trapped.func2
+  0x472425 -> indirect_call -> main.trapped.func1
+main.trapped.func2
+  0x48481f -> main.trapped.func2.1
+main.trapped.func2.1
+  <no direct calls>
+main.trapped.func1
+  0x484645 -> indirect_call
+  0x484669 -> indirect_call
+main.goatlike
+  0x472533 -> main.goatlike.func1
+  0x472595 -> indirect_call -> main.goatlike.func2
+main.goatlike.func1
+  0x4849df -> main.goatlike.func1.1
+main.goatlike.func1.1
+  <no direct calls>
+main.goatlike.func2
+  0x484a65 -> indirect_call
+  0x484a89 -> indirect_call
+main.intersex
+  0x4726e4 -> indirect_call -> main.intersex.func1
+  0x472746 -> indirect_call -> main.intersex.func2
+main.intersex.func1
+  0x484b05 -> indirect_call
+  0x484b29 -> indirect_call
+main.intersex.func2
+  0x484ba5 -> indirect_call
+  0x484bc9 -> indirect_call
+main.metapterygium
+  <no direct calls>
+main.mandelic
+  0x4729ee -> indirect_call -> main.mandelic.func2
+  0x472a07 -> main.mandelic.func3
+  0x472a4f -> indirect_call -> main.mandelic.func1
+main.mandelic.func2
+  0x484ce5 -> indirect_call
+  0x484d09 -> indirect_call
+main.mandelic.func3
+  0x484ebf -> main.mandelic.func3.1
+main.mandelic.func3.1
+  <no direct calls>
+main.mandelic.func1
+  0x484c45 -> indirect_call
+  0x484c69 -> indirect_call
+main.primitivism
+  0x472b02 -> indirect_call -> main.primitivism.func2
+  0x472b44 -> indirect_call -> main.primitivism.func3
+  0x472b60 -> main.primitivism.func1
+main.primitivism.func2
+  0x485105 -> indirect_call
+  0x485129 -> indirect_call
+main.primitivism.func3
+  0x4851a5 -> indirect_call
+  0x4851c9 -> indirect_call
+main.primitivism.func1
+  0x48507f -> main.primitivism.func1.1
+main.primitivism.func1.1
+  <no direct calls>
+main.lupoid
+  0x472c63 -> main.lupoid.func2
+  0x472cc5 -> indirect_call -> main.lupoid.func1
+main.lupoid.func2
+  0x48541f -> main.lupoid.func2.1
+main.lupoid.func2.1
+  <no direct calls>
+main.lupoid.func1
+  0x485245 -> indirect_call
+  0x485269 -> indirect_call
+main.Jeremian
+  0x472d82 -> indirect_call -> main.Jeremian.func2
+  0x472dc4 -> indirect_call -> main.Jeremian.func3
+  0x472e09 -> indirect_call -> main.Jeremian.func1
+main.Jeremian.func2
+  0x485545 -> indirect_call
+  0x485569 -> indirect_call
+main.Jeremian.func3
+  0x4855e5 -> indirect_call
+  0x485609 -> indirect_call
+main.Jeremian.func1
+  0x4854a5 -> indirect_call
+  0x4854c9 -> indirect_call
+main.yarl
+  0x472ebe -> indirect_call -> main.yarl.func2
+  0x472ed7 -> main.yarl.func3
+  0x472f1f -> indirect_call -> main.yarl.func1
+main.yarl.func2
+  0x485725 -> indirect_call
+  0x485749 -> indirect_call
+main.yarl.func3
+  0x4858ff -> main.yarl.func3.1
+main.yarl.func3.1
+  <no direct calls>
+main.yarl.func1
+  0x485685 -> indirect_call
+  0x4856a9 -> indirect_call
+main.nonloverquadrigamist
+  0x46a24a -> main.driftlessunfructuously
+  0x46a2a4 -> main.nonloverquadrigamist.func2
+  0x46a2c0 -> main.nonloverquadrigamist.func3
+  0x46a305 -> indirect_call -> main.nonloverquadrigamist.func1
+  0x46a336 -> main._nonloverquadrigamist
+  0x46a357 -> main.mislikenadactyl
+main.driftlessunfructuously
+  0x46ec74 -> main.monolithicagitatorRajah
+  0x46ecb7 ->                          
+  0x46edcc -> indirect_call -> main.driftlessunfructuously.func1
+  0x46edf2 -> main.driftlessunfructuously.func2
+  0x46ee25 ->                      
+  0x46efc4 -> indirect_call -> main.driftlessunfructuously.func3
+  0x46f058 -> main.poststertorousratable
+  0x46f0a1 -> main.driftlessunfructuously.func5
+  0x46f0bd -> main.driftlessunfructuously.func6
+  0x46f0d9 -> main.driftlessunfructuously.func4
+  0x46f0fa -> main.verbomaniaelaidinic
+  0x46f1dd -> main.driftlessunfructuously.func8
+  0x46f206 -> main.driftlessunfructuously.func7
+  0x46f226 ->                        
+  0x46f234 ->                    
+  0x46f2ac -> main.psorospermosisconsentiently
+  0x46f2d4 ->                        
+  0x46f2e2 ->                    
+  0x46f31b ->                    
+main.monolithicagitatorRajah
+  0x46e5b8 -> main.monolithicagitatorRajah.func1
+  0x46e61a -> indirect_call -> main.monolithicagitatorRajah.func2
+  0x46e7bc -> indirect_call -> main.monolithicagitatorRajah.func3
+  0x46e97f -> indirect_call -> main.monolithicagitatorRajah.func5
+  0x46e9b5 -> main.monolithicagitatorRajah.func4
+  0x46eadf -> indirect_call -> main.monolithicagitatorRajah.func7
+  0x46eb60 -> indirect_call -> main.monolithicagitatorRajah.func6
+main.monolithicagitatorRajah.func1
+  0x47fdff -> main.monolithicagitatorRajah.func1.1
+main.monolithicagitatorRajah.func1.1
+  <no direct calls>
+main.monolithicagitatorRajah.func2
+  0x47fe85 -> indirect_call
+  0x47fea9 -> indirect_call
+main.monolithicagitatorRajah.func3
+  0x47ff25 -> indirect_call
+  0x47ff49 -> indirect_call
+main.monolithicagitatorRajah.func5
+  0x480185 -> indirect_call
+  0x4801a9 -> indirect_call
+main.monolithicagitatorRajah.func4
+  0x4800ff -> main.monolithicagitatorRajah.func4.1
+main.monolithicagitatorRajah.func4.1
+  <no direct calls>
+main.monolithicagitatorRajah.func7
+  0x4802c5 -> indirect_call
+  0x4802e9 -> indirect_call
+main.monolithicagitatorRajah.func6
+  0x480225 -> indirect_call
+  0x480249 -> indirect_call
+main.driftlessunfructuously.func1
+  0x480365 -> indirect_call
+  0x480389 -> indirect_call
+main.driftlessunfructuously.func2
+  0x48053f -> main.driftlessunfructuously.func2.1
+main.driftlessunfructuously.func2.1
+  <no direct calls>
+main.driftlessunfructuously.func3
+  0x4805c5 -> indirect_call
+  0x4805e9 -> indirect_call
+main.poststertorousratable
+  0x469d41 -> main.poststertorousratable.func2
+  0x469d5d -> main.poststertorousratable.func3
+  0x469d79 -> main.poststertorousratable.func1
+  0x469dc8 ->                         
+main.poststertorousratable.func2
+  0x47913f -> main.poststertorousratable.func2.1
+main.poststertorousratable.func2.1
+  <no direct calls>
+main.poststertorousratable.func3
+  0x4792ff -> main.poststertorousratable.func3.1
+main.poststertorousratable.func3.1
+  <no direct calls>
+main.poststertorousratable.func1
+  0x478f7f -> main.poststertorousratable.func1.1
+main.poststertorousratable.func1.1
+  <no direct calls>
+main.driftlessunfructuously.func5
+  0x48095f -> main.driftlessunfructuously.func5.1
+main.driftlessunfructuously.func5.1
+  <no direct calls>
+main.driftlessunfructuously.func6
+  0x480b1f -> main.driftlessunfructuously.func6.1
+main.driftlessunfructuously.func6.1
+  <no direct calls>
+main.driftlessunfructuously.func4
+  0x48079f -> main.driftlessunfructuously.func4.1
+main.driftlessunfructuously.func4.1
+  <no direct calls>
+main.verbomaniaelaidinic
+  0x46a405 -> main.verbomaniaelaidinic.func2
+  0x46a421 -> main.verbomaniaelaidinic.func3
+  0x46a466 -> indirect_call -> main.verbomaniaelaidinic.func1
+  0x46a490 -> main.Anselmventripotential
+main.verbomaniaelaidinic.func2
+  0x479fff -> main.verbomaniaelaidinic.func2.1
+main.verbomaniaelaidinic.func2.1
+  <no direct calls>
+main.verbomaniaelaidinic.func3
+  0x47a1bf -> main.verbomaniaelaidinic.func3.1
+main.verbomaniaelaidinic.func3.1
+  <no direct calls>
+main.verbomaniaelaidinic.func1
+  0x479e25 -> indirect_call
+  0x479e49 -> indirect_call
+main.Anselmventripotential
+  0x469e8d ->                         
+  0x469f72 -> main.Anselmventripotential.func2
+  0x469fa5 -> main.Anselmventripotential.func1
+main.Anselmventripotential.func2
+  0x47967f -> main.Anselmventripotential.func2.1
+main.Anselmventripotential.func2.1
+  <no direct calls>
+main.Anselmventripotential.func1
+  0x4794bf -> main.Anselmventripotential.func1.1
+main.Anselmventripotential.func1.1
+  <no direct calls>
+main.driftlessunfructuously.func8
+  0x480e9f -> main.driftlessunfructuously.func8.1
+main.driftlessunfructuously.func8.1
+  <no direct calls>
+main.driftlessunfructuously.func7
+  0x480cdf -> main.driftlessunfructuously.func7.1
+main.driftlessunfructuously.func7.1
+  <no direct calls>
+main.psorospermosisconsentiently
+  0x469945 -> main.psorospermosisconsentiently.func1
+main.psorospermosisconsentiently.func1
+  0x47885f -> main.psorospermosisconsentiently.func1.1
+main.psorospermosisconsentiently.func1.1
+  <no direct calls>
+main.nonloverquadrigamist.func2
+  0x479bdf -> main.nonloverquadrigamist.func2.1
+main.nonloverquadrigamist.func2.1
+  <no direct calls>
+main.nonloverquadrigamist.func3
+  0x479d9f -> main.nonloverquadrigamist.func3.1
+main.nonloverquadrigamist.func3.1
+  <no direct calls>
+main.nonloverquadrigamist.func1
+  0x479a05 -> indirect_call
+  0x479a29 -> indirect_call
+main._nonloverquadrigamist
+  0x46f459 -> indirect_call -> main._nonloverquadrigamist.func2
+  0x46f475 -> main._nonloverquadrigamist.func3
+  0x46f494 -> main._nonloverquadrigamist.func1
+  0x46f4d5 -> main.dogwatchtestiere
+  0x46f5ad -> main._nonloverquadrigamist.func5
+  0x46f614 -> indirect_call -> main._nonloverquadrigamist.func4
+  0x46f651 -> main.mislikenadactyl
+  0x46f684 -> main.stithdihydroxy
+  0x46f6a7 -> main.Getabsolvechromatophilic
+  0x46f6ca -> main.isobarbaloincastigate
+main._nonloverquadrigamist.func2
+  0x4810e5 -> indirect_call
+  0x481109 -> indirect_call
+main._nonloverquadrigamist.func3
+  0x4812bf -> main._nonloverquadrigamist.func3.1
+main._nonloverquadrigamist.func3.1
+  <no direct calls>
+main._nonloverquadrigamist.func1
+  0x48105f -> main._nonloverquadrigamist.func1.1
+main._nonloverquadrigamist.func1.1
+  <no direct calls>
+main.dogwatchtestiere
+  0x46db64 -> main.Aveshysteric
+  0x46dc38 -> main.dogwatchtestiere.func1
+  0x46dca2 -> indirect_call -> main.dogwatchtestiere.func2
+  0x46dcc2 -> main.conceptionalmalacanthid
+  0x46dd9a -> main.dogwatchtestiere.func3
+  0x46ddbf -> main.dogwatchtestiere.func4
+  0x46de8f -> main.dogwatchtestiere.func8
+  0x46deb4 -> main.dogwatchtestiere.func7
+  0x46def4 -> main.plumbumsilklike
+  0x46dfc5 -> main.dogwatchtestiere.func10
+  0x46e02c -> indirect_call -> main.dogwatchtestiere.func9
+  0x46e064 -> main.spyfaulterinaceous
+  0x46e1ce -> indirect_call -> main.dogwatchtestiere.func5
+  0x46e234 -> indirect_call -> main.dogwatchtestiere.func6
+main.Aveshysteric
+  0x46a68e -> indirect_call -> main.Aveshysteric.func1
+  0x46a6cb -> main.poststertorousratable
+  0x46a718 -> main.Aveshysteric.func3
+  0x46a734 -> main.Aveshysteric.func4
+  0x46a791 -> indirect_call -> main.Aveshysteric.func2
+  0x46a8a8 -> indirect_call -> main.Aveshysteric.func5
+  0x46a8cd -> main.Aveshysteric.func6
+  0x46a910 -> main.poststertorousratable
+  0x46a997 -> main.nextlyepitenon
+  0x46aa37 -> main.nextlyepitenon
+main.Aveshysteric.func1
+  0x47a245 -> indirect_call
+  0x47a269 -> indirect_call
+main.Aveshysteric.func3
+  0x47a4bf -> main.Aveshysteric.func3.1
+main.Aveshysteric.func3.1
+  <no direct calls>
+main.Aveshysteric.func4
+  0x47a67f -> main.Aveshysteric.func4.1
+main.Aveshysteric.func4.1
+  <no direct calls>
+main.Aveshysteric.func2
+  0x47a2e5 -> indirect_call
+  0x47a309 -> indirect_call
+main.Aveshysteric.func5
+  0x47a705 -> indirect_call
+  0x47a729 -> indirect_call
+main.Aveshysteric.func6
+  0x47a8df -> main.Aveshysteric.func6.1
+main.Aveshysteric.func6.1
+  <no direct calls>
+main.nextlyepitenon
+  0x46d950 -> indirect_call -> main.nextlyepitenon.func1
+  0x46da43 -> main.nextlyepitenon.func2
+  0x46da6e -> main.nextlyepitenon.func3
+main.nextlyepitenon.func1
+  0x47e8a5 -> indirect_call
+  0x47e8c9 -> indirect_call
+main.nextlyepitenon.func2
+  0x47ea7f -> main.nextlyepitenon.func2.1
+main.nextlyepitenon.func2.1
+  <no direct calls>
+main.nextlyepitenon.func3
+  0x47ec3f -> main.nextlyepitenon.func3.1
+main.nextlyepitenon.func3.1
+  <no direct calls>
+main.dogwatchtestiere.func1
+  0x47edff -> main.dogwatchtestiere.func1.1
+main.dogwatchtestiere.func1.1
+  <no direct calls>
+main.dogwatchtestiere.func2
+  0x47ee85 -> indirect_call
+  0x47eea9 -> indirect_call
+main.conceptionalmalacanthid
+  0x46ac45 -> main.erasedwashbasin
+  0x46ad02 -> main.conceptionalmalacanthid.func1
+  0x46ad28 -> main.conceptionalmalacanthid.func2
+main.erasedwashbasin
+  0x46aada -> main.Aveshysteric
+  0x46ab34 -> main.erasedwashbasin.func2
+  0x46ab50 -> main.erasedwashbasin.func3
+  0x46ab95 -> indirect_call -> main.erasedwashbasin.func1
+  0x46aba9 -> main.poststertorousratable
+main.erasedwashbasin.func2
+  0x47ab3f -> main.erasedwashbasin.func2.1
+main.erasedwashbasin.func2.1
+  <no direct calls>
+main.erasedwashbasin.func3
+  0x47acff -> main.erasedwashbasin.func3.1
+main.erasedwashbasin.func3.1
+  <no direct calls>
+main.erasedwashbasin.func1
+  0x47a965 -> indirect_call
+  0x47a989 -> indirect_call
+main.conceptionalmalacanthid.func1
+  0x47aebf -> main.conceptionalmalacanthid.func1.1
+main.conceptionalmalacanthid.func1.1
+  <no direct calls>
+main.conceptionalmalacanthid.func2
+  0x47b07f -> main.conceptionalmalacanthid.func2.1
+main.conceptionalmalacanthid.func2.1
+  <no direct calls>
+main.dogwatchtestiere.func3
+  0x47f05f -> main.dogwatchtestiere.func3.1
+main.dogwatchtestiere.func3.1
+  <no direct calls>
+main.dogwatchtestiere.func4
+  0x47f21f -> main.dogwatchtestiere.func4.1
+main.dogwatchtestiere.func4.1
+  <no direct calls>
+main.dogwatchtestiere.func8
+  0x47f6df -> main.dogwatchtestiere.func8.1
+main.dogwatchtestiere.func8.1
+  <no direct calls>
+main.dogwatchtestiere.func7
+  0x47f51f -> main.dogwatchtestiere.func7.1
+main.dogwatchtestiere.func7.1
+  <no direct calls>
+main.plumbumsilklike
+  0x46c89e -> indirect_call -> main.plumbumsilklike.func2
+  0x46c8b7 -> main.plumbumsilklike.func3
+  0x46c8ff -> indirect_call -> main.plumbumsilklike.func1
+  0x46c924 -> main.verbomaniaelaidinic
+main.plumbumsilklike.func2
+  0x47d6a5 -> indirect_call
+  0x47d6c9 -> indirect_call
+main.plumbumsilklike.func3
+  0x47d87f -> main.plumbumsilklike.func3.1
+main.plumbumsilklike.func3.1
+  <no direct calls>
+main.plumbumsilklike.func1
+  0x47d605 -> indirect_call
+  0x47d629 -> indirect_call
+main.dogwatchtestiere.func10
+  0x47f93f -> main.dogwatchtestiere.func10.1
+main.dogwatchtestiere.func10.1
+  <no direct calls>
+main.dogwatchtestiere.func9
+  0x47f765 -> indirect_call
+  0x47f789 -> indirect_call
+main.spyfaulterinaceous
+  0x46ca3d -> indirect_call -> main.spyfaulterinaceous.func2
+  0x46ca9a -> indirect_call -> main.spyfaulterinaceous.func3
+  0x46caf7 -> indirect_call -> main.spyfaulterinaceous.func1
+  0x46cb02 -> main.conceptionalmalacanthid
+  0x46cb27 -> main.Aveshysteric
+  0x46cc24 -> main.spyfaulterinaceous.func4
+  0x46cc97 -> indirect_call -> main.spyfaulterinaceous.func5
+  0x46cd23 -> main.nextlyepitenon
+  0x46cdd9 -> main.nextlyepitenon
+  0x46ce1b -> main.nextlyepitenon
+  0x46ce4d -> main.psorospermosisconsentiently
+  0x46cf14 -> main.spyfaulterinaceous.func7
+  0x46cf71 -> indirect_call -> main.spyfaulterinaceous.func8
+  0x46cfce -> indirect_call -> main.spyfaulterinaceous.func6
+  0x46d003 -> main.nextlyepitenon
+  0x46d147 -> main.spyfaulterinaceous.func9
+  0x46d17a -> main.psorospermosisconsentiently
+main.spyfaulterinaceous.func2
+  0x47d9a5 -> indirect_call
+  0x47d9c9 -> indirect_call
+main.spyfaulterinaceous.func3
+  0x47da45 -> indirect_call
+  0x47da69 -> indirect_call
+main.spyfaulterinaceous.func1
+  0x47d905 -> indirect_call
+  0x47d929 -> indirect_call
+main.spyfaulterinaceous.func4
+  0x47dc1f -> main.spyfaulterinaceous.func4.1
+main.spyfaulterinaceous.func4.1
+  <no direct calls>
+main.spyfaulterinaceous.func5
+  0x47dca5 -> indirect_call
+  0x47dcc9 -> indirect_call
+main.spyfaulterinaceous.func7
+  0x47df1f -> main.spyfaulterinaceous.func7.1
+main.spyfaulterinaceous.func7.1
+  <no direct calls>
+main.spyfaulterinaceous.func8
+  0x47dfa5 -> indirect_call
+  0x47dfc9 -> indirect_call
+main.spyfaulterinaceous.func6
+  0x47dd45 -> indirect_call
+  0x47dd69 -> indirect_call
+main.spyfaulterinaceous.func9
+  0x47e17f -> main.spyfaulterinaceous.func9.1
+main.spyfaulterinaceous.func9.1
+  <no direct calls>
+main.dogwatchtestiere.func5
+  0x47f2a5 -> indirect_call
+  0x47f2c9 -> indirect_call
+main.dogwatchtestiere.func6
+  0x47f345 -> indirect_call
+  0x47f369 -> indirect_call
+main._nonloverquadrigamist.func5
+  0x48151f -> main._nonloverquadrigamist.func5.1
+main._nonloverquadrigamist.func5.1
+  <no direct calls>
+main._nonloverquadrigamist.func4
+  0x481345 -> indirect_call
+  0x481369 -> indirect_call
+main.mislikenadactyl
+  0x46d6b4 -> indirect_call -> main.mislikenadactyl.func1
+  0x46d716 -> indirect_call -> main.mislikenadactyl.func2
+  0x46d73b -> main.spayingthoke
+main.mislikenadactyl.func1
+  0x47e765 -> indirect_call
+  0x47e789 -> indirect_call
+main.mislikenadactyl.func2
+  0x47e805 -> indirect_call
+  0x47e829 -> indirect_call
+main.spayingthoke
+  0x46d499 -> indirect_call -> main.spayingthoke.func2
+  0x46d503 -> indirect_call -> main.spayingthoke.func1
+  0x46d52c -> main.ElapsEpigonus
+main.spayingthoke.func2
+  0x47e6c5 -> indirect_call
+  0x47e6e9 -> indirect_call
+main.spayingthoke.func1
+  0x47e625 -> indirect_call
+  0x47e649 -> indirect_call
+main.ElapsEpigonus
+  0x46d275 -> main.ElapsEpigonus.func2
+  0x46d2ba -> indirect_call -> main.ElapsEpigonus.func3
+  0x46d2d6 -> main.ElapsEpigonus.func1
+  0x46d333 ->                         
+main.ElapsEpigonus.func2
+  0x47e4ff -> main.ElapsEpigonus.func2.1
+main.ElapsEpigonus.func2.1
+  <no direct calls>
+main.ElapsEpigonus.func3
+  0x47e585 -> indirect_call
+  0x47e5a9 -> indirect_call
+main.ElapsEpigonus.func1
+  0x47e33f -> main.ElapsEpigonus.func1.1
+main.ElapsEpigonus.func1.1
+  <no direct calls>
+main.stithdihydroxy
+  0x46c6fa -> indirect_call -> main.stithdihydroxy.func1
+  0x46c733 -> main.stithdihydroxy.func2
+  0x46c775 -> main.SidAkhissar
+  0x46c7cd -> main.Getabsolvechromatophilic
+main.stithdihydroxy.func1
+  0x47d3a5 -> indirect_call
+  0x47d3c9 -> indirect_call
+main.stithdihydroxy.func2
+  0x47d57f -> main.stithdihydroxy.func2.1
+main.stithdihydroxy.func2.1
+  <no direct calls>
+main.SidAkhissar
+  0x46bace -> indirect_call -> main.SidAkhissar.func1
+  0x46bae6 -> main.conceptionalmalacanthid
+  0x46bb3e -> main.outwearywhilom
+main.SidAkhissar.func1
+  0x47c0e5 -> indirect_call
+  0x47c109 -> indirect_call
+main.outwearywhilom
+  0x46be58 -> main.milliareEumenes
+  0x46bfa7 -> main.outwearywhilom.func1
+  0x46bfe5 -> main.nextlyepitenon
+  0x46c016 -> main.conceptionalmalacanthid
+  0x46c0dd -> main.outwearywhilom.func2
+  0x46c103 -> main.outwearywhilom.func3
+  0x46c1d3 -> main.outwearywhilom.func5
+  0x46c200 -> main.outwearywhilom.func4
+  0x46c25c -> main.nextlyepitenon
+  0x46c2c1 -> main.ballerexistentially
+  0x46c31f -> main.nextlyepitenon
+main.milliareEumenes
+  0x46b087 -> indirect_call -> main.milliareEumenes.func2
+  0x46b0af -> main.milliareEumenes.func1
+  0x46b0da -> main.Aveshysteric
+  0x46b136 -> main.milliareEumenes.func4
+  0x46b152 -> main.milliareEumenes.func5
+  0x46b16e -> main.milliareEumenes.func3
+  0x46b181 -> main.conceptionalmalacanthid
+main.milliareEumenes.func2
+  0x47b645 -> indirect_call
+  0x47b669 -> indirect_call
+main.milliareEumenes.func1
+  0x47b5bf -> main.milliareEumenes.func1.1
+main.milliareEumenes.func1.1
+  <no direct calls>
+main.milliareEumenes.func4
+  0x47b9df -> main.milliareEumenes.func4.1
+main.milliareEumenes.func4.1
+  <no direct calls>
+main.milliareEumenes.func5
+  0x47bb9f -> main.milliareEumenes.func5.1
+main.milliareEumenes.func5.1
+  <no direct calls>
+main.milliareEumenes.func3
+  0x47b81f -> main.milliareEumenes.func3.1
+main.milliareEumenes.func3.1
+  <no direct calls>
+main.outwearywhilom.func1
+  0x47cc1f -> main.outwearywhilom.func1.1
+main.outwearywhilom.func1.1
+  <no direct calls>
+main.outwearywhilom.func2
+  0x47cddf -> main.outwearywhilom.func2.1
+main.outwearywhilom.func2.1
+  <no direct calls>
+main.outwearywhilom.func3
+  0x47cf9f -> main.outwearywhilom.func3.1
+main.outwearywhilom.func3.1
+  <no direct calls>
+main.outwearywhilom.func5
+  0x47d31f -> main.outwearywhilom.func5.1
+main.outwearywhilom.func5.1
+  <no direct calls>
+main.outwearywhilom.func4
+  0x47d15f -> main.outwearywhilom.func4.1
+main.outwearywhilom.func4.1
+  <no direct calls>
+main.ballerexistentially
+  0x46bbd1 -> main.ballerexistentially.func2
+  0x46bbed -> main.ballerexistentially.func3
+  0x46bc09 -> main.ballerexistentially.func1
+  0x46bc6a -> main.nextlyepitenon
+  0x46bcdc -> main.(*Bonapartismludefisk).Vaudoiswireless
+  0x46bd88 -> indirect_call -> main.ballerexistentially.func5
+  0x46bda1 -> main.ballerexistentially.func6
+  0x46bdc0 -> main.ballerexistentially.func4
+main.ballerexistentially.func2
+  0x47c47f -> main.ballerexistentially.func2.1
+main.ballerexistentially.func2.1
+  <no direct calls>
+main.ballerexistentially.func3
+  0x47c63f -> main.ballerexistentially.func3.1
+main.ballerexistentially.func3.1
+  <no direct calls>
+main.ballerexistentially.func1
+  0x47c2bf -> main.ballerexistentially.func1.1
+main.ballerexistentially.func1.1
+  <no direct calls>
+main.(*Bonapartismludefisk).Vaudoiswireless
+  0x46b6d9 -> main.(*Bonapartismludefisk).Vaudoiswireless.func1
+  0x46b73b -> indirect_call -> main.(*Bonapartismludefisk).Vaudoiswireless.func2
+main.(*Bonapartismludefisk).Vaudoiswireless.func1
+  0x47bfbf -> main.(*Bonapartismludefisk).Vaudoiswireless.func1.1
+main.(*Bonapartismludefisk).Vaudoiswireless.func1.1
+  <no direct calls>
+main.(*Bonapartismludefisk).Vaudoiswireless.func2
+  0x47c045 -> indirect_call
+  0x47c069 -> indirect_call
+main.ballerexistentially.func5
+  0x47c885 -> indirect_call
+  0x47c8a9 -> indirect_call
+main.ballerexistentially.func6
+  0x47ca5f -> main.ballerexistentially.func6.1
+main.ballerexistentially.func6.1
+  <no direct calls>
+main.ballerexistentially.func4
+  0x47c7ff -> main.ballerexistentially.func4.1
+main.ballerexistentially.func4.1
+  <no direct calls>
+main.Getabsolvechromatophilic
+  0x46adc5 -> main.conceptionalmalacanthid
+  0x46adea -> main.Aveshysteric
+  0x46aeaf -> main.Getabsolvechromatophilic.func1
+  0x46aed8 -> main.Getabsolvechromatophilic.func2
+main.Getabsolvechromatophilic.func1
+  0x47b23f -> main.Getabsolvechromatophilic.func1.1
+main.Getabsolvechromatophilic.func1.1
+  <no direct calls>
+main.Getabsolvechromatophilic.func2
+  0x47b3ff -> main.Getabsolvechromatophilic.func2.1
+main.Getabsolvechromatophilic.func2.1
+  <no direct calls>
+main.isobarbaloincastigate
+  0x46b442 -> main.milliareEumenes
+  0x46b4ff -> main.isobarbaloincastigate.func2
+  0x46b566 -> indirect_call -> main.isobarbaloincastigate.func1
+main.isobarbaloincastigate.func2
+  0x47bdff -> main.isobarbaloincastigate.func2.1
+main.isobarbaloincastigate.func2.1
+  <no direct calls>
+main.isobarbaloincastigate.func1
+  0x47bc25 -> indirect_call
+  0x47bc49 -> indirect_call
+main.main.func2
+  0x477c65 -> indirect_call
+  0x477c89 -> indirect_call
+main.main.func3
+  0x477d05 -> indirect_call
+  0x477d29 -> indirect_call
+main.main.func1
+  0x477bdf -> main.main.func1.1
+main.main.func1.1
+  <no direct calls>
+main.main.func4
+  0x477edf -> main.main.func4.1
+main.main.func4.1
+  <no direct calls>
+main.borelepropaedeutical
+  0x46e2ee -> main.hystericsigillarian
+  0x46e377 -> indirect_call -> main.borelepropaedeutical.func2
+  0x46e3b9 -> indirect_call -> main.borelepropaedeutical.func3
+  0x46e3d5 -> main.borelepropaedeutical.func1
+  0x46e3f9 -> main.hystericsigillarian
+  0x46e417 ->                         
+  0x46e462 ->                      
+main.hystericsigillarian
+  0x469a58 -> main.hystericsigillarian.func2
+  0x469ab5 -> indirect_call -> main.hystericsigillarian.func3
+  0x469ad1 -> main.hystericsigillarian.func1
+  0x469bf4 -> indirect_call -> main.hystericsigillarian.func5
+  0x469c68 -> indirect_call -> main.hystericsigillarian.func4
+main.hystericsigillarian.func2
+  0x478bdf -> main.hystericsigillarian.func2.1
+main.hystericsigillarian.func2.1
+  <no direct calls>
+main.hystericsigillarian.func3
+  0x478c65 -> indirect_call
+  0x478c89 -> indirect_call
+main.hystericsigillarian.func1
+  0x478a1f -> main.hystericsigillarian.func1.1
+main.hystericsigillarian.func1.1
+  <no direct calls>
+main.hystericsigillarian.func5
+  0x478da5 -> indirect_call
+  0x478dc9 -> indirect_call
+main.hystericsigillarian.func4
+  0x478d05 -> indirect_call
+  0x478d29 -> indirect_call
+main.borelepropaedeutical.func2
+  0x47fb85 -> indirect_call
+  0x47fba9 -> indirect_call
+main.borelepropaedeutical.func3
+  0x47fc25 -> indirect_call
+  0x47fc49 -> indirect_call
+main.borelepropaedeutical.func1
+  0x47faff -> main.borelepropaedeutical.func1.1
+main.borelepropaedeutical.func1.1
+  <no direct calls>
+main.main.func5
+  0x47809f -> main.main.func5.1
+main.main.func5.1
+  <no direct calls>
+main.dermatoxerasiabetso
+  0x471a34 -> main.AnselmventripotentialEx
+  0x471b92 -> main.dermatoxerasiabetso.func1
+  0x471c0a -> main.stithdihydroxy
+  0x471c30 -> main.Updateabsolvechromatophilic
+  0x471cee -> main.dermatoxerasiabetso.func2
+  0x471d50 -> indirect_call -> main.dermatoxerasiabetso.func3
+  0x471d8f -> main.abbotcuboidal
+  0x471e9e -> indirect_call -> main.dermatoxerasiabetso.func5
+  0x471ebf -> main.dermatoxerasiabetso.func4
+  0x471efd -> main.homosystemicPauline
+  0x47200b -> indirect_call -> main.dermatoxerasiabetso.func7
+  0x47202c -> main.dermatoxerasiabetso.func6
+  0x47204b -> main.breakerchondriomere
+main.AnselmventripotentialEx
+  0x46a0a6 ->                         
+  0x46a166 -> indirect_call -> main.AnselmventripotentialEx.func2
+  0x46a1ab -> indirect_call -> main.AnselmventripotentialEx.func3
+  0x46a1c7 -> main.AnselmventripotentialEx.func1
+main.AnselmventripotentialEx.func2
+  0x4798c5 -> indirect_call
+  0x4798e9 -> indirect_call
+main.AnselmventripotentialEx.func3
+  0x479965 -> indirect_call
+  0x479989 -> indirect_call
+main.AnselmventripotentialEx.func1
+  0x47983f -> main.AnselmventripotentialEx.func1.1
+main.AnselmventripotentialEx.func1.1
+  <no direct calls>
+main.dermatoxerasiabetso.func1
+  0x483e9f -> main.dermatoxerasiabetso.func1.1
+main.dermatoxerasiabetso.func1.1
+  <no direct calls>
+main.Updateabsolvechromatophilic
+  0x470335 -> main.conceptionalmalacanthid
+  0x47035a -> main.Aveshysteric
+  0x47041f -> main.Updateabsolvechromatophilic.func2
+  0x470448 -> main.Updateabsolvechromatophilic.func1
+main.Updateabsolvechromatophilic.func2
+  0x4829bf -> main.Updateabsolvechromatophilic.func2.1
+main.Updateabsolvechromatophilic.func2.1
+  <no direct calls>
+main.Updateabsolvechromatophilic.func1
+  0x4827ff -> main.Updateabsolvechromatophilic.func1.1
+main.Updateabsolvechromatophilic.func1.1
+  <no direct calls>
+main.dermatoxerasiabetso.func2
+  0x48405f -> main.dermatoxerasiabetso.func2.1
+main.dermatoxerasiabetso.func2.1
+  <no direct calls>
+main.dermatoxerasiabetso.func3
+  0x4840e5 -> indirect_call
+  0x484109 -> indirect_call
+main.abbotcuboidal
+  0x46f8e1 -> main.abbotcuboidal.func2
+  0x46f8fd -> main.abbotcuboidal.func3
+  0x46f919 -> main.abbotcuboidal.func1
+  0x46f99d ->                         
+main.abbotcuboidal.func2
+  0x481cbf -> main.abbotcuboidal.func2.1
+main.abbotcuboidal.func2.1
+  <no direct calls>
+main.abbotcuboidal.func3
+  0x481e7f -> main.abbotcuboidal.func3.1
+main.abbotcuboidal.func3.1
+  <no direct calls>
+main.abbotcuboidal.func1
+  0x481aff -> main.abbotcuboidal.func1.1
+main.abbotcuboidal.func1.1
+  <no direct calls>
+main.dermatoxerasiabetso.func5
+  0x484345 -> indirect_call
+  0x484369 -> indirect_call
+main.dermatoxerasiabetso.func4
+  0x4842bf -> main.dermatoxerasiabetso.func4.1
+main.dermatoxerasiabetso.func4.1
+  <no direct calls>
+main.homosystemicPauline
+  0x47128b -> main.unconfidenceoncin
+  0x471459 -> main.takosispraisefully
+  0x471481 -> main.stranglingprotistic
+  0x471520 -> indirect_call -> main.homosystemicPauline.func2
+  0x47157d -> indirect_call -> main.homosystemicPauline.func3
+  0x471599 -> main.homosystemicPauline.func1
+  0x4715ae -> main.interenjoywhau
+  0x4716c3 -> indirect_call -> main.homosystemicPauline.func5
+  0x47172a -> indirect_call -> main.homosystemicPauline.func4
+  0x47177a -> main.abbotcuboidal
+main.unconfidenceoncin
+  0x470505 -> main.conceptionalmalacanthid
+  0x47052a -> main.Aveshysteric
+  0x470634 -> indirect_call -> main.unconfidenceoncin.func2
+  0x47069e -> indirect_call -> main.unconfidenceoncin.func1
+main.unconfidenceoncin.func2
+  0x482ae5 -> indirect_call
+  0x482b09 -> indirect_call
+main.unconfidenceoncin.func1
+  0x482a45 -> indirect_call
+  0x482a69 -> indirect_call
+main.takosispraisefully
+  0x4707fe -> main.takosispraisefully.func1
+  0x47081f -> main.takosispraisefully.func2
+  0x47085d -> main.hystericsigillarian
+  0x470885 -> main.epitenongoave
+  0x470917 -> indirect_call -> main.takosispraisefully.func4
+  0x470974 -> indirect_call -> main.takosispraisefully.func5
+  0x4709d1 -> indirect_call -> main.takosispraisefully.func3
+  0x470a03 -> main.unchapterbizet
+  0x470a6b -> main.hystericsigillarian
+  0x470a94 -> main.atamascogallycrow
+  0x470bd9 -> main.takosispraisefully.func6
+  0x470c14 -> main.reboantimminution
+main.takosispraisefully.func1
+  0x482cbf -> main.takosispraisefully.func1.1
+main.takosispraisefully.func1.1
+  <no direct calls>
+main.takosispraisefully.func2
+  0x482e7f -> main.takosispraisefully.func2.1
+main.takosispraisefully.func2.1
+  <no direct calls>
+main.epitenongoave
+  0x46fa87 ->                         
+  0x46fb40 -> main.epitenongoave.func1
+  0x46fba7 -> indirect_call -> main.epitenongoave.func2
+main.epitenongoave.func1
+  0x48203f -> main.epitenongoave.func1.1
+main.epitenongoave.func1.1
+  <no direct calls>
+main.epitenongoave.func2
+  0x4820c5 -> indirect_call
+  0x4820e9 -> indirect_call
+main.takosispraisefully.func4
+  0x482fa5 -> indirect_call
+  0x482fc9 -> indirect_call
+main.takosispraisefully.func5
+  0x483045 -> indirect_call
+  0x483069 -> indirect_call
+main.takosispraisefully.func3
+  0x482f05 -> indirect_call
+  0x482f29 -> indirect_call
+main.unchapterbizet
+  0x46fc97 ->                         
+  0x46fe17 -> indirect_call -> main.unchapterbizet.func1
+main.unchapterbizet.func1
+  0x482165 -> indirect_call
+  0x482189 -> indirect_call
+main.atamascogallycrow
+  0x46ff07 ->                         
+  0x46ffdb -> main.atamascogallycrow.func1
+  0x47004f -> indirect_call -> main.atamascogallycrow.func2
+main.atamascogallycrow.func1
+  0x48233f -> main.atamascogallycrow.func1.1
+main.atamascogallycrow.func1.1
+  <no direct calls>
+main.atamascogallycrow.func2
+  0x4823c5 -> indirect_call
+  0x4823e9 -> indirect_call
+main.takosispraisefully.func6
+  0x48321f -> main.takosispraisefully.func6.1
+main.takosispraisefully.func6.1
+  <no direct calls>
+main.reboantimminution
+  0x470147 ->                         
+  0x47021b -> main.reboantimminution.func2
+  0x47028f -> indirect_call -> main.reboantimminution.func1
+main.reboantimminution.func2
+  0x48263f -> main.reboantimminution.func2.1
+main.reboantimminution.func2.1
+  <no direct calls>
+main.reboantimminution.func1
+  0x482465 -> indirect_call
+  0x482489 -> indirect_call
+main.stranglingprotistic
+  0x470cf8 -> main.hystericsigillarian
+  0x470d20 -> main.epitenongoave
+  0x470e1f -> indirect_call -> main.stranglingprotistic.func2
+  0x470e40 -> main.stranglingprotistic.func1
+  0x470ec0 -> main.hystericsigillarian
+  0x470ee9 -> main.atamascogallycrow
+main.stranglingprotistic.func2
+  0x483465 -> indirect_call
+  0x483489 -> indirect_call
+main.stranglingprotistic.func1
+  0x4833df -> main.stranglingprotistic.func1.1
+main.stranglingprotistic.func1.1
+  <no direct calls>
+main.homosystemicPauline.func2
+  0x483ae5 -> indirect_call
+  0x483b09 -> indirect_call
+main.homosystemicPauline.func3
+  0x483b85 -> indirect_call
+  0x483ba9 -> indirect_call
+main.homosystemicPauline.func1
+  0x483a5f -> main.homosystemicPauline.func1.1
+main.homosystemicPauline.func1.1
+  <no direct calls>
+main.interenjoywhau
+  0x471193 -> main.interenjoywhau.func2
+  0x4711f0 -> indirect_call -> main.interenjoywhau.func3
+  0x47120c -> main.interenjoywhau.func1
+main.interenjoywhau.func2
+  0x4837ff -> main.interenjoywhau.func2.1
+main.interenjoywhau.func2.1
+  <no direct calls>
+main.interenjoywhau.func3
+  0x483885 -> indirect_call
+  0x4838a9 -> indirect_call
+main.interenjoywhau.func1
+  0x48363f -> main.interenjoywhau.func1.1
+main.interenjoywhau.func1.1
+  <no direct calls>
+main.homosystemicPauline.func5
+  0x483cc5 -> indirect_call
+  0x483ce9 -> indirect_call
+main.homosystemicPauline.func4
+  0x483c25 -> indirect_call
+  0x483c49 -> indirect_call
+main.dermatoxerasiabetso.func7
+  0x4845a5 -> indirect_call
+  0x4845c9 -> indirect_call
+main.dermatoxerasiabetso.func6
+  0x48451f -> main.dermatoxerasiabetso.func6.1
+main.dermatoxerasiabetso.func6.1
+  <no direct calls>
+main.breakerchondriomere
+  0x46f75a ->                         
+  0x46f7e3 -> main.breakerchondriomere.func2
+  0x46f828 -> indirect_call -> main.breakerchondriomere.func3
+  0x46f844 -> main.breakerchondriomere.func1
+main.breakerchondriomere.func2
+  0x48189f -> main.breakerchondriomere.func2.1
+main.breakerchondriomere.func2.1
+  <no direct calls>
+main.breakerchondriomere.func3
+  0x481925 -> indirect_call
+  0x481949 -> indirect_call
+main.breakerchondriomere.func1
+  0x4816df -> main.breakerchondriomere.func1.1
+main.breakerchondriomere.func1.1
+  <no direct calls>
+main.main.func7
+  0x4782ff -> main.main.func7.1
+main.main.func7.1
+  <no direct calls>
+main.main.func8
+  0x4784bf -> main.main.func8.1
+main.main.func8.1
+  <no direct calls>
+main.main.func6
+  0x478125 -> indirect_call
+  0x478149 -> indirect_call
+main.main.func10
+  0x4785e5 -> indirect_call
+  0x478609 -> indirect_call
+main.main.func11
+  0x478685 -> indirect_call
+  0x4786a9 -> indirect_call
+main.main.func9
+  0x478545 -> indirect_call
+  0x478569 -> indirect_call
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - main.(*Bonapartismludefisk).Vaudoiswireless:0x46b6ac call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.(*Bonapartismludefisk).Vaudoiswireless:0x46b7eb call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.(*Bonapartismludefisk).Vaudoiswireless:0x46b814 call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.(*Bonapartismludefisk).Vaudoiswireless:0x46b88e call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.Anselmventripotential:0x469f50 call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.Aveshysteric:0x46a596 call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.Aveshysteric:0x46a5c6 call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.Aveshysteric:0x46a83a call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.Getabsolvechromatophilic:0x46ae82 call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+    - main.Jatulian:0x473475 call -> runtime.duffzero+0x7 classification=go_runtime_duff_helper
+  indirect_calls:
+    - main.(*Bonapartismludefisk).Vaudoiswireless:0x46b73b call rcx [stack_closure_or_defer_call] evidence=target comes from register RCX; target is loaded from stack memory
+    - main.(*Bonapartismludefisk).Vaudoiswireless.func2:0x47c045 call rbx [interface_method_or_object_dispatch] evidence=target comes from register RBX; target uses register-indirect memory addressing
+    - main.(*Bonapartismludefisk).Vaudoiswireless.func2:0x47c069 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.AnselmventripotentialEx:0x46a166 call rcx [stack_closure_or_defer_call] evidence=target comes from register RCX; target is loaded from stack memory
+    - main.AnselmventripotentialEx:0x46a1ab call rcx [stack_closure_or_defer_call] evidence=target comes from register RCX; target is loaded from stack memory
+    - main.AnselmventripotentialEx.func2:0x4798c5 call rbx [interface_method_or_object_dispatch] evidence=target comes from register RBX; target uses register-indirect memory addressing
+    - main.AnselmventripotentialEx.func2:0x4798e9 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.AnselmventripotentialEx.func3:0x479965 call rbx [interface_method_or_object_dispatch] evidence=target comes from register RBX; target uses register-indirect memory addressing
+    - main.AnselmventripotentialEx.func3:0x479989 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.Aveshysteric:0x46a68e call rcx [stack_closure_or_defer_call] evidence=target comes from register RCX; target is loaded from stack memory
+  suspicious_data_blobs:
+    - blob_0 .rdata:0x499000 size=0x1000 entropy=3.429 reasons=contains_magic_bytes refs=<none>
+    - blob_1 .rdata:0x4c7080 size=0x92c00 entropy=6.687 reasons=large_copy_source refs=main.driftlessunfructuously
+    - blob_2 .rdata:0x55d000 size=0x1000 entropy=3.192 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .rdata:0x59a000 size=0x1000 entropy=4.75 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .rdata:0x5a7000 size=0x1000 entropy=5.578 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rsrc:0x5f4000 size=0x2000 entropy=7.621 reasons=contains_magic_bytes,high_entropy refs=<none>
+  data_transformers:
+    - main.main ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.nonloverquadrigamist ops=add,sub,xor confidence=medium sources=<unknown>
+    - main.driftlessunfructuously ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.monolithicagitatorRajah ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main._nonloverquadrigamist ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.dogwatchtestiere ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.Aveshysteric ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.nextlyepitenon ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.spyfaulterinaceous ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.spayingthoke ops=add,shift,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - main.Aveshysteric kind=suspicious_runtime_behavior confidence=medium evidence=executable_memory_requested,pe_header_parsing

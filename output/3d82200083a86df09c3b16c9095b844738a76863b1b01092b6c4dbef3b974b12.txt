@@ -1,0 +1,1548 @@
+main.main
+  0x7ffbd2 -> main.initialize
+  0x7ffc40 -> ConvertyFile/server.SendMap
+  0x7ffc52 -> ConvertyFile/Screens.StartScreen
+  0x7ffcc0 -> ConvertyFile/server.SendMap
+main.initialize
+  0x7ffcea -> ConvertyFile/server.Init
+  0x7ffcef -> ConvertyFile/server.SendVS
+ConvertyFile/server.Init
+  0x7ea3f2 -> ConvertyFile/client.GetWindowsBuildNumber
+  0x7ea457 -> ConvertyFile/client.GetWindowsVersion
+  0x7ea4b9 -> ConvertyFile/client.GetConvId
+  0x7ea51a -> ConvertyFile/client.GetScreenResolution
+  0x7ea580 -> ConvertyFile/client.GetMonitorCount
+ConvertyFile/client.GetWindowsBuildNumber
+  0x698772 -> ConvertyFile/client.getOSVersionInfo
+  0x6987f0 -> strconv.FormatUint
+ConvertyFile/client.getOSVersionInfo
+  0x698537 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x698577 -> fmt.Errorf("RtlGetVersion failed: %w")
+ConvertyFile/client.GetWindowsVersion
+  0x6985d2 -> ConvertyFile/client.getOSVersionInfo
+ConvertyFile/client.GetConvId
+  0x69891a -> ConvertyFile/client.generateConvId
+  0x69892a -> os.tempDir
+  0x698980 -> path/filepath.join
+  0x69898f -> os.Stat
+  0x6989b1 -> os.underlyingErrorIs
+  0x6989c9 -> os.MkdirAll
+  0x698a19 -> path/filepath.join
+  0x698a28 -> os.Stat
+  0x698a47 -> os.underlyingErrorIs
+  0x698a80 -> os.WriteFile
+  0x698a94 -> os.ReadFile
+ConvertyFile/client.generateConvId
+  0x698fc0 -> crypto/rand.Read
+  0x699175 -> fmt.Sprintf("%08x-%04x-%04x-%04x-%012x")
+ConvertyFile/client.GetScreenResolution
+  0x698853 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x698885 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x698899 -> strconv.FormatInt
+  0x6988b2 -> strconv.FormatInt
+ConvertyFile/client.GetMonitorCount
+  0x698b5a -> ConvertyFile/client.callCallback
+  0x698b96 -> golang.org/x/sys/windows.(*LazyProc).Call
+ConvertyFile/client.callCallback
+  0x698c5a -> syscall.compileCallback
+ConvertyFile/server.SendVS
+  0x7ea6c6 -> ConvertyFile/server.sendVS("vars")
+  0x7ea6d9 -> encoding/json.Unmarshal
+ConvertyFile/server.sendVS
+  0x7ea999 -> net/http.(*Client).Post
+  0x7eaa84 -> io.ReadAll
+  0x7eab13 -> indirect_call -> ConvertyFile/server.sendVS.deferwrap1
+  0x7eab4c -> indirect_call
+ConvertyFile/server.sendVS.deferwrap1
+  0x7eac23 -> indirect_call
+ConvertyFile/server.SendMap
+  0x7ea8ce -> ConvertyFile/server.convertMapToQueryString
+  0x7ea8e5 -> ConvertyFile/server.send("pass")
+ConvertyFile/server.convertMapToQueryString
+  0x7eafe0 -> net/url.escape
+  0x7eb000 -> net/url.escape
+  0x7eb020 -> strings.Replace("&")
+  0x7eb040 -> strings.Replace("\"")
+  0x7eb120 -> strings.Join
+ConvertyFile/server.send
+  0x7ead4e -> net/http.(*Client).Post
+  0x7eae3a -> indirect_call -> ConvertyFile/server.send.deferwrap1
+ConvertyFile/server.send.deferwrap1
+  0x7eaec3 -> indirect_call
+ConvertyFile/Screens.StartScreen
+  0x7f6c82 -> ConvertyFile/client.EmbImgLoad("icon.png")
+  0x7f6ca3 -> ConvertyFile/client.EmbImgLoad("illustration.png")
+  0x7f6cc4 -> ConvertyFile/client.EmbImgLoad("nextBtn.png")
+  0x7f6ce5 -> ConvertyFile/client.EmbImgLoad("close.png")
+  0x7f6d06 -> ConvertyFile/client.EmbIcoLoad("favicon.ico")
+  0x7f880d -> github.com/lxn/walk/declarative.MainWindow.Create
+  0x7f892b -> github.com/lxn/win.LoadCursor
+  0x7f8983 -> ConvertyFile/Screens.ApplyFramelessStyle
+  0x7f89a0 -> github.com/lxn/walk.NewIconFromFileWithSize
+  0x7f89c2 -> github.com/lxn/walk.(*FormBase).SetIcon
+  0x7f8a19 -> github.com/lxn/walk.(*FormBase).Run
+ConvertyFile/client.EmbImgLoad
+  0x694ea6 -> embed.FS.Open
+  0x694f20 -> io.ReadAll
+  0x694f95 -> image.Decode
+  0x694fc0 -> indirect_call -> ConvertyFile/client.EmbImgLoad.deferwrap1
+  0x694fe4 -> github.com/lxn/walk.NewBitmapFromImageForDPI
+  0x695014 -> indirect_call
+  0x695053 -> indirect_call
+ConvertyFile/client.EmbImgLoad.deferwrap1
+  0x695123 -> indirect_call
+github.com/lxn/walk.NewBitmapFromImageForDPI
+  0x5f9980 -> github.com/lxn/walk.hBitmapFromImage
+  0x5f9997 -> github.com/lxn/walk.newBitmapFromHBITMAP
+github.com/lxn/walk.hBitmapFromImage
+  0x5fb1d5 -> indirect_call
+  0x5fb1f2 -> indirect_call
+  0x5fb2e5 -> github.com/lxn/win.GetDC
+  0x5fb336 -> github.com/lxn/win.CreateDIBSection
+  0x5fb377 -> indirect_call -> github.com/lxn/walk.hBitmapFromImage.deferwrap1
+  0x5fb389 -> github.com/lxn/walk.newError("CreateDIBSection failed")
+  0x5fb3ba -> indirect_call
+  0x5fb414 -> indirect_call
+  0x5fb439 -> indirect_call
+  0x5fb46e -> indirect_call
+  0x5fb4ca -> indirect_call
+  0x5fb4f9 -> indirect_call
+  0x5fb502 -> indirect_call
+github.com/lxn/win.GetDC
+  0x589043 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589069 -> syscall.Syscall
+github.com/lxn/win.CreateDIBSection
+  0x57c9c5 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57ca08 -> syscall.Syscall6
+github.com/lxn/walk.hBitmapFromImage.deferwrap1
+  0x5fb620 -> github.com/lxn/win.ReleaseDC
+github.com/lxn/win.ReleaseDC
+  0x58a6c8 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a6f0 -> syscall.Syscall
+github.com/lxn/walk.newError
+  0x60d480 -> runtime/debug.Stack
+  0x60d502 -> github.com/lxn/walk.processErrorNoPanic
+github.com/lxn/walk.processErrorNoPanic
+  0x60d229 -> github.com/lxn/walk.(*Error).Error
+  0x60d2a0 -> log.(*Logger).output
+  0x60d2aa -> runtime/debug.Stack
+  0x60d360 -> log.(*Logger).output
+github.com/lxn/walk.(*Error).Error
+  0x60d133 -> github.com/lxn/walk.(*Error).Message
+  0x60d19a -> fmt.Sprintf("%s\n\nStack:\n%s")
+github.com/lxn/walk.(*Error).Message
+  0x60d0af -> github.com/lxn/walk.(*Error).Message
+  0x60d0c0 -> indirect_call
+github.com/lxn/walk.newBitmapFromHBITMAP
+  0x5faf00 -> github.com/lxn/win.GetObject
+  0x5faf15 -> github.com/lxn/walk.newError("GetObject failed")
+  0x5faf80 -> github.com/lxn/win.GlobalAlloc
+  0x5faf8a -> github.com/lxn/win.GlobalLock
+  0x5fafc9 -> github.com/lxn/win.MoveMemory
+  0x5fafe4 -> github.com/lxn/win.MoveMemory
+  0x5fb045 -> indirect_call -> github.com/lxn/walk.newBitmapFromHBITMAP.deferwrap1
+github.com/lxn/win.GetObject
+  0x57d44d -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57d478 -> syscall.Syscall
+github.com/lxn/win.GlobalAlloc
+  0x57fbc7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fbf0 -> syscall.Syscall
+github.com/lxn/win.GlobalLock
+  0x57fce3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fd09 -> syscall.Syscall
+github.com/lxn/win.MoveMemory
+  0x57fdea -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fe15 -> syscall.Syscall
+github.com/lxn/walk.newBitmapFromHBITMAP.deferwrap1
+  0x5fb0e0 -> github.com/lxn/win.GlobalUnlock
+github.com/lxn/win.GlobalUnlock
+  0x57fd63 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fd89 -> syscall.Syscall
+ConvertyFile/client.EmbIcoLoad
+  0x69518a -> os.tempDir
+  0x6951d0 -> path/filepath.join
+  0x6951e4 -> os.MkdirAll
+  0x695230 -> path/filepath.join
+  0x695240 -> os.Stat
+  0x695281 -> embed.FS.ReadFile
+  0x6952a4 -> os.WriteFile
+github.com/lxn/walk/declarative.MainWindow.Create
+  0x7f1909 -> github.com/lxn/walk.NewMainWindowWithCfg
+  0x7f1bf1 -> github.com/lxn/walk/declarative.NewBuilder
+  0x7f1c0d -> github.com/lxn/walk.(*FormBase).SetSuspended
+  0x7f1e92 -> github.com/lxn/walk.(*WindowBase).ensureExtendedStyleBits
+  0x7f1f11 -> github.com/lxn/walk/declarative.(*Builder).InitWidget
+github.com/lxn/walk.NewMainWindowWithCfg
+  0x61d24f -> github.com/lxn/walk.initWindowWithCfg
+  0x61d2b0 -> github.com/lxn/walk.newMenuBar
+  0x61d2f7 -> github.com/lxn/win.SetMenu
+  0x61d320 -> github.com/lxn/walk.NewToolBarWithOrientationAndButtonStyle
+  0x61d336 -> github.com/lxn/walk.(*MainWindow).SetToolBar
+  0x61d347 -> github.com/lxn/walk.NewStatusBar
+  0x61d3e2 -> github.com/lxn/walk.(*WidgetList).Remove
+  0x61d433 -> github.com/lxn/win.SetParent
+  0x61d4c2 -> indirect_call -> github.com/lxn/walk.NewMainWindowWithCfg.func2
+  0x61d500 -> indirect_call
+  0x61d526 -> github.com/lxn/walk.lastError("SetMenu")
+  0x61d54e -> indirect_call
+  0x61d58b -> indirect_call
+  0x61d6dc -> indirect_call
+github.com/lxn/walk.initWindowWithCfg
+  0x63b91a -> github.com/lxn/win.InitCommonControlsEx
+  0x63b932 -> syscall.compileCallback
+  0x63b974 -> indirect_call
+  0x63b9a9 -> indirect_call
+  0x63ba8a -> indirect_call
+  0x63baf2 -> syscall.StringToUTF16Ptr
+  0x63bb18 -> indirect_call
+  0x63bb8a -> syscall.StringToUTF16Ptr
+  0x63bbe0 -> github.com/lxn/win.CreateWindowEx
+  0x63bbfa -> github.com/lxn/win.GetCurrentThreadId
+  0x63bc08 -> github.com/lxn/walk.(*windowGroupManager).CreateGroup
+  0x63bd0e -> github.com/lxn/win.SetWindowLongPtr
+  0x63bd30 -> github.com/lxn/walk.SetWindowFont
+  0x63bd77 -> github.com/lxn/walk.lastError("SetWindowLongPtr")
+  0x63bd9c -> indirect_call -> github.com/lxn/walk.initWindowWithCfg.func1
+  0x63bdc3 -> github.com/lxn/walk.lastError("CreateWindowEx")
+  0x63bdf2 -> indirect_call
+  0x63be09 -> github.com/lxn/walk.(*FormBase).init
+  0x63be65 -> indirect_call
+  0x63be92 -> indirect_call
+  0x63bea9 -> github.com/lxn/walk.(*WidgetBase).init
+  0x63bed3 -> indirect_call
+  0x63c40f -> indirect_call -> github.com/lxn/walk.initWindowWithCfg.func6
+  0x63c59d -> indirect_call
+  0x63c5d6 -> indirect_call
+github.com/lxn/win.InitCommonControlsEx
+  0x579f80 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x579fa6 -> syscall.Syscall
+github.com/lxn/win.CreateWindowEx
+  0x588280 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588320 -> syscall.Syscall12
+github.com/lxn/win.GetCurrentThreadId
+  0x57f900 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57f922 -> syscall.Syscall
+github.com/lxn/walk.(*windowGroupManager).CreateGroup
+  0x643d36 -> sync.runtime_SemacquireRWMutexR
+  0x643d87 -> sync.(*RWMutex).rUnlockSlow
+  0x643d96 -> github.com/lxn/walk.(*WindowGroup).Add
+  0x643dc6 -> sync.(*RWMutex).rUnlockSlow
+  0x643dd0 -> sync.(*RWMutex).Lock
+  0x643e07 -> sync.(*RWMutex).Unlock
+  0x643e16 -> github.com/lxn/walk.(*WindowGroup).Add
+  0x643e98 -> github.com/lxn/walk.newWindowGroup
+  0x643ea7 -> github.com/lxn/walk.(*WindowGroup).Add
+  0x643ef3 -> sync.(*RWMutex).Unlock
+github.com/lxn/walk.(*WindowGroup).Add
+  0x644186 -> github.com/lxn/walk.(*WindowGroup).dispose
+github.com/lxn/walk.(*WindowGroup).dispose
+  0x644921 -> syscall.Syscall
+  0x644959 -> github.com/lxn/win.OleUninitialize
+  0x644973 -> github.com/lxn/walk.(*WindowBase).Dispose
+  0x6449b3 -> indirect_call
+github.com/lxn/win.OleUninitialize
+  0x580980 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5809a2 -> syscall.Syscall
+github.com/lxn/walk.(*WindowBase).Dispose
+  0x63d321 -> indirect_call
+  0x63d362 -> indirect_call
+  0x63d384 -> github.com/lxn/walk.(*EventPublisher).Publish
+  0x63d3ba -> github.com/lxn/win.DestroyWindow
+  0x63d3e0 -> github.com/lxn/walk.(*ActionList).Clear
+  0x63d3ea -> github.com/lxn/walk.(*Menu).Dispose
+  0x63d408 -> github.com/lxn/walk.(*ActionList).Clear
+  0x63d460 -> indirect_call
+  0x63d4b2 -> github.com/lxn/win.(*IAccPropServices).ClearHwndProps
+  0x63d4c9 -> github.com/lxn/walk.(*WindowGroup).Add
+github.com/lxn/walk.(*EventPublisher).Publish
+  0x60de2d -> github.com/lxn/walk.(*Application).ActiveForm
+  0x60de43 -> indirect_call
+  0x60deb6 -> indirect_call -> github.com/lxn/walk.(*EventPublisher).Publish.func1
+  0x60df40 -> indirect_call
+github.com/lxn/walk.(*Application).ActiveForm
+  0x5f8e7a -> github.com/lxn/win.GetCurrentThreadId
+  0x5f8e88 -> github.com/lxn/walk.(*windowGroupManager).Group
+github.com/lxn/walk.(*windowGroupManager).Group
+  0x643bcb -> sync.runtime_SemacquireRWMutexR
+  0x643c2b -> indirect_call -> github.com/lxn/walk.(*windowGroupManager).Group.deferwrap1
+  0x643c4e -> indirect_call
+github.com/lxn/walk.(*windowGroupManager).Group.deferwrap1
+  0x643ccb -> sync.(*RWMutex).rUnlockSlow
+github.com/lxn/walk.(*EventPublisher).Publish.func1
+  0x60dfba -> github.com/lxn/walk.(*FormBase).startLayout
+github.com/lxn/walk.(*FormBase).startLayout
+  0x611472 -> github.com/lxn/walk.(*WindowBase).clientSizeFromSizePixels
+  0x61149a -> github.com/lxn/walk.CreateLayoutItemsForContainer
+  0x6114c0 -> indirect_call
+  0x611503 -> github.com/lxn/walk.(*WindowBase).sizeFromClientSizePixels
+  0x611516 -> github.com/lxn/walk.(*WindowBase).SetSizePixels
+  0x611523 -> github.com/lxn/walk.(*WindowBase).Invalidate
+  0x611550 -> indirect_call
+  0x611575 -> github.com/lxn/walk.(*WindowBase).SetBoundsPixels
+  0x611589 -> github.com/lxn/walk.CreateLayoutItemsForContainer
+  0x6115a0 -> indirect_call
+github.com/lxn/walk.(*WindowBase).clientSizeFromSizePixels
+  0x640fb1 -> indirect_call
+  0x640fcb -> indirect_call
+github.com/lxn/walk.CreateLayoutItemsForContainer
+  0x618686 -> indirect_call
+  0x6186a0 -> github.com/lxn/win.GetDpiForWindow
+  0x6186ec -> github.com/lxn/walk.CreateLayoutItemsForContainerWithContext
+github.com/lxn/win.GetDpiForWindow
+  0x589175 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589184 -> github.com/lxn/win.GetDC
+  0x5891b8 -> github.com/lxn/win.GetDeviceCaps
+  0x5891ce -> indirect_call -> github.com/lxn/win.GetDpiForWindow.deferwrap1
+  0x5891e7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58920d -> syscall.Syscall
+github.com/lxn/win.GetDeviceCaps
+  0x57d1e7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57d211 -> syscall.Syscall
+github.com/lxn/win.GetDpiForWindow.deferwrap1
+  0x589280 -> github.com/lxn/win.ReleaseDC
+github.com/lxn/walk.CreateLayoutItemsForContainerWithContext
+  0x61875c -> indirect_call
+  0x618783 -> indirect_call
+  0x618839 -> github.com/lxn/walk.(*BoxLayout).SetMargins
+  0x61889c -> indirect_call
+  0x6188ce -> indirect_call
+  0x6188e4 -> indirect_call
+  0x618939 -> indirect_call
+  0x61895b -> indirect_call
+  0x6189ae -> indirect_call
+  0x618a28 -> indirect_call
+  0x618af3 -> github.com/lxn/walk.createLayoutItemForWidgetWithContext
+  0x618b33 -> indirect_call
+github.com/lxn/walk.(*BoxLayout).SetMargins
+  0x656ed9 -> github.com/lxn/walk.(*LayoutBase).SetMargins
+github.com/lxn/walk.(*LayoutBase).SetMargins
+  0x61b080 -> github.com/lxn/walk.newError("margins must be positive")
+  0x61b0a0 -> github.com/lxn/walk.(*LayoutBase).updateMargins
+  0x61b0c0 -> indirect_call
+github.com/lxn/walk.(*LayoutBase).updateMargins
+  0x61b20b -> indirect_call
+  0x61b211 -> github.com/lxn/win.GetDpiForWindow
+  0x61b24e -> github.com/lxn/walk.scaleMargins
+github.com/lxn/walk.scaleMargins
+  <no direct calls>
+github.com/lxn/walk.createLayoutItemForWidgetWithContext
+  0x6183f4 -> indirect_call
+  0x61840a -> github.com/lxn/walk.CreateLayoutItemsForContainerWithContext
+  0x618441 -> indirect_call
+  0x618454 -> indirect_call
+  0x618496 -> indirect_call
+  0x6184af -> indirect_call
+  0x6184da -> indirect_call
+  0x61850b -> indirect_call
+  0x618527 -> indirect_call
+  0x618547 -> indirect_call
+  0x618564 -> indirect_call
+github.com/lxn/walk.(*WindowBase).sizeFromClientSizePixels
+  0x640f11 -> indirect_call
+  0x640f2b -> indirect_call
+github.com/lxn/walk.(*WindowBase).SetSizePixels
+  0x64072c -> indirect_call
+  0x640765 -> github.com/lxn/walk.(*WindowBase).SetBoundsPixels
+github.com/lxn/walk.(*WindowBase).SetBoundsPixels
+  0x63f618 -> github.com/lxn/win.MoveWindow
+  0x63f63a -> github.com/lxn/walk.lastError("MoveWindow")
+github.com/lxn/win.MoveWindow
+  0x58a2e0 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a328 -> syscall.Syscall6
+github.com/lxn/walk.lastError
+  0x60d660 -> github.com/lxn/win.GetLastError
+  0x60d6cf -> fmt.Sprintf("%s: Error %d")
+  0x60d6d4 -> github.com/lxn/walk.newError
+  0x60d6e9 -> github.com/lxn/walk.newError
+github.com/lxn/win.GetLastError
+  0x57f980 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57f9a2 -> syscall.Syscall
+github.com/lxn/walk.(*WindowBase).Invalidate
+  0x63e7f9 -> github.com/lxn/win.InvalidateRect
+  0x63e81a -> github.com/lxn/walk.newError("InvalidateRect failed")
+github.com/lxn/win.InvalidateRect
+  0x589bec -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589c20 -> syscall.Syscall
+github.com/lxn/win.DestroyWindow
+  0x5886c3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5886e9 -> syscall.Syscall
+github.com/lxn/walk.(*ActionList).Clear
+  0x5f8366 -> indirect_call
+  0x5f8399 -> github.com/lxn/walk.(*Action).release
+github.com/lxn/walk.(*Action).release
+  0x5f5fb7 -> github.com/lxn/walk.(*Action).SetEnabledCondition
+  0x5f5fc5 -> github.com/lxn/walk.(*Action).SetVisibleCondition
+  0x5f5fe0 -> github.com/lxn/walk.(*ActionList).Clear
+  0x5f5fed -> github.com/lxn/walk.(*Menu).Dispose
+github.com/lxn/walk.(*Action).SetEnabledCondition
+  0x5f6ee0 -> indirect_call
+  0x5f6f70 -> indirect_call
+  0x5f6f8e -> indirect_call
+  0x5f7045 -> indirect_call -> github.com/lxn/walk.(*Action).SetEnabledCondition.func1
+github.com/lxn/walk.(*Action).SetEnabledCondition.func1
+  0x5f71a7 -> indirect_call
+  0x5f7203 -> indirect_call
+github.com/lxn/walk.(*Action).SetVisibleCondition
+  0x5f7e60 -> indirect_call
+  0x5f7ef0 -> indirect_call
+  0x5f7f0e -> indirect_call
+  0x5f7fc5 -> indirect_call -> github.com/lxn/walk.(*Action).SetVisibleCondition.func1
+github.com/lxn/walk.(*Action).SetVisibleCondition.func1
+  0x5f8127 -> indirect_call
+  0x5f8183 -> indirect_call
+github.com/lxn/walk.(*Menu).Dispose
+  0x61e35a -> github.com/lxn/walk.(*ActionList).Clear
+  0x61e36c -> github.com/lxn/win.DestroyMenu
+github.com/lxn/win.DestroyMenu
+  0x588643 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588669 -> syscall.Syscall
+github.com/lxn/win.(*IAccPropServices).ClearHwndProps
+  0x580e0b -> syscall.Syscall6
+github.com/lxn/walk.newWindowGroup
+  0x643fc0 -> github.com/lxn/win.OleInitialize
+github.com/lxn/win.OleInitialize
+  0x580900 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x580924 -> syscall.Syscall
+github.com/lxn/win.SetWindowLongPtr
+  0x58b0ad -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58b0d8 -> syscall.Syscall
+github.com/lxn/walk.SetWindowFont
+  0x63e5d8 -> github.com/lxn/win.GetDpiForWindow
+  0x63e5e4 -> github.com/lxn/walk.(*Font).handleForDPI
+  0x63e5f1 -> github.com/lxn/walk.setWindowFont
+github.com/lxn/walk.(*Font).handleForDPI
+  0x60e7e1 -> github.com/lxn/walk.(*Font).createForDPI
+github.com/lxn/walk.(*Font).createForDPI
+  0x60e4e8 -> github.com/lxn/win.MulDiv
+  0x60e56b -> syscall.UTF16FromString
+  0x60e5a0 -> github.com/lxn/win.CreateFontIndirect
+  0x60e5b6 -> github.com/lxn/walk.newError("CreateFontIndirect failed")
+github.com/lxn/win.MulDiv
+  0x57fe8a -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fec0 -> syscall.Syscall
+github.com/lxn/win.CreateFontIndirect
+  0x57cb60 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57cb86 -> syscall.Syscall
+github.com/lxn/walk.setWindowFont
+  0x63e644 -> github.com/lxn/win.SendMessage
+  0x63e6ad -> indirect_call
+  0x63e6b1 -> github.com/lxn/walk.(*WindowBase).RequestLayout
+github.com/lxn/win.SendMessage
+  0x58a8b1 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a8e8 -> syscall.Syscall6
+github.com/lxn/walk.(*WindowBase).RequestLayout
+  0x641168 -> github.com/lxn/win.IsWindowVisible
+  0x64118a -> github.com/lxn/win.GetParent
+  0x6411e6 -> indirect_call
+  0x641230 -> github.com/lxn/walk.(*FormBase).startLayout
+  0x641260 -> indirect_call
+  0x64126b -> indirect_call
+  0x6412ca -> indirect_call
+  0x641316 -> indirect_call
+  0x64135c -> indirect_call
+  0x6413a3 -> indirect_call
+github.com/lxn/win.IsWindowVisible
+  0x589ee3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589f09 -> syscall.Syscall
+github.com/lxn/win.GetParent
+  0x5895e3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589609 -> syscall.Syscall
+github.com/lxn/walk.initWindowWithCfg.func1
+  0x63c8c0 -> github.com/lxn/walk.(*WindowBase).Dispose
+github.com/lxn/walk.(*FormBase).init
+  0x60eb04 -> github.com/lxn/walk.NewCompositeWithStyle
+  0x60ebaf -> indirect_call
+  0x60ee91 -> github.com/lxn/win.GetVersion
+  0x60eec4 -> github.com/lxn/win.ChangeWindowMessageFilterEx
+  0x60eed5 -> github.com/lxn/walk.startLayoutPerformer
+github.com/lxn/walk.NewCompositeWithStyle
+  0x606797 -> github.com/lxn/walk.InitWidget("\\o/ Walk_Composite_Class \\o/")
+  0x6067c6 -> github.com/lxn/walk.(*WindowBase).SetBackground
+github.com/lxn/walk.InitWidget
+  0x6389f1 -> github.com/lxn/walk.newError("parent cannot be nil")
+  0x638a60 -> github.com/lxn/walk.initWindowWithCfg
+  0x638ab0 -> indirect_call
+  0x638ac8 -> indirect_call
+  0x638ae0 -> github.com/lxn/walk.(*WidgetList).Insert
+  0x638b0a -> indirect_call
+  0x638b25 -> indirect_call
+  0x638b2f -> github.com/lxn/win.SetParent
+  0x638b52 -> github.com/lxn/walk.lastError("SetParent")
+github.com/lxn/walk.(*WidgetList).Insert
+  0x63adb5 -> github.com/lxn/walk.(*WidgetList).Index
+  0x63ae04 -> indirect_call
+  0x63ae2d -> github.com/lxn/walk.(*WidgetList).insertIntoSlice
+  0x63ae6a -> indirect_call
+  0x63afd7 -> github.com/lxn/walk.newError("cannot insert same widget multiple times")
+github.com/lxn/walk.(*WidgetList).Index
+  0x63aae4 -> indirect_call
+github.com/lxn/walk.(*WidgetList).insertIntoSlice
+  0x63ace9 -> indirect_call
+github.com/lxn/win.SetParent
+  0x58aea8 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58aed0 -> syscall.Syscall
+github.com/lxn/walk.(*WindowBase).SetBackground
+  0x63d748 -> indirect_call
+  0x63d792 -> indirect_call
+  0x63d799 -> github.com/lxn/walk.(*WindowBase).Invalidate
+  0x63d7b1 -> github.com/lxn/walk.walkDescendants
+github.com/lxn/walk.walkDescendants
+  0x633819 -> indirect_call
+  0x633845 -> indirect_call
+  0x633977 -> github.com/lxn/walk.walkDescendants
+  0x633b35 -> indirect_call
+github.com/lxn/win.GetVersion
+  0x57fb40 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fb62 -> syscall.Syscall
+github.com/lxn/win.ChangeWindowMessageFilterEx
+  0x587e74 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x587eac -> syscall.Syscall6
+github.com/lxn/walk.startLayoutPerformer
+  <no direct calls>
+github.com/lxn/walk.startLayoutPerformer.func1
+  0x61933b -> indirect_call
+  0x6193e0 -> github.com/lxn/walk.(*WindowBase).synchronizeLayout
+  0x61945b -> indirect_call
+github.com/lxn/walk.(*WindowBase).synchronizeLayout
+  0x641ab9 -> github.com/lxn/walk.(*WindowGroup).synchronizeLayout
+  0x641ad2 -> github.com/lxn/win.PostMessage
+github.com/lxn/walk.(*WindowGroup).synchronizeLayout
+  0x644420 -> sync.(*Mutex).lockSlow
+  0x644492 -> sync.(*Mutex).unlockSlow
+github.com/lxn/win.PostMessage
+  0x58a491 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a4c8 -> syscall.Syscall6
+github.com/lxn/walk.startLayoutPerformer.func1.gowrap1
+  0x619613 -> github.com/lxn/walk.layoutTree
+github.com/lxn/walk.layoutTree
+  0x6196a3 -> github.com/lxn/walk.(*stopwatch).Start
+  0x6196c0 -> indirect_call
+  0x619740 -> indirect_call -> github.com/lxn/walk.layoutTree.func2
+  0x619760 -> github.com/lxn/walk.(*stopwatch).Stop
+  0x619780 -> github.com/lxn/walk.(*stopwatch).Start
+  0x619a40 -> github.com/lxn/walk.(*stopwatch).Stop
+  0x619aa7 -> github.com/lxn/walk.(*stopwatch).Cancel
+github.com/lxn/walk.(*stopwatch).Start
+  0x628459 -> sync.(*Mutex).lockSlow
+  0x628540 -> time.Now
+  0x628590 -> indirect_call -> github.com/lxn/walk.(*stopwatch).Start.deferwrap1
+github.com/lxn/walk.(*stopwatch).Start.deferwrap1
+  0x62862a -> sync.(*Mutex).unlockSlow
+github.com/lxn/walk.layoutTree.func2
+  0x61a275 -> indirect_call
+  0x61a2dd -> indirect_call
+  0x61a2ed -> indirect_call
+  0x61a320 -> indirect_call
+github.com/lxn/walk.(*stopwatch).Stop
+  0x6286c0 -> sync.(*Mutex).lockSlow
+  0x628774 -> time.Now
+  0x62878a -> time.Time.Sub
+  0x6287f0 -> indirect_call -> github.com/lxn/walk.(*stopwatch).Stop.deferwrap1
+  0x628813 -> indirect_call
+github.com/lxn/walk.(*stopwatch).Stop.deferwrap1
+  0x62888a -> sync.(*Mutex).unlockSlow
+github.com/lxn/walk.layoutTree.func3
+  0x619c86 -> indirect_call -> github.com/lxn/walk.layoutTree.func3.2
+  0x619c91 -> sync.(*WaitGroup).Wait
+  0x619cfd -> indirect_call
+  0x619d18 -> indirect_call
+github.com/lxn/walk.layoutTree.func3.2
+  0x619d92 -> sync.(*WaitGroup).Add
+github.com/lxn/walk.layoutTree.func3.2.1
+  0x619f28 -> indirect_call -> github.com/lxn/walk.layoutTree.func3.2.1.deferwrap1
+  0x619f50 -> indirect_call
+  0x61a013 -> indirect_call
+  0x61a08d -> indirect_call
+  0x61a0f7 -> indirect_call
+  0x61a10f -> indirect_call
+  0x61a12a -> indirect_call
+github.com/lxn/walk.layoutTree.func3.2.1.deferwrap1
+  0x61a1c2 -> sync.(*WaitGroup).Add
+github.com/lxn/walk.(*stopwatch).Cancel
+  0x62890c -> sync.(*Mutex).lockSlow
+  0x62898f -> indirect_call -> github.com/lxn/walk.(*stopwatch).Cancel.deferwrap1
+  0x6289a4 -> indirect_call
+github.com/lxn/walk.(*stopwatch).Cancel.deferwrap1
+  0x628a0a -> sync.(*Mutex).unlockSlow
+github.com/lxn/walk.(*WidgetBase).init
+  0x638d20 -> github.com/lxn/walk.(*WindowGroup).CreateToolTip
+  0x638db2 -> github.com/lxn/walk.(*ToolTip).AddTool
+github.com/lxn/walk.(*WindowGroup).CreateToolTip
+  0x644760 -> github.com/lxn/walk.NewToolTip
+  0x6447a0 -> github.com/lxn/walk.(*WindowGroup).ignore
+github.com/lxn/walk.NewToolTip
+  0x631eb0 -> github.com/lxn/walk.newToolTip
+  0x631ee4 -> github.com/lxn/win.SetWindowPos
+github.com/lxn/walk.newToolTip
+  0x631fd6 -> github.com/lxn/walk.initWindowWithCfg
+  0x632057 -> github.com/lxn/win.SendMessage
+  0x632081 -> indirect_call -> github.com/lxn/walk.newToolTip.func1
+github.com/lxn/walk.newToolTip.func1
+  0x632100 -> github.com/lxn/walk.(*WindowBase).Dispose
+github.com/lxn/win.SetWindowPos
+  0x58b211 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58b26e -> syscall.Syscall9
+github.com/lxn/walk.(*WindowGroup).ignore
+  0x64488a -> github.com/lxn/walk.(*WindowGroup).dispose
+github.com/lxn/walk.(*ToolTip).AddTool
+  0x632460 -> github.com/lxn/walk.(*ToolTip).hwndForTool
+  0x63246f -> github.com/lxn/walk.(*ToolTip).addTool
+github.com/lxn/walk.(*ToolTip).hwndForTool
+  0x632a4c -> indirect_call
+  0x632a60 -> indirect_call
+github.com/lxn/walk.(*ToolTip).addTool
+  0x632519 -> github.com/lxn/win.SendMessage
+  0x632531 -> github.com/lxn/walk.newError("TTM_ADDTOOL failed")
+github.com/lxn/walk.initWindowWithCfg.func6
+  0x63c761 -> indirect_call
+github.com/lxn/walk.newMenuBar
+  0x61e0e0 -> github.com/lxn/win.CreateMenu
+  0x61e1a0 -> github.com/lxn/walk.lastError("CreateMenu")
+github.com/lxn/win.CreateMenu
+  0x588120 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588142 -> syscall.Syscall
+github.com/lxn/win.SetMenu
+  0x58abe8 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58ac10 -> syscall.Syscall
+github.com/lxn/walk.NewToolBarWithOrientationAndButtonStyle
+  0x62ff57 -> github.com/lxn/walk.InitWidget("ToolbarWindow32")
+  0x62ff87 -> github.com/lxn/win.SendMessage
+  0x62ffa7 -> github.com/lxn/win.SendMessage
+github.com/lxn/walk.(*MainWindow).SetToolBar
+  0x61d86e -> github.com/lxn/win.SetParent
+  0x61d8cc -> indirect_call
+  0x61d8da -> github.com/lxn/walk.(*WidgetList).Remove
+  0x61d929 -> github.com/lxn/win.SetParent
+github.com/lxn/walk.(*WidgetList).Remove
+  0x63b080 -> github.com/lxn/walk.(*WidgetList).Index
+  0x63b0a0 -> github.com/lxn/walk.(*WidgetList).RemoveAt
+github.com/lxn/walk.(*WidgetList).RemoveAt
+  0x63b262 -> indirect_call -> github.com/lxn/walk.(*WidgetList).RemoveAt.func1
+  0x63b2b6 -> indirect_call
+  0x63b42f -> indirect_call
+  0x63b482 -> indirect_call
+  0x63b4c1 -> github.com/lxn/walk.(*WidgetList).insertIntoSlice
+  0x63b4f9 -> indirect_call
+github.com/lxn/walk.(*WidgetList).RemoveAt.func1
+  <no direct calls>
+github.com/lxn/walk.NewStatusBar
+  0x626773 -> github.com/lxn/walk.InitWidget("msctls_statusbar32")
+github.com/lxn/walk.NewMainWindowWithCfg.func2
+  0x61d759 -> github.com/lxn/walk.(*WindowBase).BoundsPixels
+  0x61d76f -> github.com/lxn/walk.(*FormBase).SetBoundsPixels
+github.com/lxn/walk.(*WindowBase).BoundsPixels
+  0x63f580 -> github.com/lxn/win.GetWindowRect
+  0x63f5c0 -> github.com/lxn/walk.lastError("GetWindowRect")
+github.com/lxn/win.GetWindowRect
+  0x589a88 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589ab0 -> syscall.Syscall
+github.com/lxn/walk.(*FormBase).SetBoundsPixels
+  0x60f3b6 -> github.com/lxn/walk.CreateLayoutItemsForContainer
+  0x60f3d9 -> indirect_call
+  0x60f3e6 -> github.com/lxn/walk.(*WindowBase).sizeFromClientSizePixels
+  0x60f408 -> indirect_call
+  0x60f415 -> github.com/lxn/walk.(*WindowBase).sizeFromClientSizePixels
+  0x60f44b -> github.com/lxn/walk.(*WindowBase).SetBoundsPixels
+github.com/lxn/walk/declarative.NewBuilder
+  0x7eb353 -> indirect_call
+github.com/lxn/walk.(*FormBase).SetSuspended
+  0x60f5a8 -> github.com/lxn/walk.(*WindowBase).SetSuspended
+github.com/lxn/walk.(*WindowBase).SetSuspended
+  0x63e780 -> github.com/lxn/win.SendMessage
+  0x63e7a2 -> github.com/lxn/walk.(*WindowBase).Invalidate
+  0x63e7ac -> github.com/lxn/walk.(*WindowBase).RequestLayout
+github.com/lxn/walk.(*WindowBase).ensureExtendedStyleBits
+  0x63ce07 -> github.com/lxn/walk.setAndClearWindowLongBits
+github.com/lxn/walk.setAndClearWindowLongBits
+  0x63ccc3 -> github.com/lxn/win.GetWindowLong
+  0x63cce4 -> github.com/lxn/win.SetLastError
+  0x63ccf6 -> github.com/lxn/win.SetWindowLong
+  0x63cd15 -> github.com/lxn/walk.lastError("SetWindowLong")
+  0x63cd2d -> github.com/lxn/walk.lastError("GetWindowLong")
+github.com/lxn/win.GetWindowLong
+  0x5898a7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5898d1 -> syscall.Syscall
+github.com/lxn/win.SetLastError
+  0x57ff22 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57ff49 -> syscall.Syscall
+github.com/lxn/win.SetWindowLong
+  0x58b00b -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58b03a -> syscall.Syscall
+github.com/lxn/walk/declarative.(*Builder).InitWidget
+  0x7eb5c6 -> indirect_call
+  0x7eb858 -> github.com/lxn/walk/declarative.(*Builder).initAccessibility
+  0x7eb871 -> github.com/lxn/walk/declarative.(*Builder).string
+  0x7eb8ac -> indirect_call -> github.com/lxn/walk/declarative.(*Builder).InitWidget.func2
+  0x7eb930 -> reflect.Value.FieldByName
+  0x7eb940 -> reflect.valueInterface
+  0x7eb9c1 -> reflect.Value.FieldByName
+  0x7eb9d4 -> reflect.valueInterface
+  0x7eba4c -> github.com/lxn/walk/declarative.Font.Create
+  0x7eba79 -> indirect_call
+  0x7eba8f -> github.com/lxn/walk/declarative.(*Builder).size
+  0x7ebab8 -> github.com/lxn/walk/declarative.(*Builder).size
+  0x7ebaf0 -> indirect_call
+  0x7ebb10 -> github.com/lxn/walk/declarative.(*Builder).menuItems
+  0x7ebb36 -> github.com/lxn/walk.NewMenu
+  0x7ebc9b -> indirect_call -> github.com/lxn/walk/declarative.(*Builder).InitWidget.(*Builder).deferBuildMenuActions.func6
+  0x7ebcb1 -> github.com/lxn/walk/declarative.(*Builder).eventHandler
+  0x7ebcdb -> indirect_call
+  0x7ebe80 -> github.com/lxn/walk/declarative.(*Builder).keyEventHandler
+  0x7ebead -> indirect_call
+  0x7ebfc0 -> github.com/lxn/walk/declarative.(*Builder).keyEventHandler
+  0x7ebfed -> indirect_call
+  0x7ec100 -> github.com/lxn/walk/declarative.(*Builder).keyEventHandler
+  0x7ec12d -> indirect_call
+  0x7ec240 -> github.com/lxn/walk/declarative.(*Builder).mouseEventHandler
+  0x7ec26d -> indirect_call
+  0x7ec380 -> github.com/lxn/walk/declarative.(*Builder).mouseEventHandler
+  0x7ec3ad -> indirect_call
+  0x7ec4c0 -> github.com/lxn/walk/declarative.(*Builder).mouseEventHandler
+  0x7ec4ed -> indirect_call
+  0x7ec600 -> github.com/lxn/walk/declarative.(*Builder).eventHandler
+  0x7ec62d -> indirect_call
+  0x7ec740 -> github.com/lxn/walk/declarative.(*Builder).bool
+  0x7ec765 -> indirect_call
+  0x7ec780 -> github.com/lxn/walk/declarative.(*Builder).bool
+  0x7ec7a5 -> indirect_call
+  0x7ec7c0 -> github.com/lxn/walk/declarative.(*Builder).int
+  0x7ec7e1 -> github.com/lxn/walk/declarative.(*Builder).int
+  0x7ec800 -> github.com/lxn/walk/declarative.(*Builder).int
+  0x7ec821 -> github.com/lxn/walk/declarative.(*Builder).int
+  0x7ec87a -> github.com/lxn/walk/declarative.(*Builder).alignment
+  0x7ec8a0 -> indirect_call
+  0x7ec8c0 -> github.com/lxn/walk/declarative.(*Builder).bool
+  0x7ec8e0 -> indirect_call
+  0x7ec907 -> reflect.Value.FieldByName
+  0x7ec91a -> reflect.valueInterface
+  0x7ec9d5 -> indirect_call
+  0x7ec9e7 -> github.com/lxn/walk.(*WidgetGraphicsEffectList).Add
+  0x7eca20 -> indirect_call
+  0x7eca69 -> github.com/lxn/walk/declarative.(*Builder).int
+  0x7eca8a -> indirect_call
+  0x7ecb20 -> github.com/lxn/walk.(*GridLayout).SetColumnStretchFactor
+  0x7ecb75 -> github.com/lxn/walk.(*GridLayout).SetRowStretchFactor
+  0x7ecc85 -> github.com/lxn/walk.(*GridLayout).SetRange
+  0x7ecd80 -> reflect.Value.FieldByName
+  0x7ecd95 -> reflect.valueInterface
+  0x7ecdda -> indirect_call
+  0x7ece06 -> indirect_call
+  0x7ecef9 -> indirect_call
+  0x7ed1ce -> reflect.Value.FieldByName
+  0x7ed1e1 -> reflect.valueInterface
+  0x7ed25d -> indirect_call -> github.com/lxn/walk/declarative.(*Builder).InitWidget.func4
+  0x7ed2b3 -> reflect.Value.FieldByName
+  0x7ed2c0 -> reflect.valueInterface
+  0x7ed3c0 -> github.com/lxn/walk/declarative.DataBinder.create
+  0x7ed4c5 -> indirect_call
+  0x7ed525 -> github.com/lxn/walk/declarative.(*Builder).initProperties
+  0x7ed657 -> indirect_call
+  0x7ed825 -> indirect_call -> github.com/lxn/walk/declarative.(*Builder).InitWidget.func5
+  0x7edab6 -> indirect_call
+  0x7edbd2 -> indirect_call
+  0x7edbf6 -> indirect_call
+github.com/lxn/walk/declarative.(*Builder).initAccessibility
+  0x7edf08 -> reflect.Value.FieldByName
+  0x7edf20 -> reflect.valueInterface
+  0x7edfcf -> indirect_call
+  0x7edfee -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee00f -> indirect_call
+  0x7ee02e -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee04f -> indirect_call
+  0x7ee06e -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee08f -> indirect_call
+  0x7ee0ae -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee0cf -> indirect_call
+  0x7ee0ee -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee111 -> indirect_call
+  0x7ee12a -> github.com/lxn/walk.(*Accessibility).accSetPropertyInt
+  0x7ee14e -> indirect_call
+  0x7ee170 -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee193 -> indirect_call
+  0x7ee1af -> github.com/lxn/walk.(*Accessibility).accSetPropertyInt
+  0x7ee1d3 -> indirect_call
+  0x7ee1f5 -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x7ee219 -> indirect_call
+  0x7ee240 -> github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+github.com/lxn/walk.(*Accessibility).accSetPropertyStr
+  0x5f5e90 -> github.com/lxn/walk.(*WindowGroup).accessibilityServices
+  0x5f5eb5 -> github.com/lxn/win.(*IAccPropServices).SetHwndPropStr
+  0x5f5ee0 -> github.com/lxn/win.NotifyWinEvent
+  0x5f5f00 -> github.com/lxn/walk.errorFromHRESULT("IAccPropServices.SetHwndPropStr")
+  0x5f5f17 -> github.com/lxn/walk.newError("Dynamic Annotation not available")
+github.com/lxn/walk.(*WindowGroup).accessibilityServices
+  0x6440e3 -> github.com/lxn/win.CoCreateInstance
+github.com/lxn/win.CoCreateInstance
+  0x5806da -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x580717 -> syscall.Syscall6
+github.com/lxn/win.(*IAccPropServices).SetHwndPropStr
+  0x5817da -> syscall.UTF16FromString
+  0x58184d -> syscall.Syscall6
+github.com/lxn/win.NotifyWinEvent
+  0x58a3d3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a40e -> syscall.Syscall6
+github.com/lxn/walk.errorFromHRESULT
+  0x60d78f -> fmt.Sprintf("%s: Error %d")
+  0x60d794 -> github.com/lxn/walk.newError
+github.com/lxn/walk.(*Accessibility).accSetPropertyInt
+  0x5f5d36 -> github.com/lxn/walk.(*WindowGroup).accessibilityServices
+  0x5f5db2 -> syscall.Syscall6
+  0x5f5de0 -> github.com/lxn/win.NotifyWinEvent
+  0x5f5e00 -> github.com/lxn/walk.errorFromHRESULT("IAccPropServices.SetHwndProp")
+  0x5f5e17 -> github.com/lxn/walk.newError("Dynamic Annotation not available")
+github.com/lxn/walk/declarative.(*Builder).string
+  0x7ee80e -> reflect.Value.FieldByName
+  0x7ee820 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).InitWidget.func2
+  0x7ede46 -> indirect_call
+github.com/lxn/walk/declarative.Font.Create
+  0x7f0df2 -> github.com/lxn/walk.NewFont
+github.com/lxn/walk.NewFont
+  0x60e443 -> github.com/lxn/walk.newError("invalid style")
+github.com/lxn/walk/declarative.(*Builder).size
+  0x7ee74e -> reflect.Value.FieldByName
+  0x7ee760 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).menuItems
+  0x7ee5f2 -> reflect.Value.FieldByName
+  0x7ee601 -> reflect.valueInterface
+github.com/lxn/walk.NewMenu
+  0x61e1f2 -> github.com/lxn/win.CreatePopupMenu
+  0x61e22d -> github.com/lxn/win.GetMenuInfo
+  0x61e251 -> github.com/lxn/win.SetMenuInfo
+  0x61e2d4 -> github.com/lxn/walk.lastError("SetMenuInfo")
+  0x61e2f3 -> github.com/lxn/walk.lastError("GetMenuInfo")
+  0x61e312 -> github.com/lxn/walk.lastError("CreatePopupMenu")
+github.com/lxn/win.CreatePopupMenu
+  0x5881a0 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5881c2 -> syscall.Syscall
+github.com/lxn/win.GetMenuInfo
+  0x5893e8 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589410 -> syscall.Syscall
+github.com/lxn/win.SetMenuInfo
+  0x58ad48 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58ad70 -> syscall.Syscall
+github.com/lxn/walk/declarative.(*Builder).InitWidget.(*Builder).deferBuildMenuActions.func6
+  0x7edde0 -> indirect_call
+github.com/lxn/walk/declarative.(*Builder).eventHandler
+  0x7ee40e -> reflect.Value.FieldByName
+  0x7ee420 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).keyEventHandler
+  0x7ee54e -> reflect.Value.FieldByName
+  0x7ee560 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).mouseEventHandler
+  0x7ee6ae -> reflect.Value.FieldByName
+  0x7ee6c0 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).bool
+  0x7ee36e -> reflect.Value.FieldByName
+  0x7ee380 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).int
+  0x7ee4ae -> reflect.Value.FieldByName
+  0x7ee4c0 -> reflect.valueInterface
+github.com/lxn/walk/declarative.(*Builder).alignment
+  0x7ee2e9 -> reflect.Value.FieldByName
+  0x7ee2f8 -> reflect.valueInterface
+github.com/lxn/walk.(*WidgetGraphicsEffectList).Add
+  0x61232a -> github.com/lxn/walk.(*WidgetGraphicsEffectList).Insert
+  0x612341 -> github.com/lxn/walk.newError("effect == nil")
+github.com/lxn/walk.(*WidgetGraphicsEffectList).Insert
+  0x612808 -> indirect_call
+github.com/lxn/walk.(*GridLayout).SetColumnStretchFactor
+  0x6135b2 -> github.com/lxn/walk.(*GridLayout).ensureSufficientSize
+  0x6135ec -> indirect_call
+  0x613600 -> github.com/lxn/walk.newError("factor must be >= 1")
+  0x613617 -> github.com/lxn/walk.newError("container required")
+  0x613638 -> github.com/lxn/walk.newError("column must be >= 0")
+github.com/lxn/walk.(*GridLayout).ensureSufficientSize
+  <no direct calls>
+github.com/lxn/walk.(*GridLayout).SetRowStretchFactor
+  0x613472 -> github.com/lxn/walk.(*GridLayout).ensureSufficientSize
+  0x6134ac -> indirect_call
+  0x6134c0 -> github.com/lxn/walk.newError("factor must be >= 1")
+  0x6134d7 -> github.com/lxn/walk.newError("container required")
+  0x6134f8 -> github.com/lxn/walk.newError("row must be >= 0")
+github.com/lxn/walk.(*GridLayout).SetRange
+  0x61384b -> indirect_call
+  0x613869 -> indirect_call
+  0x613887 -> github.com/lxn/walk.newError("container required")
+  0x6138a0 -> github.com/lxn/walk.newError("widget required")
+  0x6138f1 -> github.com/lxn/walk.newError("range.X and range.Y must be >= 0")
+  0x613920 -> github.com/lxn/walk.newError("range.Width and range.Height must be >= 1")
+  0x613940 -> indirect_call
+  0x613993 -> github.com/lxn/walk.(*GridLayout).setWidgetOnCells
+  0x6139d4 -> github.com/lxn/walk.(*GridLayout).ensureSufficientSize
+  0x613ad4 -> github.com/lxn/walk.(*GridLayout).setWidgetOnCells
+  0x613aef -> github.com/lxn/walk.newError("widget must be child of container")
+github.com/lxn/walk.(*GridLayout).setWidgetOnCells
+  0x6136c9 -> indirect_call
+github.com/lxn/walk/declarative.(*Builder).InitWidget.func4
+  <no direct calls>
+github.com/lxn/walk/declarative.DataBinder.create
+  0x7f08d1 -> indirect_call
+  0x7f0913 -> github.com/lxn/walk.(*DataBinder).SetDataSource
+github.com/lxn/walk.(*DataBinder).SetDataSource
+  0x60a586 -> indirect_call
+  0x60a5a0 -> indirect_call
+  0x60a5bd -> indirect_call
+  0x60a5c9 -> indirect_call
+  0x60a5f3 -> github.com/lxn/walk.newError("dataSource must be pointer to struct or map[string]interface{}")
+  0x60a622 -> github.com/lxn/walk.(*EventPublisher).Publish
+github.com/lxn/walk/declarative.(*Builder).initProperties
+  0x7ee9c1 -> reflect.Value.typeSlow
+  0x7ee9e6 -> indirect_call
+  0x7eea06 -> indirect_call
+  0x7eea27 -> indirect_call
+  0x7eea7d -> indirect_call
+  0x7eeb12 -> reflect.Value.Field
+  0x7eeb20 -> reflect.valueInterface
+  0x7eebcc -> github.com/lxn/walk/declarative.(*Builder).conditionOrProperty
+  0x7eec0c -> indirect_call
+  0x7eec2a -> indirect_call
+  0x7eec5a -> indirect_call
+  0x7eed29 -> indirect_call
+  0x7eed62 -> indirect_call
+github.com/lxn/walk/declarative.(*Builder).conditionOrProperty
+  0x7eefc0 -> regexp.(*Regexp).ReplaceAllStringFunc
+  0x7eeff5 -> gopkg.in/Knetic/govaluate%2ev3.NewEvaluableExpressionWithFunctions
+  0x7ef1c7 -> github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7ef2aa -> gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.Eval
+  0x7ef2c0 -> github.com/lxn/walk/declarative.(*expression).Value
+  0x7ef353 -> github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7ef3b8 -> indirect_call -> github.com/lxn/walk/declarative.(*Builder).conditionOrProperty.func1
+  0x7ef450 -> fmt.Errorf("invalid expression \"%s\": %s")
+gopkg.in/Knetic/govaluate%2ev3.NewEvaluableExpressionWithFunctions
+  0x5cb9b6 -> gopkg.in/Knetic/govaluate%2ev3.parseTokens
+  0x5cb9ee -> gopkg.in/Knetic/govaluate%2ev3.checkBalance
+  0x5cba0d -> gopkg.in/Knetic/govaluate%2ev3.checkExpressionSyntax
+  0x5cba2c -> gopkg.in/Knetic/govaluate%2ev3.optimizeTokens
+  0x5cba65 -> gopkg.in/Knetic/govaluate%2ev3.planStages
+gopkg.in/Knetic/govaluate%2ev3.parseTokens
+  0x5d0b6b -> gopkg.in/Knetic/govaluate%2ev3.readToken
+  0x5d0ba0 -> gopkg.in/Knetic/govaluate%2ev3.getLexerStateForToken
+  0x5d0ce7 -> gopkg.in/Knetic/govaluate%2ev3.checkBalance
+gopkg.in/Knetic/govaluate%2ev3.readToken
+  0x5d0e24 -> unicode.IsSpace
+  0x5d0e31 -> gopkg.in/Knetic/govaluate%2ev3.isNumeric
+  0x5d0e7a -> unicode.isExcludingLatin
+  0x5d0ed0 -> gopkg.in/Knetic/govaluate%2ev3.readUntilFalse
+  0x5d0f80 -> gopkg.in/Knetic/govaluate%2ev3.readUntilFalse
+  0x5d0fcf -> gopkg.in/Knetic/govaluate%2ev3.tryParseTime
+  0x5d10a0 -> gopkg.in/Knetic/govaluate%2ev3.readUntilFalse
+  0x5d1240 -> gopkg.in/Knetic/govaluate%2ev3.readUntilFalse
+  0x5d12e9 -> gopkg.in/Knetic/govaluate%2ev3.readUntilFalse
+  0x5d1300 -> strconv.ParseFloat
+  0x5d1381 -> fmt.Sprintf("Unable to parse numeric value '%v' to float64\n")
+  0x5d1598 -> fmt.Sprintf("Invalid token: '%s'")
+gopkg.in/Knetic/govaluate%2ev3.isNumeric
+  0x5d1c56 -> unicode.isExcludingLatin
+gopkg.in/Knetic/govaluate%2ev3.readUntilFalse
+  0x5d1780 -> bytes.(*Buffer).WriteString
+  0x5d17a0 -> unicode.IsSpace
+  0x5d17e5 -> indirect_call
+  0x5d1807 -> bytes.(*Buffer).WriteString
+gopkg.in/Knetic/govaluate%2ev3.tryParseTime
+  0x5d1f40 -> gopkg.in/Knetic/govaluate%2ev3.tryParseExactTime
+  0x5d1f58 -> time.Now
+gopkg.in/Knetic/govaluate%2ev3.tryParseExactTime
+  0x5d1fd1 -> time.ParseInLocation
+  0x5d1fe0 -> time.Now
+gopkg.in/Knetic/govaluate%2ev3.getLexerStateForToken
+  0x5d074d -> fmt.Sprintf("No lexer state found for token kind '%v'\n")
+gopkg.in/Knetic/govaluate%2ev3.checkBalance
+  <no direct calls>
+gopkg.in/Knetic/govaluate%2ev3.checkExpressionSyntax
+  0x5cfdec -> gopkg.in/Knetic/govaluate%2ev3.getLexerStateForToken
+  0x5d0038 -> fmt.Sprintf("Token kind '%v' cannot have a nil value")
+  0x5d02d6 -> fmt.Sprintf("%s [%v]")
+  0x5d0465 -> fmt.Sprintf("%s [%v]")
+gopkg.in/Knetic/govaluate%2ev3.optimizeTokens
+  0x5d1a00 -> regexp.compile
+gopkg.in/Knetic/govaluate%2ev3.planStages
+  0x5d38a4 -> gopkg.in/Knetic/govaluate%2ev3.planTokens
+  0x5d38c0 -> gopkg.in/Knetic/govaluate%2ev3.reorderStages
+  0x5d38ca -> gopkg.in/Knetic/govaluate%2ev3.elideLiterals
+gopkg.in/Knetic/govaluate%2ev3.planTokens
+  0x5d3960 -> indirect_call
+gopkg.in/Knetic/govaluate%2ev3.reorderStages
+  0x5d4720 -> gopkg.in/Knetic/govaluate%2ev3.findOperatorPrecedenceForSymbol
+  0x5d4777 -> gopkg.in/Knetic/govaluate%2ev3.reorderStages
+  0x5d4784 -> gopkg.in/Knetic/govaluate%2ev3.findOperatorPrecedenceForSymbol
+  0x5d4820 -> gopkg.in/Knetic/govaluate%2ev3.mirrorStageSubtree
+  0x5d4872 -> gopkg.in/Knetic/govaluate%2ev3.mirrorStageSubtree
+gopkg.in/Knetic/govaluate%2ev3.findOperatorPrecedenceForSymbol
+  <no direct calls>
+gopkg.in/Knetic/govaluate%2ev3.mirrorStageSubtree
+  <no direct calls>
+gopkg.in/Knetic/govaluate%2ev3.elideLiterals
+  0x5d4ce8 -> gopkg.in/Knetic/govaluate%2ev3.elideLiterals
+  0x5d4d28 -> gopkg.in/Knetic/govaluate%2ev3.elideLiterals
+  0x5d4d60 -> gopkg.in/Knetic/govaluate%2ev3.elideStage
+gopkg.in/Knetic/govaluate%2ev3.elideStage
+  0x5d4df7 -> indirect_call
+  0x5d4e33 -> indirect_call
+  0x5d4e67 -> gopkg.in/Knetic/govaluate%2ev3.typeCheck
+  0x5d4e93 -> gopkg.in/Knetic/govaluate%2ev3.typeCheck
+  0x5d4ece -> indirect_call
+  0x5d4f00 -> indirect_call
+gopkg.in/Knetic/govaluate%2ev3.typeCheck
+  0x5cc47b -> indirect_call
+  0x5cc490 -> gopkg.in/Knetic/govaluate%2ev3.OperatorSymbol.String
+  0x5cc4e8 -> fmt.Sprintf
+gopkg.in/Knetic/govaluate%2ev3.OperatorSymbol.String
+  <no direct calls>
+github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7f008c -> indirect_call
+gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.Eval
+  0x5cbd71 -> gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.evaluateStage
+gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.evaluateStage
+  0x5cbec0 -> gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.evaluateStage
+  0x5cc18f -> gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.evaluateStage
+  0x5cc1f2 -> indirect_call
+  0x5cc207 -> gopkg.in/Knetic/govaluate%2ev3.OperatorSymbol.String
+  0x5cc280 -> fmt.Sprintf
+  0x5cc300 -> gopkg.in/Knetic/govaluate%2ev3.typeCheck
+  0x5cc32b -> gopkg.in/Knetic/govaluate%2ev3.typeCheck
+  0x5cc39a -> indirect_call
+github.com/lxn/walk/declarative.(*expression).Value
+  0x7efe04 -> gopkg.in/Knetic/govaluate%2ev3.EvaluableExpression.Eval
+  0x7efe23 -> indirect_call
+  0x7eff13 -> log.(*Logger).output
+github.com/lxn/walk/declarative.(*Builder).conditionOrProperty.func1
+  0x7ef540 -> strings.genSplit(".")
+  0x7ef58a -> indirect_call
+  0x7ef895 -> github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7ef990 -> github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7ef9c5 -> strings.Replace(".", "\\.")
+  0x7efa6c -> github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7efad2 -> github.com/lxn/walk/declarative.(*expression).addSubExpression
+  0x7efbe0 -> fmt.Errorf("invalid sub expression: \"%s\"")
+github.com/lxn/walk/declarative.(*Builder).InitWidget.func5
+  0x7edca6 -> indirect_call
+  0x7edcb3 -> github.com/lxn/walk.(*DataBinder).Reset
+github.com/lxn/walk.(*DataBinder).Reset
+  0x60b3d7 -> github.com/lxn/walk.(*DataBinder).forEach
+  0x60b3fc -> indirect_call -> github.com/lxn/walk.(*DataBinder).Reset.func1
+  0x60b413 -> github.com/lxn/walk.(*DataBinder).validateProperties
+  0x60b42a -> github.com/lxn/walk.(*EventPublisher).Publish
+  0x60b442 -> indirect_call
+github.com/lxn/walk.(*DataBinder).forEach
+  0x60b8c0 -> github.com/lxn/walk.(*DataBinder).fieldBoundToProperty
+  0x60b8e5 -> indirect_call
+github.com/lxn/walk.(*DataBinder).fieldBoundToProperty
+  0x60b96e -> indirect_call
+  0x60b9b6 -> github.com/lxn/walk.dataFieldFromPath
+  0x60ba40 -> fmt.Sprintf("invalid source '%s'")
+github.com/lxn/walk.dataFieldFromPath
+  0x60baf2 -> github.com/lxn/walk.reflectValueFromPath
+  0x60bb28 -> reflect.valueInterface
+github.com/lxn/walk.reflectValueFromPath
+  0x60be52 -> reflect.Value.FieldByName
+  0x60bec6 -> reflect.Value.Elem
+  0x60bf54 -> reflect.Value.MethodByName
+  0x60bf80 -> reflect.Value.MethodByName
+  0x60bfda -> reflect.Value.Call
+  0x60c026 -> reflect.valueInterface
+  0x60c0c1 -> reflect.Value.MapIndex
+  0x60c1c0 -> reflect.Value.Elem
+  0x60c2c8 -> fmt.Errorf("Method must return a value plus optionally an error: %s")
+  0x60c389 -> fmt.Errorf("bad member: '%s', path: '%s'")
+  0x60c438 -> fmt.Errorf("Second method return value must implement error.")
+github.com/lxn/walk.(*DataBinder).Reset.func1
+  <no direct calls>
+github.com/lxn/walk.(*DataBinder).validateProperties
+  0x60b193 -> indirect_call
+  0x60b1c1 -> indirect_call
+  0x60b1e0 -> indirect_call
+  0x60b262 -> indirect_call
+  0x60b28e -> github.com/lxn/walk.(*EventPublisher).Publish
+github.com/lxn/win.LoadCursor
+  0x58a008 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a030 -> syscall.Syscall
+ConvertyFile/Screens.ApplyFramelessStyle
+  0x7f6b20 -> github.com/lxn/win.GetWindowLong
+  0x7f6b36 -> github.com/lxn/win.SetWindowLong
+  0x7f6b45 -> github.com/lxn/win.GetWindowLong
+  0x7f6b60 -> github.com/lxn/win.SetWindowLong
+  0x7f6b67 -> github.com/lxn/win.GetSystemMetrics
+  0x7f6b75 -> github.com/lxn/win.GetSystemMetrics
+  0x7f6b92 -> github.com/lxn/win.SetWindowPos
+github.com/lxn/win.GetSystemMetrics
+  0x589762 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58978a -> syscall.Syscall
+github.com/lxn/walk.NewIconFromFileWithSize
+  0x613cea -> github.com/lxn/walk.defaultIconSize
+  0x613d50 -> github.com/lxn/walk.(*Icon).handleForDPIWithError
+github.com/lxn/walk.defaultIconSize
+  0x614978 -> github.com/lxn/win.GetSystemMetricsForDpi
+  0x61498b -> github.com/lxn/win.GetSystemMetricsForDpi
+github.com/lxn/win.GetSystemMetricsForDpi
+  0x5897e4 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5897f2 -> github.com/lxn/win.GetSystemMetrics
+  0x58980a -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589835 -> syscall.Syscall
+github.com/lxn/walk.(*Icon).handleForDPIWithError
+  0x6141f2 -> github.com/lxn/win.GetModuleHandle
+  0x614213 -> github.com/lxn/walk.lastError("GetModuleHandle")
+  0x61422a -> path/filepath.abs
+  0x614238 -> syscall.StringToUTF16Ptr
+  0x614265 -> github.com/lxn/walk.defaultIconSize
+  0x614283 -> github.com/lxn/walk.scaleSize
+  0x6142a7 -> github.com/lxn/walk.scaleSize
+  0x6142e0 -> github.com/lxn/win.SHDefExtractIcon
+  0x6142f9 -> github.com/lxn/walk.newError("SHDefExtractIcon")
+  0x614321 -> github.com/lxn/win.LoadIconWithScaleDown
+  0x61436b -> github.com/lxn/walk.lastError("LoadIconWithScaleDown")
+github.com/lxn/win.GetModuleHandle
+  0x57fac0 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fae6 -> syscall.Syscall
+github.com/lxn/walk.scaleSize
+  <no direct calls>
+github.com/lxn/win.SHDefExtractIcon
+  0x583cc0 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x583d02 -> syscall.Syscall6
+github.com/lxn/win.LoadIconWithScaleDown
+  0x57a016 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57a051 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57a08d -> syscall.Syscall6
+github.com/lxn/walk.(*FormBase).SetIcon
+  0x610696 -> github.com/lxn/win.GetDpiForWindow
+  0x6106ad -> indirect_call
+  0x6106c0 -> github.com/lxn/win.GetSystemMetricsForDpi
+  0x6107a0 -> github.com/lxn/walk.(*IconCache).Icon
+  0x6107b4 -> github.com/lxn/walk.(*Icon).handleForDPIWithError
+  0x6107c7 -> github.com/lxn/win.GetSystemMetricsForDpi
+  0x610897 -> github.com/lxn/walk.(*IconCache).Icon
+  0x6108af -> github.com/lxn/walk.(*Icon).handleForDPIWithError
+  0x6108d7 -> github.com/lxn/win.SendMessage
+  0x6108f4 -> github.com/lxn/win.SendMessage
+  0x610940 -> github.com/lxn/walk.(*EventPublisher).Publish
+github.com/lxn/walk.(*IconCache).Icon
+  0x614c61 -> github.com/lxn/walk.(*Icon).handleForDPIWithError
+  0x614c80 -> github.com/lxn/walk.newIconFromImageForDPI
+github.com/lxn/walk.newIconFromImageForDPI
+  0x614048 -> indirect_call
+  0x61406e -> github.com/lxn/walk.scaleSize
+  0x614083 -> github.com/lxn/walk.NewBitmapFromImageWithSize
+  0x6140a0 -> github.com/lxn/walk.createAlphaCursorOrIconFromBitmap
+github.com/lxn/walk.NewBitmapFromImageWithSize
+  0x5f9bd7 -> indirect_call -> github.com/lxn/walk.NewBitmapFromImageWithSize.deferwrap1
+  0x5f9ca0 -> github.com/lxn/walk.NewBitmapWithTransparentPixelsForDPI
+  0x5f9d4a -> github.com/lxn/walk.NewCanvasFromImage
+  0x5f9dac -> github.com/lxn/walk.(*Canvas).DrawImageStretchedPixels
+  0x5f9dd9 -> indirect_call -> github.com/lxn/walk.NewBitmapFromImageWithSize.deferwrap2
+  0x5f9deb -> indirect_call
+  0x5f9e31 -> indirect_call
+  0x5f9e43 -> indirect_call
+  0x5f9e80 -> indirect_call
+  0x5f9ebd -> indirect_call
+github.com/lxn/walk.NewBitmapFromImageWithSize.deferwrap1
+  0x5f9feb -> indirect_call
+github.com/lxn/walk.NewBitmapWithTransparentPixelsForDPI
+  0x5f92f2 -> github.com/lxn/walk.withCompatibleDC
+github.com/lxn/walk.withCompatibleDC
+  0x5fb96b -> github.com/lxn/win.CreateCompatibleDC
+  0x5fb981 -> github.com/lxn/walk.newError("CreateCompatibleDC failed")
+  0x5fb9c0 -> indirect_call -> github.com/lxn/walk.withCompatibleDC.deferwrap1
+  0x5fb9d9 -> indirect_call
+github.com/lxn/win.CreateCompatibleDC
+  0x57c923 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57c949 -> syscall.Syscall
+github.com/lxn/walk.withCompatibleDC.deferwrap1
+  0x5fba40 -> github.com/lxn/win.DeleteDC
+github.com/lxn/win.DeleteDC
+  0x57cca3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57ccc9 -> syscall.Syscall
+github.com/lxn/walk.NewCanvasFromImage
+  0x5fef70 -> github.com/lxn/walk.newCanvasFromHDC
+  0x5ff000 -> github.com/lxn/win.CreateCompatibleDC
+  0x5ff04a -> github.com/lxn/win.SelectObject
+  0x5ff0a8 -> github.com/lxn/walk.(*Canvas).init
+  0x5ff0c9 -> indirect_call -> github.com/lxn/walk.NewCanvasFromImage.func1
+  0x5ff0ed -> github.com/lxn/walk.newError("SelectObject failed")
+  0x5ff112 -> indirect_call
+  0x5ff135 -> github.com/lxn/walk.newError("CreateCompatibleDC failed")
+  0x5ff173 -> github.com/lxn/walk.newError("unsupported image type")
+github.com/lxn/walk.newCanvasFromHDC
+  0x5ff300 -> github.com/lxn/walk.newError("invalid hdc")
+  0x5ff331 -> github.com/lxn/walk.(*Canvas).init
+github.com/lxn/walk.(*Canvas).init
+  0x5ff384 -> github.com/lxn/walk.dpiForHDC
+  0x5ff3a0 -> github.com/lxn/win.SetBkMode
+  0x5ff3ba -> github.com/lxn/win.SetStretchBltMode
+  0x5ff3d5 -> github.com/lxn/walk.newError("SetStretchBltMode failed")
+  0x5ff3f6 -> github.com/lxn/win.SetBrushOrgEx
+  0x5ff41a -> github.com/lxn/walk.newError("SetBrushOrgEx failed")
+  0x5ff439 -> github.com/lxn/walk.newError("SetBkMode failed")
+github.com/lxn/walk.dpiForHDC
+  0x633c33 -> github.com/lxn/win.WindowFromDC
+  0x633c40 -> github.com/lxn/win.GetDpiForWindow
+  0x633c57 -> github.com/lxn/win.GetDeviceCaps
+github.com/lxn/win.WindowFromDC
+  0x58b583 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58b5a9 -> syscall.Syscall
+github.com/lxn/win.SetBkMode
+  0x57de27 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57de51 -> syscall.Syscall
+github.com/lxn/win.SetStretchBltMode
+  0x57e0a7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57e0d1 -> syscall.Syscall
+github.com/lxn/win.SetBrushOrgEx
+  0x57ded4 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57df0e -> syscall.Syscall6
+github.com/lxn/win.SelectObject
+  0x57dce8 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57dd10 -> syscall.Syscall
+github.com/lxn/walk.NewCanvasFromImage.func1
+  0x5ff200 -> github.com/lxn/win.DeleteDC
+github.com/lxn/walk.(*Canvas).DrawImageStretchedPixels
+  0x6006ce -> github.com/lxn/walk.newError("image cannot be nil")
+  0x6006f4 -> indirect_call
+  0x600712 -> indirect_call
+github.com/lxn/walk.NewBitmapFromImageWithSize.deferwrap2
+  0x5f9f60 -> github.com/lxn/walk.(*Canvas).Dispose
+github.com/lxn/walk.(*Canvas).Dispose
+  0x5ff4c4 -> github.com/lxn/win.SelectObject
+  0x5ff4d4 -> github.com/lxn/win.DeleteDC
+  0x5ff500 -> github.com/lxn/walk.(*Bitmap).withPixels
+  0x5ff515 -> indirect_call -> github.com/lxn/walk.(*Canvas).Dispose.(*Bitmap).postProcess.func1
+  0x5ff598 -> log.(*Logger).output
+  0x5ff5b1 -> indirect_call -> github.com/lxn/walk.(*Canvas).Dispose.Printf.func2
+  0x5ff5c0 -> github.com/lxn/win.ReleaseDC
+  0x5ff5e5 -> github.com/lxn/walk.(*Metafile).ensureFinished
+  0x5ff625 -> github.com/lxn/walk.(*Metafile).Dispose
+github.com/lxn/walk.(*Bitmap).withPixels
+  0x5fa517 -> github.com/lxn/win.GetDC
+  0x5fa56a -> github.com/lxn/win.GetDIBits
+  0x5fa581 -> github.com/lxn/win.GlobalAlloc
+  0x5fa5d9 -> github.com/lxn/win.GetDIBits
+  0x5fa5f0 -> github.com/lxn/walk.newError("GetDIBits #2")
+  0x5fa60f -> indirect_call -> github.com/lxn/walk.(*Bitmap).withPixels.deferwrap2
+  0x5fa621 -> indirect_call
+  0x5fa636 -> github.com/lxn/win.GdiFlush
+  0x5fa662 -> indirect_call
+  0x5fa680 -> indirect_call
+  0x5fa692 -> indirect_call
+  0x5fa6b3 -> github.com/lxn/walk.newError("GetDIBits #1")
+  0x5fa6d2 -> indirect_call
+  0x5fa6f3 -> github.com/lxn/walk.newError("GetDC")
+github.com/lxn/win.GetDIBits
+  0x57d2b2 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57d30a -> syscall.Syscall9
+github.com/lxn/walk.(*Bitmap).withPixels.deferwrap2
+  0x5fa780 -> github.com/lxn/win.GlobalFree
+github.com/lxn/win.GlobalFree
+  0x57fc63 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57fc89 -> syscall.Syscall
+github.com/lxn/win.GdiFlush
+  0x57d160 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57d182 -> syscall.Syscall
+github.com/lxn/walk.(*Canvas).Dispose.(*Bitmap).postProcess.func1
+  0x5ff755 -> github.com/lxn/win.SetDIBits
+  0x5ff76a -> github.com/lxn/walk.newError("SetDIBits")
+github.com/lxn/win.SetDIBits
+  0x57dfb2 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57e00a -> syscall.Syscall9
+github.com/lxn/walk.(*Canvas).Dispose.Printf.func2
+  0x5ff6a7 -> fmt.Appendf
+github.com/lxn/walk.(*Metafile).ensureFinished
+  0x61fb09 -> github.com/lxn/walk.newError("already disposed")
+  0x61fb26 -> github.com/lxn/win.CloseEnhMetaFile
+  0x61fb45 -> github.com/lxn/walk.newError("CloseEnhMetaFile failed")
+  0x61fb5a -> github.com/lxn/walk.(*Metafile).readSizeFromHeader
+github.com/lxn/win.CloseEnhMetaFile
+  0x57c543 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57c569 -> syscall.Syscall
+github.com/lxn/walk.(*Metafile).readSizeFromHeader
+  0x61f8e4 -> github.com/lxn/win.GetEnhMetaFileHeader
+  0x61fab9 -> github.com/lxn/walk.newError("GetEnhMetaFileHeader failed")
+github.com/lxn/win.GetEnhMetaFileHeader
+  0x57d3ac -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57d3d8 -> syscall.Syscall
+github.com/lxn/walk.(*Metafile).Dispose
+  0x61f793 -> github.com/lxn/walk.(*Metafile).ensureFinished
+  0x61f7a6 -> github.com/lxn/win.DeleteEnhMetaFile
+github.com/lxn/win.DeleteEnhMetaFile
+  0x57cd23 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57cd49 -> syscall.Syscall
+github.com/lxn/walk.createAlphaCursorOrIconFromBitmap
+  0x6147c3 -> github.com/lxn/win.CreateBitmap
+  0x614840 -> github.com/lxn/win.CreateIconIndirect
+  0x61485d -> indirect_call -> github.com/lxn/walk.createAlphaCursorOrIconFromBitmap.deferwrap1
+  0x614880 -> github.com/lxn/walk.newError("CreateBitmap failed")
+github.com/lxn/win.CreateBitmap
+  0x57c737 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57c77a -> syscall.Syscall6
+github.com/lxn/win.CreateIconIndirect
+  0x5880a0 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5880c6 -> syscall.Syscall
+github.com/lxn/walk.createAlphaCursorOrIconFromBitmap.deferwrap1
+  0x614920 -> github.com/lxn/win.DeleteObject
+github.com/lxn/win.DeleteObject
+  0x57cda3 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x57cdc9 -> syscall.Syscall
+github.com/lxn/walk.(*FormBase).Run
+  0x60fbee -> indirect_call
+  0x60fbf2 -> github.com/lxn/win.EnableWindow
+  0x60fc56 -> github.com/lxn/walk.(*EventPublisher).Publish
+  0x60fc60 -> github.com/lxn/walk.(*WindowBase).BoundsPixels
+  0x60fc76 -> github.com/lxn/walk.(*FormBase).SetBoundsPixels
+  0x60fca3 -> github.com/lxn/win.GetDpiForWindow
+  0x60fcd4 -> github.com/lxn/walk.scaleSize
+  0x60fcf7 -> indirect_call -> github.com/lxn/walk.(*FormBase).Run.func1
+  0x60fd2e -> github.com/lxn/walk.(*FormBase).startLayout
+  0x60fd3a -> github.com/lxn/walk.(*FormBase).SetSuspended
+  0x60fd44 -> github.com/lxn/walk.(*FormBase).mainLoop
+  0x60fd67 -> indirect_call
+  0x60fd80 -> github.com/lxn/walk.walkDescendants
+github.com/lxn/win.EnableWindow
+  0x588aa7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588ad5 -> syscall.Syscall
+github.com/lxn/walk.(*FormBase).Run.func1
+  0x60fe66 -> github.com/lxn/walk.walkDescendants
+github.com/lxn/walk.(*FormBase).mainLoop
+  0x61ceb3 -> github.com/lxn/win.GlobalAlloc
+  0x61cefa -> github.com/lxn/win.GetMessage
+  0x61cf20 -> github.com/lxn/walk.(*FormBase).handleKeyDown
+  0x61cf37 -> github.com/lxn/win.IsDialogMessage
+  0x61cf49 -> github.com/lxn/win.TranslateMessage
+  0x61cf53 -> github.com/lxn/win.DispatchMessage
+  0x61cf60 -> github.com/lxn/walk.(*WindowGroup).RunSynchronized
+  0x61cf85 -> indirect_call -> github.com/lxn/walk.(*FormBase).mainLoop.deferwrap1
+  0x61cfa8 -> indirect_call
+  0x61cfcb -> indirect_call
+github.com/lxn/win.GetMessage
+  0x58948d -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x5894c6 -> syscall.Syscall6
+github.com/lxn/walk.(*FormBase).handleKeyDown
+  0x60ff0f -> github.com/lxn/walk.ModifiersDown
+  0x60ff43 -> github.com/lxn/win.GetFocus
+  0x60ff57 -> github.com/lxn/win.GetParent
+  0x60ffb3 -> indirect_call -> github.com/lxn/walk.(*FormBase).handleKeyDown.func1
+  0x61000c -> github.com/lxn/walk.walkDescendants
+  0x610060 -> github.com/lxn/walk.(*Action).raiseTriggered
+  0x610078 -> github.com/lxn/win.GetParent
+  0x610109 -> indirect_call -> github.com/lxn/walk.(*FormBase).handleKeyDown.func3
+  0x610160 -> github.com/lxn/walk.walkDescendants
+github.com/lxn/walk.ModifiersDown
+  0x617774 -> github.com/lxn/win.GetKeyState
+  0x617787 -> github.com/lxn/win.GetKeyState
+  0x6177b1 -> github.com/lxn/win.GetKeyState
+github.com/lxn/win.GetKeyState
+  0x589362 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58938a -> syscall.Syscall
+github.com/lxn/win.GetFocus
+  0x5892e0 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589302 -> syscall.Syscall
+github.com/lxn/walk.(*FormBase).handleKeyDown.func1
+  0x610435 -> github.com/lxn/walk.(*TabWidget).SetCurrentIndex
+github.com/lxn/walk.(*TabWidget).SetCurrentIndex
+  0x62e8e0 -> github.com/lxn/walk.newError("invalid index")
+  0x62e904 -> github.com/lxn/win.SendMessage
+  0x62e920 -> github.com/lxn/walk.newError("SendMessage(TCM_SETCURSEL) failed")
+  0x62e930 -> github.com/lxn/walk.(*TabWidget).onSelChange
+github.com/lxn/walk.(*TabWidget).onSelChange
+  0x62e9c4 -> github.com/lxn/walk.(*WindowBase).SetVisible
+  0x62e9e2 -> github.com/lxn/win.SendMessage
+  0x62ea40 -> github.com/lxn/walk.(*WindowBase).SetVisible
+  0x62ea4a -> github.com/lxn/walk.(*WindowBase).RequestLayout
+  0x62ea54 -> github.com/lxn/walk.(*WindowBase).Invalidate
+  0x62ea6a -> github.com/lxn/win.GetFocus
+  0x62eac0 -> github.com/lxn/walk.(*WindowBase).forEachDescendantRaw
+  0x62eaf4 -> github.com/lxn/walk.(*ContainerBase).focusFirstCandidateDescendant
+  0x62eb01 -> github.com/lxn/walk.(*WindowBase).Invalidate
+  0x62eb11 -> github.com/lxn/walk.(*EventPublisher).Publish
+github.com/lxn/walk.(*WindowBase).SetVisible
+  0x63f2cb -> github.com/lxn/win.IsWindowVisible
+  0x63f2f5 -> github.com/lxn/win.ShowWindow
+  0x63f319 -> github.com/lxn/walk.walkDescendants
+  0x63f363 -> indirect_call
+  0x63f36a -> github.com/lxn/walk.(*WidgetBase).invalidateBorderInParent
+  0x63f376 -> github.com/lxn/walk.(*WindowBase).RequestLayout
+  0x63f386 -> github.com/lxn/walk.(*EventPublisher).Publish
+github.com/lxn/win.ShowWindow
+  0x58b307 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58b331 -> syscall.Syscall
+github.com/lxn/walk.(*WidgetBase).invalidateBorderInParent
+  0x63a0ea -> indirect_call
+  0x63a100 -> github.com/lxn/walk.(*WidgetBase).BoundsPixels
+  0x63a140 -> indirect_call
+  0x63a149 -> indirect_call
+  0x63a170 -> indirect_call
+  0x63a1ba -> github.com/lxn/win.InvalidateRect
+  0x63a1f2 -> github.com/lxn/win.InvalidateRect
+  0x63a229 -> github.com/lxn/win.InvalidateRect
+  0x63a260 -> github.com/lxn/win.InvalidateRect
+github.com/lxn/walk.(*WidgetBase).BoundsPixels
+  0x639359 -> github.com/lxn/walk.(*WindowBase).BoundsPixels
+  0x639394 -> indirect_call
+  0x6393a0 -> github.com/lxn/win.ScreenToClient
+  0x6393cf -> github.com/lxn/walk.newError("ScreenToClient failed")
+github.com/lxn/win.ScreenToClient
+  0x58a808 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58a830 -> syscall.Syscall
+github.com/lxn/walk.(*WindowBase).forEachDescendantRaw
+  0x63f200 -> github.com/lxn/win.EnumChildWindows
+  0x63f20a -> github.com/lxn/walk.(*WindowBase).forEachDescendantRaw.func1
+github.com/lxn/win.EnumChildWindows
+  0x588c6d -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588c98 -> syscall.Syscall
+github.com/lxn/walk.(*WindowBase).forEachDescendantRaw.func1
+  <no direct calls>
+github.com/lxn/walk.(*ContainerBase).focusFirstCandidateDescendant
+  0x608cc0 -> github.com/lxn/walk.firstFocusableDescendant
+  0x608ce0 -> indirect_call
+  0x608d74 -> time.AfterFunc
+github.com/lxn/walk.firstFocusableDescendant
+  0x60914f -> indirect_call
+  0x609160 -> github.com/lxn/win.EnumChildWindows
+  0x6091a5 -> github.com/lxn/win.GetParent
+github.com/lxn/walk.(*Action).raiseTriggered
+  0x5f81e6 -> github.com/lxn/walk.(*Action).SetChecked
+  0x5f81f4 -> github.com/lxn/walk.(*EventPublisher).Publish
+github.com/lxn/walk.(*Action).SetChecked
+  0x5f6266 -> indirect_call
+  0x5f6295 -> github.com/lxn/walk.newError("CheckedCondition != nil")
+  0x5f630a -> indirect_call
+  0x5f6390 -> indirect_call
+github.com/lxn/walk.(*FormBase).handleKeyDown.func3
+  0x6102e0 -> github.com/lxn/win.IsChild
+  0x61030c -> github.com/lxn/walk.(*WebView).inPlaceActiveObjectTranslateAccelerator
+github.com/lxn/win.IsChild
+  0x589ca8 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589cd0 -> syscall.Syscall
+github.com/lxn/walk.(*WebView).inPlaceActiveObjectTranslateAccelerator
+  0x6353d6 -> github.com/lxn/walk.(*WebView).withInPlaceActiveObject
+github.com/lxn/walk.(*WebView).withInPlaceActiveObject
+  0x6351ce -> github.com/lxn/walk.(*WebView).withWebBrowser2
+github.com/lxn/walk.(*WebView).withWebBrowser2
+  0x635071 -> syscall.Syscall
+  0x635089 -> github.com/lxn/walk.errorFromHRESULT("IOleObject.QueryInterface")
+  0x6350ce -> indirect_call -> github.com/lxn/walk.(*WebView).withWebBrowser2.deferwrap1
+  0x6350e7 -> indirect_call
+github.com/lxn/walk.(*WebView).withWebBrowser2.deferwrap1
+  0x635176 -> syscall.Syscall
+github.com/lxn/win.IsDialogMessage
+  0x589d48 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x589d70 -> syscall.Syscall
+github.com/lxn/win.TranslateMessage
+  0x58b480 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x58b4a6 -> syscall.Syscall
+github.com/lxn/win.DispatchMessage
+  0x588740 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588766 -> syscall.Syscall
+github.com/lxn/walk.(*WindowGroup).RunSynchronized
+  0x644508 -> sync.(*Mutex).lockSlow
+  0x644680 -> sync.(*Mutex).unlockSlow
+  0x6446b5 -> github.com/lxn/walk.applyLayoutResults
+  0x6446e9 -> indirect_call
+github.com/lxn/walk.applyLayoutResults
+  0x61a4b2 -> github.com/lxn/walk.(*stopwatch).Start
+  0x61a58e -> github.com/lxn/win.BeginDeferWindowPos
+  0x61a5b5 -> indirect_call -> github.com/lxn/walk.applyLayoutResults.deferwrap1
+  0x61a628 -> github.com/lxn/win.EndDeferWindowPos
+  0x61a660 -> github.com/lxn/walk.lastError("BeginDeferWindowPos")
+  0x61a732 -> indirect_call
+  0x61a759 -> indirect_call
+  0x61a7bd -> indirect_call
+  0x61a8d6 -> github.com/lxn/walk.lastError("EndDeferWindowPos")
+  0x61a950 -> indirect_call -> github.com/lxn/walk.applyLayoutResults.func1
+  0x61aa80 -> indirect_call
+  0x61aaab -> indirect_call
+  0x61aae0 -> github.com/lxn/win.DeferWindowPos
+  0x61ab06 -> indirect_call
+  0x61ab2d -> indirect_call
+  0x61ab2f -> github.com/lxn/walk.(*WidgetBase).invalidateBorderInParent
+  0x61ab4a -> github.com/lxn/walk.lastError("DeferWindowPos")
+  0x61ab9d -> indirect_call
+  0x61abac -> github.com/lxn/walk.(*WidgetBase).hasComplexBackground
+github.com/lxn/win.BeginDeferWindowPos
+  0x587c62 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x587c8a -> syscall.Syscall
+github.com/lxn/walk.applyLayoutResults.deferwrap1
+  0x61ae07 -> github.com/lxn/walk.(*stopwatch).Stop
+github.com/lxn/win.EndDeferWindowPos
+  0x588b43 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588b69 -> syscall.Syscall
+github.com/lxn/walk.applyLayoutResults.func1
+  0x61ac6d -> github.com/lxn/win.GetFocus
+  0x61ac80 -> github.com/lxn/win.GetAncestor
+  0x61ad00 -> indirect_call
+  0x61ad2e -> indirect_call
+  0x61ad69 -> indirect_call
+  0x61ad74 -> github.com/lxn/walk.(*ContainerBase).focusFirstCandidateDescendant
+github.com/lxn/win.GetAncestor
+  0x588da7 -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588dd0 -> syscall.Syscall
+github.com/lxn/win.DeferWindowPos
+  0x5883fa -> golang.org/x/sys/windows.(*LazyProc).Find
+  0x588469 -> syscall.Syscall9
+github.com/lxn/walk.(*WidgetBase).hasComplexBackground
+  0x63a326 -> indirect_call
+  0x63a36d -> indirect_call
+  0x63a3a0 -> github.com/lxn/walk.(*WidgetBase).ForEachAncestor
+github.com/lxn/walk.(*WidgetBase).ForEachAncestor
+  0x639b97 -> github.com/lxn/win.GetParent
+  0x639ba3 -> github.com/lxn/win.GetParent
+  0x639bf3 -> indirect_call
+github.com/lxn/walk.(*FormBase).mainLoop.deferwrap1
+  0x61d020 -> github.com/lxn/win.GlobalFree
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with dynamic code allocation and execution.
+  mid_function_control_transfers:
+    - ConvertyFile/Screens.StartScreen:0x7f6e0b call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f6e2f call -> runtime.duffzero+0xb8 classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f6f0a call -> runtime.duffzero+0x8a classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f704a call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f70aa call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f7136 call -> runtime.duffzero+0xb8 classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f71b3 call -> runtime.duffzero+0xaf classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f7233 call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f726a call -> runtime.duffzero+0x8a classification=go_runtime_duff_helper
+    - ConvertyFile/Screens.StartScreen:0x7f740d call -> runtime.duffzero+0xb8 classification=go_runtime_duff_helper
+  indirect_calls:
+    - ConvertyFile/client.EmbImgLoad:0x694fc0 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - ConvertyFile/client.EmbImgLoad:0x695014 call rsi [interface_method_or_object_dispatch] evidence=target comes from register RSI; target uses register-indirect memory addressing
+    - ConvertyFile/client.EmbImgLoad:0x695053 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - ConvertyFile/client.EmbImgLoad.deferwrap1:0x695123 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - ConvertyFile/server.send:0x7eae3a call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - ConvertyFile/server.send.deferwrap1:0x7eaec3 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - ConvertyFile/server.sendVS:0x7eab13 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - ConvertyFile/server.sendVS:0x7eab4c call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - ConvertyFile/server.sendVS.deferwrap1:0x7eac23 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/lxn/walk.(*Action).SetChecked:0x5f6266 call rbx [interface_method_or_object_dispatch] evidence=target comes from register RBX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x134a000 size=0x2000 entropy=7.995 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x1355000 size=0x1000 entropy=7.638 reasons=high_entropy refs=<none>
+    - blob_2 .data:0x135d000 size=0x3000 entropy=7.956 reasons=high_entropy refs=<none>
+    - blob_3 .data:0x1361000 size=0x1000 entropy=6.759 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .data:0x1386000 size=0x1000 entropy=1.216 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x89d000 size=0x1000 entropy=3.601 reasons=referenced_by_reachable_code,contains_magic_bytes refs=github.com/lxn/walk.NewFont, github.com/lxn/walk.NewMenu, github.com/lxn/walk.NewStatusBar, github.com/lxn/walk.newMenuBar
+    - blob_6 .rdata:0x8dd000 size=0x1000 entropy=4.806 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x90f000 size=0x1000 entropy=7.536 reasons=high_entropy refs=<none>
+    - blob_8 .rdata:0x916000 size=0x97000 entropy=7.962 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_9 .rdata:0xa10000 size=0x1000 entropy=6.196 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - ConvertyFile/client.GetConvId ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - ConvertyFile/client.generateConvId ops=add,sub,xor confidence=medium sources=<unknown>
+    - ConvertyFile/server.sendVS ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - ConvertyFile/server.send ops=add,sub,xor confidence=medium sources=<unknown>
+    - ConvertyFile/Screens.StartScreen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - ConvertyFile/client.EmbImgLoad ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/lxn/walk.hBitmapFromImage ops=add,not,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/lxn/walk.newBitmapFromHBITMAP ops=add,shift,sub confidence=medium sources=<unknown>
+    - github.com/lxn/walk/declarative.MainWindow.Create ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/lxn/walk.NewMainWindowWithCfg ops=add,shift,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - <reachable_component> kind=dynamic_code_loader confidence=high evidence=executable_memory_requested,raw_syscall
+    - github.com/lxn/win.GetDC kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.CreateDIBSection kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.ReleaseDC kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.GetObject kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.GlobalAlloc kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.GlobalLock kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.MoveMemory kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/lxn/win.GlobalUnlock kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/lxn/win.InitCommonControlsEx kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall

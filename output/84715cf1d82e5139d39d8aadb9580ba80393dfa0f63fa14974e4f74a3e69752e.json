@@ -1,0 +1,1895 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x50a22e",
+        "target": "main.getDrives",
+        "target_address": "0x50a520",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.getDrives"
+      },
+      {
+        "address": "0x50a259",
+        "target": "Prince-Ransomware/filewalker.EncryptDirectory",
+        "target_address": "0x504ee0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "Prince-Ransomware/filewalker.EncryptDirectory"
+      },
+      {
+        "address": "0x50a274",
+        "target": "main.setWallpaper",
+        "target_address": "0x50a2a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.setWallpaper"
+      }
+    ],
+    "main.getDrives": [
+      {
+        "address": "0x50a5d7",
+        "target": "os.OpenFile",
+        "target_address": "0x4aba60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.OpenFile"
+      },
+      {
+        "address": "0x50a6c0",
+        "target": "os.(*file).close",
+        "target_address": "0x4ac420",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*file).close"
+      }
+    ],
+    "Prince-Ransomware/filewalker.EncryptDirectory": [
+      {
+        "address": "0x504f2a",
+        "target": "Prince-Ransomware/filewalker.EncryptDirectory.func1",
+        "target_address": "0x504f60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "path/filepath.Walk",
+        "display": "path/filepath.Walk -> Prince-Ransomware/filewalker.EncryptDirectory.func1"
+      },
+      {
+        "address": "0x504f34",
+        "target": "sync.(*WaitGroup).Wait",
+        "target_address": "0x4788a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Wait"
+      }
+    ],
+    "Prince-Ransomware/filewalker.EncryptDirectory.func1": [
+      {
+        "address": "0x504fad",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x504fda",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x5050aa",
+        "target": "strings.EqualFold",
+        "target_address": "0x4bb640",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.EqualFold"
+      },
+      {
+        "address": "0x5050c1",
+        "target": "internal/filepathlite.Base",
+        "target_address": "0x4a3f00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Base"
+      },
+      {
+        "address": "0x5050c6",
+        "target": "strings.ToLower",
+        "target_address": "0x4bac00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      },
+      {
+        "address": "0x505126",
+        "target": "strings.ToLower",
+        "target_address": "0x4bac00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      },
+      {
+        "address": "0x505135",
+        "target": "strings.EqualFold",
+        "target_address": "0x4bb640",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.EqualFold"
+      },
+      {
+        "address": "0x505158",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x478760",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      },
+      {
+        "address": "0x505234",
+        "target": "path/filepath.join",
+        "target_address": "0x502cc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x505274",
+        "target": "os.WriteFile",
+        "target_address": "0x4abd40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.WriteFile"
+      },
+      {
+        "address": "0x5052c4",
+        "target": "internal/filepathlite.Base",
+        "target_address": "0x4a3f00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Base"
+      },
+      {
+        "address": "0x5052c9",
+        "target": "strings.ToLower",
+        "target_address": "0x4bac00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      },
+      {
+        "address": "0x5052e0",
+        "target": "strings.EqualFold",
+        "target_address": "0x4bb640",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.EqualFold"
+      }
+    ],
+    "internal/filepathlite.Base": [
+      {
+        "address": "0x4a3f54",
+        "target": "internal/filepathlite.VolumeName",
+        "target_address": "0x4a4020",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.VolumeName"
+      }
+    ],
+    "internal/filepathlite.VolumeName": [
+      {
+        "address": "0x4a4038",
+        "target": "internal/filepathlite.volumeNameLen",
+        "target_address": "0x4a41a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.volumeNameLen"
+      },
+      {
+        "address": "0x4a4059",
+        "target": "internal/filepathlite.replaceStringByte",
+        "target_address": "0x4a3e20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.replaceStringByte"
+      }
+    ],
+    "internal/filepathlite.volumeNameLen": [
+      {
+        "address": "0x4a4200",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4a4420",
+        "kind": "user",
+        "string_args": [
+          "\\\\.\\UNC"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\.\\UNC"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\.\\\\UNC\")"
+      },
+      {
+        "address": "0x4a4235",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4a4420",
+        "kind": "user",
+        "string_args": [
+          "\\\\."
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\."
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\.\")"
+      },
+      {
+        "address": "0x4a4260",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4a4420",
+        "kind": "user",
+        "string_args": [
+          "\\\\?"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\?"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\?\")"
+      },
+      {
+        "address": "0x4a4286",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x4a4420",
+        "kind": "user",
+        "string_args": [
+          "\\??"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\??"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\??\")"
+      }
+    ],
+    "internal/filepathlite.pathHasPrefixFold": [],
+    "internal/filepathlite.replaceStringByte": [
+      {
+        "address": "0x4a3e52",
+        "target": "internal/bytealg.IndexByteString",
+        "target_address": "0x403820",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexByteString"
+      }
+    ],
+    "Prince-Ransomware/filewalker.EncryptDirectory.func1.1": [
+      {
+        "address": "0x5053b4",
+        "target": "Prince-Ransomware/encryption.EncryptFile",
+        "target_address": "0x501aa0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "Prince-Ransomware/encryption.EncryptFile"
+      },
+      {
+        "address": "0x5053e8",
+        "target": "os.rename",
+        "target_address": "0x4ac6c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.rename"
+      },
+      {
+        "address": "0x5053fa",
+        "target": "Prince-Ransomware/filewalker.EncryptDirectory.func1.1.deferwrap1",
+        "target_address": "0x505420",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> Prince-Ransomware/filewalker.EncryptDirectory.func1.1.deferwrap1"
+      }
+    ],
+    "Prince-Ransomware/encryption.EncryptFile": [
+      {
+        "address": "0x501ae6",
+        "target": "os.OpenFile",
+        "target_address": "0x4aba60",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.OpenFile"
+      },
+      {
+        "address": "0x501b28",
+        "target": "Prince-Ransomware/encryption.generateKey",
+        "target_address": "0x5019a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "Prince-Ransomware/encryption.generateKey"
+      },
+      {
+        "address": "0x501b48",
+        "target": "Prince-Ransomware/encryption.generateNonce",
+        "target_address": "0x501a20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "Prince-Ransomware/encryption.generateNonce"
+      },
+      {
+        "address": "0x501b81",
+        "target": "github.com/ecies/go.Encrypt",
+        "target_address": "0x4fee80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/ecies/go.Encrypt"
+      },
+      {
+        "address": "0x501bc0",
+        "target": "github.com/ecies/go.Encrypt",
+        "target_address": "0x4fee80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/ecies/go.Encrypt"
+      },
+      {
+        "address": "0x501c2a",
+        "target": "golang.org/x/crypto/chacha20.newUnauthenticatedCipher",
+        "target_address": "0x500560",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/crypto/chacha20.newUnauthenticatedCipher"
+      },
+      {
+        "address": "0x501c75",
+        "target": "Prince-Ransomware/encryption.EncryptFile.deferwrap1",
+        "target_address": "0x502340",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> Prince-Ransomware/encryption.EncryptFile.deferwrap1"
+      },
+      {
+        "address": "0x501c91",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x501cac",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x501cc7",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x501ce2",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x501d75",
+        "target": "os.(*File).Read",
+        "target_address": "0x4ab4a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).Read"
+      },
+      {
+        "address": "0x501e81",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x501f14",
+        "target": "golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream",
+        "target_address": "0x5007e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream"
+      },
+      {
+        "address": "0x502104",
+        "target": "os.(*File).Truncate",
+        "target_address": "0x4abea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).Truncate"
+      },
+      {
+        "address": "0x502120",
+        "target": "os.(*File).Seek",
+        "target_address": "0x4ab8e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).Seek"
+      },
+      {
+        "address": "0x502148",
+        "target": "os.(*File).Write",
+        "target_address": "0x4ab6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*File).Write"
+      },
+      {
+        "address": "0x502162",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x502222",
+        "target": "log.(*Logger).output",
+        "target_address": "0x4d0c20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "log.(*Logger).output"
+      },
+      {
+        "address": "0x502237",
+        "target": "Prince-Ransomware/encryption.EncryptFile.Println.func1",
+        "target_address": "0x5022e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> Prince-Ransomware/encryption.EncryptFile.Println.func1"
+      },
+      {
+        "address": "0x502252",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x50226d",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "Prince-Ransomware/encryption.generateKey": [
+      {
+        "address": "0x5019d2",
+        "target": "crypto/rand.Read",
+        "target_address": "0x4cf140",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/rand.Read"
+      }
+    ],
+    "Prince-Ransomware/encryption.generateNonce": [
+      {
+        "address": "0x501a52",
+        "target": "crypto/rand.Read",
+        "target_address": "0x4cf140",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/rand.Read"
+      }
+    ],
+    "github.com/ecies/go.Encrypt": [
+      {
+        "address": "0x4feec0",
+        "target": "github.com/ecies/go.GenerateKey",
+        "target_address": "0x4ff260",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/ecies/go.GenerateKey"
+      },
+      {
+        "address": "0x4feee0",
+        "target": "github.com/ecies/go.(*PrivateKey).ECDH",
+        "target_address": "0x4ff440",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/ecies/go.(*PrivateKey).ECDH"
+      },
+      {
+        "address": "0x4feeee",
+        "target": "crypto/aes.NewCipher",
+        "target_address": "0x4d3720",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/aes.NewCipher"
+      },
+      {
+        "address": "0x4fef35",
+        "target": "crypto/rand.Read",
+        "target_address": "0x4cf140",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/rand.Read"
+      },
+      {
+        "address": "0x4fef62",
+        "target": "crypto/cipher.newGCMWithNonceAndTagSize",
+        "target_address": "0x4d1660",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/cipher.newGCMWithNonceAndTagSize"
+      },
+      {
+        "address": "0x4fefd1",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x4feff9",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x4ff070",
+        "target": "github.com/ecies/go.(*PublicKey).Bytes",
+        "target_address": "0x5000c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/ecies/go.(*PublicKey).Bytes"
+      },
+      {
+        "address": "0x4ff145",
+        "target": "bytes.Join",
+        "target_address": "0x4bb940",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.Join"
+      },
+      {
+        "address": "0x4ff169",
+        "target": "github.com/pkg/errors.Wrap",
+        "target_address": "0x4f9600",
+        "kind": "user",
+        "string_args": [
+          "cannot create aes gcm"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "cannot create aes gcm"
+        },
+        "via": null,
+        "display": "github.com/pkg/errors.Wrap(\"cannot create aes gcm\")"
+      },
+      {
+        "address": "0x4ff196",
+        "target": "github.com/pkg/errors.Wrap",
+        "target_address": "0x4f9600",
+        "kind": "user",
+        "string_args": [
+          "cannot read random bytes for nonce"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "cannot read random bytes for nonce"
+        },
+        "via": null,
+        "display": "github.com/pkg/errors.Wrap(\"cannot read random bytes for nonce\")"
+      },
+      {
+        "address": "0x4ff1c3",
+        "target": "github.com/pkg/errors.Wrap",
+        "target_address": "0x4f9600",
+        "kind": "user",
+        "string_args": [
+          "cannot create new aes block"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "cannot create new aes block"
+        },
+        "via": null,
+        "display": "github.com/pkg/errors.Wrap(\"cannot create new aes block\")"
+      }
+    ],
+    "github.com/ecies/go.GenerateKey": [
+      {
+        "address": "0x4ff28c",
+        "target": "sync.(*Once).doSlow",
+        "target_address": "0x477820",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*Once).doSlow"
+      },
+      {
+        "address": "0x4ff2b2",
+        "target": "crypto/elliptic.GenerateKey",
+        "target_address": "0x4f2ea0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/elliptic.GenerateKey"
+      },
+      {
+        "address": "0x4ff311",
+        "target": "math/big.nat.setBytes",
+        "target_address": "0x4c9460",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.nat.setBytes"
+      },
+      {
+        "address": "0x4ff405",
+        "target": "github.com/pkg/errors.Wrap",
+        "target_address": "0x4f9600",
+        "kind": "user",
+        "string_args": [
+          "cannot generate key pair"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "cannot generate key pair"
+        },
+        "via": null,
+        "display": "github.com/pkg/errors.Wrap(\"cannot generate key pair\")"
+      }
+    ],
+    "github.com/pkg/errors.Wrap": [
+      {
+        "address": "0x4f9693",
+        "target": "github.com/pkg/errors.callers",
+        "target_address": "0x4fa220",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/pkg/errors.callers"
+      }
+    ],
+    "github.com/pkg/errors.callers": [],
+    "github.com/ecies/go.(*PrivateKey).ECDH": [
+      {
+        "address": "0x4ff475",
+        "target": "math/big.(*Int).Bytes",
+        "target_address": "0x4bd6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bytes"
+      },
+      {
+        "address": "0x4ff4b3",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x4ff4f8",
+        "target": "crypto/sha256.(*digest).Reset",
+        "target_address": "0x4fa760",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Reset"
+      },
+      {
+        "address": "0x4ff507",
+        "target": "math/big.(*Int).Bit",
+        "target_address": "0x4c1280",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bit"
+      },
+      {
+        "address": "0x4ff528",
+        "target": "crypto/sha256.(*digest).Write",
+        "target_address": "0x4fa8a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Write"
+      },
+      {
+        "address": "0x4ff546",
+        "target": "crypto/sha256.(*digest).Write",
+        "target_address": "0x4fa8a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Write"
+      },
+      {
+        "address": "0x4ff560",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x4ff565",
+        "target": "math/big.(*Int).Bytes",
+        "target_address": "0x4bd6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bytes"
+      },
+      {
+        "address": "0x4ff576",
+        "target": "github.com/pkg/errors.callers",
+        "target_address": "0x4fa220",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/pkg/errors.callers"
+      },
+      {
+        "address": "0x4ff5f9",
+        "target": "crypto/sha256.(*digest).Write",
+        "target_address": "0x4fa8a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Write"
+      },
+      {
+        "address": "0x4ff613",
+        "target": "math/big.(*Int).Bytes",
+        "target_address": "0x4bd6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bytes"
+      },
+      {
+        "address": "0x4ff632",
+        "target": "math/big.(*Int).Bytes",
+        "target_address": "0x4bd6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bytes"
+      },
+      {
+        "address": "0x4ff645",
+        "target": "crypto/sha256.(*digest).Write",
+        "target_address": "0x4fa8a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Write"
+      },
+      {
+        "address": "0x4ff656",
+        "target": "crypto/sha256.(*digest).Sum",
+        "target_address": "0x4fab20",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "crypto/sha256.(*digest).Sum"
+      }
+    ],
+    "github.com/ecies/go.(*PublicKey).Bytes": [
+      {
+        "address": "0x5000f3",
+        "target": "math/big.(*Int).Bytes",
+        "target_address": "0x4bd6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bytes"
+      },
+      {
+        "address": "0x500130",
+        "target": "math/big.(*Int).Bytes",
+        "target_address": "0x4bd6a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bytes"
+      },
+      {
+        "address": "0x500154",
+        "target": "math/big.(*Int).Bit",
+        "target_address": "0x4c1280",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "math/big.(*Int).Bit"
+      },
+      {
+        "address": "0x5001ec",
+        "target": "bytes.Join",
+        "target_address": "0x4bb940",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.Join"
+      },
+      {
+        "address": "0x500280",
+        "target": "bytes.Join",
+        "target_address": "0x4bb940",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.Join"
+      },
+      {
+        "address": "0x500340",
+        "target": "bytes.Join",
+        "target_address": "0x4bb940",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "bytes.Join"
+      }
+    ],
+    "golang.org/x/crypto/chacha20.newUnauthenticatedCipher": [
+      {
+        "address": "0x500628",
+        "target": "golang.org/x/crypto/chacha20.hChaCha20",
+        "target_address": "0x501560",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/crypto/chacha20.hChaCha20"
+      }
+    ],
+    "golang.org/x/crypto/chacha20.hChaCha20": [],
+    "Prince-Ransomware/encryption.EncryptFile.deferwrap1": [
+      {
+        "address": "0x502368",
+        "target": "os.(*file).close",
+        "target_address": "0x4ac420",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.(*file).close"
+      }
+    ],
+    "golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream": [
+      {
+        "address": "0x50094d",
+        "target": "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric",
+        "target_address": "0x500cc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric"
+      },
+      {
+        "address": "0x500a6b",
+        "target": "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric",
+        "target_address": "0x500cc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric"
+      },
+      {
+        "address": "0x500b40",
+        "target": "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric",
+        "target_address": "0x500cc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric"
+      }
+    ],
+    "golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric": [],
+    "Prince-Ransomware/encryption.EncryptFile.Println.func1": [
+      {
+        "address": "0x502300",
+        "target": "fmt.Appendln",
+        "target_address": "0x4b2420",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Appendln"
+      }
+    ],
+    "Prince-Ransomware/filewalker.EncryptDirectory.func1.1.deferwrap1": [
+      {
+        "address": "0x505442",
+        "target": "sync.(*WaitGroup).Add",
+        "target_address": "0x478760",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sync.(*WaitGroup).Add"
+      }
+    ],
+    "main.setWallpaper": [
+      {
+        "address": "0x50a2c6",
+        "target": "os.Getenv",
+        "target_address": "0x4a97a0",
+        "kind": "std",
+        "string_args": [
+          "TEMP"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "TEMP"
+        },
+        "via": null,
+        "display": "os.Getenv(\"TEMP\")"
+      },
+      {
+        "address": "0x50a30f",
+        "target": "path/filepath.join",
+        "target_address": "0x502cc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "path/filepath.join"
+      },
+      {
+        "address": "0x50a3c0",
+        "target": "os/exec.Command",
+        "target_address": "0x505720",
+        "kind": "std",
+        "string_args": [
+          "powershell"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "powershell"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"powershell\")"
+      },
+      {
+        "address": "0x50a406",
+        "target": "os/exec.(*Cmd).Run",
+        "target_address": "0x506b00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Run"
+      },
+      {
+        "address": "0x50a497",
+        "target": "os/exec.Command",
+        "target_address": "0x505720",
+        "kind": "std",
+        "string_args": [
+          "powershell"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "powershell"
+        },
+        "via": null,
+        "display": "os/exec.Command(\"powershell\")"
+      },
+      {
+        "address": "0x50a4e0",
+        "target": "os/exec.(*Cmd).Run",
+        "target_address": "0x506b00",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os/exec.(*Cmd).Run"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredContinueHandler",
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetCurrentThreadId",
+        "GetEnvironmentStringsW",
+        "GetErrorMode",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryExW",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "RaiseFailFastException",
+        "ResumeThread",
+        "RtlLookupFunctionEntry",
+        "RtlVirtualUnwind",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "TlsAlloc",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WerGetFlags",
+        "WerSetFlags",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "Prince-Ransomware/encryption.EncryptFile",
+        "instruction": "0x501bf5",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x46fa8f",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x12f",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501bf5 call -> runtime.duffzero+0x12f"
+      },
+      {
+        "source_function": "github.com/ecies/go.(*PrivateKey).ECDH",
+        "instruction": "0x4ff4ea",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x46faa6",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x146",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/ecies/go.(*PrivateKey).ECDH:0x4ff4ea call -> runtime.duffzero+0x146"
+      },
+      {
+        "source_function": "github.com/ecies/go.Encrypt",
+        "instruction": "0x4ff08b",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x46faab",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/ecies/go.Encrypt:0x4ff08b call -> runtime.duffzero+0x14b"
+      }
+    ],
+    "indirect_calls": [
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x501c75",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x501c72",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501c75 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x501c91",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x501c8e",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501c91 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x501cac",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x501ca9",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501cac call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x501cc7",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x501cc4",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501cc7 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x501ce2",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x501cdf",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501ce2 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x501e81",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x501e7e",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x501e81 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x502162",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x50215f",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x502162 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x502237",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x502234",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x502237 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x502252",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x50224f",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x502252 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "address": "0x50226d",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x50226a",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/encryption.EncryptFile:0x50226d call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/filewalker.EncryptDirectory.func1",
+        "address": "0x504fad",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x504f9a",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/filewalker.EncryptDirectory.func1:0x504fad call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/filewalker.EncryptDirectory.func1",
+        "address": "0x504fda",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x504fce",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/filewalker.EncryptDirectory.func1:0x504fda call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "Prince-Ransomware/filewalker.EncryptDirectory.func1.1",
+        "address": "0x5053fa",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x5053f7",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "Prince-Ransomware/filewalker.EncryptDirectory.func1.1:0x5053fa call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/ecies/go.(*PrivateKey).ECDH",
+        "address": "0x4ff4b3",
+        "operand": "r13",
+        "kind": "register_call",
+        "classification": "unresolved_indirect_call",
+        "evidence": [
+          "target comes from register unknown"
+        ],
+        "provenance": {
+          "kind": "unknown_register",
+          "register": null
+        },
+        "display": "github.com/ecies/go.(*PrivateKey).ECDH:0x4ff4b3 call r13 [unresolved_indirect_call]"
+      },
+      {
+        "function": "github.com/ecies/go.(*PrivateKey).ECDH",
+        "address": "0x4ff560",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x4ff55a",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x30",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/ecies/go.(*PrivateKey).ECDH:0x4ff560 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/ecies/go.Encrypt",
+        "address": "0x4fefd1",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x4fef7d",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x30",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/ecies/go.Encrypt:0x4fefd1 call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/ecies/go.Encrypt",
+        "address": "0x4feff9",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x4fefed",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/ecies/go.Encrypt:0x4feff9 call rdx [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x63e000",
+        "size": "0x2000",
+        "entropy": 7.995,
+        "sha256_prefix": "1a6cb2a95169ec21",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x643000",
+        "size": "0x2000",
+        "entropy": 7.955,
+        "sha256_prefix": "a23654592dc2e2c2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".rdata",
+        "va": "0x546000",
+        "size": "0x15000",
+        "entropy": 7.958,
+        "sha256_prefix": "36e5d3729d2aeedf",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x636",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x736",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xcb6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8ca",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xe62",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x4ed",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xd7c",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xd25",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa9f",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".rdata",
+        "va": "0x601000",
+        "size": "0x1000",
+        "entropy": 5.468,
+        "sha256_prefix": "c80f6fbe57e3d1e8",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe1c",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x636000",
+        "size": "0x1000",
+        "entropy": 4.332,
+        "sha256_prefix": "656e53d7dd094dc2",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x81c",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "internal/filepathlite.volumeNameLen",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 6,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.pathHasPrefixFold",
+        "operations": [
+          "add",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.replaceStringByte",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 11
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "Prince-Ransomware/filewalker.EncryptDirectory.func1.1",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "Prince-Ransomware/encryption.EncryptFile",
+        "operations": [
+          "add",
+          "chacha20",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 5,
+          "byte_memory_ops": 16
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/ecies/go.Encrypt",
+        "operations": [
+          "add",
+          "aes",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/ecies/go.(*PrivateKey).ECDH",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 2,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/ecies/go.(*PublicKey).Bytes",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 7,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "golang.org/x/crypto/chacha20.newUnauthenticatedCipher",
+        "operations": [
+          "add",
+          "chacha20",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream",
+        "operations": [
+          "add",
+          "chacha20",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 5
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "main.setWallpaper",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime."
+    ]
+  }
+}

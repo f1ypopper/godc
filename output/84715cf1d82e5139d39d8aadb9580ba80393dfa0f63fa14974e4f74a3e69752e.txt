@@ -1,0 +1,173 @@
+main.main
+  0x50a22e -> main.getDrives
+  0x50a259 -> Prince-Ransomware/filewalker.EncryptDirectory
+  0x50a274 -> main.setWallpaper
+main.getDrives
+  0x50a5d7 -> os.OpenFile
+  0x50a6c0 -> os.(*file).close
+Prince-Ransomware/filewalker.EncryptDirectory
+  0x504f2a -> path/filepath.Walk -> Prince-Ransomware/filewalker.EncryptDirectory.func1
+  0x504f34 -> sync.(*WaitGroup).Wait
+Prince-Ransomware/filewalker.EncryptDirectory.func1
+  0x504fad -> indirect_call
+  0x504fda -> indirect_call
+  0x5050aa -> strings.EqualFold
+  0x5050c1 -> internal/filepathlite.Base
+  0x5050c6 -> strings.ToLower
+  0x505126 -> strings.ToLower
+  0x505135 -> strings.EqualFold
+  0x505158 -> sync.(*WaitGroup).Add
+  0x505234 -> path/filepath.join
+  0x505274 -> os.WriteFile
+  0x5052c4 -> internal/filepathlite.Base
+  0x5052c9 -> strings.ToLower
+  0x5052e0 -> strings.EqualFold
+internal/filepathlite.Base
+  0x4a3f54 -> internal/filepathlite.VolumeName
+internal/filepathlite.VolumeName
+  0x4a4038 -> internal/filepathlite.volumeNameLen
+  0x4a4059 -> internal/filepathlite.replaceStringByte
+internal/filepathlite.volumeNameLen
+  0x4a4200 -> internal/filepathlite.pathHasPrefixFold("\\\\.\\UNC")
+  0x4a4235 -> internal/filepathlite.pathHasPrefixFold("\\\\.")
+  0x4a4260 -> internal/filepathlite.pathHasPrefixFold("\\\\?")
+  0x4a4286 -> internal/filepathlite.pathHasPrefixFold("\\??")
+internal/filepathlite.pathHasPrefixFold
+  <no direct calls>
+internal/filepathlite.replaceStringByte
+  0x4a3e52 -> internal/bytealg.IndexByteString
+Prince-Ransomware/filewalker.EncryptDirectory.func1.1
+  0x5053b4 -> Prince-Ransomware/encryption.EncryptFile
+  0x5053e8 -> os.rename
+  0x5053fa -> indirect_call -> Prince-Ransomware/filewalker.EncryptDirectory.func1.1.deferwrap1
+Prince-Ransomware/encryption.EncryptFile
+  0x501ae6 -> os.OpenFile
+  0x501b28 -> Prince-Ransomware/encryption.generateKey
+  0x501b48 -> Prince-Ransomware/encryption.generateNonce
+  0x501b81 -> github.com/ecies/go.Encrypt
+  0x501bc0 -> github.com/ecies/go.Encrypt
+  0x501c2a -> golang.org/x/crypto/chacha20.newUnauthenticatedCipher
+  0x501c75 -> indirect_call -> Prince-Ransomware/encryption.EncryptFile.deferwrap1
+  0x501c91 -> indirect_call
+  0x501cac -> indirect_call
+  0x501cc7 -> indirect_call
+  0x501ce2 -> indirect_call
+  0x501d75 -> os.(*File).Read
+  0x501e81 -> indirect_call
+  0x501f14 -> golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream
+  0x502104 -> os.(*File).Truncate
+  0x502120 -> os.(*File).Seek
+  0x502148 -> os.(*File).Write
+  0x502162 -> indirect_call
+  0x502222 -> log.(*Logger).output
+  0x502237 -> indirect_call -> Prince-Ransomware/encryption.EncryptFile.Println.func1
+  0x502252 -> indirect_call
+  0x50226d -> indirect_call
+Prince-Ransomware/encryption.generateKey
+  0x5019d2 -> crypto/rand.Read
+Prince-Ransomware/encryption.generateNonce
+  0x501a52 -> crypto/rand.Read
+github.com/ecies/go.Encrypt
+  0x4feec0 -> github.com/ecies/go.GenerateKey
+  0x4feee0 -> github.com/ecies/go.(*PrivateKey).ECDH
+  0x4feeee -> crypto/aes.NewCipher
+  0x4fef35 -> crypto/rand.Read
+  0x4fef62 -> crypto/cipher.newGCMWithNonceAndTagSize
+  0x4fefd1 -> indirect_call
+  0x4feff9 -> indirect_call
+  0x4ff070 -> github.com/ecies/go.(*PublicKey).Bytes
+  0x4ff145 -> bytes.Join
+  0x4ff169 -> github.com/pkg/errors.Wrap("cannot create aes gcm")
+  0x4ff196 -> github.com/pkg/errors.Wrap("cannot read random bytes for nonce")
+  0x4ff1c3 -> github.com/pkg/errors.Wrap("cannot create new aes block")
+github.com/ecies/go.GenerateKey
+  0x4ff28c -> sync.(*Once).doSlow
+  0x4ff2b2 -> crypto/elliptic.GenerateKey
+  0x4ff311 -> math/big.nat.setBytes
+  0x4ff405 -> github.com/pkg/errors.Wrap("cannot generate key pair")
+github.com/pkg/errors.Wrap
+  0x4f9693 -> github.com/pkg/errors.callers
+github.com/pkg/errors.callers
+  <no direct calls>
+github.com/ecies/go.(*PrivateKey).ECDH
+  0x4ff475 -> math/big.(*Int).Bytes
+  0x4ff4b3 -> indirect_call
+  0x4ff4f8 -> crypto/sha256.(*digest).Reset
+  0x4ff507 -> math/big.(*Int).Bit
+  0x4ff528 -> crypto/sha256.(*digest).Write
+  0x4ff546 -> crypto/sha256.(*digest).Write
+  0x4ff560 -> indirect_call
+  0x4ff565 -> math/big.(*Int).Bytes
+  0x4ff576 -> github.com/pkg/errors.callers
+  0x4ff5f9 -> crypto/sha256.(*digest).Write
+  0x4ff613 -> math/big.(*Int).Bytes
+  0x4ff632 -> math/big.(*Int).Bytes
+  0x4ff645 -> crypto/sha256.(*digest).Write
+  0x4ff656 -> crypto/sha256.(*digest).Sum
+github.com/ecies/go.(*PublicKey).Bytes
+  0x5000f3 -> math/big.(*Int).Bytes
+  0x500130 -> math/big.(*Int).Bytes
+  0x500154 -> math/big.(*Int).Bit
+  0x5001ec -> bytes.Join
+  0x500280 -> bytes.Join
+  0x500340 -> bytes.Join
+golang.org/x/crypto/chacha20.newUnauthenticatedCipher
+  0x500628 -> golang.org/x/crypto/chacha20.hChaCha20
+golang.org/x/crypto/chacha20.hChaCha20
+  <no direct calls>
+Prince-Ransomware/encryption.EncryptFile.deferwrap1
+  0x502368 -> os.(*file).close
+golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream
+  0x50094d -> golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric
+  0x500a6b -> golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric
+  0x500b40 -> golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric
+golang.org/x/crypto/chacha20.(*Cipher).xorKeyStreamBlocksGeneric
+  <no direct calls>
+Prince-Ransomware/encryption.EncryptFile.Println.func1
+  0x502300 -> fmt.Appendln
+Prince-Ransomware/filewalker.EncryptDirectory.func1.1.deferwrap1
+  0x505442 -> sync.(*WaitGroup).Add
+main.setWallpaper
+  0x50a2c6 -> os.Getenv("TEMP")
+  0x50a30f -> path/filepath.join
+  0x50a3c0 -> os/exec.Command("powershell")
+  0x50a406 -> os/exec.(*Cmd).Run
+  0x50a497 -> os/exec.Command("powershell")
+  0x50a4e0 -> os/exec.(*Cmd).Run
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - Prince-Ransomware/encryption.EncryptFile:0x501bf5 call -> runtime.duffzero+0x12f classification=go_runtime_duff_helper
+    - github.com/ecies/go.(*PrivateKey).ECDH:0x4ff4ea call -> runtime.duffzero+0x146 classification=go_runtime_duff_helper
+    - github.com/ecies/go.Encrypt:0x4ff08b call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+  indirect_calls:
+    - Prince-Ransomware/encryption.EncryptFile:0x501c75 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x501c91 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x501cac call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x501cc7 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x501ce2 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x501e81 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x502162 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x502237 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x502252 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - Prince-Ransomware/encryption.EncryptFile:0x50226d call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x63e000 size=0x2000 entropy=7.995 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x643000 size=0x2000 entropy=7.955 reasons=high_entropy refs=<none>
+    - blob_2 .rdata:0x546000 size=0x15000 entropy=7.958 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_3 .rdata:0x601000 size=0x1000 entropy=5.468 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .rdata:0x636000 size=0x1000 entropy=4.332 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - internal/filepathlite.volumeNameLen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.pathHasPrefixFold ops=add,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.replaceStringByte ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - Prince-Ransomware/filewalker.EncryptDirectory.func1.1 ops=add,sub,xor confidence=medium sources=<unknown>
+    - Prince-Ransomware/encryption.EncryptFile ops=add,chacha20,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/ecies/go.Encrypt ops=add,aes,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/ecies/go.(*PrivateKey).ECDH ops=add,sub,xor confidence=medium sources=<unknown>
+    - github.com/ecies/go.(*PublicKey).Bytes ops=add,sub,xor confidence=medium sources=<unknown>
+    - golang.org/x/crypto/chacha20.newUnauthenticatedCipher ops=add,chacha20,sub,xor confidence=medium sources=<unknown>
+    - golang.org/x/crypto/chacha20.(*Cipher).XORKeyStream ops=add,chacha20,shift,sub,xor confidence=medium sources=<unknown>

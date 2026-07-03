@@ -1,0 +1,82 @@
+main.main
+  0x4a1982 -> path/filepath.Base
+  0x4a19fa -> fmt.Fprintf
+  0x4a1a14 -> indirect_call
+  0x4a1a37 -> indirect_call
+  0x4a1bca -> fmt.Fprintf
+  0x4a1bf4 -> main.fillBufferWithXorShift128Plus
+  0x4a1cc0 -> fmt.Fprintf
+  0x4a1cd0 -> os.Stat
+  0x4a1d49 -> fmt.Fprintf
+  0x4a1d60 -> indirect_call
+  0x4a1d91 -> main.processDirectory
+  0x4a1dd8 -> fmt.Fprintf
+  0x4a1def -> indirect_call
+  0x4a1df8 -> io/fs.FileMode.IsRegular
+  0x4a1e21 -> main.writeRandomDataToFile
+  0x4a1e67 -> fmt.Fprintf
+main.fillBufferWithXorShift128Plus
+  <no direct calls>
+main.processDirectory
+  0x4a1712 -> path/filepath.Walk
+  0x4a1783 -> fmt.Fprintf
+main.writeRandomDataToFile
+  0x4a0d56 -> os.OpenFile
+  0x4a0dcb -> fmt.Fprintf
+  0x4a0e0c -> os.(*File).Stat
+  0x4a0e85 -> fmt.Fprintf
+  0x4a0e98 -> indirect_call
+  0x4a0ea7 -> indirect_call
+  0x4a0f3a -> fmt.Fprintf
+  0x4a0fb2 -> fmt.Fprintf
+  0x4a10b8 -> main.fillBufferWithXorShift128Plus
+  0x4a11b4 -> fmt.Fprintf
+  0x4a11ef -> os.(*File).Seek
+  0x4a122d -> os.(*File).Write
+  0x4a12a2 -> fmt.Fprintf
+  0x4a12b5 -> indirect_call
+  0x4a131a -> fmt.Fprintf
+  0x4a132d -> indirect_call
+  0x4a1392 -> os.(*File).Seek
+  0x4a1403 -> fmt.Fprintf
+  0x4a1416 -> indirect_call
+  0x4a1456 -> os.(*File).Write
+  0x4a14c7 -> fmt.Fprintf
+  0x4a14da -> indirect_call
+  0x4a1521 -> fmt.Fprintf
+  0x4a152d -> os.(*File).Sync
+  0x4a159e -> fmt.Fprintf
+  0x4a15b1 -> indirect_call
+  0x4a1633 -> fmt.Fprintf
+  0x4a1646 -> indirect_call
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  indirect_calls:
+    - main.main:0x4a1a14 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.main:0x4a1a37 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - main.main:0x4a1d60 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.main:0x4a1def call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.writeRandomDataToFile:0x4a0e98 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.writeRandomDataToFile:0x4a0ea7 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.writeRandomDataToFile:0x4a12b5 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.writeRandomDataToFile:0x4a132d call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.writeRandomDataToFile:0x4a1416 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.writeRandomDataToFile:0x4a14da call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x55a000 size=0x3000 entropy=7.955 reasons=high_entropy refs=<none>
+    - blob_1 .rdata:0x4a9000 size=0x1000 entropy=3.42 reasons=contains_magic_bytes refs=<none>
+    - blob_2 .rdata:0x4f7000 size=0x1000 entropy=5.615 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .rdata:0x51d000 size=0x1000 entropy=5.617 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .rdata:0x529000 size=0x1000 entropy=5.717 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x543000 size=0x1000 entropy=3.984 reasons=contains_magic_bytes refs=<none>
+    - blob_6 /19:0x58c000 size=0x24000 entropy=7.953 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_7 /32:0x5b1000 size=0x6000 entropy=7.936 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_8 /65:0x5b9000 size=0x3b000 entropy=7.96 reasons=contains_magic_bytes,high_entropy refs=<none>
+    - blob_9 /78:0x5f5000 size=0x21933 entropy=7.949 reasons=contains_magic_bytes,high_entropy refs=<none>
+  data_transformers:
+    - main.main ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.fillBufferWithXorShift128Plus ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - main.writeRandomDataToFile ops=add,shift,sub,xor confidence=medium sources=<unknown>

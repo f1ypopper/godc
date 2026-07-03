@@ -1,0 +1,66 @@
+main.main
+  0x1400945c0 -> main.ehmssaj
+  0x140097c76 -> main.oypjuzrmqdqtlps
+  0x14009b316 -> main.slpfgpynt
+  0x14009e9cf -> main.slpfgpynt
+  0x1400b33e7 -> main.ujqfcspaqboml
+  0x1400ba07a -> syscall.Syscall
+  0x1400be54f -> main.hwrhuhd
+main.ehmssaj
+  <no direct calls>
+main.oypjuzrmqdqtlps
+  0x14014a741 -> encoding/binary.littleEndian.Uint32
+main.slpfgpynt
+  0x1400821ae -> syscall.(*LazyProc).Call
+main.ujqfcspaqboml
+  0x1400ededa -> main.gvqzfvcrnht
+  0x1400edf18 -> syscall.LoadLibrary
+  0x1400fcc0a -> main.gvqzfvcrnht
+  0x1400fcc20 -> syscall.GetProcAddress
+  0x1400fcc39 -> main.iifcyxjqtnbg
+main.gvqzfvcrnht
+  <no direct calls>
+main.iifcyxjqtnbg
+  0x1401350e5 -> syscall.(*LazyProc).Addr
+  0x140135120 -> syscall.SyscallN
+main.hwrhuhd
+  <no direct calls>
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with manual PE loading or reflective payload execution.
+    - A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding.
+  mid_function_control_transfers:
+    - main.ehmssaj:0x140108c71 call -> runtime.duffcopy+0x134 classification=go_runtime_duff_helper
+    - main.ehmssaj:0x1401091aa call -> runtime.duffcopy+0x10a classification=go_runtime_duff_helper
+    - main.ehmssaj:0x14010922a call -> runtime.duffcopy+0xa8 classification=go_runtime_duff_helper
+    - main.ehmssaj:0x1401092ac call -> runtime.duffcopy+0x118 classification=go_runtime_duff_helper
+    - main.ehmssaj:0x14010934a call -> runtime.duffcopy+0x17a classification=go_runtime_duff_helper
+    - main.ehmssaj:0x14010958a call -> runtime.duffzero+0x12b classification=go_runtime_duff_helper
+    - main.ehmssaj:0x1401095f3 call -> runtime.duffcopy+0x2d8 classification=go_runtime_duff_helper
+    - main.ehmssaj:0x14010968a call -> runtime.duffzero+0xfd classification=go_runtime_duff_helper
+    - main.ehmssaj:0x1401096ea call -> runtime.duffcopy+0x2d8 classification=go_runtime_duff_helper
+    - main.ehmssaj:0x14010974a call -> runtime.duffcopy+0x2d8 classification=go_runtime_duff_helper
+  suspicious_data_blobs:
+    - blob_0 .rdata:0x14025a000 size=0x1000 entropy=3.838 reasons=contains_magic_bytes refs=<none>
+    - blob_1 .rdata:0x140751f30 size=0xcf000 entropy=7.885 reasons=large_copy_source refs=main.main
+    - blob_2 .rdata:0x140885000 size=0x1000 entropy=4.759 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .rdata:0x14088c000 size=0x1000 entropy=3.798 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.main ops=add,shift,sub,xor confidence=high sources=blob_1
+    - main.ehmssaj ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.oypjuzrmqdqtlps ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.slpfgpynt ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.ujqfcspaqboml ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.gvqzfvcrnht ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=blob_1
+    - main.iifcyxjqtnbg ops=add,shift,sub,xor confidence=medium sources=blob_1
+    - main.hwrhuhd ops=add,shift,sub,xor confidence=medium sources=blob_1
+  loader_behaviors:
+    - <reachable_component> kind=reflective_pe_loader confidence=high evidence=dynamic_import_resolution,dynamic_library_load,dynamic_syscall_call,executable_memory_requested,pe_header_parsing,raw_syscall
+    - main.main kind=dynamic_code_loader confidence=high evidence=executable_memory_requested,raw_syscall
+    - main.oypjuzrmqdqtlps kind=suspicious_runtime_behavior confidence=medium evidence=executable_memory_requested,pe_header_parsing
+    - main.slpfgpynt kind=suspicious_runtime_behavior confidence=medium evidence=dynamic_syscall_call,executable_memory_requested
+    - main.ujqfcspaqboml kind=dynamic_api_resolution confidence=high evidence=dynamic_import_resolution,dynamic_library_load,executable_memory_requested
+    - main.iifcyxjqtnbg kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall

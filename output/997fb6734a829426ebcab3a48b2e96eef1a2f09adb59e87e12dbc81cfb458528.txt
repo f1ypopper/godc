@@ -1,0 +1,493 @@
+main.main
+  0x817720 -> github.com/wailsapp/wails/v2.Run
+  0x817731 -> indirect_call -> main.(*App).startup-fm
+github.com/wailsapp/wails/v2.Run
+  0x814cf5 -> github.com/wailsapp/wails/v2/pkg/application.(*Application).Run
+github.com/wailsapp/wails/v2/pkg/application.(*Application).Run
+  0x814977 -> github.com/wailsapp/wails/v2/pkg/application.applicationInit
+  0x814992 -> github.com/wailsapp/wails/v2/internal/app.CreateApp
+  0x814a07 -> github.com/wailsapp/wails/v2/internal/signal.OnShutdown
+  0x814a0c -> github.com/wailsapp/wails/v2/internal/signal.Start
+  0x814a20 -> github.com/wailsapp/wails/v2/internal/app.(*App).Run
+github.com/wailsapp/wails/v2/pkg/application.applicationInit
+  0x814b34 -> syscall.(*LazyProc).Call
+  0x814bd3 -> fmt.Errorf("exit status %d: %v %v")
+github.com/wailsapp/wails/v2/internal/app.CreateApp
+  0x8136a5 -> github.com/wailsapp/wails/v2/pkg/options.MergeDefaults
+  0x8136d4 -> context.WithValue("debug")
+  0x8136f5 -> context.WithValue("devtoolsEnabled")
+  0x8137c2 -> context.WithValue("logger")
+  0x8137e3 -> context.WithValue("obfuscated")
+  0x813805 -> github.com/wailsapp/wails/v2/internal/app.PreflightChecks
+  0x813985 -> github.com/wailsapp/wails/v2/internal/menumanager.(*Manager).SetApplicationMenu
+  0x813a80 -> github.com/wailsapp/wails/v2/internal/binding.NewBindings
+  0x813b20 -> context.WithValue("events")
+  0x813b40 -> context.WithValue("buildtype", "production")
+  0x813c4a -> github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.NewFrontend
+  0x813d20 -> context.WithValue("frontend")
+github.com/wailsapp/wails/v2/pkg/options.MergeDefaults
+  0x740f42 -> github.com/wailsapp/wails/v2/pkg/options.processMinMaxConstraints
+  0x740f4d -> github.com/wailsapp/wails/v2/pkg/options.processDragOptions
+github.com/wailsapp/wails/v2/pkg/options.processMinMaxConstraints
+  <no direct calls>
+github.com/wailsapp/wails/v2/pkg/options.processDragOptions
+  0x74102f -> strings.(*Replacer).Replace
+  0x741078 -> strings.(*Replacer).Replace
+github.com/wailsapp/wails/v2/internal/app.PreflightChecks
+  0x8134f7 -> github.com/wailsapp/wails/v2/internal/wv2installer.Process
+  0x813565 -> github.com/wailsapp/wails/v2/internal/logger.(*Logger).Debug
+github.com/wailsapp/wails/v2/internal/wv2installer.Process
+  0x750320 -> github.com/wailsapp/go-webview2/webviewloader.GetAvailableCoreWebView2BrowserVersionString
+  0x75034e -> github.com/wailsapp/go-webview2/webviewloader.CompareBrowserVersions("94.0.992.31")
+  0x750398 -> fmt.Errorf
+  0x7503c0 -> github.com/wailsapp/wails/v2/internal/wv2installer.doInstallationStrategy
+github.com/wailsapp/go-webview2/webviewloader.GetAvailableCoreWebView2BrowserVersionString
+  0x74c10b -> github.com/wailsapp/go-webview2/webviewloader.findEmbeddedClientDll
+  0x74c140 -> errors.Is
+  0x74c16f -> github.com/wailsapp/go-webview2/webviewloader.findEmbeddedBrowserVersion
+  0x74c191 -> github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDll
+  0x74c1c0 -> errors.Is
+  0x74c230 -> github.com/wailsapp/go-webview2/webviewloader.version.String
+github.com/wailsapp/go-webview2/webviewloader.findEmbeddedClientDll
+  0x74ab00 -> internal/filepathlite.IsAbs
+  0x74ab15 -> os.Executable
+  0x74ab20 -> internal/filepathlite.Dir
+  0x74ab60 -> path/filepath.join
+  0x74ab65 -> github.com/wailsapp/go-webview2/webviewloader.findClientDllInFolder
+internal/filepathlite.IsAbs
+  0x4f9c40 -> internal/filepathlite.volumeNameLen
+internal/filepathlite.volumeNameLen
+  0x4f9d80 -> internal/filepathlite.pathHasPrefixFold("\\\\.\\UNC")
+  0x4f9db5 -> internal/filepathlite.pathHasPrefixFold("\\\\.")
+  0x4f9de0 -> internal/filepathlite.pathHasPrefixFold("\\\\?")
+  0x4f9e06 -> internal/filepathlite.pathHasPrefixFold("\\??")
+internal/filepathlite.pathHasPrefixFold
+  <no direct calls>
+internal/filepathlite.Dir
+  0x4f9aa0 -> internal/filepathlite.VolumeName
+  0x4f9b12 -> internal/filepathlite.Clean
+internal/filepathlite.VolumeName
+  0x4f9bb8 -> internal/filepathlite.volumeNameLen
+  0x4f9bd9 -> internal/filepathlite.replaceStringByte
+internal/filepathlite.replaceStringByte
+  0x4f97f2 -> internal/bytealg.IndexByteString
+internal/filepathlite.Clean
+  0x4f8b6d -> internal/filepathlite.volumeNameLen
+  0x4f8dc6 -> internal/filepathlite.replaceStringByte
+  0x4f9425 -> internal/filepathlite.postClean
+  0x4f94da -> internal/filepathlite.replaceStringByte
+internal/filepathlite.postClean
+  0x4fa0c6 -> slices.Insert[go.shape.[]uint8,go.shape.uint8]
+  0x4fa14d -> slices.Insert[go.shape.[]uint8,go.shape.uint8]
+slices.Insert[go.shape.[]uint8,go.shape.uint8]
+  0x4fa507 -> slices.rotateLeft[go.shape.uint8]
+slices.rotateLeft[go.shape.uint8]
+  <no direct calls>
+github.com/wailsapp/go-webview2/webviewloader.findClientDllInFolder
+  0x74ac25 -> path/filepath.join
+  0x74ac34 -> os.Stat
+  0x74ac44 -> github.com/wailsapp/go-webview2/webviewloader.mapFindErr
+github.com/wailsapp/go-webview2/webviewloader.mapFindErr
+  0x74ace0 -> errors.Is
+  0x74ad01 -> errors.Is
+github.com/wailsapp/go-webview2/webviewloader.findEmbeddedBrowserVersion
+  0x74aa73 -> github.com/wailsapp/go-webview2/webviewloader.getFileVersionInfo
+  0x74aa89 -> github.com/wailsapp/go-webview2/webviewloader.verQueryValueString
+github.com/wailsapp/go-webview2/webviewloader.getFileVersionInfo
+  0x74b5e0 -> syscall.UTF16FromString
+  0x74b644 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x74b6c0 -> fmt.Errorf("GetFileVersionInfoSize failed")
+  0x74b760 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x74b7ce -> fmt.Errorf("GetFileVersionInfo failed")
+github.com/wailsapp/go-webview2/webviewloader.verQueryValueString
+  0x74b8f6 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x74b97a -> syscall.UTF16FromString
+  0x74ba57 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x74bae0 -> fmt.Errorf("VerQueryValue failed")
+  0x74bb86 -> unicode/utf16.decode
+  0x74bbc4 -> indirect_call -> github.com/wailsapp/go-webview2/webviewloader.verQueryValueString.deferwrap1
+  0x74bc12 -> indirect_call
+  0x74bc66 -> indirect_call
+  0x74bcba -> indirect_call
+github.com/wailsapp/go-webview2/webviewloader.verQueryValueString.deferwrap1
+  0x74bde9 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDll
+  0x74ae61 -> github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel
+github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel
+  0x74afb4 -> golang.org/x/sys/windows/registry.OpenKey
+  0x74b00a -> golang.org/x/sys/windows/registry.Key.GetStringValue
+  0x74b040 -> internal/filepathlite.Base
+  0x74b073 -> github.com/wailsapp/go-webview2/webviewloader.parseVersion
+  0x74b199 -> github.com/wailsapp/go-webview2/webviewloader.version.compare
+  0x74b1b6 -> github.com/wailsapp/go-webview2/webviewloader.findEmbeddedClientDll
+  0x74b1d6 -> github.com/wailsapp/go-webview2/webviewloader.mapFindErr
+  0x74b210 -> indirect_call -> github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel.deferwrap1
+  0x74b27c -> indirect_call
+  0x74b2f2 -> indirect_call
+  0x74b368 -> indirect_call
+  0x74b3e0 -> indirect_call
+  0x74b419 -> github.com/wailsapp/go-webview2/webviewloader.mapFindErr
+  0x74b453 -> indirect_call
+  0x74b48c -> github.com/wailsapp/go-webview2/webviewloader.mapFindErr
+internal/filepathlite.Base
+  0x4f99b4 -> internal/filepathlite.VolumeName
+github.com/wailsapp/go-webview2/webviewloader.parseVersion
+  0x74c520 -> internal/stringslite.Index(" ")
+  0x74c5a0 -> strings.genSplit(".")
+  0x74c5af -> github.com/wailsapp/go-webview2/webviewloader.parseInt
+  0x74c604 -> fmt.Errorf("bad major version: %w")
+  0x74c661 -> github.com/wailsapp/go-webview2/webviewloader.parseInt
+  0x74c6af -> fmt.Errorf("bad minor version: %w")
+  0x74c70b -> github.com/wailsapp/go-webview2/webviewloader.parseInt
+  0x74c759 -> fmt.Errorf("bad patch version: %w")
+  0x74c7b5 -> github.com/wailsapp/go-webview2/webviewloader.parseInt
+  0x74c804 -> fmt.Errorf("bad build version: %w")
+  0x74c8c2 -> fmt.Errorf("too many version parts")
+internal/stringslite.Index
+  0x47e4d9 -> internal/bytealg.IndexString
+  0x47e56e -> internal/bytealg.IndexByteString
+  0x47e605 -> internal/bytealg.IndexByteString
+  0x47e777 -> internal/bytealg.IndexRabinKarp[go.shape.string]
+  0x47e870 -> internal/bytealg.IndexByteString
+  0x47e9d2 -> internal/bytealg.IndexString
+github.com/wailsapp/go-webview2/webviewloader.parseInt
+  0x74c9a0 -> strconv.ParseInt
+github.com/wailsapp/go-webview2/webviewloader.version.compare
+  <no direct calls>
+github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel.deferwrap1
+  0x74b580 -> syscall.RegCloseKey
+github.com/wailsapp/go-webview2/webviewloader.version.String
+  0x74c36f -> fmt.Sprintf("%d.%d.%d.%d")
+github.com/wailsapp/go-webview2/webviewloader.CompareBrowserVersions
+  0x74bef2 -> github.com/wailsapp/go-webview2/webviewloader.parseVersion
+  0x74bf92 -> fmt.Errorf("v1 invalid: %w")
+  0x74bfb8 -> github.com/wailsapp/go-webview2/webviewloader.parseVersion
+  0x74c02d -> fmt.Errorf("v2 invalid: %w")
+  0x74c08d -> github.com/wailsapp/go-webview2/webviewloader.version.compare
+github.com/wailsapp/wails/v2/internal/wv2installer.doInstallationStrategy
+  0x750092 -> github.com/wailsapp/wails/v2/internal/webview2runtime.Confirm
+  0x7500b1 -> github.com/wailsapp/wails/v2/internal/webview2runtime.InstallUsingEmbeddedBootstrapper
+  0x7500e3 -> github.com/wailsapp/wails/v2/internal/webview2runtime.MessageBox
+  0x750105 -> indirect_call
+  0x750120 -> github.com/wailsapp/wails/v2/internal/webview2runtime.MessageBox
+  0x750149 -> fmt.Errorf
+github.com/wailsapp/wails/v2/internal/webview2runtime.Confirm
+  0x746ce0 -> github.com/wailsapp/wails/v2/internal/webview2runtime.MessageBox
+github.com/wailsapp/wails/v2/internal/webview2runtime.MessageBox
+  0x746d66 -> syscall.UTF16FromString
+  0x746d99 -> syscall.UTF16FromString
+  0x746e83 -> syscall.(*LazyProc).Call
+github.com/wailsapp/wails/v2/internal/webview2runtime.InstallUsingEmbeddedBootstrapper
+  0x746b8e -> os.tempDir
+  0x746b93 -> github.com/wailsapp/wails/v2/internal/webview2runtime.WriteInstaller
+  0x746ba7 -> github.com/wailsapp/wails/v2/internal/webview2runtime.runInstaller
+  0x746bc7 -> os.Remove
+github.com/wailsapp/wails/v2/internal/webview2runtime.WriteInstaller
+  0x746b0f -> path/filepath.join
+  0x746b39 -> os.WriteFile
+github.com/wailsapp/wails/v2/internal/webview2runtime.runInstaller
+  0x746c1a -> os/exec.Command
+  0x746c24 -> os/exec.(*Cmd).Start
+  0x746c33 -> os/exec.(*Cmd).Wait
+github.com/wailsapp/wails/v2/internal/logger.(*Logger).Debug
+  0x741d92 -> fmt.Sprintf
+  0x741db0 -> indirect_call
+github.com/wailsapp/wails/v2/internal/menumanager.(*Manager).SetApplicationMenu
+  0x745ae8 -> github.com/wailsapp/wails/v2/internal/menumanager.(*MenuItemMap).processMenuItem
+  0x745b11 -> github.com/wailsapp/wails/v2/internal/menumanager.(*Manager).processApplicationMenu
+github.com/wailsapp/wails/v2/internal/menumanager.(*MenuItemMap).processMenuItem
+  0x745f20 -> github.com/wailsapp/wails/v2/internal/menumanager.(*MenuItemMap).generateMenuID
+  0x745fcf -> github.com/wailsapp/wails/v2/internal/menumanager.(*MenuItemMap).processMenuItem
+github.com/wailsapp/wails/v2/internal/menumanager.(*MenuItemMap).generateMenuID
+  0x745e60 -> sync.(*Mutex).lockSlow
+  0x745e73 -> strconv.FormatInt
+  0x745ea4 -> sync.(*Mutex).unlockSlow
+github.com/wailsapp/wails/v2/internal/menumanager.(*Manager).processApplicationMenu
+  0x745b6c -> github.com/wailsapp/wails/v2/internal/menumanager.NewWailsMenu
+  0x745c02 -> encoding/json.Marshal
+github.com/wailsapp/wails/v2/internal/menumanager.NewWailsMenu
+  0x746314 -> github.com/wailsapp/wails/v2/internal/menumanager.NewProcessedMenu
+  0x746343 -> github.com/wailsapp/wails/v2/internal/menumanager.(*WailsMenu).processRadioGroups
+github.com/wailsapp/wails/v2/internal/menumanager.NewProcessedMenu
+  0x74622f -> github.com/wailsapp/wails/v2/internal/menumanager.NewProcessedMenuItem
+github.com/wailsapp/wails/v2/internal/menumanager.NewProcessedMenuItem
+  0x746128 -> github.com/wailsapp/wails/v2/internal/menumanager.NewProcessedMenu
+github.com/wailsapp/wails/v2/internal/menumanager.(*WailsMenu).processRadioGroups
+  0x746440 -> github.com/wailsapp/wails/v2/internal/menumanager.(*WailsMenu).processMenuItem
+github.com/wailsapp/wails/v2/internal/menumanager.(*WailsMenu).processMenuItem
+  0x7468d1 -> github.com/wailsapp/wails/v2/internal/menumanager.(*WailsMenu).processMenuItem
+github.com/wailsapp/wails/v2/internal/binding.NewBindings
+  0x77a596 -> reflect.Value.Pointer
+  0x77a76b -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS
+  0x77a7d9 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).Add
+  0x77a7ec -> indirect_call
+  0x77a820 -> github.com/wailsapp/wails/v2/internal/logger.(*Logger).Fatal
+github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS
+  0x77c499 -> indirect_call
+  0x77c4d0 -> indirect_call
+  0x77c4ec -> indirect_call
+  0x77c553 -> indirect_call
+  0x77c5db -> indirect_call
+  0x77c67b -> indirect_call
+  0x77c680 -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x77c6af -> indirect_call
+  0x77c6e0 -> indirect_call
+  0x77c6ec -> indirect_call
+  0x77c6ee -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x77c717 -> indirect_call
+  0x77c723 -> indirect_call
+github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x781d0c -> strings.genSplit(".")
+  0x781d39 -> strings.Replace("[]")
+  0x781d57 -> strings.Replace("*")
+github.com/wailsapp/wails/v2/internal/binding.(*Bindings).Add
+  0x77a8ca -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).getMethods
+  0x77a8ec -> indirect_call
+  0x77a923 -> fmt.Errorf("cannot bind value to app: %s")
+  0x77a958 -> github.com/wailsapp/wails/v2/internal/binding.(*DB).AddMethod
+  0x77a9a1 -> strings.genSplit(".")
+github.com/wailsapp/wails/v2/internal/binding.(*Bindings).getMethods
+  0x780ce0 -> github.com/wailsapp/wails/v2/internal/binding.isStructPtr
+  0x780daa -> indirect_call
+  0x780ed0 -> reflect.Value.typeSlow
+  0x780ee0 -> indirect_call
+  0x780f23 -> fmt.Errorf("%s is a struct, not a pointer to a struct")
+  0x781005 -> reflect.Value.Pointer
+  0x781058 -> fmt.Errorf("%s is a function, not a pointer to a struct. Wails v2 has deprecated the binding of functions. Please wrap your functions up in a struct and bind a pointer to that struct.")
+  0x781086 -> fmt.Errorf("not a pointer to a struct.")
+  0x7810ec -> indirect_call
+  0x781113 -> indirect_call
+  0x7811ab -> reflect.Value.MethodByName
+  0x7811e9 -> reflect.Value.Pointer
+  0x78130e -> reflect.Value.typeSlow
+  0x781330 -> indirect_call
+  0x78138a -> indirect_call
+  0x78156e -> indirect_call
+  0x78158b -> indirect_call
+  0x781619 -> indirect_call
+  0x78164c -> indirect_call
+  0x781668 -> indirect_call
+  0x781688 -> indirect_call
+  0x781694 -> indirect_call
+  0x7816c0 -> indirect_call
+  0x7816d2 -> reflect.New
+  0x7816e6 -> reflect.Value.Elem
+  0x7816f1 -> reflect.valueInterface
+  0x78171d -> indirect_call
+  0x781746 -> indirect_call
+  0x781748 -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x781780 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+  0x78179c -> indirect_call
+  0x7817ba -> reflect.New
+  0x7817cd -> reflect.Value.Elem
+  0x7817d8 -> reflect.valueInterface
+  0x781804 -> indirect_call
+  0x78182d -> indirect_call
+  0x78182f -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x781862 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+  0x781942 -> indirect_call
+  0x781960 -> indirect_call
+  0x7819ee -> indirect_call
+  0x781a1c -> indirect_call
+  0x781a38 -> indirect_call
+  0x781a60 -> indirect_call
+  0x781a6c -> indirect_call
+  0x781a8c -> indirect_call
+  0x781aa0 -> reflect.New
+  0x781ab3 -> reflect.Value.Elem
+  0x781ac0 -> reflect.valueInterface
+  0x781aec -> indirect_call
+  0x781b15 -> indirect_call
+  0x781b17 -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x781b4a -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+  0x781b66 -> indirect_call
+  0x781b82 -> reflect.New
+  0x781b95 -> reflect.Value.Elem
+  0x781ba0 -> reflect.valueInterface
+  0x781bcc -> indirect_call
+  0x781bf5 -> indirect_call
+  0x781bf7 -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x781c2a -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+github.com/wailsapp/wails/v2/internal/binding.isStructPtr
+  0x780c60 -> reflect.Value.Elem
+github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+  0x77caf1 -> indirect_call
+  0x77cb1d -> indirect_call
+  0x77cb79 -> indirect_call
+  0x77cba0 -> indirect_call
+  0x77cbfd -> indirect_call
+  0x77cc63 -> indirect_call
+  0x77cc8b -> strings.genSplit(".")
+  0x77ccc2 -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x77cced -> reflect.New
+  0x77cd28 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).hasExportedJSONFields
+  0x77cd6c -> reflect.Value.Elem
+  0x77cd76 -> reflect.valueInterface
+  0x77cda9 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+  0x77cdca -> indirect_call
+  0x77ce00 -> indirect_call
+  0x77ce0c -> indirect_call
+  0x77ce7a -> indirect_call
+  0x77ce86 -> indirect_call
+  0x77ceae -> strings.genSplit(".")
+  0x77cee5 -> github.com/wailsapp/wails/v2/internal/binding.getPackageName
+  0x77cf11 -> indirect_call
+  0x77cf23 -> reflect.New
+  0x77cf58 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).hasExportedJSONFields
+  0x77cfa0 -> reflect.Value.Elem
+  0x77cfaa -> reflect.valueInterface
+  0x77cfe0 -> github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS
+github.com/wailsapp/wails/v2/internal/binding.(*Bindings).hasExportedJSONFields
+  0x77d1b8 -> indirect_call
+  0x77d1dd -> indirect_call
+  0x77d22f -> reflect.StructTag.Lookup("json")
+  0x77d2a0 -> strings.genSplit(",")
+github.com/wailsapp/wails/v2/internal/binding.(*DB).AddMethod
+  0x77e15a -> sync.(*RWMutex).Lock
+  0x77e4f2 -> indirect_call -> github.com/wailsapp/wails/v2/internal/binding.(*DB).AddMethod.deferwrap1
+github.com/wailsapp/wails/v2/internal/binding.(*DB).AddMethod.deferwrap1
+  0x77e5a0 -> sync.(*RWMutex).Unlock
+github.com/wailsapp/wails/v2/internal/logger.(*Logger).Fatal
+  0x74200c -> fmt.Sprintf
+  0x74202a -> indirect_call
+  0x742032 -> os.Exit
+github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.NewFrontend
+  0x804715 -> github.com/wailsapp/wails/v2/internal/system/operatingsystem.GetWindowsVersionInfo
+  0x8048cd -> net/url.Parse("http://wails.localhost/")
+  0x804923 -> indirect_call -> github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.NewFrontend.New.func1
+  0x804960 -> indirect_call
+  0x8049c5 -> internal/bytealg.IndexByteString
+  0x804aa0 -> indirect_call
+  0x804b60 -> github.com/wailsapp/wails/v2/internal/binding.(*DB).ToJSON
+  0x804baa -> log.Fatal
+  0x804c25 -> indirect_call
+  0x804c60 -> github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetServerMainPage
+  0x804ca1 -> log.Fatal
+github.com/wailsapp/wails/v2/internal/system/operatingsystem.GetWindowsVersionInfo
+  0x782008 -> golang.org/x/sys/windows/registry.OpenKey
+  0x782027 -> golang.org/x/sys/windows/registry.Key.GetIntegerValue
+  0x782047 -> golang.org/x/sys/windows/registry.Key.GetIntegerValue
+  0x782067 -> github.com/wailsapp/wails/v2/internal/system/operatingsystem.regStringKeyAsInt
+  0x782082 -> golang.org/x/sys/windows/registry.Key.GetStringValue
+github.com/wailsapp/wails/v2/internal/system/operatingsystem.regStringKeyAsInt
+  0x782153 -> golang.org/x/sys/windows/registry.Key.GetStringValue
+  0x782160 -> strconv.Atoi
+github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.NewFrontend.New.func1
+  0x804e58 -> github.com/bep/debounce.(*debouncer).add
+github.com/bep/debounce.(*debouncer).add
+  0x799a00 -> sync.(*Mutex).lockSlow
+  0x799a40 -> time.stopTimer
+  0x799a53 -> time.AfterFunc
+  0x799a8f -> indirect_call -> github.com/bep/debounce.(*debouncer).add.deferwrap1
+github.com/bep/debounce.(*debouncer).add.deferwrap1
+  0x799b0a -> sync.(*Mutex).unlockSlow
+github.com/wailsapp/wails/v2/internal/binding.(*DB).ToJSON
+  0x77e640 -> sync.runtime_SemacquireRWMutexR
+  0x77e73a -> encoding/json.Marshal
+  0x77e763 -> indirect_call -> github.com/wailsapp/wails/v2/internal/binding.(*DB).ToJSON.deferwrap1
+github.com/wailsapp/wails/v2/internal/binding.(*DB).ToJSON.deferwrap1
+  0x77e7eb -> sync.(*RWMutex).rUnlockSlow
+github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetServerMainPage
+  0x7fcfd5 -> github.com/wailsapp/wails/v2/pkg/assetserver.BuildAssetServerConfig
+  0x7fd0a7 -> github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetServer
+github.com/wailsapp/wails/v2/pkg/assetserver.BuildAssetServerConfig
+  0x7ffdd8 -> fmt.Errorf("AssetServer options invalid: either Assets, Handler or Middleware must be set")
+github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetServer
+  0x7fd1a2 -> github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetHandler
+  0x7fd1e3 -> github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetServerWithHandler
+github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetHandler
+  0x7fb9ae -> indirect_call
+  0x7fb9cf -> github.com/wailsapp/wails/v2/pkg/assetserver.FindPathToFile("index.html")
+  0x7fba01 -> errors.Is
+  0x7fba40 -> github.com/wailsapp/wails/v2/pkg/assetserver.FindEmbedRootPath("no `index.html` could be found in your Assets fs.FS")
+  0x7fba7a -> fmt.Sprintf(", please make sure the embedded directory '%s' is correct and contains your assets")
+  0x7fbaa0 -> fmt.Errorf
+  0x7fbac9 -> path.Clean
+  0x7fbae0 -> io/fs.Sub
+  0x7fbba2 -> indirect_call
+github.com/wailsapp/wails/v2/pkg/assetserver.FindPathToFile
+  0x800ef7 -> io/fs.Stat
+  0x800f6f -> io/fs.WalkDir(".")
+  0x801015 -> fmt.Errorf("%s: %w")
+  0x801031 -> internal/filepathlite.Split
+  0x80108e -> internal/filepathlite.Split
+internal/filepathlite.Split
+  0x4f98c0 -> internal/filepathlite.VolumeName
+github.com/wailsapp/wails/v2/pkg/assetserver.FindEmbedRootPath
+  0x800c95 -> fmt.Errorf("files or multiple dirs found")
+  0x800cf2 -> io/fs.WalkDir(".")
+github.com/wailsapp/wails/v2/pkg/assetserver.NewAssetServerWithHandler
+  0x7fd2e1 -> text/template.JSEscapeString
+  0x7fd32a -> bytes.(*Buffer).WriteString
+  0x7fd346 -> indirect_call
+  0x7fd359 -> bytes.(*Buffer).Write
+github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.NewFrontend.gowrap1
+  0x804e00 -> github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.(*Frontend).startSecondInstanceProcessor
+github.com/wailsapp/wails/v2/internal/frontend/desktop/windows.(*Frontend).startSecondInstanceProcessor
+  0x80a0e2 -> indirect_call
+github.com/wailsapp/wails/v2/internal/signal.OnShutdown
+  0x8146ac -> sync.(*Mutex).lockSlow
+  0x814772 -> indirect_call -> github.com/wailsapp/wails/v2/internal/signal.OnShutdown.deferwrap1
+github.com/wailsapp/wails/v2/internal/signal.OnShutdown.deferwrap1
+  0x8147ca -> sync.(*Mutex).unlockSlow
+github.com/wailsapp/wails/v2/internal/signal.Start
+  0x814879 -> os/signal.Notify
+github.com/wailsapp/wails/v2/internal/app.(*App).Run
+  0x8135f0 -> indirect_call
+  0x813612 -> indirect_call
+  0x813627 -> indirect_call
+  0x813645 -> indirect_call
+main.(*App).startup-fm
+  <no direct calls>
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - github.com/wailsapp/go-webview2/webviewloader.verQueryValueString:0x74bb6a call -> runtime.duffzero+0x114 classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS:0x77c52a call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS:0x77c58a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS:0x77c5b2 call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS:0x77c60a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddEnumToGenerateTS:0x77c64a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS:0x77cbca call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS:0x77cc34 call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).AddStructToGenerateTS:0x77ce4a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/wailsapp/wails/v2/internal/binding.(*Bindings).getMethods:0x78112a call -> runtime.duffcopy+0x33a classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/bep/debounce.(*debouncer).add:0x799a8f call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel:0x74b210 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel:0x74b27c call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel:0x74b2f2 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel:0x74b368 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel:0x74b3e0 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.findInstalledClientDllForChannel:0x74b453 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.verQueryValueString:0x74bbc4 call r9 [interface_method_or_object_dispatch] evidence=target comes from register R9; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.verQueryValueString:0x74bc12 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/wailsapp/go-webview2/webviewloader.verQueryValueString:0x74bc66 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0xd47000 size=0x1000 entropy=5.958 reasons=referenced_by_reachable_code,contains_magic_bytes refs=github.com/wailsapp/go-webview2/webviewloader.mapFindErr
+    - blob_1 .data:0xd55000 size=0x3000 entropy=7.995 reasons=high_entropy refs=<none>
+    - blob_2 .data:0xd61000 size=0x1000 entropy=7.76 reasons=high_entropy refs=<none>
+    - blob_3 .data:0xd69000 size=0x3000 entropy=7.954 reasons=high_entropy refs=<none>
+    - blob_4 .data:0xd70000 size=0x1000 entropy=6.486 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .data:0xd82000 size=0x3000 entropy=5.982 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .data:0xd87000 size=0x4000 entropy=5.979 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .data:0xd8e000 size=0x2000 entropy=5.985 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .data:0xd91000 size=0x7000 entropy=5.978 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .data:0xd99000 size=0x2000 entropy=5.965 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - github.com/wailsapp/wails/v2/pkg/options.MergeDefaults ops=add,sub confidence=medium sources=<unknown>
+    - internal/filepathlite.IsAbs ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.volumeNameLen ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.pathHasPrefixFold ops=add,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.replaceStringByte ops=add,bytes_to_string,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.Clean ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - internal/filepathlite.postClean ops=add,sub,xor confidence=medium sources=<unknown>
+    - slices.rotateLeft[go.shape.uint8] ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/wailsapp/go-webview2/webviewloader.mapFindErr ops=add,sub confidence=medium sources=blob_0
+    - github.com/wailsapp/go-webview2/webviewloader.verQueryValueString ops=add,sub,xor confidence=medium sources=<unknown>
+  loader_behaviors:
+    - github.com/wailsapp/wails/v2/pkg/application.applicationInit kind=suspicious_runtime_behavior confidence=low evidence=dynamic_syscall_call
+    - github.com/wailsapp/wails/v2/internal/webview2runtime.MessageBox kind=suspicious_runtime_behavior confidence=low evidence=dynamic_syscall_call

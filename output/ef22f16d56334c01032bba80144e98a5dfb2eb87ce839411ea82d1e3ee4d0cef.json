@@ -1,0 +1,5959 @@
+{
+  "call_graph": {
+    "main.main": [
+      {
+        "address": "0x1402eb68e",
+        "target": "main.run",
+        "target_address": "0x1402eb700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.run"
+      },
+      {
+        "address": "0x1402eb6d8",
+        "target": "fmt.Fprintf",
+        "target_address": "0x14011d4a0",
+        "kind": "std",
+        "string_args": [
+          "Error: %v\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Error: %v\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Error: %v\\n\")"
+      },
+      {
+        "address": "0x1402eb6e2",
+        "target": "os.Exit",
+        "target_address": "0x1400e8260",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Exit"
+      }
+    ],
+    "main.run": [
+      {
+        "address": "0x1402eb712",
+        "target": "main.relayCommand",
+        "target_address": "0x1402eb960",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.relayCommand"
+      },
+      {
+        "address": "0x1402eb720",
+        "target": "main.listenCommand",
+        "target_address": "0x1402ea240",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.listenCommand"
+      },
+      {
+        "address": "0x1402eb7ea",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      },
+      {
+        "address": "0x1402eb80b",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      },
+      {
+        "address": "0x1402eb82c",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      },
+      {
+        "address": "0x1402eb836",
+        "target": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "target_address": "0x1402ddcc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ExecuteC"
+      }
+    ],
+    "main.relayCommand": [
+      {
+        "address": "0x1402eb9e3",
+        "target": "os.LookupEnv",
+        "target_address": "0x1400e5980",
+        "kind": "std",
+        "string_args": [
+          "RESOCKS_KEY"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "RESOCKS_KEY",
+          "RAX": "RESOCKS_KEY"
+        },
+        "via": null,
+        "display": "os.LookupEnv(\"RESOCKS_KEY\")"
+      },
+      {
+        "address": "0x1402eba81",
+        "target": "main.binaryName",
+        "target_address": "0x1402eb900",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.binaryName"
+      },
+      {
+        "address": "0x1402ebac7",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "%s <connect back address> --key <connection key>"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%s <connect back address> --key <connection key>"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"%s <connect back address> --key <connection key>\")"
+      },
+      {
+        "address": "0x1402ebad9",
+        "target": "main.binaryName",
+        "target_address": "0x1402eb900",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.binaryName"
+      },
+      {
+        "address": "0x1402ebb20",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Connect back to an %s listener and relay the SOCKS5 traffic"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Connect back to an %s listener and relay the SOCKS5 traffic"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Connect back to an %s listener and relay the SOCKS5 traffic\")"
+      },
+      {
+        "address": "0x1402ebc8f",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402ebcc0",
+        "target": "github.com/spf13/pflag.(*FlagSet).DurationVar",
+        "target_address": "0x1402be300",
+        "kind": "user",
+        "string_args": [
+          "timeout"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "timeout"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).DurationVar(\"timeout\")"
+      },
+      {
+        "address": "0x1402ebcf7",
+        "target": "github.com/spf13/pflag.(*FlagSet).DurationVar",
+        "target_address": "0x1402be300",
+        "kind": "user",
+        "string_args": [
+          "reconnect-after"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "reconnect-after"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).DurationVar(\"reconnect-after\")"
+      },
+      {
+        "address": "0x1402ebd36",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Connection key that is displayed when starting a listener (default can be set using environment variable %s)"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Connection key that is displayed when starting a listener (default can be set using environment variable %s)"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Connection key that is displayed when starting a listener (default can be set using environment variable %s)\")"
+      },
+      {
+        "address": "0x1402ebd74",
+        "target": "github.com/spf13/pflag.(*FlagSet).StringVarP",
+        "target_address": "0x1402ceba0",
+        "kind": "user",
+        "string_args": [
+          "key",
+          "k"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "key",
+          "RSI/R8": "k"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).StringVarP(\"key\", \"k\")"
+      },
+      {
+        "address": "0x1402ebda5",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "insecure"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "insecure"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"insecure\")"
+      }
+    ],
+    "main.binaryName": [
+      {
+        "address": "0x1402eb90e",
+        "target": "os.Executable",
+        "target_address": "0x1400e6100",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Executable"
+      },
+      {
+        "address": "0x1402eb930",
+        "target": "internal/filepathlite.Base",
+        "target_address": "0x1400d7f20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Base"
+      },
+      {
+        "address": "0x1402eb94d",
+        "target": "internal/filepathlite.Base",
+        "target_address": "0x1400d7f20",
+        "kind": "user",
+        "string_args": [
+          "resocks"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "resocks"
+        },
+        "via": null,
+        "display": "internal/filepathlite.Base(\"resocks\")"
+      }
+    ],
+    "internal/filepathlite.Base": [
+      {
+        "address": "0x1400d7f74",
+        "target": "internal/filepathlite.VolumeName",
+        "target_address": "0x1400d8040",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.VolumeName"
+      }
+    ],
+    "internal/filepathlite.VolumeName": [
+      {
+        "address": "0x1400d8058",
+        "target": "internal/filepathlite.volumeNameLen",
+        "target_address": "0x1400d81c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.volumeNameLen"
+      },
+      {
+        "address": "0x1400d8079",
+        "target": "internal/filepathlite.replaceStringByte",
+        "target_address": "0x1400d7e40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.replaceStringByte"
+      }
+    ],
+    "internal/filepathlite.volumeNameLen": [
+      {
+        "address": "0x1400d8220",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x1400d8440",
+        "kind": "user",
+        "string_args": [
+          "\\\\.\\UNC"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\.\\UNC"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\.\\\\UNC\")"
+      },
+      {
+        "address": "0x1400d8255",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x1400d8440",
+        "kind": "user",
+        "string_args": [
+          "\\\\."
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\."
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\.\")"
+      },
+      {
+        "address": "0x1400d8280",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x1400d8440",
+        "kind": "user",
+        "string_args": [
+          "\\\\?"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\\\?"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\\\\\?\")"
+      },
+      {
+        "address": "0x1400d82a6",
+        "target": "internal/filepathlite.pathHasPrefixFold",
+        "target_address": "0x1400d8440",
+        "kind": "user",
+        "string_args": [
+          "\\??"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\\??"
+        },
+        "via": null,
+        "display": "internal/filepathlite.pathHasPrefixFold(\"\\\\??\")"
+      }
+    ],
+    "internal/filepathlite.pathHasPrefixFold": [],
+    "internal/filepathlite.replaceStringByte": [
+      {
+        "address": "0x1400d7e72",
+        "target": "internal/bytealg.IndexByteString",
+        "target_address": "0x140006ee0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexByteString"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Flags": [
+      {
+        "address": "0x1402e0eab",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Name": [
+      {
+        "address": "0x1402e072c",
+        "target": "internal/stringslite.Index",
+        "target_address": "0x14000e980",
+        "kind": "user",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RCX/RDI": " "
+        },
+        "via": null,
+        "display": "internal/stringslite.Index(\" \")"
+      }
+    ],
+    "internal/stringslite.Index": [
+      {
+        "address": "0x14000ea39",
+        "target": "internal/bytealg.IndexString",
+        "target_address": "0x140006d40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexString"
+      },
+      {
+        "address": "0x14000eace",
+        "target": "internal/bytealg.IndexByteString",
+        "target_address": "0x140006ee0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexByteString"
+      },
+      {
+        "address": "0x14000eb60",
+        "target": "internal/bytealg.IndexByteString",
+        "target_address": "0x140006ee0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexByteString"
+      },
+      {
+        "address": "0x14000ecc0",
+        "target": "internal/bytealg.IndexRabinKarp[go.shape.string]",
+        "target_address": "0x14000f0c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexRabinKarp[go.shape.string]"
+      },
+      {
+        "address": "0x14000eda0",
+        "target": "internal/bytealg.IndexByteString",
+        "target_address": "0x140006ee0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexByteString"
+      },
+      {
+        "address": "0x14000ef03",
+        "target": "internal/bytealg.IndexString",
+        "target_address": "0x140006d40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/bytealg.IndexString"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).DurationVar": [
+      {
+        "address": "0x1402be340",
+        "target": "github.com/spf13/pflag.(*FlagSet).VarPF",
+        "target_address": "0x1402c2460",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VarPF"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).VarPF": [
+      {
+        "address": "0x1402c24a6",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c2560",
+        "target": "github.com/spf13/pflag.(*FlagSet).AddFlag",
+        "target_address": "0x1402c2680",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).AddFlag"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).AddFlag": [
+      {
+        "address": "0x1402c26b7",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      },
+      {
+        "address": "0x1402c2a04",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "unable to redefine %q shorthand in %q flagset: it's already used for %q flag"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "unable to redefine %q shorthand in %q flagset: it's already used for %q flag"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"unable to redefine %q shorthand in %q flagset: it's already used for %q flag\")"
+      },
+      {
+        "address": "0x1402c2a45",
+        "target": "fmt.Fprintf",
+        "target_address": "0x14011d4a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintf"
+      },
+      {
+        "address": "0x1402c2ace",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "%q shorthand is more than one ASCII character"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%q shorthand is more than one ASCII character"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"%q shorthand is more than one ASCII character\")"
+      },
+      {
+        "address": "0x1402c2b0f",
+        "target": "fmt.Fprintf",
+        "target_address": "0x14011d4a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintf"
+      },
+      {
+        "address": "0x1402c2bca",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "%s flag redefined: %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%s flag redefined: %s"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"%s flag redefined: %s\")"
+      },
+      {
+        "address": "0x1402c2c46",
+        "target": "fmt.Fprintln",
+        "target_address": "0x14011dae0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).normalizeFlagName": [
+      {
+        "address": "0x1402bf912",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).StringVarP": [
+      {
+        "address": "0x1402cec04",
+        "target": "github.com/spf13/pflag.(*FlagSet).VarPF",
+        "target_address": "0x1402c2460",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VarPF"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).BoolVarP": [
+      {
+        "address": "0x1402bb559",
+        "target": "github.com/spf13/pflag.(*FlagSet).VarPF",
+        "target_address": "0x1402c2460",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VarPF"
+      }
+    ],
+    "main.listenCommand": [
+      {
+        "address": "0x1402ea277",
+        "target": "main.withDefaultPort",
+        "target_address": "0x1402eb860",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "main.withDefaultPort"
+      },
+      {
+        "address": "0x1402ea2c8",
+        "target": "main.withDefaultPort",
+        "target_address": "0x1402eb860",
+        "kind": "user",
+        "string_args": [
+          "localhost"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "localhost"
+        },
+        "via": null,
+        "display": "main.withDefaultPort(\"localhost\")"
+      },
+      {
+        "address": "0x1402ea345",
+        "target": "os.LookupEnv",
+        "target_address": "0x1400e5980",
+        "kind": "std",
+        "string_args": [
+          "RESOCKS_KEY"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "RESOCKS_KEY",
+          "RAX": "RESOCKS_KEY"
+        },
+        "via": null,
+        "display": "os.LookupEnv(\"RESOCKS_KEY\")"
+      },
+      {
+        "address": "0x1402ea496",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402ea4c8",
+        "target": "github.com/spf13/pflag.(*FlagSet).StringVar",
+        "target_address": "0x1402ceac0",
+        "kind": "user",
+        "string_args": [
+          "on",
+          "Address to listen on for reverse connections"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "on",
+          "R9/R10": "Address to listen on for reverse connections"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).StringVar(\"on\", \"Address to listen on for reverse connections\")"
+      },
+      {
+        "address": "0x1402ea50e",
+        "target": "github.com/spf13/pflag.(*FlagSet).StringVarP",
+        "target_address": "0x1402ceba0",
+        "kind": "user",
+        "string_args": [
+          "proxy-address",
+          "p"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "proxy-address",
+          "RSI/R8": "p"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).StringVarP(\"proxy-address\", \"p\")"
+      },
+      {
+        "address": "0x1402ea542",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "abort-on-disconnect"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "abort-on-disconnect"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"abort-on-disconnect\")"
+      },
+      {
+        "address": "0x1402ea581",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Configures a static connection key instead of generating a key (default can be set using environment variable %s)"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Configures a static connection key instead of generating a key (default can be set using environment variable %s)"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Configures a static connection key instead of generating a key (default can be set using environment variable %s)\")"
+      },
+      {
+        "address": "0x1402ea5c0",
+        "target": "github.com/spf13/pflag.(*FlagSet).StringVarP",
+        "target_address": "0x1402ceba0",
+        "kind": "user",
+        "string_args": [
+          "key",
+          "k"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "key",
+          "RSI/R8": "k"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).StringVarP(\"key\", \"k\")"
+      },
+      {
+        "address": "0x1402ea5f1",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "insecure"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "insecure"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"insecure\")"
+      },
+      {
+        "address": "0x1402ea628",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "no-color"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "no-color"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"no-color\")"
+      }
+    ],
+    "main.withDefaultPort": [
+      {
+        "address": "0x1402eb880",
+        "target": "net.SplitHostPort",
+        "target_address": "0x14019d2e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "net.SplitHostPort"
+      },
+      {
+        "address": "0x1402eb894",
+        "target": "strconv.FormatInt",
+        "target_address": "0x1400c1ba0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strconv.FormatInt"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).StringVar": [
+      {
+        "address": "0x1402ceb20",
+        "target": "github.com/spf13/pflag.(*FlagSet).VarPF",
+        "target_address": "0x1402c2460",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VarPF"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).AddCommand": [
+      {
+        "address": "0x1402df0a2",
+        "target": "github.com/spf13/cobra.(*Command).CommandPath",
+        "target_address": "0x1402dfb00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).CommandPath"
+      },
+      {
+        "address": "0x1402df0c1",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402df0ec",
+        "target": "github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc",
+        "target_address": "0x1402daa20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).CommandPath": [
+      {
+        "address": "0x1402dfb22",
+        "target": "github.com/spf13/cobra.(*Command).CommandPath",
+        "target_address": "0x1402dfb00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).CommandPath"
+      },
+      {
+        "address": "0x1402dfb36",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402dfb64",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc": [
+      {
+        "address": "0x1402daa40",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402daa4a",
+        "target": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc",
+        "target_address": "0x1402bf640",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc"
+      },
+      {
+        "address": "0x1402daa54",
+        "target": "github.com/spf13/cobra.(*Command).PersistentFlags",
+        "target_address": "0x1402e1740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PersistentFlags"
+      },
+      {
+        "address": "0x1402daa60",
+        "target": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc",
+        "target_address": "0x1402bf640",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc"
+      },
+      {
+        "address": "0x1402daac0",
+        "target": "github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc",
+        "target_address": "0x1402daa20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).SetGlobalNormalizationFunc"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc": [
+      {
+        "address": "0x1402bf70c",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).PersistentFlags": [
+      {
+        "address": "0x1402e176b",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).ExecuteC": [
+      {
+        "address": "0x1402ddd40",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402ddd4a",
+        "target": "github.com/spf13/cobra.(*Command).InitDefaultHelpCmd",
+        "target_address": "0x1402deb40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).InitDefaultHelpCmd"
+      },
+      {
+        "address": "0x1402ddd57",
+        "target": "github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd",
+        "target_address": "0x1402e5620",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd"
+      },
+      {
+        "address": "0x1402ddd64",
+        "target": "github.com/spf13/cobra.(*Command).checkCommandGroups",
+        "target_address": "0x1402de520",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).checkCommandGroups"
+      },
+      {
+        "address": "0x1402dddba",
+        "target": "internal/filepathlite.Base",
+        "target_address": "0x1400d7f20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/filepathlite.Base"
+      },
+      {
+        "address": "0x1402dde4d",
+        "target": "github.com/spf13/cobra.(*Command).initCompleteCmd",
+        "target_address": "0x1402e2e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).initCompleteCmd"
+      },
+      {
+        "address": "0x1402dde72",
+        "target": "github.com/spf13/cobra.(*Command).Traverse",
+        "target_address": "0x1402dc360",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Traverse"
+      },
+      {
+        "address": "0x1402dde88",
+        "target": "github.com/spf13/cobra.(*Command).Find",
+        "target_address": "0x1402dbb40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Find"
+      },
+      {
+        "address": "0x1402ddec6",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402ddf29",
+        "target": "github.com/spf13/cobra.(*Command).PrintErrln",
+        "target_address": "0x1402df9a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PrintErrln"
+      },
+      {
+        "address": "0x1402ddf33",
+        "target": "github.com/spf13/cobra.(*Command).CommandPath",
+        "target_address": "0x1402dfb00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).CommandPath"
+      },
+      {
+        "address": "0x1402ddf77",
+        "target": "github.com/spf13/cobra.(*Command).PrintErrf",
+        "target_address": "0x1402dfa40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PrintErrf"
+      },
+      {
+        "address": "0x1402ddfc0",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402de053",
+        "target": "github.com/spf13/cobra.(*Command).execute",
+        "target_address": "0x1402dcfa0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).execute"
+      },
+      {
+        "address": "0x1402de081",
+        "target": "errors.Is",
+        "target_address": "0x1400894e0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "errors.Is"
+      },
+      {
+        "address": "0x1402de0cc",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402de134",
+        "target": "github.com/spf13/cobra.(*Command).PrintErrln",
+        "target_address": "0x1402df9a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PrintErrln"
+      },
+      {
+        "address": "0x1402de158",
+        "target": "github.com/spf13/cobra.(*Command).UsageString",
+        "target_address": "0x1402db0c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).UsageString"
+      },
+      {
+        "address": "0x1402de191",
+        "target": "github.com/spf13/cobra.(*Command).Println",
+        "target_address": "0x1402df7c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Println"
+      },
+      {
+        "address": "0x1402de1c0",
+        "target": "github.com/spf13/cobra.(*Command).HelpFunc",
+        "target_address": "0x1402db000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).HelpFunc"
+      },
+      {
+        "address": "0x1402de1e2",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402de1f9",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402de200",
+        "target": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "target_address": "0x1402ddcc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ExecuteC"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).InitDefaultHelpCmd": [
+      {
+        "address": "0x1402deb79",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402decae",
+        "target": "github.com/spf13/cobra.(*Command).RemoveCommand",
+        "target_address": "0x1402df4e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).RemoveCommand"
+      },
+      {
+        "address": "0x1402decda",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).RemoveCommand": [
+      {
+        "address": "0x1402df6a1",
+        "target": "github.com/spf13/cobra.(*Command).CommandPath",
+        "target_address": "0x1402dfb00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).CommandPath"
+      },
+      {
+        "address": "0x1402df6c3",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd": [
+      {
+        "address": "0x1402e56ae",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e56e4",
+        "target": "github.com/spf13/cobra.(*Command).HasAlias",
+        "target_address": "0x1402e0780",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).HasAlias"
+      },
+      {
+        "address": "0x1402e5720",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402e5725",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e576b",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for %[1]s for the specified shell.\nSee each sub-command's help for details on how to use the generated script.\n"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for %[1]s for the specified shell.\nSee each sub-command's help for details on how to use the generated script.\n"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for %[1]s for the specified shell.\\nSee each sub-command's help for details on how to use the generated script.\\n\")"
+      },
+      {
+        "address": "0x1402e5860",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      },
+      {
+        "address": "0x1402e586d",
+        "target": "github.com/spf13/cobra.(*Command).OutOrStdout",
+        "target_address": "0x1402dab20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).OutOrStdout"
+      },
+      {
+        "address": "0x1402e58e0",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for %s"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for %s\")"
+      },
+      {
+        "address": "0x1402e5909",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402e5914",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e595a",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for the bash shell.\n\nThis script depends on the 'bash-completion' package.\nIf it is not installed already, you can install it via your OS's package manager.\n\nTo load completions in your current shell session:\n\n\tsource <(%[1]s completion bash)\n\nTo load completions for every new session, execute once:\n\n#### Linux:\n\n\t%[1]s completion bash > /etc/bash_completion.d/%[1]s\n\n#### macOS:\n\n\t%[1]s completion bash > $(brew --prefix)/etc/bash_completion.d/%[1]s\n\nYou will need to start a new shell for this setup to take effect.\n"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for the bash shell.\n\nThis script depends on the 'bash-completion' package.\nIf it is not installed already, you can install it via your OS's package manager.\n\nTo load completions in your current shell session:\n\n\tsource <(%[1]s completion bash)\n\nTo load completions for every new session, execute once:\n\n#### Linux:\n\n\t%[1]s completion bash > /etc/bash_completion.d/%[1]s\n\n#### macOS:\n\n\t%[1]s completion bash > $(brew --prefix)/etc/bash_completion.d/%[1]s\n\nYou will need to start a new shell for this setup to take effect.\n"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for the bash shell.\\n\\nThis script depends on the 'bash-completion' package.\\nIf it is not installed already, you can install it via your OS's package manager.\\n\\nTo load completions in your current shell session:\\n\\n\\tsource <(%[1]s completion bash)\\n\\nTo load completions for every new session, execute once:\\n\\n#### Linux:\\n\\n\\t%[1]s completion bash > /etc/bash_completion.d/%[1]s\\n\\n#### macOS:\\n\\n\\t%[1]s completion bash > $(brew --prefix)/etc/bash_completion.d/%[1]s\\n\\nYou will need to start a new shell for this setup to take effect.\\n\")"
+      },
+      {
+        "address": "0x1402e5a92",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e5ac0",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "no-descriptions"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "no-descriptions"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"no-descriptions\")"
+      },
+      {
+        "address": "0x1402e5b00",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for %s"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for %s\")"
+      },
+      {
+        "address": "0x1402e5b29",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402e5b34",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e5b7a",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for the zsh shell.\n\nIf shell completion is not already enabled in your environment you will need\nto enable it.  You can execute the following once:\n\n\techo \"autoload -U compinit; compinit\" >> ~/.zshrc\n\nTo load completions in your current shell session:\n\n\tsource <(%[1]s completion zsh); compdef _%[1]s %[1]s\n\nTo load completions for every new session, execute once:\n\n#### Linux:\n\n\t%[1]s completion zsh > \"${fpath[1]}/_%[1]s\"\n\n#### macOS:\n\n\t%[1]s completion zsh > $(brew --prefix)/share/zsh/site-functions/_%[1]s\n\nYou will need to start a new shell for this setup to take effect.\n"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for the zsh shell.\n\nIf shell completion is not already enabled in your environment you will need\nto enable it.  You can execute the following once:\n\n\techo \"autoload -U compinit; compinit\" >> ~/.zshrc\n\nTo load completions in your current shell session:\n\n\tsource <(%[1]s completion zsh); compdef _%[1]s %[1]s\n\nTo load completions for every new session, execute once:\n\n#### Linux:\n\n\t%[1]s completion zsh > \"${fpath[1]}/_%[1]s\"\n\n#### macOS:\n\n\t%[1]s completion zsh > $(brew --prefix)/share/zsh/site-functions/_%[1]s\n\nYou will need to start a new shell for this setup to take effect.\n"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for the zsh shell.\\n\\nIf shell completion is not already enabled in your environment you will need\\nto enable it.  You can execute the following once:\\n\\n\\techo \\\"autoload -U compinit; compinit\\\" >> ~/.zshrc\\n\\nTo load completions in your current shell session:\\n\\n\\tsource <(%[1]s completion zsh); compdef _%[1]s %[1]s\\n\\nTo load completions for every new session, execute once:\\n\\n#### Linux:\\n\\n\\t%[1]s completion zsh > \\\"${fpath[1]}/_%[1]s\\\"\\n\\n#### macOS:\\n\\n\\t%[1]s completion zsh > $(brew --prefix)/share/zsh/site-functions/_%[1]s\\n\\nYou will need to start a new shell for this setup to take effect.\\n\")"
+      },
+      {
+        "address": "0x1402e5caf",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e5ce0",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "no-descriptions"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "no-descriptions"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"no-descriptions\")"
+      },
+      {
+        "address": "0x1402e5d20",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for %s"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for %s\")"
+      },
+      {
+        "address": "0x1402e5d49",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402e5d54",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e5d9a",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for the fish shell.\n\nTo load completions in your current shell session:\n\n\t%[1]s completion fish | source\n\nTo load completions for every new session, execute once:\n\n\t%[1]s completion fish > ~/.config/fish/completions/%[1]s.fish\n\nYou will need to start a new shell for this setup to take effect.\n"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for the fish shell.\n\nTo load completions in your current shell session:\n\n\t%[1]s completion fish | source\n\nTo load completions for every new session, execute once:\n\n\t%[1]s completion fish > ~/.config/fish/completions/%[1]s.fish\n\nYou will need to start a new shell for this setup to take effect.\n"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for the fish shell.\\n\\nTo load completions in your current shell session:\\n\\n\\t%[1]s completion fish | source\\n\\nTo load completions for every new session, execute once:\\n\\n\\t%[1]s completion fish > ~/.config/fish/completions/%[1]s.fish\\n\\nYou will need to start a new shell for this setup to take effect.\\n\")"
+      },
+      {
+        "address": "0x1402e5ed8",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e5f06",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "no-descriptions"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "no-descriptions"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"no-descriptions\")"
+      },
+      {
+        "address": "0x1402e5f45",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for %s"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for %s\")"
+      },
+      {
+        "address": "0x1402e5f6e",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402e5f79",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e5fc0",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "Generate the autocompletion script for powershell.\n\nTo load completions in your current shell session:\n\n\t%[1]s completion powershell | Out-String | Invoke-Expression\n\nTo load completions for every new session, add the output of the above command\nto your powershell profile.\n"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Generate the autocompletion script for powershell.\n\nTo load completions in your current shell session:\n\n\t%[1]s completion powershell | Out-String | Invoke-Expression\n\nTo load completions for every new session, add the output of the above command\nto your powershell profile.\n"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"Generate the autocompletion script for powershell.\\n\\nTo load completions in your current shell session:\\n\\n\\t%[1]s completion powershell | Out-String | Invoke-Expression\\n\\nTo load completions for every new session, add the output of the above command\\nto your powershell profile.\\n\")"
+      },
+      {
+        "address": "0x1402e60ef",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e6120",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "no-descriptions"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "no-descriptions"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"no-descriptions\")"
+      },
+      {
+        "address": "0x1402e6177",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).HasAlias": [
+      {
+        "address": "0x1402e0800",
+        "target": "strings.EqualFold",
+        "target_address": "0x1400d2900",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.EqualFold"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Root": [
+      {
+        "address": "0x1402dcf26",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).OutOrStdout": [
+      {
+        "address": "0x1402dab66",
+        "target": "github.com/spf13/cobra.(*Command).getOut",
+        "target_address": "0x1402dad20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).getOut"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).getOut": [
+      {
+        "address": "0x1402dad80",
+        "target": "github.com/spf13/cobra.(*Command).getOut",
+        "target_address": "0x1402dad20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).getOut"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).checkCommandGroups": [
+      {
+        "address": "0x1402de561",
+        "target": "github.com/spf13/cobra.(*Command).checkCommandGroups",
+        "target_address": "0x1402de520",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).checkCommandGroups"
+      },
+      {
+        "address": "0x1402de5e0",
+        "target": "github.com/spf13/cobra.(*Command).CommandPath",
+        "target_address": "0x1402dfb00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).CommandPath"
+      },
+      {
+        "address": "0x1402de660",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "group id '%s' is not defined for subcommand '%s'"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "group id '%s' is not defined for subcommand '%s'"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"group id '%s' is not defined for subcommand '%s'\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).initCompleteCmd": [
+      {
+        "address": "0x1402e2ef4",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "%s [command-line]"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%s [command-line]"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"%s [command-line]\")"
+      },
+      {
+        "address": "0x1402e2f68",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "%[2]s is a special command that is used by the shell completion logic\n%[1]s",
+          "to request completion choices for the specified command-line."
+        ],
+        "arg_registers": {
+          "RAX/RBX": "%[2]s is a special command that is used by the shell completion logic\n%[1]s",
+          "R8": "to request completion choices for the specified command-line."
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"%[2]s is a special command that is used by the shell completion logic\\n%[1]s\", \"to request completion choices for the specified command-line.\")"
+      },
+      {
+        "address": "0x1402e30c0",
+        "target": "github.com/spf13/cobra.(*Command).AddCommand",
+        "target_address": "0x1402df000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).AddCommand"
+      },
+      {
+        "address": "0x1402e30e5",
+        "target": "github.com/spf13/cobra.(*Command).Find",
+        "target_address": "0x1402dbb40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Find"
+      },
+      {
+        "address": "0x1402e30f6",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e3148",
+        "target": "github.com/spf13/cobra.(*Command).RemoveCommand",
+        "target_address": "0x1402df4e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).RemoveCommand"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Find": [
+      {
+        "address": "0x1402dbb7c",
+        "target": "github.com/spf13/cobra.(*Command).Find.func1",
+        "target_address": "0x1402dbc40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> github.com/spf13/cobra.(*Command).Find.func1"
+      },
+      {
+        "address": "0x1402dbbb6",
+        "target": "github.com/spf13/cobra.stripFlags",
+        "target_address": "0x1402db6e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.stripFlags"
+      },
+      {
+        "address": "0x1402dbbc9",
+        "target": "github.com/spf13/cobra.legacyArgs",
+        "target_address": "0x1402d6860",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.legacyArgs"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Find.func1": [
+      {
+        "address": "0x1402dbc95",
+        "target": "github.com/spf13/cobra.stripFlags",
+        "target_address": "0x1402db6e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.stripFlags"
+      },
+      {
+        "address": "0x1402dbcb8",
+        "target": "github.com/spf13/cobra.(*Command).findNext",
+        "target_address": "0x1402dc0a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).findNext"
+      },
+      {
+        "address": "0x1402dbefa",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/cobra.stripFlags": [
+      {
+        "address": "0x1402db72a",
+        "target": "github.com/spf13/cobra.(*Command).mergePersistentFlags",
+        "target_address": "0x1402e2300",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).mergePersistentFlags"
+      },
+      {
+        "address": "0x1402db737",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402db838",
+        "target": "internal/stringslite.Index",
+        "target_address": "0x14000e980",
+        "kind": "user",
+        "string_args": [
+          "="
+        ],
+        "arg_registers": {
+          "RCX/RDI": "="
+        },
+        "via": null,
+        "display": "internal/stringslite.Index(\"=\")"
+      },
+      {
+        "address": "0x1402db8c4",
+        "target": "github.com/spf13/cobra.hasNoOptDefVal",
+        "target_address": "0x1402db5c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.hasNoOptDefVal"
+      },
+      {
+        "address": "0x1402db949",
+        "target": "internal/stringslite.Index",
+        "target_address": "0x14000e980",
+        "kind": "user",
+        "string_args": [
+          "="
+        ],
+        "arg_registers": {
+          "RCX/RDI": "="
+        },
+        "via": null,
+        "display": "internal/stringslite.Index(\"=\")"
+      },
+      {
+        "address": "0x1402db9c7",
+        "target": "github.com/spf13/cobra.shortHasNoOptDefVal",
+        "target_address": "0x1402db660",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.shortHasNoOptDefVal"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).mergePersistentFlags": [
+      {
+        "address": "0x1402e2317",
+        "target": "github.com/spf13/cobra.(*Command).updateParentsPflags",
+        "target_address": "0x1402e2480",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).updateParentsPflags"
+      },
+      {
+        "address": "0x1402e2321",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e2330",
+        "target": "github.com/spf13/cobra.(*Command).PersistentFlags",
+        "target_address": "0x1402e1740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PersistentFlags"
+      },
+      {
+        "address": "0x1402e2355",
+        "target": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "target_address": "0x1402bf9c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll"
+      },
+      {
+        "address": "0x1402e2360",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e238f",
+        "target": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "target_address": "0x1402bf9c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).updateParentsPflags": [
+      {
+        "address": "0x1402e24a6",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e259a",
+        "target": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc",
+        "target_address": "0x1402bf640",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc"
+      },
+      {
+        "address": "0x1402e25b3",
+        "target": "github.com/spf13/cobra.(*Command).Root",
+        "target_address": "0x1402dcf00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Root"
+      },
+      {
+        "address": "0x1402e25b8",
+        "target": "github.com/spf13/cobra.(*Command).PersistentFlags",
+        "target_address": "0x1402e1740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PersistentFlags"
+      },
+      {
+        "address": "0x1402e25e2",
+        "target": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "target_address": "0x1402bf9c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll"
+      },
+      {
+        "address": "0x1402e2602",
+        "target": "github.com/spf13/cobra.(*Command).VisitParents",
+        "target_address": "0x1402dce80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).VisitParents"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).VisitAll": [
+      {
+        "address": "0x1402bfa15",
+        "target": "github.com/spf13/pflag.sortFlags",
+        "target_address": "0x1402bf460",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.sortFlags"
+      },
+      {
+        "address": "0x1402bfa97",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/pflag.sortFlags": [
+      {
+        "address": "0x1402bf574",
+        "target": "sort.Sort",
+        "target_address": "0x1401fbba0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sort.Sort"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).VisitParents": [
+      {
+        "address": "0x1402dcead",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dcec0",
+        "target": "github.com/spf13/cobra.(*Command).VisitParents",
+        "target_address": "0x1402dce80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).VisitParents"
+      }
+    ],
+    "github.com/spf13/cobra.hasNoOptDefVal": [
+      {
+        "address": "0x1402db5e8",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      }
+    ],
+    "github.com/spf13/cobra.shortHasNoOptDefVal": [
+      {
+        "address": "0x1402db683",
+        "target": "github.com/spf13/pflag.(*FlagSet).ShorthandLookup",
+        "target_address": "0x1402bfd20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).ShorthandLookup"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).ShorthandLookup": [
+      {
+        "address": "0x1402bfdb6",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "can not look up shorthand which is more than one ASCII character: %q"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "can not look up shorthand which is more than one ASCII character: %q"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"can not look up shorthand which is more than one ASCII character: %q\")"
+      },
+      {
+        "address": "0x1402bfdf1",
+        "target": "fmt.Fprintf",
+        "target_address": "0x14011d4a0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintf"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).findNext": [
+      {
+        "address": "0x1402dc155",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402dc1a0",
+        "target": "strings.EqualFold",
+        "target_address": "0x1400d2900",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.EqualFold"
+      },
+      {
+        "address": "0x1402dc1c2",
+        "target": "github.com/spf13/cobra.(*Command).HasAlias",
+        "target_address": "0x1402e0780",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).HasAlias"
+      },
+      {
+        "address": "0x1402dc1f1",
+        "target": "github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix",
+        "target_address": "0x1402e08a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).hasNameOrAliasPrefix": [
+      {
+        "address": "0x1402e08c1",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402e08f8",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      }
+    ],
+    "github.com/spf13/cobra.legacyArgs": [
+      {
+        "address": "0x1402d68b1",
+        "target": "github.com/spf13/cobra.(*Command).CommandPath",
+        "target_address": "0x1402dfb00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).CommandPath"
+      },
+      {
+        "address": "0x1402d68d7",
+        "target": "github.com/spf13/cobra.(*Command).findSuggestions",
+        "target_address": "0x1402dbf40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).findSuggestions"
+      },
+      {
+        "address": "0x1402d6976",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "unknown command %q for %q%s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "unknown command %q for %q%s"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"unknown command %q for %q%s\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).findSuggestions": [
+      {
+        "address": "0x1402dbf78",
+        "target": "github.com/spf13/cobra.(*Command).SuggestionsFor",
+        "target_address": "0x1402dcaa0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).SuggestionsFor"
+      },
+      {
+        "address": "0x1402dc021",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [
+          "\t%v\n"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "\t%v\n"
+        },
+        "via": null,
+        "display": "fmt.Sprintf(\"\\t%v\\n\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).SuggestionsFor": [
+      {
+        "address": "0x1402dcb6f",
+        "target": "github.com/spf13/cobra.(*Command).IsAvailableCommand",
+        "target_address": "0x1402e0b80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).IsAvailableCommand"
+      },
+      {
+        "address": "0x1402dcb97",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402dcbb7",
+        "target": "github.com/spf13/cobra.ld",
+        "target_address": "0x1402d9da0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.ld"
+      },
+      {
+        "address": "0x1402dcbe3",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402dcbe8",
+        "target": "strings.ToLower",
+        "target_address": "0x1400d1200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      },
+      {
+        "address": "0x1402dcc0a",
+        "target": "strings.ToLower",
+        "target_address": "0x1400d1200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      },
+      {
+        "address": "0x1402dcc7a",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402dcd86",
+        "target": "strings.EqualFold",
+        "target_address": "0x1400d2900",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.EqualFold"
+      },
+      {
+        "address": "0x1402dcdab",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).IsAvailableCommand": [
+      {
+        "address": "0x1402e0c22",
+        "target": "github.com/spf13/cobra.(*Command).IsAvailableCommand",
+        "target_address": "0x1402e0b80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).IsAvailableCommand"
+      }
+    ],
+    "github.com/spf13/cobra.ld": [
+      {
+        "address": "0x1402d9dd7",
+        "target": "strings.ToLower",
+        "target_address": "0x1400d1200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      },
+      {
+        "address": "0x1402d9df6",
+        "target": "strings.ToLower",
+        "target_address": "0x1400d1200",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.ToLower"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Traverse": [
+      {
+        "address": "0x1402dc445",
+        "target": "internal/stringslite.Index",
+        "target_address": "0x14000e980",
+        "kind": "user",
+        "string_args": [
+          "="
+        ],
+        "arg_registers": {
+          "RCX/RDI": "="
+        },
+        "via": null,
+        "display": "internal/stringslite.Index(\"=\")"
+      },
+      {
+        "address": "0x1402dc4eb",
+        "target": "internal/stringslite.Index",
+        "target_address": "0x14000e980",
+        "kind": "user",
+        "string_args": [
+          "="
+        ],
+        "arg_registers": {
+          "RCX/RDI": "="
+        },
+        "via": null,
+        "display": "internal/stringslite.Index(\"=\")"
+      },
+      {
+        "address": "0x1402dc559",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dc577",
+        "target": "github.com/spf13/cobra.shortHasNoOptDefVal",
+        "target_address": "0x1402db660",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.shortHasNoOptDefVal"
+      },
+      {
+        "address": "0x1402dc815",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dc844",
+        "target": "github.com/spf13/cobra.hasNoOptDefVal",
+        "target_address": "0x1402db5c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.hasNoOptDefVal"
+      },
+      {
+        "address": "0x1402dc965",
+        "target": "github.com/spf13/cobra.(*Command).findNext",
+        "target_address": "0x1402dc0a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).findNext"
+      },
+      {
+        "address": "0x1402dc992",
+        "target": "github.com/spf13/cobra.(*Command).ParseFlags",
+        "target_address": "0x1402e2100",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ParseFlags"
+      },
+      {
+        "address": "0x1402dca0e",
+        "target": "github.com/spf13/cobra.(*Command).Traverse",
+        "target_address": "0x1402dc360",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Traverse"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).ParseFlags": [
+      {
+        "address": "0x1402e2198",
+        "target": "github.com/spf13/cobra.(*Command).mergePersistentFlags",
+        "target_address": "0x1402e2300",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).mergePersistentFlags"
+      },
+      {
+        "address": "0x1402e21a2",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e21b9",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e21cd",
+        "target": "github.com/spf13/pflag.(*FlagSet).Parse",
+        "target_address": "0x1402c4160",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).Parse"
+      },
+      {
+        "address": "0x1402e2268",
+        "target": "github.com/spf13/cobra.(*Command).Print",
+        "target_address": "0x1402df740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Print"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).Parse": [
+      {
+        "address": "0x1402c422d",
+        "target": "github.com/spf13/pflag.(*FlagSet).parseArgs",
+        "target_address": "0x1402c3c80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).parseArgs"
+      },
+      {
+        "address": "0x1402c4282",
+        "target": "fmt.Fprintln",
+        "target_address": "0x14011dae0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x1402c428c",
+        "target": "os.Exit",
+        "target_address": "0x1400e8260",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Exit"
+      },
+      {
+        "address": "0x1402c42c9",
+        "target": "flag.(*FlagSet).Parse",
+        "target_address": "0x1402b8280",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "flag.(*FlagSet).Parse"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).parseArgs": [
+      {
+        "address": "0x1402c3e2b",
+        "target": "github.com/spf13/pflag.(*FlagSet).parseLongArg",
+        "target_address": "0x1402c2f00",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).parseLongArg"
+      },
+      {
+        "address": "0x1402c3e41",
+        "target": "github.com/spf13/pflag.(*FlagSet).parseShortArg",
+        "target_address": "0x1402c3b40",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).parseShortArg"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).parseLongArg": [
+      {
+        "address": "0x1402c2fc3",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      },
+      {
+        "address": "0x1402c3022",
+        "target": "strings.genSplit",
+        "target_address": "0x1400cfc00",
+        "kind": "std",
+        "string_args": [
+          "="
+        ],
+        "arg_registers": {
+          "RCX/RDI": "="
+        },
+        "via": null,
+        "display": "strings.genSplit(\"=\")"
+      },
+      {
+        "address": "0x1402c3053",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      },
+      {
+        "address": "0x1402c314c",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c3164",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c3180",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      },
+      {
+        "address": "0x1402c3200",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      },
+      {
+        "address": "0x1402c324c",
+        "target": "github.com/spf13/pflag.(*FlagSet).usage",
+        "target_address": "0x1402c2ea0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).usage"
+      },
+      {
+        "address": "0x1402c3391",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).failf": [
+      {
+        "address": "0x1402c2db0",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Errorf"
+      },
+      {
+        "address": "0x1402c2e22",
+        "target": "fmt.Fprintln",
+        "target_address": "0x14011dae0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x1402c2e2c",
+        "target": "github.com/spf13/pflag.(*FlagSet).usage",
+        "target_address": "0x1402c2ea0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).usage"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).usage": [
+      {
+        "address": "0x1402c2ec2",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c2ec6",
+        "target": "github.com/spf13/pflag.defaultUsage",
+        "target_address": "0x1402c2260",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.defaultUsage"
+      },
+      {
+        "address": "0x1402c2ed7",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/pflag.defaultUsage": [
+      {
+        "address": "0x1402c22ef",
+        "target": "fmt.Fprintf",
+        "target_address": "0x14011d4a0",
+        "kind": "std",
+        "string_args": [
+          "Usage of %s:\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Usage of %s:\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Usage of %s:\\n\")"
+      },
+      {
+        "address": "0x1402c22f9",
+        "target": "github.com/spf13/pflag.(*FlagSet).PrintDefaults",
+        "target_address": "0x1402c0c20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).PrintDefaults"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).PrintDefaults": [
+      {
+        "address": "0x1402c0c3a",
+        "target": "github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped",
+        "target_address": "0x1402c1840",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped"
+      },
+      {
+        "address": "0x1402c0ca4",
+        "target": "fmt.Fprint",
+        "target_address": "0x14011d820",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprint"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped": [
+      {
+        "address": "0x1402c1931",
+        "target": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "target_address": "0x1402bf9c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll"
+      },
+      {
+        "address": "0x1402c1980",
+        "target": "github.com/spf13/pflag.wrap",
+        "target_address": "0x1402c1480",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.wrap"
+      },
+      {
+        "address": "0x1402c1a44",
+        "target": "fmt.Fprintln",
+        "target_address": "0x14011dae0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x1402c1a90",
+        "target": "internal/stringslite.Index",
+        "target_address": "0x14000e980",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "internal/stringslite.Index"
+      },
+      {
+        "address": "0x1402c1aae",
+        "target": "strings.Repeat",
+        "target_address": "0x1400d07e0",
+        "kind": "std",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RAX/RBX": " "
+        },
+        "via": null,
+        "display": "strings.Repeat(\" \")"
+      }
+    ],
+    "github.com/spf13/pflag.wrap": [
+      {
+        "address": "0x1402c14e5",
+        "target": "strings.Repeat",
+        "target_address": "0x1400d07e0",
+        "kind": "std",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RAX/RBX": " "
+        },
+        "via": null,
+        "display": "strings.Repeat(\" \")"
+      },
+      {
+        "address": "0x1402c1567",
+        "target": "github.com/spf13/pflag.wrapN",
+        "target_address": "0x1402c12c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.wrapN"
+      },
+      {
+        "address": "0x1402c15a0",
+        "target": "strings.Repeat",
+        "target_address": "0x1400d07e0",
+        "kind": "std",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RAX/RBX": " "
+        },
+        "via": null,
+        "display": "strings.Repeat(\" \")"
+      },
+      {
+        "address": "0x1402c15ee",
+        "target": "strings.Replace",
+        "target_address": "0x1400d2040",
+        "kind": "std",
+        "string_args": [
+          "\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\n"
+        },
+        "via": null,
+        "display": "strings.Replace(\"\\n\")"
+      },
+      {
+        "address": "0x1402c1641",
+        "target": "strings.Replace",
+        "target_address": "0x1400d2040",
+        "kind": "std",
+        "string_args": [
+          "\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\n"
+        },
+        "via": null,
+        "display": "strings.Replace(\"\\n\")"
+      },
+      {
+        "address": "0x1402c1660",
+        "target": "strings.Repeat",
+        "target_address": "0x1400d07e0",
+        "kind": "std",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RAX/RBX": " "
+        },
+        "via": null,
+        "display": "strings.Repeat(\" \")"
+      },
+      {
+        "address": "0x1402c16ae",
+        "target": "strings.Replace",
+        "target_address": "0x1400d2040",
+        "kind": "std",
+        "string_args": [
+          "\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\n"
+        },
+        "via": null,
+        "display": "strings.Replace(\"\\n\")"
+      },
+      {
+        "address": "0x1402c16e0",
+        "target": "github.com/spf13/pflag.wrapN",
+        "target_address": "0x1402c12c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.wrapN"
+      },
+      {
+        "address": "0x1402c1719",
+        "target": "strings.Repeat",
+        "target_address": "0x1400d07e0",
+        "kind": "std",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RAX/RBX": " "
+        },
+        "via": null,
+        "display": "strings.Repeat(\" \")"
+      },
+      {
+        "address": "0x1402c1742",
+        "target": "strings.Repeat",
+        "target_address": "0x1400d07e0",
+        "kind": "std",
+        "string_args": [
+          " "
+        ],
+        "arg_registers": {
+          "RAX/RBX": " "
+        },
+        "via": null,
+        "display": "strings.Repeat(\" \")"
+      },
+      {
+        "address": "0x1402c178e",
+        "target": "strings.Replace",
+        "target_address": "0x1400d2040",
+        "kind": "std",
+        "string_args": [
+          "\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\n"
+        },
+        "via": null,
+        "display": "strings.Replace(\"\\n\")"
+      }
+    ],
+    "github.com/spf13/pflag.wrapN": [
+      {
+        "address": "0x1402c1313",
+        "target": "strings.LastIndexAny",
+        "target_address": "0x1400cf980",
+        "kind": "std",
+        "string_args": [
+          " \t\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": " \t\n"
+        },
+        "via": null,
+        "display": "strings.LastIndexAny(\" \\t\\n\")"
+      },
+      {
+        "address": "0x1402c1344",
+        "target": "strings.LastIndex",
+        "target_address": "0x1400cf0e0",
+        "kind": "std",
+        "string_args": [
+          "\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "\n"
+        },
+        "via": null,
+        "display": "strings.LastIndex(\"\\n\")"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).parseShortArg": [
+      {
+        "address": "0x1402c3bea",
+        "target": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg",
+        "target_address": "0x1402c3440",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg": [
+      {
+        "address": "0x1402c3745",
+        "target": "fmt.Fprintf",
+        "target_address": "0x14011d4a0",
+        "kind": "std",
+        "string_args": [
+          "Flag shorthand -%s has been deprecated, %s\n"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "Flag shorthand -%s has been deprecated, %s\n"
+        },
+        "via": null,
+        "display": "fmt.Fprintf(\"Flag shorthand -%s has been deprecated, %s\\n\")"
+      },
+      {
+        "address": "0x1402c376d",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c3788",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c37a0",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      },
+      {
+        "address": "0x1402c3866",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      },
+      {
+        "address": "0x1402c3a20",
+        "target": "github.com/spf13/pflag.(*FlagSet).failf",
+        "target_address": "0x1402c2d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).failf"
+      },
+      {
+        "address": "0x1402c3a61",
+        "target": "github.com/spf13/pflag.(*FlagSet).usage",
+        "target_address": "0x1402c2ea0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).usage"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Print": [
+      {
+        "address": "0x1402df760",
+        "target": "github.com/spf13/cobra.(*Command).OutOrStderr",
+        "target_address": "0x1402daba0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).OutOrStderr"
+      },
+      {
+        "address": "0x1402df774",
+        "target": "fmt.Fprint",
+        "target_address": "0x14011d820",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprint"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).OutOrStderr": [
+      {
+        "address": "0x1402dabe6",
+        "target": "github.com/spf13/cobra.(*Command).getOut",
+        "target_address": "0x1402dad20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).getOut"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).PrintErrln": [
+      {
+        "address": "0x1402df9c1",
+        "target": "fmt.Sprintln",
+        "target_address": "0x14011dbc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Sprintln"
+      },
+      {
+        "address": "0x1402df9f4",
+        "target": "github.com/spf13/cobra.(*Command).PrintErr",
+        "target_address": "0x1402df920",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PrintErr"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).PrintErr": [
+      {
+        "address": "0x1402df940",
+        "target": "github.com/spf13/cobra.(*Command).ErrOrStderr",
+        "target_address": "0x1402dac20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ErrOrStderr"
+      },
+      {
+        "address": "0x1402df954",
+        "target": "fmt.Fprint",
+        "target_address": "0x14011d820",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprint"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).ErrOrStderr": [
+      {
+        "address": "0x1402dac66",
+        "target": "github.com/spf13/cobra.(*Command).getErr",
+        "target_address": "0x1402dade0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).getErr"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).getErr": [
+      {
+        "address": "0x1402dae40",
+        "target": "github.com/spf13/cobra.(*Command).getErr",
+        "target_address": "0x1402dade0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).getErr"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).PrintErrf": [
+      {
+        "address": "0x1402dfa6c",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Sprintf"
+      },
+      {
+        "address": "0x1402dfaa0",
+        "target": "github.com/spf13/cobra.(*Command).PrintErr",
+        "target_address": "0x1402df920",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).PrintErr"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).execute": [
+      {
+        "address": "0x1402dd006",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402dd092",
+        "target": "github.com/spf13/cobra.(*Command).Printf",
+        "target_address": "0x1402df860",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Printf"
+      },
+      {
+        "address": "0x1402dd0a0",
+        "target": "github.com/spf13/cobra.(*Command).InitDefaultHelpFlag",
+        "target_address": "0x1402de740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).InitDefaultHelpFlag"
+      },
+      {
+        "address": "0x1402dd0ad",
+        "target": "github.com/spf13/cobra.(*Command).InitDefaultVersionFlag",
+        "target_address": "0x1402de900",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).InitDefaultVersionFlag"
+      },
+      {
+        "address": "0x1402dd0d2",
+        "target": "github.com/spf13/cobra.(*Command).ParseFlags",
+        "target_address": "0x1402e2100",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ParseFlags"
+      },
+      {
+        "address": "0x1402dd0f8",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dd11a",
+        "target": "github.com/spf13/pflag.(*FlagSet).getFlagType",
+        "target_address": "0x1402bfe60",
+        "kind": "user",
+        "string_args": [
+          "bool"
+        ],
+        "arg_registers": {
+          "RDI": "bool"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).getFlagType(\"bool\")"
+      },
+      {
+        "address": "0x1402dd185",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dd1a9",
+        "target": "github.com/spf13/pflag.(*FlagSet).getFlagType",
+        "target_address": "0x1402bfe60",
+        "kind": "user",
+        "string_args": [
+          "bool"
+        ],
+        "arg_registers": {
+          "RDI": "bool"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).getFlagType(\"bool\")"
+      },
+      {
+        "address": "0x1402dd26f",
+        "target": "github.com/spf13/cobra.(*Command).OutOrStdout",
+        "target_address": "0x1402dab20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).OutOrStdout"
+      },
+      {
+        "address": "0x1402dd2c0",
+        "target": "github.com/spf13/cobra.(*Command).VersionTemplate",
+        "target_address": "0x1402db500",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).VersionTemplate"
+      },
+      {
+        "address": "0x1402dd2f0",
+        "target": "github.com/spf13/cobra.tmpl",
+        "target_address": "0x1402d9be0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.tmpl"
+      },
+      {
+        "address": "0x1402dd343",
+        "target": "github.com/spf13/cobra.(*Command).Println",
+        "target_address": "0x1402df7c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Println"
+      },
+      {
+        "address": "0x1402dd3c6",
+        "target": "github.com/spf13/cobra.(*Command).Println",
+        "target_address": "0x1402df7c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Println"
+      },
+      {
+        "address": "0x1402dd478",
+        "target": "github.com/spf13/cobra.(*Command).Println",
+        "target_address": "0x1402df7c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Println"
+      },
+      {
+        "address": "0x1402dd4a6",
+        "target": "github.com/spf13/cobra.(*Command).FlagErrorFunc",
+        "target_address": "0x1402db260",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).FlagErrorFunc"
+      },
+      {
+        "address": "0x1402dd4d2",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd515",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "Called Execute() on a nil Command"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "Called Execute() on a nil Command"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"Called Execute() on a nil Command\")"
+      },
+      {
+        "address": "0x1402dd557",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd5c0",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dd640",
+        "target": "github.com/spf13/cobra.(*Command).execute.deferwrap1",
+        "target_address": "0x1402ddaa0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": "indirect_call",
+        "display": "indirect_call -> github.com/spf13/cobra.(*Command).execute.deferwrap1"
+      },
+      {
+        "address": "0x1402dd6eb",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd710",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd780",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd7a5",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd7b9",
+        "target": "github.com/spf13/cobra.(*Command).ValidateRequiredFlags",
+        "target_address": "0x1402de2c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ValidateRequiredFlags"
+      },
+      {
+        "address": "0x1402dd7d1",
+        "target": "github.com/spf13/cobra.(*Command).ValidateFlagGroups",
+        "target_address": "0x1402e72c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).ValidateFlagGroups"
+      },
+      {
+        "address": "0x1402dd80f",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd828",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd868",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd889",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd9cc",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402dd9e8",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Printf": [
+      {
+        "address": "0x1402df88c",
+        "target": "fmt.Sprintf",
+        "target_address": "0x14011d5c0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Sprintf"
+      },
+      {
+        "address": "0x1402df8c0",
+        "target": "github.com/spf13/cobra.(*Command).Print",
+        "target_address": "0x1402df740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Print"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).InitDefaultHelpFlag": [
+      {
+        "address": "0x1402de75a",
+        "target": "github.com/spf13/cobra.(*Command).mergePersistentFlags",
+        "target_address": "0x1402e2300",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).mergePersistentFlags"
+      },
+      {
+        "address": "0x1402de767",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402de780",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      },
+      {
+        "address": "0x1402de7b7",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402de7ef",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402de820",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402de864",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "help",
+          "h"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "help",
+          "RSI/R8": "h"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"help\", \"h\")"
+      },
+      {
+        "address": "0x1402de871",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402de8c2",
+        "target": "github.com/spf13/pflag.(*FlagSet).SetAnnotation",
+        "target_address": "0x1402c09c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).SetAnnotation"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).SetAnnotation": [
+      {
+        "address": "0x1402c0a00",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      },
+      {
+        "address": "0x1402c0b20",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "no such flag -%v"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "no such flag -%v"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"no such flag -%v\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).InitDefaultVersionFlag": [
+      {
+        "address": "0x1402de92e",
+        "target": "github.com/spf13/cobra.(*Command).mergePersistentFlags",
+        "target_address": "0x1402e2300",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).mergePersistentFlags"
+      },
+      {
+        "address": "0x1402de940",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402de956",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      },
+      {
+        "address": "0x1402de98e",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402de9c0",
+        "target": "github.com/spf13/cobra.(*Command).Name",
+        "target_address": "0x1402e0700",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Name"
+      },
+      {
+        "address": "0x1402de9f0",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dea01",
+        "target": "github.com/spf13/pflag.(*FlagSet).ShorthandLookup",
+        "target_address": "0x1402bfd20",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).ShorthandLookup"
+      },
+      {
+        "address": "0x1402dea13",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402dea50",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "version"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "version"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"version\")"
+      },
+      {
+        "address": "0x1402dea60",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402deaa4",
+        "target": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "target_address": "0x1402bb520",
+        "kind": "user",
+        "string_args": [
+          "version",
+          "v"
+        ],
+        "arg_registers": {
+          "RCX/RDI": "version",
+          "RSI/R8": "v"
+        },
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).BoolVarP(\"version\", \"v\")"
+      },
+      {
+        "address": "0x1402deab1",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402deb02",
+        "target": "github.com/spf13/pflag.(*FlagSet).SetAnnotation",
+        "target_address": "0x1402c09c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).SetAnnotation"
+      }
+    ],
+    "github.com/spf13/pflag.(*FlagSet).getFlagType": [
+      {
+        "address": "0x1402bfea3",
+        "target": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "target_address": "0x1402bf8e0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName"
+      },
+      {
+        "address": "0x1402bfee6",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402bff20",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402bff97",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "trying to get %s value of flag of type %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "trying to get %s value of flag of type %s"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"trying to get %s value of flag of type %s\")"
+      },
+      {
+        "address": "0x1402bffbd",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402bffca",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      },
+      {
+        "address": "0x1402c002f",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "flag accessed but not defined: %s"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "flag accessed but not defined: %s"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"flag accessed but not defined: %s\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).VersionTemplate": [
+      {
+        "address": "0x1402db559",
+        "target": "github.com/spf13/cobra.(*Command).VersionTemplate",
+        "target_address": "0x1402db500",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).VersionTemplate"
+      }
+    ],
+    "github.com/spf13/cobra.tmpl": [
+      {
+        "address": "0x1402d9d06",
+        "target": "text/template.(*Template).Funcs",
+        "target_address": "0x140293140",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "text/template.(*Template).Funcs"
+      },
+      {
+        "address": "0x1402d9d1a",
+        "target": "text/template.(*Template).Parse",
+        "target_address": "0x140293600",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "text/template.(*Template).Parse"
+      },
+      {
+        "address": "0x1402d9d40",
+        "target": "text/template.(*Template).execute",
+        "target_address": "0x140285fa0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "text/template.(*Template).execute"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Println": [
+      {
+        "address": "0x1402df7e1",
+        "target": "fmt.Sprintln",
+        "target_address": "0x14011dbc0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Sprintln"
+      },
+      {
+        "address": "0x1402df814",
+        "target": "github.com/spf13/cobra.(*Command).Print",
+        "target_address": "0x1402df740",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Print"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).FlagErrorFunc": [
+      {
+        "address": "0x1402db286",
+        "target": "github.com/spf13/cobra.(*Command).FlagErrorFunc",
+        "target_address": "0x1402db260",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).FlagErrorFunc"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).execute.deferwrap1": [
+      {
+        "address": "0x1402ddae0",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).ValidateRequiredFlags": [
+      {
+        "address": "0x1402de2e0",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402de310",
+        "target": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "target_address": "0x1402bf9c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll"
+      },
+      {
+        "address": "0x1402de335",
+        "target": "strings.Join",
+        "target_address": "0x1400cfe80",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "strings.Join"
+      },
+      {
+        "address": "0x1402de36f",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "required flag(s) \"%s\" not set"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "required flag(s) \"%s\" not set"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"required flag(s) \\\"%s\\\" not set\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).ValidateFlagGroups": [
+      {
+        "address": "0x1402e72ea",
+        "target": "github.com/spf13/cobra.(*Command).Flags",
+        "target_address": "0x1402e0e80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Flags"
+      },
+      {
+        "address": "0x1402e7411",
+        "target": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "target_address": "0x1402bf9c0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll"
+      },
+      {
+        "address": "0x1402e7420",
+        "target": "github.com/spf13/cobra.validateRequiredFlagGroups",
+        "target_address": "0x1402e7840",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.validateRequiredFlagGroups"
+      },
+      {
+        "address": "0x1402e7432",
+        "target": "github.com/spf13/cobra.validateExclusiveFlagGroups",
+        "target_address": "0x1402e7ae0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.validateExclusiveFlagGroups"
+      }
+    ],
+    "github.com/spf13/cobra.validateRequiredFlagGroups": [
+      {
+        "address": "0x1402e7865",
+        "target": "github.com/spf13/cobra.sortedKeys",
+        "target_address": "0x1402e7d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.sortedKeys"
+      },
+      {
+        "address": "0x1402e7a25",
+        "target": "sort.Strings",
+        "target_address": "0x1401fbe40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sort.Strings"
+      },
+      {
+        "address": "0x1402e7aaf",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "if any flags in the group [%v] are set they must all be set; missing %v"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "if any flags in the group [%v] are set they must all be set; missing %v"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"if any flags in the group [%v] are set they must all be set; missing %v\")"
+      }
+    ],
+    "github.com/spf13/cobra.sortedKeys": [
+      {
+        "address": "0x1402e7e85",
+        "target": "sort.Strings",
+        "target_address": "0x1401fbe40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sort.Strings"
+      }
+    ],
+    "github.com/spf13/cobra.validateExclusiveFlagGroups": [
+      {
+        "address": "0x1402e7b05",
+        "target": "github.com/spf13/cobra.sortedKeys",
+        "target_address": "0x1402e7d80",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.sortedKeys"
+      },
+      {
+        "address": "0x1402e7cb5",
+        "target": "sort.Strings",
+        "target_address": "0x1401fbe40",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "sort.Strings"
+      },
+      {
+        "address": "0x1402e7d40",
+        "target": "fmt.Errorf",
+        "target_address": "0x14011a500",
+        "kind": "std",
+        "string_args": [
+          "if any flags in the group [%v] are set none of the others can be; %v were all set"
+        ],
+        "arg_registers": {
+          "RAX/RBX": "if any flags in the group [%v] are set none of the others can be; %v were all set"
+        },
+        "via": null,
+        "display": "fmt.Errorf(\"if any flags in the group [%v] are set none of the others can be; %v were all set\")"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).UsageString": [
+      {
+        "address": "0x1402db16d",
+        "target": "github.com/spf13/cobra.(*Command).Usage",
+        "target_address": "0x1402dafc0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).Usage"
+      },
+      {
+        "address": "0x1402db180",
+        "target": "github.com/spf13/cobra.CheckErr",
+        "target_address": "0x1402da1a0",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.CheckErr"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).Usage": [
+      {
+        "address": "0x1402dafd3",
+        "target": "github.com/spf13/cobra.(*Command).UsageFunc",
+        "target_address": "0x1402daf60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).UsageFunc"
+      },
+      {
+        "address": "0x1402dafe3",
+        "target": "indirect_call",
+        "target_address": null,
+        "kind": "indirect",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "indirect_call"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).UsageFunc": [
+      {
+        "address": "0x1402daf86",
+        "target": "github.com/spf13/cobra.(*Command).UsageFunc",
+        "target_address": "0x1402daf60",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).UsageFunc"
+      }
+    ],
+    "github.com/spf13/cobra.CheckErr": [
+      {
+        "address": "0x1402da1fa",
+        "target": "fmt.Fprintln",
+        "target_address": "0x14011dae0",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "fmt.Fprintln"
+      },
+      {
+        "address": "0x1402da204",
+        "target": "os.Exit",
+        "target_address": "0x1400e8260",
+        "kind": "std",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "os.Exit"
+      }
+    ],
+    "github.com/spf13/cobra.(*Command).HelpFunc": [
+      {
+        "address": "0x1402db026",
+        "target": "github.com/spf13/cobra.(*Command).HelpFunc",
+        "target_address": "0x1402db000",
+        "kind": "user",
+        "string_args": [],
+        "arg_registers": {},
+        "via": null,
+        "display": "github.com/spf13/cobra.(*Command).HelpFunc"
+      }
+    ]
+  },
+  "semantic_analysis": {
+    "pe_imports": {
+      "kernel32.dll": [
+        "AddVectoredContinueHandler",
+        "AddVectoredExceptionHandler",
+        "CloseHandle",
+        "CreateEventA",
+        "CreateIoCompletionPort",
+        "CreateThread",
+        "CreateWaitableTimerExW",
+        "DuplicateHandle",
+        "ExitProcess",
+        "FreeEnvironmentStringsW",
+        "GetConsoleMode",
+        "GetCurrentThreadId",
+        "GetEnvironmentStringsW",
+        "GetErrorMode",
+        "GetProcAddress",
+        "GetProcessAffinityMask",
+        "GetQueuedCompletionStatusEx",
+        "GetStdHandle",
+        "GetSystemDirectoryA",
+        "GetSystemInfo",
+        "GetThreadContext",
+        "LoadLibraryExW",
+        "LoadLibraryW",
+        "PostQueuedCompletionStatus",
+        "RaiseFailFastException",
+        "ResumeThread",
+        "RtlLookupFunctionEntry",
+        "RtlVirtualUnwind",
+        "SetConsoleCtrlHandler",
+        "SetErrorMode",
+        "SetEvent",
+        "SetProcessPriorityBoost",
+        "SetThreadContext",
+        "SetWaitableTimer",
+        "SuspendThread",
+        "SwitchToThread",
+        "TlsAlloc",
+        "VirtualAlloc",
+        "VirtualFree",
+        "VirtualQuery",
+        "WaitForMultipleObjects",
+        "WaitForSingleObject",
+        "WerGetFlags",
+        "WerSetFlags",
+        "WriteConsoleW",
+        "WriteFile"
+      ]
+    },
+    "mid_function_control_transfers": [
+      {
+        "source_function": "github.com/spf13/cobra.(*Command).ValidateFlagGroups",
+        "instruction": "0x1402e732a",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9ab",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x12b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x1402e732a call -> runtime.duffzero+0x12b"
+      },
+      {
+        "source_function": "github.com/spf13/cobra.(*Command).ValidateFlagGroups",
+        "instruction": "0x1402e7392",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9ab",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x12b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/cobra.(*Command).ValidateFlagGroups:0x1402e7392 call -> runtime.duffzero+0x12b"
+      },
+      {
+        "source_function": "github.com/spf13/cobra.sortedKeys",
+        "instruction": "0x1402e7dea",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9cb",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/cobra.sortedKeys:0x1402e7dea call -> runtime.duffzero+0x14b"
+      },
+      {
+        "source_function": "github.com/spf13/cobra.validateExclusiveFlagGroups",
+        "instruction": "0x1402e7b8a",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9cb",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/cobra.validateExclusiveFlagGroups:0x1402e7b8a call -> runtime.duffzero+0x14b"
+      },
+      {
+        "source_function": "github.com/spf13/cobra.validateRequiredFlagGroups",
+        "instruction": "0x1402e78ea",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9cb",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/cobra.validateRequiredFlagGroups:0x1402e78ea call -> runtime.duffzero+0x14b"
+      },
+      {
+        "source_function": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc",
+        "instruction": "0x1402bf6aa",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9cb",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc:0x1402bf6aa call -> runtime.duffzero+0x14b"
+      },
+      {
+        "source_function": "github.com/spf13/pflag.sortFlags",
+        "instruction": "0x1402bf4ca",
+        "mnemonic": "call",
+        "transfer_type": "call",
+        "target_address": "0x14007f9cb",
+        "target_function": "runtime.duffzero",
+        "target_kind": "std",
+        "target_offset": "0x14b",
+        "is_internal_branch": false,
+        "classification": "go_runtime_duff_helper",
+        "display": "github.com/spf13/pflag.sortFlags:0x1402bf4ca call -> runtime.duffzero+0x14b"
+      }
+    ],
+    "indirect_calls": [
+      {
+        "function": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "address": "0x1402ddd40",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402ddd3d",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).ExecuteC:0x1402ddd40 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "address": "0x1402ddec6",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402ddebf",
+          "base": "RSI",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).ExecuteC:0x1402ddec6 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "address": "0x1402de0cc",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402de0c3",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).ExecuteC:0x1402de0cc call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "address": "0x1402de1e2",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402de1c5",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect",
+          "via_register": "RCX"
+        },
+        "display": "github.com/spf13/cobra.(*Command).ExecuteC:0x1402de1e2 call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).Find",
+        "address": "0x1402dbb7c",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "stack_closure_or_defer_call",
+        "evidence": [
+          "target comes from register RSI",
+          "target is loaded from stack memory"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dbb77",
+          "base": "RSP",
+          "index": null,
+          "scale": 1,
+          "disp": "0x48",
+          "memory_kind": "stack"
+        },
+        "display": "github.com/spf13/cobra.(*Command).Find:0x1402dbb7c call rsi [stack_closure_or_defer_call]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).Find.func1",
+        "address": "0x1402dbefa",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dbeee",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).Find.func1:0x1402dbefa call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).Usage",
+        "address": "0x1402dafe3",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dafd8",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).Usage:0x1402dafe3 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).VisitParents",
+        "address": "0x1402dcead",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dcea4",
+          "base": "RBX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).VisitParents:0x1402dcead call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd4d2",
+        "operand": "rdi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd4ab",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect",
+          "via_register": "RCX"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd4d2 call rdi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd557",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd554",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd557 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd640",
+        "operand": "r9",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R9",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd634",
+          "base": "R8",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd640 call r9 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd6eb",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd6e5",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd6eb call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd710",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd70a",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd710 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd780",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd77a",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd780 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd7a5",
+        "operand": "r8",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register R8",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd79f",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd7a5 call r8 [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd80f",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd7fa",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd80f call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd828",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd813",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd828 call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd868",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd853",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd868 call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd889",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd874",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd889 call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd9cc",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd9b4",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd9cc call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "address": "0x1402dd9e8",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402dd9d0",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute:0x1402dd9e8 call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute.deferwrap1",
+        "address": "0x1402ddae0",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402ddadb",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/cobra.(*Command).execute.deferwrap1:0x1402ddae0 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).VarPF",
+        "address": "0x1402c24a6",
+        "operand": "rdx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c249f",
+          "base": "RBX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x20",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).VarPF:0x1402c24a6 call rdx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).VisitAll",
+        "address": "0x1402bfa97",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402bfa91",
+          "base": "RBX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).VisitAll:0x1402bfa97 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).getFlagType",
+        "address": "0x1402bfee6",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402bfee2",
+          "base": "RCX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x28",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).getFlagType:0x1402bfee6 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).getFlagType",
+        "address": "0x1402bff20",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402bff1a",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x28",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).getFlagType:0x1402bff20 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).getFlagType",
+        "address": "0x1402bffbd",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402bffb9",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x20",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).getFlagType:0x1402bffbd call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).getFlagType",
+        "address": "0x1402bffca",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402bffc7",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).getFlagType:0x1402bffca call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName",
+        "address": "0x1402bf912",
+        "operand": "rdi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RDI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402bf90c",
+          "base": "RSI",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).normalizeFlagName:0x1402bf912 call rdi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseLongArg",
+        "address": "0x1402c314c",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c3143",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).parseLongArg:0x1402c314c call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseLongArg",
+        "address": "0x1402c3164",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c315d",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).parseLongArg:0x1402c3164 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg",
+        "address": "0x1402c376d",
+        "operand": "rsi",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RSI",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c3764",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg:0x1402c376d call rsi [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg",
+        "address": "0x1402c3788",
+        "operand": "rcx",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RCX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c3781",
+          "base": "RAX",
+          "index": null,
+          "scale": 1,
+          "disp": "0x18",
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg:0x1402c3788 call rcx [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).usage",
+        "address": "0x1402c2ec2",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c2ebf",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).usage:0x1402c2ec2 call rax [interface_method_or_object_dispatch]"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).usage",
+        "address": "0x1402c2ed7",
+        "operand": "rax",
+        "kind": "register_call",
+        "classification": "interface_method_or_object_dispatch",
+        "evidence": [
+          "target comes from register RAX",
+          "target uses register-indirect memory addressing"
+        ],
+        "provenance": {
+          "kind": "memory_load",
+          "instruction": "0x1402c2ed4",
+          "base": "RDX",
+          "index": null,
+          "scale": 1,
+          "disp": null,
+          "memory_kind": "register_indirect"
+        },
+        "display": "github.com/spf13/pflag.(*FlagSet).usage:0x1402c2ed7 call rax [interface_method_or_object_dispatch]"
+      }
+    ],
+    "suspicious_data_blobs": [
+      {
+        "id": "blob_0",
+        "section": ".data",
+        "va": "0x1406fa000",
+        "size": "0x1000",
+        "entropy": 7.405,
+        "sha256_prefix": "88c3730200a545a3",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_1",
+        "section": ".data",
+        "va": "0x140702000",
+        "size": "0x2000",
+        "entropy": 7.955,
+        "sha256_prefix": "8f91daecb60e1f96",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [],
+        "reasons": [
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_2",
+        "section": ".data",
+        "va": "0x140755000",
+        "size": "0x18000",
+        "entropy": 7.996,
+        "sha256_prefix": "966c3f68e3a96bea",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc76",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xd76",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x2f6",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xf0a",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x4a2",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0xb2d",
+            "magic": "MZ"
+          },
+          {
+            "offset": "0x3bc",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x365",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xdf",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes",
+          "high_entropy"
+        ]
+      },
+      {
+        "id": "blob_3",
+        "section": ".rdata",
+        "va": "0x140386000",
+        "size": "0x2000",
+        "entropy": 4.243,
+        "sha256_prefix": "0c9fbd1a310eac13",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xae0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe40",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xe60",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_4",
+        "section": ".rdata",
+        "va": "0x140389000",
+        "size": "0x1000",
+        "entropy": 2.558,
+        "sha256_prefix": "9776af216f0929c9",
+        "referenced_by": [
+          "github.com/spf13/cobra.(*Command).InitDefaultHelpFlag",
+          "github.com/spf13/cobra.(*Command).InitDefaultVersionFlag",
+          "github.com/spf13/cobra.(*Command).initCompleteCmd"
+        ],
+        "reference_count": 3,
+        "magic_offsets": [
+          {
+            "offset": "0x9c0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa20",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "referenced_by_reachable_code",
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_5",
+        "section": ".rdata",
+        "va": "0x14038f000",
+        "size": "0x1000",
+        "entropy": 2.584,
+        "sha256_prefix": "e962b59222a69789",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x1c0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x220",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x280",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_6",
+        "section": ".rdata",
+        "va": "0x1403b5000",
+        "size": "0x5000",
+        "entropy": 3.517,
+        "sha256_prefix": "c171d061a01dd6c7",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc50",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xb60",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x7e0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xce0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xa60",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x360",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x8e0",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0x560",
+            "magic": "zlib"
+          },
+          {
+            "offset": "0xae0",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_7",
+        "section": ".rdata",
+        "va": "0x1403f5000",
+        "size": "0x1000",
+        "entropy": 4.647,
+        "sha256_prefix": "47e5c292de7ce572",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xe80",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_8",
+        "section": ".rdata",
+        "va": "0x1405f8000",
+        "size": "0x1000",
+        "entropy": 5.64,
+        "sha256_prefix": "6a0ecd06c4ef599f",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xffa",
+            "magic": "gzip"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_9",
+        "section": ".rdata",
+        "va": "0x14062b000",
+        "size": "0x1000",
+        "entropy": 5.383,
+        "sha256_prefix": "ad27694faf2323de",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x2ac",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_10",
+        "section": ".rdata",
+        "va": "0x14066b000",
+        "size": "0x3000",
+        "entropy": 4.265,
+        "sha256_prefix": "aed0e64c70414067",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0xc",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0xfb8",
+            "magic": "gzip"
+          },
+          {
+            "offset": "0x7f8",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_11",
+        "section": ".rdata",
+        "va": "0x140675000",
+        "size": "0x1000",
+        "entropy": 4.319,
+        "sha256_prefix": "13256469c0a5069e",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x450",
+            "magic": "PE"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_12",
+        "section": ".rdata",
+        "va": "0x1406cd000",
+        "size": "0x1000",
+        "entropy": 4.163,
+        "sha256_prefix": "5b0e6e53a390438a",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x574",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_13",
+        "section": ".rdata",
+        "va": "0x1406d0000",
+        "size": "0x1000",
+        "entropy": 4.347,
+        "sha256_prefix": "9ede0f984229e910",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x3fc",
+            "magic": "zlib"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      },
+      {
+        "id": "blob_14",
+        "section": ".rdata",
+        "va": "0x1406ef000",
+        "size": "0x1000",
+        "entropy": 4.477,
+        "sha256_prefix": "e9d8cf40fc2d3dff",
+        "referenced_by": [],
+        "reference_count": 0,
+        "magic_offsets": [
+          {
+            "offset": "0x574",
+            "magic": "MZ"
+          }
+        ],
+        "reasons": [
+          "contains_magic_bytes"
+        ]
+      }
+    ],
+    "data_transformers": [
+      {
+        "function": "internal/filepathlite.volumeNameLen",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 6,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.pathHasPrefixFold",
+        "operations": [
+          "add",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/filepathlite.replaceStringByte",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 11
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "internal/stringslite.Index",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 4,
+          "byte_memory_ops": 24
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).AddFlag",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 4,
+          "byte_memory_ops": 10
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).BoolVarP",
+        "operations": [
+          "add",
+          "sub"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [
+          "blob_4"
+        ],
+        "large_copies": [],
+        "confidence": "medium",
+        "source_inference": "called_by:github.com/spf13/cobra.(*Command).InitDefaultHelpFlag"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).SetNormalizeFunc",
+        "operations": [
+          "add",
+          "sub"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 4,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).ExecuteC",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).InitDefaultCompletionCmd",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 2,
+          "byte_memory_ops": 18
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).initCompleteCmd",
+        "operations": [
+          "add",
+          "sub"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [
+          "blob_4"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).updateParentsPflags",
+        "operations": [
+          "add",
+          "sub"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).findNext",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 7
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.ld",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 8,
+          "byte_memory_ops": 4
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).Traverse",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 5,
+          "byte_memory_ops": 25
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).ParseFlags",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseArgs",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 3,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseLongArg",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).FlagUsagesWrapped",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 2,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/pflag.(*FlagSet).parseSingleShortArg",
+        "operations": [
+          "add",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 13
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).execute",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 4,
+          "byte_memory_ops": 3
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).InitDefaultHelpFlag",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [
+          "blob_4"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).InitDefaultVersionFlag",
+        "operations": [
+          "add",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [
+          "blob_4"
+        ],
+        "large_copies": [],
+        "confidence": "medium"
+      },
+      {
+        "function": "github.com/spf13/cobra.(*Command).UsageString",
+        "operations": [
+          "add",
+          "bytes_to_string",
+          "shift",
+          "sub",
+          "xor"
+        ],
+        "loop_indicators": {
+          "backward_jumps": 1,
+          "byte_memory_ops": 0
+        },
+        "input_sources": [],
+        "large_copies": [],
+        "confidence": "medium"
+      }
+    ],
+    "loader_behaviors": [],
+    "embedded_payloads": [],
+    "assessment_hints": [
+      "Reachable code references suspicious high-entropy or magic-containing data blobs.",
+      "Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime."
+    ]
+  }
+}

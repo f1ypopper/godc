@@ -1,0 +1,111 @@
+main.main
+  0x6c97b0 -> sync.(*WaitGroup).Add
+  0x6c9812 -> sync.(*WaitGroup).Add
+  0x6c9874 -> sync.(*WaitGroup).Add
+  0x6c98d6 -> sync.(*WaitGroup).Add
+  0x6c9938 -> sync.(*WaitGroup).Add
+  0x6c999a -> sync.(*WaitGroup).Add
+  0x6c99fc -> sync.(*WaitGroup).Add
+  0x6c9a5e -> sync.(*WaitGroup).Add
+  0x6c9ac0 -> sync.(*WaitGroup).Add
+  0x6c9b2b -> encoding/base64.(*Encoding).DecodeString
+  0x6c9b8b -> os.Getenv
+  0x6c9deb -> os.Getenv
+  0x6ca03f -> os.Getenv
+  0x6ca29f -> os.Getenv
+  0x6ca4ff -> os.Getenv
+  0x6ca7d6 -> sync.(*WaitGroup).Add
+  0x6ca8e5 -> sync.(*WaitGroup).Add
+  0x6ca947 -> sync.(*WaitGroup).Add
+  0x6ca9a9 -> sync.(*WaitGroup).Add
+  0x6caa0b -> sync.(*WaitGroup).Add
+  0x6caa6d -> sync.(*WaitGroup).Add
+  0x6caacf -> sync.(*WaitGroup).Add
+  0x6cab31 -> sync.(*WaitGroup).Add
+  0x6cab93 -> sync.(*WaitGroup).Add
+  0x6cac49 -> sync.(*WaitGroup).Add
+  0x6cac60 -> sync.(*WaitGroup).Add
+  0x6cad64 -> sync.(*WaitGroup).Wait
+  0x6cae07 -> os.Getenv
+  0x6cae8b -> path/filepath.join
+  0x6caf04 -> path/filepath.join
+  0x6caf2b -> main.createLogFile2
+  0x6caf3a -> sync.(*WaitGroup).Wait
+  0x6cafb6 -> path/filepath.join
+  0x6cafca -> main.zipFolder
+  0x6cb037 -> log.Fatal
+  0x6cb04e -> main.gofileUpload
+  0x6cb06a -> main.sendWebhook
+  0x6cb078 -> os.Exit
+main.createLogFile2
+  0x6c78f4 -> os.WriteFile
+main.zipFolder
+  0x6bffb5 -> os.Getenv
+  0x6c001b -> path/filepath.join
+  0x6c003f -> os.OpenFile
+  0x6c01fe -> path/filepath.Walk
+  0x6c0245 -> indirect_call
+  0x6c0255 -> indirect_call
+  0x6c02a4 -> indirect_call
+  0x6c02b4 -> indirect_call
+main.gofileUpload
+  0x6c279b -> main.getServerURL
+  0x6c27b0 -> indirect_call
+  0x6c27c6 -> main.getServerURL
+  0x6c2876 -> os/exec.Command
+  0x6c2882 -> os/exec.(*Cmd).Output
+  0x6c28f3 -> encoding/json.Unmarshal
+main.getServerURL
+  0x6c3183 -> net/http.(*Client).Get
+  0x6c327e -> encoding/json.(*Decoder).Decode
+  0x6c32b6 -> indirect_call
+  0x6c3328 -> indirect_call
+main.sendWebhook
+  0x6cd06b -> encoding/base64.(*Encoding).DecodeString
+  0x6cd09b -> encoding/base64.(*Encoding).DecodeString
+  0x6cd750 -> encoding/json.Marshal
+  0x6cd78a -> encoding/base64.(*Encoding).DecodeString
+  0x6cd7c4 -> encoding/base64.(*Encoding).DecodeString
+  0x6cd871 -> net/http.(*Client).Post
+  0x6cd8d3 -> log.Fatal
+  0x6cd8e8 -> indirect_call
+  0x6cd8fb -> os.Getenv
+  0x6cd974 -> path/filepath.join
+  0x6cd988 -> os.Remove
+
+Semantic analysis
+  assessment_hints:
+    - Reachable code references suspicious high-entropy or magic-containing data blobs.
+    - Reachable functions contain byte transformation loops that may decode strings, configs, or payloads at runtime.
+  mid_function_control_transfers:
+    - main.gofileUpload:0x6c27e8 call -> runtime.duffzero+0x7a classification=go_runtime_duff_helper
+    - main.main:0x6c9b4c call -> runtime.duffzero+0x79 classification=go_runtime_duff_helper
+    - main.main:0x6c9b58 call -> runtime.duffzero+0x55 classification=go_runtime_duff_helper
+    - main.main:0x6ca745 call -> runtime.duffzero+0x74 classification=go_runtime_duff_helper
+    - main.zipFolder:0x6c012a call -> runtime.duffzero+0x76 classification=go_runtime_duff_helper
+    - main.zipFolder:0x6c01b2 call -> runtime.duffzero+0x7a classification=go_runtime_duff_helper
+  indirect_calls:
+    - main.getServerURL:0x6c32b6 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.getServerURL:0x6c3328 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.gofileUpload:0x6c27b0 call rax [stack_closure_or_defer_call] evidence=target comes from register RAX; target is loaded from stack memory
+    - main.sendWebhook:0x6cd8e8 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.zipFolder:0x6c0245 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.zipFolder:0x6c0255 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.zipFolder:0x6c02a4 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+    - main.zipFolder:0x6c02b4 call rax [interface_method_or_object_dispatch] evidence=target comes from register RAX; target uses register-indirect memory addressing
+  suspicious_data_blobs:
+    - blob_0 .data:0x94f000 size=0x2000 entropy=7.994 reasons=high_entropy refs=<none>
+    - blob_1 .data:0x960000 size=0x2000 entropy=7.952 reasons=high_entropy refs=<none>
+    - blob_2 .rdata:0x754000 size=0x1000 entropy=6.24 reasons=contains_magic_bytes refs=<none>
+    - blob_3 .rdata:0x807000 size=0x1000 entropy=5.544 reasons=contains_magic_bytes refs=<none>
+    - blob_4 .rdata:0x82c000 size=0x1000 entropy=5.495 reasons=contains_magic_bytes refs=<none>
+    - blob_5 .rdata:0x83e000 size=0x1000 entropy=5.831 reasons=contains_magic_bytes refs=<none>
+    - blob_6 .rdata:0x843000 size=0x1000 entropy=5.598 reasons=contains_magic_bytes refs=<none>
+    - blob_7 .rdata:0x850000 size=0x1000 entropy=5.932 reasons=contains_magic_bytes refs=<none>
+    - blob_8 .rdata:0x868000 size=0x1000 entropy=5.506 reasons=contains_magic_bytes refs=<none>
+    - blob_9 .rdata:0x86e000 size=0x1000 entropy=5.817 reasons=contains_magic_bytes refs=<none>
+  data_transformers:
+    - main.main ops=add,base64,bytes_to_string,shift,sub,xor confidence=medium sources=<unknown>
+    - main.zipFolder ops=add,sub,xor confidence=medium sources=<unknown>
+    - main.getServerURL ops=add,sub confidence=medium sources=<unknown>
+    - main.sendWebhook ops=add,base64,bytes_to_string,sub confidence=medium sources=<unknown>
