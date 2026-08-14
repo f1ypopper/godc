@@ -42,6 +42,8 @@ The graph is filtered to reduce Go runtime noise. It is still lower-level than t
 
 Important current sections:
 
+- `binary_info`: parsed format, architecture, imagebase, and entry point.
+- `imports`: generic import summary for PE or ELF when imports are present.
 - `behavior_story`: evaluator-facing behavior flow. This is the closest field to “what the binary does”.
 - `behavior_ir`: normalized behavior operations extracted from calls and low-level patterns.
 - `semantic_chains`: connected source-transform-sink chains.
@@ -50,8 +52,8 @@ Important current sections:
 - `data_transformers`: functions that likely transform byte/string/payload data.
 - `suspicious_data_blobs`: high-entropy, magic-containing, large-copy, or transformer-consumed data regions.
 - `embedded_payloads`: payload-like blobs tied to transformers or loader behavior.
-- `loader_behaviors`: reflective loader, native API, dynamic import, executable memory, or PE parsing behavior.
-- `pe_imports`: PE import table summary from LIEF.
+- `loader_behaviors`: reflective loader, native API, dynamic import, executable memory, PE parsing, or ELF parsing behavior.
+- `pe_imports`: legacy PE import table summary from LIEF. New code should prefer `imports`.
 - `interesting_functions`: scored user functions relevant to behavior review.
 - `assessment_hints`: short analysis hints for the evaluator.
 - `analysis_timing` and `scanner_timing`: performance timings.
@@ -105,4 +107,3 @@ The `evaluator` profile is better for LLM/human verdicts. It keeps:
 - assessment hints
 
 The LLM verdict script applies an additional compact projection on top of evaluator JSON before prompting the model.
-

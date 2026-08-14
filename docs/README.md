@@ -2,7 +2,7 @@
 
 Gobbler is a static semantic analyzer for Go binaries. Its main goal is to turn a compiled Go executable into structured behavior evidence that a human analyst or LLM can use to decide whether the sample is clean, suspicious, or dirty.
 
-The project currently focuses on Windows Go binaries, especially malware-candidate `.exe` files. It uses GoReSym for Go metadata, LIEF for PE parsing, Capstone for disassembly, and a set of local semantic passes to recover behavior-oriented facts.
+The project currently supports x86-64 Go binaries in PE and ELF formats. It uses GoReSym for Go metadata, LIEF for binary parsing, Capstone for disassembly, and a set of local semantic passes to recover behavior-oriented facts.
 
 ## Documents
 
@@ -21,4 +21,3 @@ The project currently focuses on Windows Go binaries, especially malware-candida
 4. It runs semantic passes that detect behavior: file/network/process APIs, data transformations, runtime decoding, embedded payloads, loader behavior, and recovered indicators.
 5. It writes a JSON report and a human-readable text report.
 6. Optional eval tooling sends a compact evaluator view of the JSON to an OpenRouter model and records verdicts, reasoning, indicators, behavioral summaries, token usage, cost, and metrics.
-

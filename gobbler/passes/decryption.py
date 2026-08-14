@@ -166,6 +166,14 @@ def classify_decoded_artifact(data: bytes) -> dict[str, Any] | None:
             "description": "decoded bytes contain a valid MZ/PE header near the start",
             "offset": hex(pe_offset),
         }
+    elf_offset = data.find(b"\x7fELF", 0, min(len(data), 0x1000))
+    if elf_offset != -1:
+        return {
+            "type": "embedded_elf",
+            "confidence": "high",
+            "description": "decoded bytes contain an ELF header near the start",
+            "offset": hex(elf_offset),
+        }
     if data.startswith(b"PK\x03\x04"):
         return {"type": "zip_archive", "confidence": "high", "description": "decoded bytes start with ZIP magic"}
     if data.startswith(b"\x1f\x8b"):

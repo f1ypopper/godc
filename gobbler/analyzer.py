@@ -10,6 +10,7 @@ import lief
 from capstone import CS_ARCH_X86, CS_MODE_64, Cs
 from capstone.x86 import *
 
+from gobbler.binary import BinaryView
 from gobbler.output.formatters import format_human_readable_report as format_report
 from gobbler.utils.noise import is_runtime_noise_call
 from gobbler.passes.semantic import analyze_semantics
@@ -112,6 +113,8 @@ class Analyzer:
         self.binary = lief.parse(str(binary_path))
         if self.binary is None:
             raise RuntimeError(f"Could not parse binary: {binary_path}")
+        self.binary_view = BinaryView(self.binary)
+        self.binary_view.ensure_supported()
 
         self.disassembler = Cs(CS_ARCH_X86, CS_MODE_64)
         self.disassembler.detail = True

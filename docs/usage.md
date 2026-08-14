@@ -25,6 +25,12 @@ chmod +x GoReSym
 .venv/bin/python -m gobbler.cli analyze data/sample.exe --out output
 ```
 
+ELF x86-64 Go binaries can be analyzed the same way:
+
+```bash
+.venv/bin/python -m gobbler.cli analyze data/sample.elf --out output
+```
+
 Useful options:
 
 ```bash
@@ -50,6 +56,16 @@ output/sample.txt
 .venv/bin/python -m gobbler.cli batch data \
   --glob '*.exe' \
   --out output \
+  --jobs 4 \
+  --timeout 300
+```
+
+For ELF files:
+
+```bash
+.venv/bin/python -m gobbler.cli batch data \
+  --glob '*.elf' \
+  --out output_elf \
   --jobs 4 \
   --timeout 300
 ```
@@ -113,4 +129,3 @@ Generate the single-binary HTML viewer:
 ```
 
 Open the HTML file and load a Gobbler JSON output to inspect the report visually.
-

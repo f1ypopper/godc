@@ -18,7 +18,9 @@ Those are analysis failures, not clean/dirty model decisions.
 
 ## Architecture and Platform
 
-The analyzer currently assumes x86-64 PE-style binaries in the important disassembly paths. Other architectures or formats need additional support.
+The analyzer currently supports x86-64 PE and x86-64 ELF Go binaries. Other architectures, including ARM64 and LoongArch, are rejected because the disassembly and register tracking are x86-64-specific.
+
+Mach-O is not currently supported.
 
 ## Dataflow Precision
 
@@ -41,7 +43,7 @@ AES support currently identifies candidates and API paths, but full AES decrypti
 
 Embedded payload detection is evidence-based. Strong signals include:
 
-- payload magic such as MZ/PE
+- payload magic such as MZ/PE/ELF
 - high entropy
 - large copy source
 - consumption by transformer functions
@@ -62,4 +64,3 @@ Known operational issues:
 - verdict drift between prompt versions
 
 The eval pipeline records costs, tokens, duration, errors, and verdict records so prompt/model changes can be compared.
-

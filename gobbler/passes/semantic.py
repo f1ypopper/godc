@@ -8,6 +8,8 @@ from typing import Any
 import lief
 from capstone.x86 import *
 
+from gobbler.binary import BinarySection
+
 
 HIGH_ENTROPY_THRESHOLD = 7.2
 CHUNK_SIZE = 0x1000
@@ -30,6 +32,7 @@ ALLOCATION_TYPES = {
 MAGIC_VALUES = {
     0x5A4D: "MZ",
     0x4550: "PE",
+    0x464C457F: "ELF",
     0x04034B50: "PK",
     0x8B1F: "gzip",
     0x9C78: "zlib",
@@ -68,20 +71,25 @@ LOADER_CALL_HINTS = {
     "syscall.(*LazyProc).Call": "dynamic_syscall_call",
     "syscall.Syscall": "raw_syscall",
     "syscall.SyscallN": "raw_syscall",
+    "syscall.Mmap": "executable_memory_allocation",
+    "syscall.Mprotect": "memory_protection_change",
+    "golang.org/x/sys/unix.Mmap": "executable_memory_allocation",
+    "golang.org/x/sys/unix.Mprotect": "memory_protection_change",
+    "unix.Mmap": "executable_memory_allocation",
+    "unix.Mprotect": "memory_protection_change",
+    "syscall.Exec": "process_execution",
+    "syscall.ForkExec": "process_execution",
+    "os/exec.Command": "process_execution",
+    "os/exec.(*Cmd).Start": "process_execution",
+    "os/exec.(*Cmd).Run": "process_execution",
+    "dlopen": "dynamic_library_load",
+    "dlsym": "dynamic_import_resolution",
     "VirtualAlloc": "executable_memory_allocation",
     "VirtualProtect": "memory_protection_change",
     "LoadLibrary": "dynamic_library_load",
     "GetProcAddress": "dynamic_import_resolution",
     "CreateThread": "thread_creation",
 }
-
-
-@dataclass
-class SectionRange:
-    name: str
-    va: int
-    end: int
-    data: bytes
 
 
 @dataclass
@@ -129,7 +137,7 @@ class IndirectCall:
 class SemanticScanner:
     analyzer: Any
     graph: dict[str, list[Any]]
-    sections: list[SectionRange] = field(init=False)
+    sections: list[BinarySection] = field(init=False)
     data_references: list[DataReference] = field(default_factory=list)
     large_copies: list[LargeCopy] = field(default_factory=list)
     mid_function_transfers: list[MidFunctionTransfer] = field(default_factory=list)
@@ -154,6 +162,8 @@ class SemanticScanner:
         payloads = self._timed("embedded_payloads", lambda: self._embedded_payloads(blobs, transformers, loaders))
 
         return {
+            "binary_info": self.analyzer.binary_view.info(),
+            "imports": self.analyzer.binary_view.imports(),
             "pe_imports": pe_imports(self.analyzer.binary),
             "mid_function_control_transfers": mid_function_transfers,
             "indirect_calls": indirect_calls,
@@ -178,16 +188,8 @@ class SemanticScanner:
         self.sub_timings.append({"name": name, "duration_seconds": round(time.monotonic() - started, 3)})
         return value
 
-    def _section_ranges(self) -> list[SectionRange]:
-        imagebase = int(getattr(self.analyzer.binary, "imagebase", 0) or 0)
-        ranges = []
-        for section in self.analyzer.binary.sections:
-            data = bytes(section.content)
-            if not data:
-                continue
-            start = imagebase + int(section.virtual_address)
-            ranges.append(SectionRange(section.name, start, start + len(data), data))
-        return ranges
+    def _section_ranges(self) -> list[BinarySection]:
+        return self.analyzer.binary_view.sections()
 
     def _scan_reachable_functions(self) -> None:
         for name in self.graph:
@@ -370,7 +372,7 @@ class SemanticScanner:
         if is_backward_jump(insn):
             features["backward_jumps"] += 1
 
-    def _section_for_va(self, va: int) -> SectionRange | None:
+    def _section_for_va(self, va: int) -> BinarySection | None:
         for section in self.sections:
             if section.va <= va < section.end:
                 return section
@@ -583,8 +585,10 @@ class SemanticScanner:
         transformer_functions = {item["function"] for item in transformers}
         for function, features in self.function_features.items():
             hints = normalized_loader_hints(features)
-            if features["magic_checks"]:
+            if features["magic_checks"] & {"MZ", "PE"}:
                 hints.add("pe_header_parsing")
+            if "ELF" in features["magic_checks"]:
+                hints.add("elf_header_parsing")
             if not hints:
                 continue
 
@@ -594,7 +598,7 @@ class SemanticScanner:
             score = len(hints)
             if called_transformers:
                 score += 1
-            if "pe_header_parsing" in hints and "dynamic_import_resolution" in hints:
+            if bool(hints & {"pe_header_parsing", "elf_header_parsing"}) and "dynamic_import_resolution" in hints:
                 score += 1
             if "raw_syscall" in hints and "executable_memory_requested" in hints:
                 score += 1
@@ -636,6 +640,13 @@ class SemanticScanner:
             "dynamic_syscall_call" in evidence or "executable_memory_requested" in evidence
         ):
             kind = "reflective_pe_loader"
+        elif {
+            "elf_header_parsing",
+            "dynamic_import_resolution",
+        }.issubset(evidence) and (
+            "dynamic_syscall_call" in evidence or "executable_memory_requested" in evidence
+        ):
+            kind = "reflective_elf_loader"
         elif "executable_memory_requested" in evidence and (
             "dynamic_import_resolution" in evidence or "thread_creation" in evidence
         ):
@@ -676,7 +687,7 @@ class SemanticScanner:
         if not blobs or not loaders:
             return payloads
         reflective_loaders = [
-            loader for loader in loaders if loader["kind"] in {"reflective_pe_loader", "dynamic_code_loader"}
+            loader for loader in loaders if loader["kind"] in {"reflective_pe_loader", "reflective_elf_loader", "dynamic_code_loader"}
         ]
         if not reflective_loaders:
             return payloads
@@ -688,7 +699,7 @@ class SemanticScanner:
                 item["function"] for item in transformers if blob["id"] in item.get("input_sources", [])
             ]
             has_large_copy = "large_copy_source" in reasons
-            has_payload_magic = bool(magic & {"MZ", "PE"})
+            has_payload_magic = bool(magic & {"MZ", "PE", "ELF"})
             has_archive_magic = bool(magic & {"PK", "gzip", "zlib"})
             has_transformer_consumer = bool(related_transformers)
             if not blob["referenced_by"] and not has_large_copy:
@@ -1065,6 +1076,7 @@ def magic_offsets(data: bytes) -> list[dict[str, Any]]:
     needles = {
         b"MZ": "MZ",
         b"PE\x00\x00": "PE",
+        b"\x7fELF": "ELF",
         b"PK\x03\x04": "PK",
         b"\x1f\x8b": "gzip",
         b"\x78\x9c": "zlib",
@@ -1250,9 +1262,9 @@ def should_promote_loader(
     called_transformers: list[str],
     transformers: list[dict[str, Any]],
 ) -> bool:
-    if kind in {"reflective_pe_loader", "dynamic_code_loader"}:
+    if kind in {"reflective_pe_loader", "reflective_elf_loader", "dynamic_code_loader"}:
         return True
-    if "pe_header_parsing" in hints and bool(hints & {"dynamic_import_resolution", "dynamic_syscall_call", "raw_syscall"}):
+    if bool(hints & {"pe_header_parsing", "elf_header_parsing"}) and bool(hints & {"dynamic_import_resolution", "dynamic_syscall_call", "raw_syscall"}):
         return True
     transformer_by_function = {item["function"]: item for item in transformers}
     if called_transformers and any(
@@ -1282,10 +1294,13 @@ def payload_confidence(
 def classify_loader(hints: set[str]) -> str:
     if "pe_header_parsing" in hints and "dynamic_import_resolution" in hints:
         return "reflective_pe_loader"
+    if "elf_header_parsing" in hints and "dynamic_import_resolution" in hints:
+        return "reflective_elf_loader"
     if "executable_memory_requested" in hints and (
         "dynamic_import_resolution" in hints
         or "thread_creation" in hints
         or "pe_header_parsing" in hints
+        or "elf_header_parsing" in hints
     ):
         return "dynamic_code_loader"
     if "dynamic_import_resolution" in hints or "dynamic_library_load" in hints:
@@ -1330,18 +1345,21 @@ def describe_allocation_type(value: int) -> str:
 
 
 def pe_imports(binary: lief.Binary) -> dict[str, list[str]]:
-    imports: dict[str, list[str]] = {}
     if not hasattr(binary, "imports"):
-        return imports
-    for imported_library in binary.imports:
+        return {}
+    imports = getattr(binary, "imports", None)
+    if imports is None:
+        return {}
+    result: dict[str, list[str]] = {}
+    for imported_library in imports:
         entries = []
         for entry in imported_library.entries:
             if entry.name:
                 entries.append(entry.name)
             elif entry.is_ordinal:
                 entries.append(f"ordinal_{entry.ordinal}")
-        imports[imported_library.name] = sorted(entries)
-    return imports
+        result[imported_library.name] = sorted(entries)
+    return result
 
 
 def assessment_hints(
@@ -1374,6 +1392,8 @@ def assessment_hints(
         hints.append("Reachable functions contain byte transformation loops that may encode/decode data or generate/fill buffers at runtime.")
     if any(loader["kind"] == "reflective_pe_loader" for loader in loaders):
         hints.append("The binary contains behavior consistent with manual PE loading or reflective payload execution.")
+    elif any(loader["kind"] == "reflective_elf_loader" for loader in loaders):
+        hints.append("The binary contains behavior consistent with manual ELF loading or reflective payload execution.")
     elif any(loader["kind"] == "dynamic_code_loader" for loader in loaders):
         hints.append("The binary contains behavior consistent with dynamic code allocation and execution.")
     if payloads:

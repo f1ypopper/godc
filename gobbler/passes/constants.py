@@ -6,6 +6,7 @@ from typing import Any
 
 from capstone.x86 import *
 
+from gobbler.binary import BinarySection
 
 DEFAULT_ARRAY_WINDOW = 0x100
 MAX_ARRAY_WINDOW = 0x1000
@@ -23,14 +24,6 @@ EXCLUDED_ARRAY_SECTIONS = {
     ".noptrdata",
     ".gopclntab",
 }
-
-
-@dataclass
-class SectionRange:
-    name: str
-    va: int
-    end: int
-    data: bytes
 
 
 @dataclass
@@ -89,20 +82,12 @@ def dump_constant_arrays(arrays: list[ArrayDump], output_dir: Path) -> list[dict
     return dumped
 
 
-def section_ranges(analyzer: Any) -> list[SectionRange]:
-    imagebase = int(getattr(analyzer.binary, "imagebase", 0) or 0)
-    ranges = []
-    for section in analyzer.binary.sections:
-        data = bytes(section.content)
-        if not data:
-            continue
-        start = imagebase + int(section.virtual_address)
-        ranges.append(SectionRange(section.name, start, start + len(data), data))
-    return ranges
+def section_ranges(analyzer: Any) -> list[BinarySection]:
+    return analyzer.binary_view.sections()
 
 
 def collect_data_references(
-    analyzer: Any, graph: dict[str, list[Any]], sections: list[SectionRange]
+    analyzer: Any, graph: dict[str, list[Any]], sections: list[BinarySection]
 ) -> dict[int, set[str]]:
     refs: dict[int, set[str]] = {}
     for function_name in graph:
@@ -126,7 +111,7 @@ def collect_data_references(
 
 
 def collect_large_copy_arrays(
-    analyzer: Any, graph: dict[str, list[Any]], sections: list[SectionRange]
+    analyzer: Any, graph: dict[str, list[Any]], sections: list[BinarySection]
 ) -> list[ArrayDump]:
     arrays = []
     for function_name in graph:
@@ -174,7 +159,7 @@ def collect_large_copy_arrays(
 
 
 def collect_referenced_array_windows(
-    sections: list[SectionRange],
+    sections: list[BinarySection],
     refs: dict[int, set[str]],
     large_copies: list[ArrayDump],
 ) -> list[ArrayDump]:
@@ -292,7 +277,7 @@ def function_by_name(analyzer: Any, name: str) -> dict[str, Any] | None:
     return None
 
 
-def section_for_va(sections: list[SectionRange], va: int) -> SectionRange | None:
+def section_for_va(sections: list[BinarySection], va: int) -> BinarySection | None:
     for section in sections:
         if section.va <= va < section.end:
             return section
@@ -304,7 +289,7 @@ def is_excluded_array_section(name: str) -> bool:
     return lowered in EXCLUDED_ARRAY_SECTIONS or lowered.startswith(".debug")
 
 
-def read_section_bytes(section: SectionRange, va: int, size: int) -> bytes:
+def read_section_bytes(section: BinarySection, va: int, size: int) -> bytes:
     offset = va - section.va
     if offset < 0:
         return b""
@@ -370,6 +355,7 @@ def magic_offsets(data: bytes) -> list[dict[str, Any]]:
     needles = {
         b"MZ": "MZ",
         b"PE\x00\x00": "PE",
+        b"\x7fELF": "ELF",
         b"PK\x03\x04": "PK",
         b"\x1f\x8b": "gzip",
         b"\x78\x9c": "zlib",
@@ -420,6 +406,8 @@ def classify_numeric_constant(value: int) -> str:
         return "MZ_magic"
     if value == 0x4550:
         return "PE_magic"
+    if value == 0x464C457F:
+        return "ELF_magic"
     if value == 0x3000:
         return "MEM_COMMIT_OR_RESERVE"
     if value in {0x10, 0x20, 0x40, 0x80}:
