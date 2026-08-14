@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gobbler Single Binary Viewer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #20242a;
+      --muted: #68717d;
+      --line: #d9dee6;
+      --fn: #315f9f;
+      --decode: #a85514;
+      --loader: #b42318;
+      --network: #0f766e;
+      --file: #4d7c0f;
+      --process: #7c3aed;
+      --data: #596579;
+      --indicator: #be123c;
+      --api: #455468;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0; }
+    .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    input[type="file"] { max-width: 360px; }
+    button, select {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font: inherit;
+    }
+    button { cursor: pointer; }
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 12px;
+      padding: 12px;
+      height: calc(100vh - 61px);
+    }
+    .workspace {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 12px;
+      min-width: 0;
+    }
+    .summary, .side, .graph-wrap, .empty {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    .pill {
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #fbfcfd;
+    }
+    .pill strong { color: var(--ink); }
+    .graph-wrap { position: relative; overflow: hidden; min-height: 420px; }
+    svg { width: 100%; height: 100%; display: block; background: #fbfcfd; }
+    .edge { stroke: #aeb7c2; stroke-width: 1.2; fill: none; marker-end: url(#arrow); }
+    .edge.data { stroke: #8b95a1; stroke-dasharray: 4 3; }
+    .edge.sink { stroke: #6b7280; }
+    .edge.indicator { stroke: var(--indicator); stroke-width: 1.6; }
+    .node { cursor: pointer; }
+    .node rect { stroke: rgba(0,0,0,.18); stroke-width: 1; rx: 6; }
+    .node text { font-size: 11px; fill: white; pointer-events: none; }
+    .node .sub { font-size: 9px; opacity: .85; }
+    .legend {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      max-width: calc(100% - 20px);
+      padding: 8px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+    .side { overflow: auto; padding: 12px; }
+    .side h2 { margin: 0 0 8px; font-size: 15px; }
+    .side h3 { margin: 18px 0 8px; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .kv { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 6px 8px; font-size: 12px; }
+    .kv div:nth-child(odd) { color: var(--muted); }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #f3f5f7;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 11px;
+      line-height: 1.45;
+      max-height: 360px;
+      overflow: auto;
+    }
+    .list { display: grid; gap: 8px; }
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      background: #fbfcfd;
+    }
+    .item button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .muted { color: var(--muted); }
+    .empty {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      color: var(--muted);
+      text-align: center;
+      padding: 24px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (max-width: 980px) {
+      main { grid-template-columns: 1fr; height: auto; }
+      .graph-wrap { height: 680px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gobbler Single Binary Viewer</h1>
+    <div class="controls">
+      <input id="fileInput" type="file" accept=".json,application/json">
+      <select id="limitSelect" title="Limit graph size">
+        <option value="80">80 nodes</option>
+        <option value="140" selected>140 nodes</option>
+        <option value="220">220 nodes</option>
+      </select>
+      <button id="pasteButton">Paste JSON</button>
+      <button id="resetButton">Reset View</button>
+    </div>
+  </header>
+  <main>
+    <section class="workspace">
+      <div id="summary" class="summary">
+        <span class="pill">Load a Gobbler JSON file to render behavior.</span>
+      </div>
+      <div class="graph-wrap">
+        <div id="empty" class="empty">Choose an analysis JSON from <code>output/*.json</code> or paste JSON.</div>
+        <svg id="graph" viewBox="0 0 1200 760" aria-label="Behavior graph"></svg>
+        <div class="legend">
+          <span><i class="swatch" style="background:var(--fn)"></i>function</span>
+          <span><i class="swatch" style="background:var(--decode)"></i>decoder/transform</span>
+          <span><i class="swatch" style="background:var(--loader)"></i>loader/exec</span>
+          <span><i class="swatch" style="background:var(--data)"></i>data/blob</span>
+          <span><i class="swatch" style="background:var(--api)"></i>API/sink</span>
+          <span><i class="swatch" style="background:var(--indicator)"></i>indicator</span>
+        </div>
+      </div>
+    </section>
+    <aside class="side">
+      <div id="details">
+        <h2>No node selected</h2>
+        <p class="muted">Click a node to inspect its operations, tags, sources, and edges.</p>
+      </div>
+      <h3>High Signal Functions</h3>
+      <div id="highSignal" class="list"></div>
+      <h3>Paste JSON</h3>
+      <textarea id="jsonText" placeholder="Paste Gobbler JSON here, then press Paste JSON."></textarea>
+    </aside>
+  </main>
+  <script>
+    const graphSvg = document.getElementById("graph");
+    const empty = document.getElementById("empty");
+    const summaryEl = document.getElementById("summary");
+    const detailsEl = document.getElementById("details");
+    const highSignalEl = document.getElementById("highSignal");
+    const fileInput = document.getElementById("fileInput");
+    const limitSelect = document.getElementById("limitSelect");
+    const jsonText = document.getElementById("jsonText");
+    let currentGraph = null;
+    let currentDocument = null;
+
+    const notableOperationKinds = new Set([
+      "http_network", "http_request", "http_get", "http_post", "network_connect", "network_listen",
+      "file_write", "file_create", "file_read", "file_open", "process_launch",
+      "dynamic_library_load", "dynamic_import_resolution", "dynamic_syscall_call", "raw_syscall",
+      "executable_memory_allocation", "memory_protection_change", "thread_creation",
+      "aes_crypto", "cipher_crypto", "chacha20_crypto", "base64_decode_or_encode",
+      "hex_decode_or_encode", "gzip_compression", "zlib_compression", "bytes_to_string"
+    ]);
+
+    fileInput.addEventListener("change", async () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+      try {
+        loadDocument(JSON.parse(await file.text()), file.name);
+      } catch (error) {
+        showError(error);
+      }
+    });
+
+    document.getElementById("pasteButton").addEventListener("click", () => {
+      try {
+        loadDocument(JSON.parse(jsonText.value), "pasted-json");
+      } catch (error) {
+        showError(error);
+      }
+    });
+
+    document.getElementById("resetButton").addEventListener("click", () => {
+      if (currentDocument) render(currentDocument);
+    });
+
+    limitSelect.addEventListener("change", () => {
+      if (currentDocument) render(currentDocument);
+    });
+
+    function showError(error) {
+      detailsEl.innerHTML = `<h2>Could not load JSON</h2><pre>${escapeHtml(error.message || String(error))}</pre>`;
+    }
+
+    function loadDocument(document, name) {
+      currentDocument = { document, name };
+      render(currentDocument);
+    }
+
+    function render(input) {
+      const built = buildGraph(input.document, Number(limitSelect.value));
+      currentGraph = built;
+      renderSummary(input.document, input.name, built);
+      renderHighSignal(input.document, built);
+      renderGraph(built);
+      detailsEl.innerHTML = `<h2>${escapeHtml(input.name)}</h2><p class="muted">Rendered ${built.nodes.length} nodes and ${built.edges.length} edges. Click a node for details.</p>`;
+    }
+
+    function buildGraph(document, maxNodes) {
+      const storyGraph = buildStoryGraph(document, maxNodes);
+      if (storyGraph) return storyGraph;
+      const sem = document.semantic_analysis || {};
+      const ir = sem.behavior_ir || {};
+      const functions = ir.functions || {};
+      const interesting = new Map((sem.interesting_functions || []).map(item => [item.function, item]));
+      const runtime = sem.runtime_decoding || {};
+      const runtimeByFunction = new Map((runtime.functions || []).map(item => [item.function, item]));
+      const transformers = new Set((sem.data_transformers || []).map(item => item.function));
+      const loaders = new Set((sem.loader_behaviors || []).map(item => item.function));
+      const nodeMap = new Map();
+      const edges = [];
+
+      function addNode(id, type, label, data = {}) {
+        if (!id || nodeMap.has(id)) return nodeMap.get(id);
+        const node = { id, type, label: label || id, data, rank: rankForType(type) };
+        nodeMap.set(id, node);
+        return node;
+      }
+      function addEdge(from, to, type, label, data = {}) {
+        if (!from || !to || from === to) return;
+        edges.push({ from, to, type, label, data });
+      }
+
+      const functionNames = Object.keys(functions).sort((a, b) => functionScore(b) - functionScore(a));
+      for (const name of functionNames) {
+        const item = functions[name] || {};
+        addNode(name, classifyFunction(name, item), shortName(name), {
+          fullName: name,
+          tags: item.tags || [],
+          score: functionScore(name),
+          interesting: interesting.get(name),
+          runtime: runtimeByFunction.get(name),
+          flow: item.flow || [],
+          data: item.data || {},
+          control: item.control || {}
+        });
+      }
+
+      for (const edge of ir.edges || []) {
+        if (nodeMap.has(edge.from) && nodeMap.has(edge.to)) {
+          addEdge(edge.from, edge.to, "call", edge.type || "call", edge);
+        }
+      }
+
+      for (const [name, item] of Object.entries(functions)) {
+        if (!nodeMap.has(name)) continue;
+        for (const operation of item.flow || []) {
+          if (!notableOperationKinds.has(operation.kind) || operation.kind === "call_user") continue;
+          const target = operation.target || operation.kind;
+          const nodeId = `api:${operation.kind}:${target}`;
+          addNode(nodeId, classifyApi(operation.kind), target, { operation });
+          addEdge(name, nodeId, "sink", operation.kind, operation);
+        }
+        for (const source of staticSources(item.data || {})) {
+          const nodeId = `data:${source.id || source.va || source.value || source.kind}`;
+          addNode(nodeId, "data", source.id || source.va || source.value || "static-data", { source });
+          addEdge(nodeId, name, "data", source.kind || "uses_static_data", source);
+        }
+      }
+
+      for (const blob of sem.suspicious_data_blobs || []) {
+        const nodeId = `data:${blob.id}`;
+        addNode(nodeId, "data", blob.id, { source: blob });
+        for (const fn of blob.referenced_by || []) {
+          if (nodeMap.has(fn)) addEdge(nodeId, fn, "data", "referenced_by", blob);
+        }
+      }
+
+      for (const chain of ((sem.semantic_chains || {}).chains || [])) {
+        if (!nodeMap.has(chain.function)) continue;
+        for (const source of chain.sources || []) {
+          const nodeId = `data:${source.id || source.value || source.kind}`;
+          addNode(nodeId, "data", source.id || source.value || source.kind, { source, chain });
+          addEdge(nodeId, chain.function, "data", chain.kind, source);
+        }
+        for (const sink of chain.sinks || []) {
+          const nodeId = `api:${sink.kind || "sink"}:${sink.target || sink.address}`;
+          addNode(nodeId, classifyApi(sink.kind || ""), sink.target || sink.kind || "sink", { sink, chain });
+          addEdge(chain.function, nodeId, "sink", chain.kind, sink);
+        }
+      }
+
+      for (const indicator of runtime.recovered_indicators || []) {
+        const nodeId = `indicator:${indicator.type}:${indicator.value}`;
+        addNode(nodeId, "indicator", indicator.value, { indicator });
+        if (indicator.producer && nodeMap.has(indicator.producer)) {
+          addEdge(indicator.producer, nodeId, "indicator", indicator.type, indicator);
+        }
+      }
+
+      function functionScore(name) {
+        return (interesting.get(name) || {}).score || 0;
+      }
+      function classifyFunction(name, item) {
+        const tags = new Set(item.tags || []);
+        const flow = item.flow || [];
+        const kinds = new Set(flow.map(op => op.kind));
+        if (loaders.has(name) || [...kinds].some(kind => kind.includes("syscall") || kind.includes("dynamic_") || kind.includes("executable"))) return "loader";
+        if (runtimeByFunction.has(name) || transformers.has(name) || tags.has("has_transform_loop")) return "decode";
+        if ([...kinds].some(kind => kind.startsWith("http_") || kind.startsWith("network_"))) return "network";
+        if ([...kinds].some(kind => kind.startsWith("file_"))) return "file";
+        if (kinds.has("process_launch")) return "process";
+        return "function";
+      }
+
+      const nodes = Array.from(nodeMap.values());
+      const connected = new Set();
+      for (const edge of edges) { connected.add(edge.from); connected.add(edge.to); }
+      nodes.sort((a, b) => (connected.has(b.id) - connected.has(a.id)) || (functionScore(b.id) - functionScore(a.id)) || a.id.localeCompare(b.id));
+      const kept = new Set(nodes.slice(0, maxNodes).map(node => node.id));
+      const limitedNodes = nodes.filter(node => kept.has(node.id));
+      const limitedEdges = dedupeEdges(edges).filter(edge => kept.has(edge.from) && kept.has(edge.to)).slice(0, maxNodes * 3);
+      layoutNodes(limitedNodes, limitedEdges);
+      return { nodes: limitedNodes, edges: limitedEdges, allNodeCount: nodes.length, allEdgeCount: edges.length };
+    }
+
+    function buildStoryGraph(document, maxNodes) {
+      const story = (document.semantic_analysis || {}).behavior_story || {};
+      const actions = story.actions || [];
+      if (!actions.length) return null;
+      const nodeMap = new Map();
+      const edges = [];
+      function addNode(id, type, label, data = {}) {
+        if (!id || nodeMap.has(id)) return nodeMap.get(id);
+        const node = { id, type, label: label || id, data, rank: rankForStoryType(type) };
+        nodeMap.set(id, node);
+        return node;
+      }
+      function addEdge(from, to, type, label, data = {}) {
+        if (!from || !to || from === to) return;
+        edges.push({ from, to, type, label, data });
+      }
+
+      for (const [index, action] of actions.entries()) {
+        const functionId = `func:${action.function || "<unknown>"}`;
+        addNode(functionId, "function", shortName(action.function || "<unknown>"), { actionFunction: action.function });
+        const sinkId = `action:${index}:${action.category}:${action.kind}:${action.target_api || action.description}`;
+        addNode(sinkId, classifyApi(action.kind || action.category || ""), action.kind || action.category, { action });
+        addEdge(functionId, sinkId, "sink", action.description || action.kind, action);
+        for (const artifact of action.artifacts || []) {
+          const value = artifact.value || artifact.type || "artifact";
+          const artifactId = `artifact:${artifact.type}:${value}`;
+          addNode(artifactId, artifact.type === "embedded_payload" ? "data" : "indicator", value, { artifact });
+          addEdge(sinkId, artifactId, artifact.type === "embedded_payload" ? "data" : "indicator", artifact.type, artifact);
+        }
+      }
+
+      const nodes = Array.from(nodeMap.values()).slice(0, maxNodes);
+      const kept = new Set(nodes.map(node => node.id));
+      const limitedEdges = dedupeEdges(edges).filter(edge => kept.has(edge.from) && kept.has(edge.to)).slice(0, maxNodes * 3);
+      layoutNodes(nodes, limitedEdges);
+      return { nodes, edges: limitedEdges, allNodeCount: nodeMap.size, allEdgeCount: edges.length };
+    }
+
+    function rankForStoryType(type) {
+      if (type === "function") return 0;
+      if (["decode", "loader", "network", "file", "process", "api"].includes(type)) return 1;
+      if (type === "data" || type === "indicator") return 2;
+      return 1;
+    }
+
+    function nodeTypeForAction(action) {
+      if (action.category === "crypto_or_decoding") return "decode";
+      if (action.category === "execution" || action.category === "payload") return "loader";
+      if (action.category === "network") return "network";
+      if (action.category === "filesystem") return "file";
+      if (action.category === "process") return "process";
+      return "function";
+    }
+
+    function staticSources(data) {
+      const out = [];
+      for (const key of ["data_blobs", "constant_arrays", "strings"]) {
+        for (const source of data[key] || []) out.push({ kind: key.replace(/s$/, ""), ...source });
+      }
+      return out.slice(0, 18);
+    }
+
+    function classifyApi(kind) {
+      if (!kind) return "api";
+      if (kind.includes("http") || kind.includes("network")) return "network";
+      if (kind.includes("file")) return "file";
+      if (kind.includes("process")) return "process";
+      if (kind.includes("syscall") || kind.includes("dynamic") || kind.includes("executable") || kind.includes("thread")) return "loader";
+      if (kind.includes("decode") || kind.includes("encode") || kind.includes("crypto") || kind.includes("bytes_to_string") || kind.includes("compression")) return "decode";
+      return "api";
+    }
+
+    function rankForType(type) {
+      if (type === "data") return 0;
+      if (["function", "decode", "loader", "network", "file", "process"].includes(type)) return 1;
+      if (type === "indicator") return 3;
+      return 2;
+    }
+
+    function layoutNodes(nodes, edges) {
+      const byRank = new Map();
+      for (const node of nodes) {
+        byRank.set(node.rank, [...(byRank.get(node.rank) || []), node]);
+      }
+      const columns = { 0: 120, 1: 430, 2: 760, 3: 1040 };
+      for (const [rank, items] of byRank) {
+        const gap = Math.max(54, Math.min(96, 660 / Math.max(1, items.length)));
+        const start = Math.max(52, 380 - ((items.length - 1) * gap) / 2);
+        items.forEach((node, index) => {
+          node.x = columns[rank] || 430;
+          node.y = start + index * gap;
+          node.w = node.rank === 1 ? 220 : 170;
+          node.h = 42;
+        });
+      }
+    }
+
+    function dedupeEdges(edges) {
+      const seen = new Set();
+      const out = [];
+      for (const edge of edges) {
+        const key = `${edge.from}|${edge.to}|${edge.type}|${edge.label}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push(edge);
+      }
+      return out;
+    }
+
+    function renderSummary(document, name, graph) {
+      const sem = document.semantic_analysis || {};
+      const ir = sem.behavior_ir || {};
+      const rd = sem.runtime_decoding || {};
+      const story = sem.behavior_story || {};
+      const rs = rd.summary || {};
+      const bs = ir.summary || {};
+      const ss = story.summary || {};
+      const timing = sem.analysis_timing || {};
+      summaryEl.innerHTML = [
+        pill("sample", name),
+        pill("actions", ss.action_count || 0),
+        pill("network", ss.network_action_count || 0),
+        pill("filesystem", ss.filesystem_action_count || 0),
+        pill("exec", ss.process_or_execution_action_count || 0),
+        pill("functions", bs.function_count || graph.nodes.filter(n => n.rank === 1).length),
+        pill("operations", bs.operation_count || 0),
+        pill("custom decoders", rs.custom_decoder_candidate_count || 0),
+        pill("explicit decoders", rs.explicit_decoder_api_count || 0),
+        pill("loaders", (sem.loader_behaviors || []).length),
+        pill("blobs", (sem.suspicious_data_blobs || []).length),
+        pill("indicators", rs.recovered_indicator_count || 0),
+        pill("timing", timing.total_seconds ? `${timing.total_seconds}s` : "n/a")
+      ].join("");
+    }
+
+    function pill(key, value) {
+      return `<span class="pill">${escapeHtml(key)} <strong>${escapeHtml(String(value))}</strong></span>`;
+    }
+
+    function renderHighSignal(document, graph) {
+      const items = ((document.semantic_analysis || {}).interesting_functions || []).slice(0, 12);
+      highSignalEl.innerHTML = items.map(item => {
+        const reason = (item.reasons || []).slice(0, 4).join(", ");
+        return `<div class="item"><button data-node="${escapeAttr(item.function)}"><strong>${escapeHtml(shortName(item.function))}</strong><br><span class="muted">score=${escapeHtml(String(item.score || 0))} ${escapeHtml(reason)}</span></button></div>`;
+      }).join("") || `<div class="muted">No high-signal functions in this JSON.</div>`;
+      highSignalEl.querySelectorAll("button[data-node]").forEach(button => {
+        button.addEventListener("click", () => selectNode(button.dataset.node));
+      });
+    }
+
+    function renderGraph(graph) {
+      empty.style.display = graph.nodes.length ? "none" : "grid";
+      graphSvg.innerHTML = `
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#aeb7c2"></path>
+          </marker>
+        </defs>`;
+      const nodeById = new Map(graph.nodes.map(node => [node.id, node]));
+      const edgeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      const nodeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      graphSvg.append(edgeGroup, nodeGroup);
+      for (const edge of graph.edges) {
+        const from = nodeById.get(edge.from);
+        const to = nodeById.get(edge.to);
+        if (!from || !to) continue;
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const startX = from.x + from.w;
+        const startY = from.y + from.h / 2;
+        const endX = to.x;
+        const endY = to.y + to.h / 2;
+        const mid = Math.max(40, (endX - startX) / 2);
+        path.setAttribute("d", `M ${startX} ${startY} C ${startX + mid} ${startY}, ${endX - mid} ${endY}, ${endX} ${endY}`);
+        path.setAttribute("class", `edge ${edge.type}`);
+        path.appendChild(title(`${edge.label || edge.type}: ${edge.from} -> ${edge.to}`));
+        edgeGroup.appendChild(path);
+      }
+      for (const node of graph.nodes) {
+        const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        group.setAttribute("class", "node");
+        group.setAttribute("transform", `translate(${node.x}, ${node.y})`);
+        group.dataset.id = node.id;
+        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("width", node.w);
+        rect.setAttribute("height", node.h);
+        rect.setAttribute("fill", colorFor(node.type));
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", 10);
+        label.setAttribute("y", 17);
+        label.textContent = truncate(node.label, node.w === 220 ? 28 : 21);
+        const sub = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        sub.setAttribute("x", 10);
+        sub.setAttribute("y", 32);
+        sub.setAttribute("class", "sub");
+        sub.textContent = node.type;
+        group.append(rect, label, sub, title(node.id));
+        group.addEventListener("click", () => selectNode(node.id));
+        nodeGroup.appendChild(group);
+      }
+    }
+
+    function selectNode(id) {
+      const node = currentGraph && currentGraph.nodes.find(item => item.id === id);
+      if (!node) return;
+      graphSvg.querySelectorAll(".node rect").forEach(rect => rect.setAttribute("stroke-width", "1"));
+      const selected = graphSvg.querySelector(`.node[data-id="${cssEscape(id)}"] rect`);
+      if (selected) selected.setAttribute("stroke-width", "3");
+      const incoming = currentGraph.edges.filter(edge => edge.to === id);
+      const outgoing = currentGraph.edges.filter(edge => edge.from === id);
+      detailsEl.innerHTML = `
+        <h2>${escapeHtml(node.label)}</h2>
+        <div class="kv">
+          <div>type</div><div>${escapeHtml(node.type)}</div>
+          <div>id</div><div>${escapeHtml(node.id)}</div>
+          <div>incoming</div><div>${incoming.length}</div>
+          <div>outgoing</div><div>${outgoing.length}</div>
+        </div>
+        <h3>Edges</h3>
+        <pre>${escapeHtml(formatEdges(incoming, outgoing))}</pre>
+        <h3>Details</h3>
+        <pre>${escapeHtml(JSON.stringify(node.data, null, 2))}</pre>`;
+    }
+
+    function formatEdges(incoming, outgoing) {
+      const lines = [];
+      for (const edge of incoming.slice(0, 20)) lines.push(`<- ${edge.from} [${edge.label || edge.type}]`);
+      for (const edge of outgoing.slice(0, 20)) lines.push(`-> ${edge.to} [${edge.label || edge.type}]`);
+      return lines.join("\\n") || "No visible edges.";
+    }
+
+    function title(text) {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", "title");
+      node.textContent = text;
+      return node;
+    }
+
+    function colorFor(type) {
+      return {
+        function: "var(--fn)",
+        decode: "var(--decode)",
+        loader: "var(--loader)",
+        network: "var(--network)",
+        file: "var(--file)",
+        process: "var(--process)",
+        data: "var(--data)",
+        indicator: "var(--indicator)",
+        api: "var(--api)"
+      }[type] || "var(--api)";
+    }
+
+    function shortName(name) {
+      return String(name || "").replace(/^.*\//, "").replace(/^main\./, "main.");
+    }
+
+    function truncate(value, limit) {
+      const text = String(value || "");
+      return text.length > limit ? `${text.slice(0, limit - 1)}…` : text;
+    }
+
+    function cssEscape(value) {
+      return String(value).replace(/["\\\\]/g, "\\\\$&");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+  </script>
+</body>
+</html>
