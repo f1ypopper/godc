@@ -57,9 +57,9 @@ corpus/clean/gomod/*.exe
 
 Some Go module builds fail due module path changes, Go version constraints, cross-compilation behavior, or upstream download limits. The manifest is the source of truth for what was successfully built.
 
-The eval runner can use multiple clean dirs at once:
+Analyze each clean corpus directory separately with the minimal analyzer script:
 
 ```bash
---clean-dir corpus/clean/gomod --clean-dir corpus/clean/synthetic
+.venv/bin/python scripts/analyze.py corpus/clean/gomod -o output/clean_gomod --jobs 4
+.venv/bin/python scripts/analyze.py corpus/clean/synthetic -o output/clean_synthetic --jobs 4
 ```
-

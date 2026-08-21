@@ -6,8 +6,10 @@
 - `gobbler.pipeline`: high-level orchestration for analyzing one binary and writing output.
 - `gobbler.analyzer`: PE parsing, GoReSym integration, disassembly, call graph construction, and lightweight argument/string recovery.
 - `gobbler.passes.*`: semantic analysis passes.
-- `scripts/llm_verdict.py`: OpenRouter verdict script for one Gobbler JSON report.
-- `scripts/run_eval.py`: labeled clean/dirty eval runner.
+- `scripts/analyze.py`: minimal direct script for analyzing every file in a directory.
+- `scripts/eval.py`: minimal direct script for running LLM verdicts over analysis JSON files.
+- `gobbler.passes.llm_verdict`: reusable LLM verdict pass used by `scripts/eval.py`.
+- `gobbler.llm.provider`: replaceable LLM provider hook. Replace `complete_json()` to use another OpenAI-style or custom provider.
 - `scripts/clean_corpus_builder.py`: clean corpus builder.
 
 ## Analysis Pipeline
@@ -51,9 +53,12 @@ Current semantic passes include:
 - `constants.py`: extracts referenced constants, byte arrays, string-like data, and large copy sources.
 - `dataflow.py`: tracks simple value/data references and resolves array/blob sources.
 - `behavior_ir.py`: turns calls and low-level operations into behavior operations.
-- `semantic.py`: scans reachable functions for suspicious blobs, data transformers, loader behavior, embedded payloads, indirect calls, and PE imports.
+- `semantic.py`: scans reachable functions for notable static data regions, data transformers, loader behavior, embedded artifacts, indirect calls, and PE imports.
 - `runtime_decoding.py`: identifies likely runtime string/data decoders and recovered indicators.
 - `decryption.py`: conservatively attempts XOR recovery and identifies AES candidates.
+- `artifact_classifier.py`: classifies notable static data, embedded artifact sources, and decoded artifacts with magic, entropy, strings, and optional Magika output.
+- `go_types.py`: extracts package/type/receiver metadata from GoReSym and function symbols.
+- `sink_args.py`: summarizes evaluator-facing system sinks and visible arguments/artifacts.
 - `semantic_chains.py`: connects sources, transformations, and sinks into behavior chains.
 - `behavior_story.py`: builds an evaluator-facing behavior flow and narrative.
 - `interesting.py`: scores user functions that are likely relevant to analysis.
@@ -68,4 +73,3 @@ Current semantic passes include:
 - `evaluator`: smaller report used for eval and LLM verdicts. It keeps behavior, payload, decoding, loader, chain, timing, and assessment evidence while dropping lower-value debug sections.
 
 The text report is always written from the full in-memory analysis.
-

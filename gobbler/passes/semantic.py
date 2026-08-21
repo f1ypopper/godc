@@ -156,10 +156,12 @@ class SemanticScanner:
         self._timed("scan_reachable_functions", self._scan_reachable_functions)
         mid_function_transfers = self._timed("mid_function_control_transfers", self._mid_function_control_transfers)
         indirect_calls = self._timed("indirect_calls", self._indirect_calls)
-        blobs = self._timed("suspicious_data_blobs", self._suspicious_data_blobs)
+        blobs = self._timed("notable_data_blobs", self._notable_data_blobs)
         transformers = self._timed("data_transformers", lambda: self._data_transformers(blobs))
         loaders = self._timed("loader_behaviors", lambda: self._loader_behaviors(transformers))
-        payloads = self._timed("embedded_payloads", lambda: self._embedded_payloads(blobs, transformers, loaders))
+        embedded_artifacts = self._timed(
+            "embedded_artifacts", lambda: self._embedded_artifacts(blobs, transformers, loaders)
+        )
 
         return {
             "binary_info": self.analyzer.binary_view.info(),
@@ -167,15 +169,15 @@ class SemanticScanner:
             "pe_imports": pe_imports(self.analyzer.binary),
             "mid_function_control_transfers": mid_function_transfers,
             "indirect_calls": indirect_calls,
-            "suspicious_data_blobs": blobs,
+            "notable_data_blobs": blobs,
             "data_transformers": transformers,
             "loader_behaviors": loaders,
-            "embedded_payloads": payloads,
+            "embedded_artifacts": embedded_artifacts,
             "assessment_hints": assessment_hints(
                 blobs,
                 transformers,
                 loaders,
-                payloads,
+                embedded_artifacts,
                 mid_function_transfers,
                 indirect_calls,
             ),
@@ -421,7 +423,7 @@ class SemanticScanner:
             calls.append(indirect_call_to_dict(call))
         return sorted(calls, key=lambda item: (item["function"], int(item["address"], 16)))
 
-    def _suspicious_data_blobs(self) -> list[dict[str, Any]]:
+    def _notable_data_blobs(self) -> list[dict[str, Any]]:
         blobs: list[dict[str, Any]] = []
         referenced_chunks = self._referenced_chunks()
         large_copy_sources = {copy.source for copy in self.large_copies if copy.source is not None}
@@ -677,20 +679,20 @@ class SemanticScanner:
             ),
         }
 
-    def _embedded_payloads(
+    def _embedded_artifacts(
         self,
         blobs: list[dict[str, Any]],
         transformers: list[dict[str, Any]],
         loaders: list[dict[str, Any]],
     ) -> list[dict[str, Any]]:
-        payloads = []
+        artifacts = []
         if not blobs or not loaders:
-            return payloads
+            return artifacts
         reflective_loaders = [
             loader for loader in loaders if loader["kind"] in {"reflective_pe_loader", "reflective_elf_loader", "dynamic_code_loader"}
         ]
         if not reflective_loaders:
-            return payloads
+            return artifacts
 
         for blob in blobs[:8]:
             reasons = set(blob.get("reasons") or [])
@@ -699,24 +701,24 @@ class SemanticScanner:
                 item["function"] for item in transformers if blob["id"] in item.get("input_sources", [])
             ]
             has_large_copy = "large_copy_source" in reasons
-            has_payload_magic = bool(magic & {"MZ", "PE", "ELF"})
+            has_executable_magic = bool(magic & {"MZ", "PE", "ELF"})
             has_archive_magic = bool(magic & {"PK", "gzip", "zlib"})
             has_transformer_consumer = bool(related_transformers)
             if not blob["referenced_by"] and not has_large_copy:
                 continue
-            if blob["entropy"] < HIGH_ENTROPY_THRESHOLD and not has_large_copy and not has_payload_magic:
+            if blob["entropy"] < HIGH_ENTROPY_THRESHOLD and not has_large_copy and not has_executable_magic:
                 continue
             if not (
                 has_large_copy
-                or has_payload_magic
+                or has_executable_magic
                 or (has_archive_magic and has_transformer_consumer)
                 or loader_consumes_transformer(reflective_loaders, related_transformers)
             ):
                 continue
-            payloads.append(
+            artifacts.append(
                 {
-                    "kind": "encrypted_or_encoded_embedded_payload",
-                    "confidence": payload_confidence(has_payload_magic, has_large_copy, related_transformers),
+                    "kind": "encoded_or_encrypted_embedded_artifact",
+                    "confidence": embedded_artifact_confidence(has_executable_magic, has_large_copy, related_transformers),
                     "source_blob": blob["id"],
                     "source": {
                         "section": blob["section"],
@@ -727,14 +729,14 @@ class SemanticScanner:
                     "transformers": related_transformers,
                     "loaders": [item["function"] for item in reflective_loaders],
                     "evidence": [
-                        "suspicious data blob is connected to loader-relevant behavior",
+                        "static data blob is connected to loader-relevant behavior",
                     ]
-                    + (["blob has executable payload magic"] if has_payload_magic else [])
+                    + (["blob has executable file magic"] if has_executable_magic else [])
                     + (["blob is copied in a large contiguous transfer"] if has_large_copy else [])
                     + (["blob is consumed by byte transformation code"] if related_transformers else []),
                 }
             )
-        return payloads
+        return artifacts
 
 
 def analyze_semantics(analyzer: Any, graph: dict[str, list[Any]]) -> dict[str, Any]:
@@ -754,19 +756,23 @@ def analyze_semantics(analyzer: Any, graph: dict[str, list[Any]]) -> dict[str, A
     from gobbler.passes.behavior_graph import build_behavior_graph
     from gobbler.passes.behavior_ir import build_behavior_ir
     from gobbler.passes.behavior_story import build_behavior_story
+    from gobbler.passes.artifact_classifier import analyze_artifacts
     from gobbler.passes.cfg import analyze_cfg
     from gobbler.passes.constants import analyze_constants
     from gobbler.passes.dataflow import analyze_dataflow
     from gobbler.passes.decryption import analyze_decryption_recovery
+    from gobbler.passes.go_types import analyze_go_types
     from gobbler.passes.indicator_consumers import attach_indicator_consumers
     from gobbler.passes.interesting import rank_interesting_functions
     from gobbler.passes.runtime_decoding import analyze_runtime_decoding
     from gobbler.passes.semantic_chains import build_semantic_chains
+    from gobbler.passes.sink_args import analyze_sink_args
 
     global_constants, _arrays = timed("constants", lambda: analyze_constants(analyzer, graph))
     semantics["global_constants"] = global_constants
     semantics["dataflow"] = timed("dataflow", lambda: analyze_dataflow(analyzer, graph, semantics))
     semantics["cfg"] = timed("cfg", lambda: analyze_cfg(analyzer, graph))
+    semantics["go_types"] = timed("go_types", lambda: analyze_go_types(analyzer))
     semantics["interesting_functions"] = timed(
         "interesting_functions", lambda: rank_interesting_functions(graph, semantics)
     )
@@ -785,9 +791,15 @@ def analyze_semantics(analyzer: Any, graph: dict[str, list[Any]]) -> dict[str, A
     semantics["decryption_recovery"] = timed(
         "decryption_recovery", lambda: analyze_decryption_recovery(analyzer, semantics)
     )
+    semantics["artifact_classification"] = timed(
+        "artifact_classification", lambda: analyze_artifacts(analyzer, semantics)
+    )
     semantics = timed("indicator_consumers", lambda: attach_indicator_consumers(graph, semantics))
     semantics["behavior_story"] = timed(
         "behavior_story", lambda: build_behavior_story(graph, semantics)
+    )
+    semantics["sink_args"] = timed(
+        "sink_args", lambda: analyze_sink_args(graph, semantics)
     )
     semantics["analysis_timing"] = {
         "total_seconds": round(time.monotonic() - total_started, 3),
@@ -1282,12 +1294,12 @@ def loader_consumes_transformer(loaders: list[dict[str, Any]], transformers: lis
     return any(transformer_set & set(loader.get("called_transformers") or []) for loader in loaders)
 
 
-def payload_confidence(
-    has_payload_magic: bool,
+def embedded_artifact_confidence(
+    has_executable_magic: bool,
     has_large_copy: bool,
     related_transformers: list[str],
 ) -> str:
-    score = int(has_payload_magic) + int(has_large_copy) + int(bool(related_transformers))
+    score = int(has_executable_magic) + int(has_large_copy) + int(bool(related_transformers))
     return confidence(score + 1)
 
 
@@ -1307,7 +1319,7 @@ def classify_loader(hints: set[str]) -> str:
         return "dynamic_api_resolution"
     if "raw_syscall" in hints:
         return "native_api_usage"
-    return "suspicious_runtime_behavior"
+    return "runtime_behavior_pattern"
 
 
 def is_library_function(function: str) -> bool:
@@ -1377,7 +1389,7 @@ def assessment_hints(
     ):
         hints.append("Reachable code transfers control into the middle of another known function, which may indicate helper stubs, tail jumps, or obfuscation.")
     if blobs:
-        hints.append("Reachable code references suspicious high-entropy or magic-containing data blobs.")
+        hints.append("Reachable code references high-entropy, magic-containing, or large-copy static data regions.")
     if any(
         call["classification"]
         in {
@@ -1391,11 +1403,11 @@ def assessment_hints(
     if transformers:
         hints.append("Reachable functions contain byte transformation loops that may encode/decode data or generate/fill buffers at runtime.")
     if any(loader["kind"] == "reflective_pe_loader" for loader in loaders):
-        hints.append("The binary contains behavior consistent with manual PE loading or reflective payload execution.")
+        hints.append("Reachable code parses PE headers and uses dynamic loading or executable-memory APIs.")
     elif any(loader["kind"] == "reflective_elf_loader" for loader in loaders):
-        hints.append("The binary contains behavior consistent with manual ELF loading or reflective payload execution.")
+        hints.append("Reachable code parses ELF headers and uses dynamic loading or executable-memory APIs.")
     elif any(loader["kind"] == "dynamic_code_loader" for loader in loaders):
-        hints.append("The binary contains behavior consistent with dynamic code allocation and execution.")
+        hints.append("Reachable code uses dynamic code allocation or execution-related APIs.")
     if payloads:
-        hints.append("A likely embedded encrypted or encoded payload is present, but plaintext recovery is not required for the behavioral finding.")
+        hints.append("An embedded static artifact is connected to transformation and loader-relevant behavior.")
     return hints

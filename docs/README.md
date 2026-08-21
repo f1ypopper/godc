@@ -1,6 +1,6 @@
 # Gobbler Documentation
 
-Gobbler is a static semantic analyzer for Go binaries. Its main goal is to turn a compiled Go executable into structured behavior evidence that a human analyst or LLM can use to decide whether the sample is clean, suspicious, or dirty.
+Gobbler is a static semantic analyzer for Go binaries. Its main goal is to turn a compiled Go executable into structured behavior evidence that a human analyst or LLM can use to decide whether the sample is clean, dirty, or unknown.
 
 The project currently supports x86-64 Go binaries in PE and ELF formats. It uses GoReSym for Go metadata, LIEF for binary parsing, Capstone for disassembly, and a set of local semantic passes to recover behavior-oriented facts.
 
@@ -18,6 +18,6 @@ The project currently supports x86-64 Go binaries in PE and ELF formats. It uses
 1. Gobbler runs GoReSym on the binary to recover Go functions, strings, and runtime metadata.
 2. It disassembles reachable user functions with Capstone.
 3. It builds a filtered call graph from `main.main` plus fallback entry roots.
-4. It runs semantic passes that detect behavior: file/network/process APIs, data transformations, runtime decoding, embedded payloads, loader behavior, and recovered indicators.
+4. It runs semantic passes that detect behavior: file/network/process APIs, data transformations, runtime decoding, embedded artifacts, loader behavior, and recovered indicators.
 5. It writes a JSON report and a human-readable text report.
-6. Optional eval tooling sends a compact evaluator view of the JSON to an OpenRouter model and records verdicts, reasoning, indicators, behavioral summaries, token usage, cost, and metrics.
+6. Optional eval tooling sends a compact evaluator view of the JSON to an OpenRouter model and writes per-sample verdict JSON files.

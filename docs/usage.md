@@ -106,7 +106,7 @@ Find samples with a feature:
 .venv/bin/python -m gobbler.cli corpus find runtime_decoding --out output
 ```
 
-The feature index is mainly used to find samples that exhibit a behavior such as string decoding, embedded payloads, loader behavior, suspicious network use, or process execution.
+The feature index is mainly used to find samples that exhibit a behavior such as string decoding, embedded artifacts, loader behavior, network use, or process execution.
 
 ## Diff Two Analysis Outputs
 

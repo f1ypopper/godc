@@ -69,7 +69,7 @@ class DataflowContext:
         self.semantics = semantics
         self.arrays = (semantics.get("global_constants") or {}).get("constant_arrays") or []
         self.strings = (semantics.get("global_constants") or {}).get("global_strings") or []
-        self.blobs = semantics.get("suspicious_data_blobs") or []
+        self.blobs = semantics.get("notable_data_blobs") or []
         self.array_ranges = sorted(
             (int(array["va"], 16), int(array["va"], 16) + int(array["size"], 16), array)
             for array in self.arrays

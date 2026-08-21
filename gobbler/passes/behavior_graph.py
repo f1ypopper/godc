@@ -80,12 +80,12 @@ class BehaviorGraphBuilder:
     def build(self) -> dict[str, Any]:
         self._add_call_behavior()
         self._add_constants()
-        self._add_suspicious_blobs()
+        self._add_notable_blobs()
         self._add_dataflow()
         self._add_cfg()
         self._add_transformers()
         self._add_loader_behaviors()
-        self._add_embedded_payloads()
+        self._add_embedded_artifacts()
         self._add_indirect_calls()
         return {
             "nodes": list(self.nodes.values()),
@@ -219,10 +219,10 @@ class BehaviorGraphBuilder:
                 function_id = self._function_node(function)
                 self._add_edge(string_id, function_id, "referenced_by")
 
-    def _add_suspicious_blobs(self) -> None:
-        for blob in self.semantics.get("suspicious_data_blobs") or []:
+    def _add_notable_blobs(self) -> None:
+        for blob in self.semantics.get("notable_data_blobs") or []:
             blob_id = f"blob:{blob['id']}"
-            tags = ["suspicious_data_blob"] + blob.get("reasons", [])
+            tags = ["notable_data_blob"] + blob.get("reasons", [])
             self._add_node(
                 blob_id,
                 "data_blob",
@@ -373,21 +373,21 @@ class BehaviorGraphBuilder:
                 transformer_id = self._function_node(transformer, ["data_transformer"])
                 self._add_edge(transformer_id, loader_id, "feeds_loader")
 
-    def _add_embedded_payloads(self) -> None:
-        for index, payload in enumerate(self.semantics.get("embedded_payloads") or []):
-            payload_id = f"payload:{index}"
+    def _add_embedded_artifacts(self) -> None:
+        for index, payload in enumerate(self.semantics.get("embedded_artifacts") or []):
+            payload_id = f"embedded_artifact:{index}"
             self._add_node(
                 payload_id,
                 "artifact",
                 payload["kind"],
-                ["embedded_payload", f"confidence:{payload['confidence']}"],
+                ["embedded_artifact", f"confidence:{payload['confidence']}"],
                 payload,
             )
             source_blob = payload.get("source_blob")
             if source_blob:
                 blob_id = f"blob:{source_blob}"
                 if blob_id in self.nodes:
-                    self._add_edge(blob_id, payload_id, "source_for_payload")
+                    self._add_edge(blob_id, payload_id, "source_for_embedded_artifact")
             for transformer in payload.get("transformers", []):
                 transformer_id = self._function_node(transformer, ["data_transformer"])
                 self._add_edge(transformer_id, payload_id, "transforms_into")
@@ -399,7 +399,7 @@ class BehaviorGraphBuilder:
                     and node["metadata"].get("function") == loader
                 ]
                 for loader_id in loader_targets:
-                    self._add_edge(payload_id, loader_id, "loaded_or_executed_by")
+                    self._add_edge(payload_id, loader_id, "passed_to_loader")
 
     def _add_indirect_calls(self) -> None:
         for call in self.semantics.get("indirect_calls") or []:

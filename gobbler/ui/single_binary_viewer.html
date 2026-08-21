@@ -339,7 +339,7 @@
         }
       }
 
-      for (const blob of sem.suspicious_data_blobs || []) {
+      for (const blob of sem.notable_data_blobs || []) {
         const nodeId = `data:${blob.id}`;
         addNode(nodeId, "data", blob.id, { source: blob });
         for (const fn of blob.referenced_by || []) {
@@ -421,8 +421,9 @@
         for (const artifact of action.artifacts || []) {
           const value = artifact.value || artifact.type || "artifact";
           const artifactId = `artifact:${artifact.type}:${value}`;
-          addNode(artifactId, artifact.type === "embedded_payload" ? "data" : "indicator", value, { artifact });
-          addEdge(sinkId, artifactId, artifact.type === "embedded_payload" ? "data" : "indicator", artifact.type, artifact);
+          const artifactNodeType = artifact.type === "embedded_artifact" ? "data" : "indicator";
+          addNode(artifactId, artifactNodeType, value, { artifact });
+          addEdge(sinkId, artifactId, artifactNodeType, artifact.type, artifact);
         }
       }
 
@@ -524,7 +525,7 @@
         pill("custom decoders", rs.custom_decoder_candidate_count || 0),
         pill("explicit decoders", rs.explicit_decoder_api_count || 0),
         pill("loaders", (sem.loader_behaviors || []).length),
-        pill("blobs", (sem.suspicious_data_blobs || []).length),
+        pill("blobs", (sem.notable_data_blobs || []).length),
         pill("indicators", rs.recovered_indicator_count || 0),
         pill("timing", timing.total_seconds ? `${timing.total_seconds}s` : "n/a")
       ].join("");

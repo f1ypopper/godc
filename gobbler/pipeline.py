@@ -66,21 +66,24 @@ def serializable_for_profile(document: dict[str, Any], output_profile: str) -> d
     semantics = document.get("semantic_analysis") or {}
     keep_semantic_keys = {
         "analysis_timing",
+        "artifact_classification",
         "assessment_hints",
         "binary_info",
         "behavior_ir",
         "behavior_story",
         "data_transformers",
         "decryption_recovery",
-        "embedded_payloads",
+        "embedded_artifacts",
+        "go_types",
         "interesting_functions",
         "imports",
         "loader_behaviors",
+        "notable_data_blobs",
         "pe_imports",
         "runtime_decoding",
         "scanner_timing",
         "semantic_chains",
-        "suspicious_data_blobs",
+        "sink_args",
     }
     return {
         "call_graph": document.get("call_graph", {}),

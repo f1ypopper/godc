@@ -230,7 +230,7 @@ class BehaviorIRBuilder:
                 "reasons": item.get("reasons", []),
                 "magic_offsets": item.get("magic_offsets", []),
             }
-            for item in self.semantics.get("suspicious_data_blobs") or []
+            for item in self.semantics.get("notable_data_blobs") or []
             if function_name in item.get("referenced_by", [])
         ]
         return {

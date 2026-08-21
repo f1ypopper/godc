@@ -141,7 +141,7 @@ def format_behavior_story_summary(semantics: dict[str, Any]) -> list[str]:
         f"network={summary.get('network_action_count', 0)} "
         f"filesystem={summary.get('filesystem_action_count', 0)} "
         f"process_or_execution={summary.get('process_or_execution_action_count', 0)} "
-        f"payload={summary.get('payload_action_count', 0)}"
+        f"embedded_artifacts={summary.get('embedded_artifact_action_count', 0)}"
     )
     narrative = story.get("narrative") or []
     if narrative:
@@ -152,7 +152,7 @@ def format_behavior_story_summary(semantics: dict[str, Any]) -> list[str]:
     artifacts = story.get("artifacts") or {}
     if artifacts:
         lines.append("    artifacts:")
-        for key in ("urls", "commands", "paths", "files", "payloads", "decoded_artifacts"):
+        for key in ("urls", "commands", "paths", "files", "embedded_artifacts", "decoded_artifacts"):
             values = artifacts.get(key) or []
             if not values:
                 continue
@@ -748,9 +748,9 @@ def format_semantics(semantics: dict[str, Any]) -> str:
                 f"entropy={array['entropy']} reasons={','.join(array['reasons'])}{dump_path}"
             )
 
-    blobs = semantics.get("suspicious_data_blobs") or []
+    blobs = semantics.get("notable_data_blobs") or []
     if blobs:
-        lines.append("  suspicious_data_blobs:")
+        lines.append("  notable_data_blobs:")
         for blob in blobs[:10]:
             refs = ", ".join(blob["referenced_by"]) or "<none>"
             duplicates = (
@@ -875,7 +875,7 @@ def format_semantics(semantics: dict[str, Any]) -> str:
         for item in interesting
         if is_app_function(item.get("function", ""))
         or any(
-            reason.startswith(("transforms_embedded_payload", "loads_or_executes"))
+            reason.startswith(("transforms_embedded_artifact", "passes_embedded_artifact_to_loader"))
             for reason in item.get("reasons", [])
         )
     ]
@@ -902,8 +902,8 @@ def format_semantics(semantics: dict[str, Any]) -> str:
             in {
                 "input_to_transformer",
                 "transforms_into",
-                "source_for_payload",
-                "loaded_or_executed_by",
+                "source_for_embedded_artifact",
+                "passed_to_loader",
                 "feeds_loader",
                 "invokes_behavior",
             }

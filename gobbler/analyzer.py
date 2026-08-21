@@ -558,9 +558,9 @@ def format_semantics(semantics: dict[str, Any]) -> str:
                 f"evidence={'; '.join(indirect_call['evidence'])}"
             )
 
-    blobs = semantics.get("suspicious_data_blobs") or []
+    blobs = semantics.get("notable_data_blobs") or []
     if blobs:
-        lines.append("  suspicious_data_blobs:")
+        lines.append("  notable_data_blobs:")
         for blob in blobs[:10]:
             refs = ", ".join(blob["referenced_by"]) or "<none>"
             lines.append(

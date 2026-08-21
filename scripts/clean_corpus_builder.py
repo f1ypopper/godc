@@ -10,11 +10,10 @@ import shutil
 import subprocess
 import sys
 import time
-import urllib.error
-import urllib.parse
-import urllib.request
 from pathlib import Path
 from typing import Any
+
+import requests
 
 
 DEFAULT_CONFIG = Path("corpus/clean_config.json")
@@ -281,10 +280,14 @@ def download_gobinaries(
             records.append(record_for_existing(output_path, item, "gobinaries", args, collected_at, download_url=url))
             continue
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "gobbler-clean-corpus-builder/1.0"})
-            with urllib.request.urlopen(request, timeout=args.timeout) as response:
-                data = response.read()
-        except urllib.error.URLError as exc:
+            response = requests.get(
+                url,
+                headers={"User-Agent": "gobbler-clean-corpus-builder/1.0"},
+                timeout=args.timeout,
+            )
+            response.raise_for_status()
+            data = response.content
+        except requests.RequestException as exc:
             print(f"failed gobinaries {name}: {exc}", file=sys.stderr)
             continue
         output_path.write_bytes(data)
@@ -374,8 +377,12 @@ def print_manifest_summary(path: Path) -> None:
 
 def gobinaries_url(package: str, version: str, goos: str, goarch: str) -> str:
     package = package if package.startswith("github.com/") or "." in package.split("/", 1)[0] else f"github.com/{package}"
-    query = urllib.parse.urlencode({"os": goos, "arch": goarch, "version": version})
-    return f"https://gobinaries.com/binary/{package}?{query}"
+    request = requests.Request(
+        "GET",
+        f"https://gobinaries.com/binary/{package}",
+        params={"os": goos, "arch": goarch, "version": version},
+    ).prepare()
+    return request.url or f"https://gobinaries.com/binary/{package}"
 
 
 def binary_filename(name: str, goos: str) -> str:

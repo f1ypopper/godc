@@ -1,29 +1,14 @@
-#!/usr/bin/env python3
-"""
-Send a Gobbler JSON report to an OpenRouter model for malware triage.
-
-The script uses only Python stdlib modules. Set OPENROUTER_API_KEY before running:
-
-    OPENROUTER_API_KEY=... python3 scripts/llm_verdict.py output/sample.json
-
-The model is intentionally overrideable because OpenRouter model IDs are the
-unit of comparison for evals:
-
-    python3 scripts/llm_verdict.py output/sample.json --model google/gemini-2.5-flash
-"""
+"""LLM verdict pass for Gobbler analysis JSON."""
 
 from __future__ import annotations
 
-import argparse
 import json
-import os
 import re
-import sys
 import textwrap
-import urllib.error
-import urllib.request
 from pathlib import Path
 from typing import Any
+
+from gobbler.llm.provider import CompleteJSONFn, LLMConfig, complete_json
 
 
 DEFAULT_MODEL = "google/gemini-2.5-flash"
@@ -81,86 +66,43 @@ LOW_LEVEL_EXECUTION_KINDS = {
     "thread_creation",
 }
 
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Send one Gobbler output JSON to an OpenRouter model and return a "
-            "strict JSON verdict."
-        ),
-        epilog=(
-            "Uses OPENROUTER_API_KEY. Default endpoint follows OpenRouter's "
-            "OpenAI-compatible chat completions API, but --model and --endpoint "
-            "are configurable."
-        ),
-    )
-    parser.add_argument("input_json", type=Path, help="Path to a Gobbler output JSON file.")
-    parser.add_argument("--out", type=Path, help="Optional path to write the verdict JSON.")
-    parser.add_argument(
-        "--model",
-        default=DEFAULT_MODEL,
-        help=f"OpenRouter model slug to use. Default: {DEFAULT_MODEL}",
-    )
-    parser.add_argument(
-        "--endpoint",
-        default=DEFAULT_ENDPOINT,
-        help=f"OpenRouter chat completions endpoint. Default: {DEFAULT_ENDPOINT}",
-    )
-    parser.add_argument(
-        "--api-key-env",
-        default="OPENROUTER_API_KEY",
-        help="Environment variable containing the OpenRouter API key. Default: OPENROUTER_API_KEY",
-    )
-    parser.add_argument(
-        "--http-referer",
-        default=os.environ.get("OPENROUTER_HTTP_REFERER", ""),
-        help="Optional OpenRouter HTTP-Referer attribution header.",
-    )
-    parser.add_argument(
-        "--app-title",
-        default=os.environ.get("OPENROUTER_APP_TITLE", DEFAULT_APP_TITLE),
-        help=f"Optional OpenRouter X-OpenRouter-Title header. Default: {DEFAULT_APP_TITLE}",
-    )
-    parser.add_argument(
-        "--temperature",
-        type=float,
-        default=0.1,
-        help="Model temperature. Default: 0.1",
-    )
-    parser.add_argument(
-        "--max-tokens",
-        type=int,
-        default=1400,
-        help="Maximum response tokens. Default: 1400",
-    )
-    parser.add_argument(
-        "--no-json-mode",
-        action="store_true",
-        help="Do not send response_format=json_object.",
-    )
-    parser.add_argument(
-        "--timeout",
-        type=float,
-        default=90.0,
-        help="HTTP timeout in seconds. Default: 90",
-    )
-    parser.add_argument(
-        "--env-file",
-        type=Path,
-        default=Path(".env"),
-        help="Optional .env file used for OPENROUTER_API_KEY if not already set.",
-    )
-    parser.add_argument(
-        "--max-prompt-json-chars",
-        type=int,
-        default=MAX_PROMPT_JSON_CHARS,
-        help=(
-            "Maximum characters of compacted Gobbler evidence to include in "
-            f"the prompt. Default: {MAX_PROMPT_JSON_CHARS}"
-        ),
-    )
-    return parser.parse_args()
-
+VERDICT_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "verdict": {"type": "string", "enum": ["clean", "dirty", "unknown"]},
+        "behavioral_summary": {"type": "string"},
+        "reasoning": {"type": "array", "items": {"type": "string"}},
+        "key_behaviors": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": True,
+                "properties": {
+                    "kind": {"type": "string"},
+                    "description": {"type": "string"},
+                    "evidence": {"type": "array", "items": {"type": "string"}},
+                },
+            },
+        },
+        "indicators": {
+            "type": "object",
+            "additionalProperties": True,
+            "properties": {
+                "urls": {"type": "array", "items": {"type": "string"}},
+                "domains": {"type": "array", "items": {"type": "string"}},
+                "ips": {"type": "array", "items": {"type": "string"}},
+                "paths": {"type": "array", "items": {"type": "string"}},
+                "commands": {"type": "array", "items": {"type": "string"}},
+                "mutexes": {"type": "array", "items": {"type": "string"}},
+                "embedded_artifacts": {"type": "array", "items": {"type": "string"}},
+                "other": {"type": "array", "items": {"type": "string"}},
+            },
+        },
+        "caveats": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["verdict", "behavioral_summary", "reasoning", "key_behaviors", "indicators", "caveats"],
+}
 
 def take(items: Any, limit: int) -> list[Any]:
     if not isinstance(items, list):
@@ -375,7 +317,7 @@ def compact_behavior_story(story: Any) -> dict[str, Any]:
     }
 
 
-def compact_embedded_payloads(payloads: Any) -> list[dict[str, Any]]:
+def compact_embedded_artifacts(payloads: Any) -> list[dict[str, Any]]:
     out = []
     for payload in take(payloads, 10):
         if not isinstance(payload, dict):
@@ -441,7 +383,7 @@ def blob_prompt_score(blob: dict[str, Any]) -> float:
     )
 
 
-def compact_payload_blobs(blobs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def compact_static_data_blobs(blobs: list[dict[str, Any]]) -> list[dict[str, Any]]:
     ranked = sorted(blobs, key=blob_prompt_score, reverse=True)
     out = []
     for blob in ranked[:3]:
@@ -472,31 +414,177 @@ def compact_interesting_functions(functions: Any) -> list[dict[str, Any]]:
     return out
 
 
+def compact_artifact_classification(artifacts: Any) -> dict[str, Any]:
+    if not isinstance(artifacts, dict):
+        return {}
+    return {
+        "summary": compact_artifact_summary(artifacts.get("summary")),
+        "embedded_artifacts": compact_classified_sources(artifacts.get("embedded_artifacts"), 2),
+        "notable_blobs": compact_classified_sources(artifacts.get("notable_blobs"), 2),
+        "decoded_artifacts": take(artifacts.get("decoded_artifacts"), 3),
+    }
+
+
+def compact_artifact_summary(summary: Any) -> dict[str, Any]:
+    if not isinstance(summary, dict):
+        return {}
+    return {
+        key: summary.get(key)
+        for key in (
+            "classified_notable_blob_count",
+            "classified_embedded_artifact_count",
+            "decoded_artifact_count",
+            "type_counts",
+            "magika_available",
+        )
+        if summary.get(key) not in (None, [], {})
+    }
+
+
+def compact_classified_sources(items: Any, limit: int) -> list[dict[str, Any]]:
+    out = []
+    for item in take(items, limit):
+        if not isinstance(item, dict):
+            continue
+        classification = item.get("artifact_classification") if isinstance(item.get("artifact_classification"), dict) else {}
+        compacted = {
+            key: item.get(key)
+            for key in ("id", "kind", "section", "size", "entropy", "confidence")
+            if item.get(key) is not None
+        }
+        compacted["classification"] = {
+            key: classification.get(key)
+            for key in ("type", "mime_type", "confidence", "signals", "entropy", "printable_ratio")
+            if classification.get(key) not in (None, [], {})
+        }
+        magic_offsets = take(classification.get("magic_offsets"), 3)
+        if magic_offsets:
+            compacted["classification"]["magic_offsets"] = magic_offsets
+        strings = take(classification.get("strings"), 3)
+        if strings:
+            compacted["classification"]["strings"] = strings
+        magika = classification.get("magika")
+        if isinstance(magika, dict) and magika:
+            compacted["classification"]["magika"] = magika
+        out.append(compacted)
+    return out
+
+
+def compact_go_types(go_types: Any) -> dict[str, Any]:
+    if not isinstance(go_types, dict):
+        return {}
+    return {
+        "summary": compact_go_type_summary(go_types.get("summary")),
+        "interesting_packages": [
+            package
+            for package in take(go_types.get("packages"), 8)
+            if isinstance(package, dict) and package.get("interesting_terms")
+        ][:4],
+        "interesting_types": compact_type_items(go_types.get("interesting_types"), 4),
+        "struct_like_types": compact_type_items(go_types.get("struct_like_types"), 2),
+        "interface_like_types": compact_type_items(go_types.get("interface_like_types"), 2),
+    }
+
+
+def compact_go_type_summary(summary: Any) -> dict[str, Any]:
+    if not isinstance(summary, dict):
+        return {}
+    return {
+        key: summary.get(key)
+        for key in (
+            "available",
+            "go_version",
+            "module_path",
+            "goos",
+            "goarch",
+            "extraction_sources",
+            "package_count",
+            "type_name_count",
+            "declared_type_record_count",
+            "struct_like_type_count",
+            "interface_like_type_count",
+            "interesting_type_count",
+            )
+        if summary.get(key) not in (None, [], {})
+    }
+
+
+def compact_type_items(items: Any, limit: int) -> list[dict[str, Any]]:
+    out = []
+    for item in take(items, limit):
+        if not isinstance(item, dict):
+            continue
+        out.append(
+            {
+                key: item.get(key)
+                for key in ("name", "kind", "matched_terms", "score")
+                if item.get(key) not in (None, [], {})
+            }
+        )
+    return out
+
+
+def compact_sink_args(sink_args: Any) -> dict[str, Any]:
+    if not isinstance(sink_args, dict):
+        return {}
+    return {
+        "summary": sink_args.get("summary", {}),
+        "sinks": [compact_sink(item) for item in take(sink_args.get("sinks"), 10) if isinstance(item, dict)],
+    }
+
+
+def compact_sink(item: dict[str, Any]) -> dict[str, Any]:
+    compacted = {
+        key: item.get(key)
+        for key in ("function", "target", "kind", "category", "address", "operation_summary")
+        if item.get(key) not in (None, [], {})
+    }
+    arg_roles = item.get("arg_roles")
+    if isinstance(arg_roles, dict) and arg_roles:
+        compacted["arg_roles"] = compact_value(arg_roles, 180)
+    strings = take(item.get("strings"), 5)
+    if strings:
+        compacted["strings"] = strings
+    artifacts = take(item.get("artifacts"), 5)
+    if artifacts:
+        compacted["artifacts"] = artifacts
+    args = item.get("args")
+    if isinstance(args, dict) and args:
+        compacted["args"] = compact_value(args, 160)
+    data_sources = take(item.get("data_sources"), 2)
+    if data_sources:
+        compacted["data_sources"] = data_sources
+    evidence = take(item.get("evidence"), 5)
+    if evidence:
+        compacted["evidence"] = evidence
+    return compacted
+
+
 def build_evaluator_view(report: dict[str, Any], input_path: Path) -> dict[str, Any]:
     semantic = report.get("semantic_analysis") if isinstance(report.get("semantic_analysis"), dict) else {}
     call_graph = report.get("call_graph") if isinstance(report.get("call_graph"), dict) else {}
 
-    embedded_payloads = semantic.get("embedded_payloads") or []
+    embedded_artifacts = semantic.get("embedded_artifacts") or []
     loader_behaviors = semantic.get("loader_behaviors") or []
     decryption_recovery = semantic.get("decryption_recovery") or {}
     decryption_summary = decryption_recovery.get("summary") if isinstance(decryption_recovery, dict) else {}
     payload_context = bool(
-        embedded_payloads
+        embedded_artifacts
         or loader_behaviors
         or (isinstance(decryption_summary, dict) and decryption_summary.get("xor_recovered_artifact_count"))
         or (isinstance(decryption_summary, dict) and decryption_summary.get("aes_decrypted_artifact_count"))
     )
 
-    suspicious_blobs = semantic.get("suspicious_data_blobs") or []
-    payload_blobs = []
-    for blob in take(suspicious_blobs, 40):
+    notable_blobs = semantic.get("notable_data_blobs") or []
+    notable_artifact_blobs = []
+    for blob in take(notable_blobs, 40):
         if not isinstance(blob, dict):
             continue
         magic = blob.get("magic_offsets") or []
         reasons = blob.get("reasons") or []
         is_large_payload_candidate = "large_copy_source" in reasons
         if payload_context or is_large_payload_candidate:
-            payload_blobs.append(
+            notable_artifact_blobs.append(
                 {
                     "id": blob.get("id"),
                     "section": blob.get("section"),
@@ -512,21 +600,26 @@ def build_evaluator_view(report: dict[str, Any], input_path: Path) -> dict[str, 
         "input_file": str(input_path),
         "behavior_story": compact_behavior_story(semantic.get("behavior_story") or {}),
         "top_level_summary": {
+            "binary_info": semantic.get("binary_info", {}),
             "call_graph_functions": len(call_graph),
             "behavior_ir": (semantic.get("behavior_ir") or {}).get("summary", {}),
             "semantic_chain_summary": (semantic.get("semantic_chains") or {}).get("summary", {}),
             "assessment_hints": filtered_assessment_hints(semantic.get("assessment_hints"), payload_context),
+            "imports": compact_value(semantic.get("imports") or {}, 500),
         },
         "decryption_recovery": compact_value(decryption_recovery or {}, 500),
+        "artifact_classification": compact_artifact_classification(semantic.get("artifact_classification")),
+        "go_types": compact_go_types(semantic.get("go_types")),
+        "sink_args": compact_sink_args(semantic.get("sink_args")),
         "behavior_operations": collect_behavior_ops(
             semantic.get("behavior_ir") or {},
             {item.get("function") for item in loader_behaviors if isinstance(item, dict) and item.get("function")},
         ),
         "semantic_chains": collect_chains(semantic.get("semantic_chains") or {}),
         "runtime_decoding": collect_runtime_decoding(semantic.get("runtime_decoding") or {}),
-        "embedded_payloads": compact_embedded_payloads(embedded_payloads),
+        "embedded_artifacts": compact_embedded_artifacts(embedded_artifacts),
         "loader_behaviors": compact_loader_behaviors(loader_behaviors),
-        "suspicious_payload_blobs": compact_payload_blobs(payload_blobs),
+        "notable_static_data": compact_static_data_blobs(notable_artifact_blobs),
         "behavior_strings": collect_strings(call_graph),
         "top_interesting_functions": compact_interesting_functions(semantic.get("interesting_functions")),
     }
@@ -553,34 +646,48 @@ def build_prompt(evidence: dict[str, Any], max_chars: int) -> str:
     evidence_json = truncate_json_for_prompt(evidence, max_chars)
     return textwrap.dedent(
         f"""
-        You are a malware triage evaluator reviewing Gobbler semantic output for a Go binary.
+        You are a binary behavior evaluator reviewing Gobbler semantic output for a Go binary.
 
-        Decide whether the binary is clean, suspicious, dirty, or unknown. Focus on what the
+        Decide whether the binary is clean, dirty, or unknown. Focus on what the
         binary appears to do to the system: file I/O, network activity, process creation,
         command execution, memory execution, dynamic loading, persistence, decoded artifacts,
-        embedded payloads, and suspicious crypto/decoder use.
+        embedded static artifacts, and crypto/decoder use.
+
+        Do not use a middle-ground verdict. If the evidence shows behavior that would
+        normally make an analyst call the binary malicious or unwanted, return dirty. Use unknown
+        only when Gobbler output is too sparse, contradictory, or failed to expose meaningful
+        behavior. Use clean only for ordinary benign behavior without loader, persistence,
+        credential/secret, process-spawn, destructive file, or unusual network evidence.
 
         Also write a concise behavioral summary in execution order, starting from main or the
         earliest user-level entry point Gobbler exposes. Describe the flow as actions, not
         implementation mechanics. Include concrete recovered artifacts when available, such as
-        paths, URLs, commands, decoded payload names, PE loading, writes to disk, process
+        paths, URLs, commands, decoded artifact names, PE/ELF loading, writes to disk, process
         spawning, registry changes, or network calls. If ordering is uncertain, say so briefly
         while still summarizing the likely behavior.
 
         Ignore debug implementation details such as array IDs, addresses, Go runtime noise,
         stack checks, GC calls, and generic compiler artifacts unless they support a behavior.
-        Treat generic high-entropy Go data sections or incidental MZ/PE byte sequences as weak
-        evidence unless Gobbler also shows loader behavior, executable memory, decoded payloads,
-        or an embedded payload object tying the data to runtime behavior.
+        Use Gobbler fields as observations, not conclusions about intent. Treat generic high-entropy
+        Go data sections or incidental MZ/PE/ELF byte sequences as weak
+        evidence unless Gobbler also shows loader behavior, executable memory, decoded artifacts,
+        or an embedded artifact object tying the data to runtime behavior.
+
+        Return dirty for strong malicious-behavior combinations, including:
+        - reflective PE/ELF loading or manual executable mapping
+        - embedded executable/static artifact transformed and passed to loader-relevant code
+        - executable memory allocation/protection changes combined with raw syscalls or dynamic API resolution
+        - decoded payloads/configuration used with file, process, network, persistence, or loader behavior
+        - process execution, persistence, credential/secret artifacts, or destructive filesystem behavior with concrete arguments
 
         Return only valid JSON with this exact shape:
         {{
-          "verdict": "clean|suspicious|dirty|unknown",
+          "verdict": "clean|dirty|unknown",
           "behavioral_summary": "one short paragraph summarizing the likely execution flow from main",
           "reasoning": ["short reason 1", "short reason 2"],
           "key_behaviors": [
             {{
-              "kind": "file_io|network|process_execution|dynamic_code_loading|persistence|credential_access|runtime_decoding|embedded_payload|other",
+              "kind": "file_io|network|process_execution|dynamic_code_loading|persistence|credential_or_secret_artifact|runtime_decoding|embedded_artifact|other",
               "description": "what happened",
               "evidence": ["specific Gobbler facts"]
             }}
@@ -592,7 +699,7 @@ def build_prompt(evidence: dict[str, Any], max_chars: int) -> str:
             "paths": [],
             "commands": [],
             "mutexes": [],
-            "payloads": [],
+            "embedded_artifacts": [],
             "other": []
           }},
           "caveats": ["analysis limitations or uncertainty"]
@@ -602,54 +709,6 @@ def build_prompt(evidence: dict[str, Any], max_chars: int) -> str:
         {evidence_json}
         """
     ).strip()
-
-
-def call_openrouter(prompt: str, args: argparse.Namespace, api_key: str) -> dict[str, Any]:
-    payload = {
-        "model": args.model,
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": args.temperature,
-        "max_tokens": args.max_tokens,
-    }
-    if not args.no_json_mode:
-        payload["response_format"] = {"type": "json_object"}
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}",
-    }
-    if args.http_referer:
-        headers["HTTP-Referer"] = args.http_referer
-    if args.app_title:
-        headers["X-OpenRouter-Title"] = args.app_title
-
-    request = urllib.request.Request(
-        args.endpoint,
-        data=json.dumps(payload).encode("utf-8"),
-        headers=headers,
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=args.timeout) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"OpenRouter HTTP {exc.code}: {detail[:800]}") from exc
-
-
-def extract_response_text(response: dict[str, Any]) -> str:
-    choices = response.get("choices")
-    if not isinstance(choices, list) or not choices:
-        raise ValueError("OpenRouter response did not contain choices")
-    message = choices[0].get("message") if isinstance(choices[0], dict) else None
-    content = message.get("content") if isinstance(message, dict) else None
-    if isinstance(content, list):
-        text = "\n".join(str(part.get("text", "")) for part in content if isinstance(part, dict))
-    else:
-        text = str(content or "")
-    if not text:
-        raise ValueError("OpenRouter response did not contain message content")
-    return text
 
 
 def parse_model_json(text: str) -> dict[str, Any]:
@@ -672,7 +731,9 @@ def parse_model_json(text: str) -> dict[str, Any]:
 
 def normalize_verdict(result: dict[str, Any], model: str, provider: str, raw_response: dict[str, Any]) -> dict[str, Any]:
     verdict = str(result.get("verdict", "unknown")).lower()
-    if verdict not in {"clean", "suspicious", "dirty", "unknown"}:
+    if verdict == "suspicious":
+        verdict = "dirty"
+    if verdict not in {"clean", "dirty", "unknown"}:
         verdict = "unknown"
 
     indicators = result.get("indicators")
@@ -680,7 +741,7 @@ def normalize_verdict(result: dict[str, Any], model: str, provider: str, raw_res
         indicators = {}
     normalized_indicators = {
         key: take(indicators.get(key), 100)
-        for key in ("urls", "domains", "ips", "paths", "commands", "mutexes", "payloads", "other")
+        for key in ("urls", "domains", "ips", "paths", "commands", "mutexes", "embedded_artifacts", "other")
     }
     usage = raw_response.get("usage", {})
     cost = usage.get("cost") if isinstance(usage, dict) else None
@@ -703,55 +764,42 @@ def normalize_verdict(result: dict[str, Any], model: str, provider: str, raw_res
     }
 
 
+def analyze_llm_verdict(
+    report: dict[str, Any],
+    input_path: Path | str,
+    config: LLMConfig,
+    complete_fn: CompleteJSONFn | None = None,
+    max_prompt_json_chars: int = MAX_PROMPT_JSON_CHARS,
+    schema: dict[str, Any] | None = VERDICT_SCHEMA,
+) -> dict[str, Any]:
+    evidence = build_evaluator_view(report, Path(input_path))
+    prompt = build_prompt(evidence, max_prompt_json_chars)
+    completion = (complete_fn or complete_json)(prompt, config, schema)
+
+    parsed = completion.parsed_json
+    if not isinstance(parsed, dict):
+        parsed = parse_model_json(completion.text)
+
+    raw_response = completion.raw_response if isinstance(completion.raw_response, dict) else {}
+    usage = dict(completion.usage or {})
+    if completion.cost is not None:
+        usage.setdefault("cost", completion.cost)
+    if usage:
+        raw_response = {**raw_response, "usage": usage}
+    normalized = normalize_verdict(
+        parsed,
+        completion.model or config.model,
+        config.provider_name,
+        raw_response,
+    )
+    if completion.cost is not None:
+        normalized["cost"] = completion.cost
+    return normalized
+
+
 def write_output(result: dict[str, Any], out_path: Path | None) -> None:
     rendered = json.dumps(result, indent=2, sort_keys=True)
     if out_path:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(rendered + "\n", encoding="utf-8")
     print(rendered)
-
-
-def load_env_file(path: Path, key_name: str) -> None:
-    if os.environ.get(key_name) or not path.exists():
-        return
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, value = line.split("=", 1)
-        if key.strip() == key_name:
-            os.environ[key_name] = value.strip().strip("\"'")
-            return
-
-
-def main() -> int:
-    args = parse_args()
-    load_env_file(args.env_file, args.api_key_env)
-    api_key = os.environ.get(args.api_key_env)
-    if not api_key:
-        print(f"{args.api_key_env} is required", file=sys.stderr)
-        return 2
-
-    try:
-        report = json.loads(args.input_json.read_text(encoding="utf-8"))
-    except Exception as exc:
-        print(f"failed to read Gobbler JSON: {exc}", file=sys.stderr)
-        return 2
-
-    evidence = build_evaluator_view(report, args.input_json)
-    prompt = build_prompt(evidence, args.max_prompt_json_chars)
-
-    try:
-        response = call_openrouter(prompt, args, api_key)
-        text = extract_response_text(response)
-        result = normalize_verdict(parse_model_json(text), args.model, "openrouter", response)
-    except (urllib.error.URLError, RuntimeError, ValueError, json.JSONDecodeError) as exc:
-        print(f"LLM evaluation failed: {exc}", file=sys.stderr)
-        return 1
-
-    write_output(result, args.out)
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

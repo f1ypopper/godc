@@ -49,11 +49,14 @@ Important current sections:
 - `semantic_chains`: connected source-transform-sink chains.
 - `runtime_decoding`: likely runtime decoders and recovered indicators.
 - `decryption_recovery`: conservative XOR recovery and AES candidate information.
-- `data_transformers`: functions that likely transform byte/string/payload data.
-- `suspicious_data_blobs`: high-entropy, magic-containing, large-copy, or transformer-consumed data regions.
-- `embedded_payloads`: payload-like blobs tied to transformers or loader behavior.
+- `artifact_classification`: classifies notable static data and embedded artifact sources as PE, ELF, archive, script/text, or unknown binary; optionally includes Magika output when available.
+- `go_types`: Go package/type metadata and receiver-type hints recovered from GoReSym and function symbols.
+- `sink_args`: evaluator-facing summary of important system sinks and their visible strings, artifacts, arguments, and data sources.
+- `data_transformers`: functions that likely transform byte/string/static data.
+- `notable_data_blobs`: high-entropy, magic-containing, large-copy, or transformer-consumed data regions.
+- `embedded_artifacts`: embedded static data tied to transformers or loader-relevant behavior.
 - `loader_behaviors`: reflective loader, native API, dynamic import, executable memory, PE parsing, or ELF parsing behavior.
-- `pe_imports`: legacy PE import table summary from LIEF. New code should prefer `imports`.
+- `pe_imports`: PE import table summary from LIEF, kept as raw PE-specific context.
 - `interesting_functions`: scored user functions relevant to behavior review.
 - `assessment_hints`: short analysis hints for the evaluator.
 - `analysis_timing` and `scanner_timing`: performance timings.
@@ -69,10 +72,10 @@ Important current sections:
     "action_count": 2,
     "network_action_count": 0,
     "filesystem_action_count": 0,
-    "payload_action_count": 1
+    "embedded_artifact_action_count": 1
   },
   "narrative": [
-    "The binary contains embedded payload-like data that is transformed and/or loaded."
+    "The binary contains embedded static data connected to transformation and loader-relevant code."
   ],
   "execution_flow": [
     {
@@ -92,6 +95,34 @@ Important current sections:
 
 This section intentionally hides low-value array IDs and implementation details unless they explain recovered behavior.
 
+## Sink Arguments
+
+`sink_args` summarizes important system interactions and the concrete values visible near them:
+
+```json
+{
+  "summary": {
+    "sink_count": 3,
+    "sinks_with_arg_roles": 3
+  },
+  "sinks": [
+    {
+      "function": "main.main",
+      "category": "network",
+      "kind": "http_get",
+      "target": "net/http.Get",
+      "operation_summary": "network http_get via net/http.Get (urls=https://example.com/a; hosts=example.com)",
+      "arg_roles": {
+        "urls": ["https://example.com/a"],
+        "hosts": ["example.com"]
+      }
+    }
+  ]
+}
+```
+
+`arg_roles` groups recovered values by their use, such as URLs, hosts, paths, files, command parts, process targets, libraries, registry paths, and related static data sources. These are observations from recovered arguments and artifacts, not intent labels.
+
 ## Full vs Evaluator Output
 
 The `full` profile is better for debugging the analyzer.
@@ -100,9 +131,9 @@ The `evaluator` profile is better for LLM/human verdicts. It keeps:
 
 - behavior flow
 - decoded/recovered artifacts
-- payload and loader evidence
+- embedded artifact and loader evidence
 - chains and behavior IR
-- suspicious blobs
+- notable static data regions
 - timing
 - assessment hints
 

@@ -39,7 +39,7 @@ ACTION_RANK = {
     "execution": 3,
     "environment": 4,
     "crypto_or_decoding": 5,
-    "payload": 6,
+    "embedded_artifact": 6,
 }
 
 LOW_LEVEL_EXECUTION_KINDS = {
@@ -73,9 +73,9 @@ class BehaviorStoryBuilder:
 
     def build(self) -> dict[str, Any]:
         actions = self._actions()
-        payloads = self._payload_observations()
+        embedded_artifacts = self._embedded_artifact_observations()
         decryptions = self._decryption_observations()
-        actions.extend(payloads)
+        actions.extend(embedded_artifacts)
         actions.extend(decryptions)
         actions = dedupe_actions(actions)
         actions.sort(key=self._action_sort_key)
@@ -88,7 +88,7 @@ class BehaviorStoryBuilder:
             "actions": actions[:120],
             "artifacts": artifacts,
             "narrative": narrative_for_actions(actions, artifacts),
-            "debug_note": "This view intentionally hides array/blob identifiers unless they explain a recovered artifact or payload.",
+            "debug_note": "This view intentionally hides array/blob identifiers unless they explain recovered or embedded artifacts.",
         }
 
     def _actions(self) -> list[dict[str, Any]]:
@@ -152,12 +152,12 @@ class BehaviorStoryBuilder:
             )
         return actions
 
-    def _payload_observations(self) -> list[dict[str, Any]]:
+    def _embedded_artifact_observations(self) -> list[dict[str, Any]]:
         actions = []
-        for payload in self.semantics.get("embedded_payloads") or []:
+        for payload in self.semantics.get("embedded_artifacts") or []:
             artifact = {
-                "type": "embedded_payload",
-                "value": payload.get("kind", "embedded_payload"),
+                "type": "embedded_artifact",
+                "value": payload.get("kind", "embedded_artifact"),
                 "confidence": payload.get("confidence", "medium"),
                 "details": {
                     "source": payload.get("source"),
@@ -169,10 +169,10 @@ class BehaviorStoryBuilder:
                 actions.append(
                     clean_action(
                         {
-                            "category": "payload",
-                            "kind": payload.get("kind", "embedded_payload"),
+                            "category": "embedded_artifact",
+                            "kind": payload.get("kind", "embedded_artifact"),
                             "function": function,
-                            "description": "contains embedded payload that is transformed and/or loaded",
+                            "description": "contains embedded static data that is transformed and/or passed to loader-relevant code",
                             "confidence": payload.get("confidence", "medium"),
                             "artifacts": [artifact],
                             "evidence": payload.get("evidence", [])[:8],
@@ -256,7 +256,7 @@ class BehaviorStoryBuilder:
             "network_action_count": categories.get("network", 0),
             "filesystem_action_count": categories.get("filesystem", 0),
             "process_or_execution_action_count": categories.get("process", 0) + categories.get("execution", 0),
-            "payload_action_count": categories.get("payload", 0),
+            "embedded_artifact_action_count": categories.get("embedded_artifact", 0),
             "artifact_counts": {key: len(value) for key, value in artifacts.items()},
         }
 
@@ -479,16 +479,16 @@ def collect_artifacts(actions: list[dict[str, Any]], semantics: dict[str, Any]) 
         "commands": [],
         "files": [],
         "domains": [],
-        "payloads": [],
+        "embedded_artifacts": [],
         "decoded_artifacts": [],
         "fields": [],
     }
     for action in actions:
         for artifact in action.get("artifacts") or []:
             add_artifact_to_bucket(buckets, artifact)
-    for payload in semantics.get("embedded_payloads") or []:
+    for payload in semantics.get("embedded_artifacts") or []:
         add_unique(
-            buckets["payloads"],
+            buckets["embedded_artifacts"],
             {
                 "type": payload.get("kind"),
                 "confidence": payload.get("confidence", "medium"),
@@ -510,8 +510,8 @@ def add_artifact_to_bucket(buckets: dict[str, list[Any]], artifact: dict[str, An
         add_unique(buckets["files"], artifact)
     elif kind in {"domain"}:
         add_unique(buckets["domains"], artifact)
-    elif kind == "embedded_payload":
-        add_unique(buckets["payloads"], artifact)
+    elif kind == "embedded_artifact":
+        add_unique(buckets["embedded_artifacts"], artifact)
     elif kind in {"embedded_pe", "zip_archive", "gzip_stream", "decoded_indicators", "decoded_text_config"}:
         add_unique(buckets["decoded_artifacts"], artifact)
     elif kind == "field_name":
@@ -527,12 +527,12 @@ def narrative_for_actions(actions: list[dict[str, Any]], artifacts: dict[str, An
         lines.append("The binary performs filesystem reads/writes" + artifact_suffix(artifacts.get("paths"), "paths") + ".")
     if categories.get("process") or categories.get("execution"):
         lines.append("The binary launches processes, resolves APIs, invokes syscalls, or loads executable code.")
-    if categories.get("payload"):
-        lines.append("The binary contains embedded payload-like data that is transformed and/or loaded.")
+    if categories.get("embedded_artifact"):
+        lines.append("The binary contains embedded static data connected to transformation and loader-relevant code.")
     if categories.get("crypto_or_decoding"):
         lines.append("The binary materializes or decodes runtime data; recovered plaintext is listed only when confidence is strong.")
     if artifacts.get("commands"):
-        lines.append("Command-like artifacts are present and should be reviewed as execution intent.")
+        lines.append("Command-like artifacts are present near execution-related behavior.")
     return lines[:8]
 
 

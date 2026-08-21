@@ -2,28 +2,52 @@
 
 Gobbler separates static analysis from LLM verdicting.
 
-The analyzer produces JSON. The LLM script reads that JSON, builds a compact evaluator view, and asks an OpenRouter model for a strict JSON verdict.
+The analyzer produces JSON. The LLM verdict pass reads that JSON, builds a compact evaluator view, and asks an LLM provider for a strict JSON verdict. `scripts/eval.py` is the minimal directory-level script wrapper around `gobbler.passes.llm_verdict`.
 
-## One-Sample LLM Verdict
+## Provider Interface
 
-```bash
-.venv/bin/python scripts/llm_verdict.py output/sample.json \
-  --model google/gemini-2.5-flash-lite \
-  --api-key-env OPENROUTER_KEY \
-  --out output/sample.verdict.json
+The provider hook lives in:
+
+```text
+gobbler/llm/provider.py
 ```
 
-The script reads `.env` by default and looks up the variable named by `--api-key-env`.
+Project code calls:
 
-The default variable is `OPENROUTER_API_KEY`, but this project has commonly used:
+```python
+complete_json(prompt, config, schema=None)
+```
 
-```bash
---api-key-env OPENROUTER_KEY
+To use a different provider, replace or monkey-patch that one function so it returns `LLMResponse`:
+
+```python
+from gobbler.llm.provider import LLMResponse
+
+def complete_json(prompt, config, schema=None):
+    # call your OpenAI-style completions/chat endpoint here
+    # schema is the verdict JSON schema and can be used as a tool/function schema
+    return LLMResponse(
+        text=response_text,
+        parsed_json=parsed_verdict_or_none,
+        usage=usage_dict,
+        cost=estimated_cost,
+        model=config.model,
+        raw_response=raw_response_dict,
+    )
+```
+
+The default implementation uses an OpenRouter/OpenAI-style chat completions endpoint via `requests`.
+
+`scripts/eval.py` reads the local `.env` file. It expects:
+
+```dotenv
+LLM_KEY=...
+OPENROUTER_MODEL=google/gemini-2.5-flash-lite
 ```
 
 ## LLM Prompt Evidence
 
-`scripts/llm_verdict.py` does not pass the entire Gobbler JSON directly. It builds a compact view containing:
+`gobbler.passes.llm_verdict` does not pass the entire Gobbler JSON directly. It builds a compact view containing:
 
 - `behavior_story`
 - `top_level_summary`
@@ -31,95 +55,51 @@ The default variable is `OPENROUTER_API_KEY`, but this project has commonly used
 - `behavior_operations`
 - `semantic_chains`
 - `runtime_decoding`
-- `embedded_payloads`
+- `embedded_artifacts`
 - `loader_behaviors`
-- `suspicious_payload_blobs`
+- `notable_static_data`
 - `behavior_strings`
 - `top_interesting_functions`
 
 The prompt asks the model to return valid JSON with:
 
-- `verdict`: `clean`, `suspicious`, `dirty`, or `unknown`
+- `verdict`: `clean`, `dirty`, or `unknown`
 - `behavioral_summary`: short execution-flow summary starting from `main` or the earliest visible user entry point
 - `reasoning`: short reasons
 - `key_behaviors`: behavior entries with evidence
-- `indicators`: URLs, domains, IPs, paths, commands, mutexes, payloads, and other artifacts
+- `indicators`: URLs, domains, IPs, paths, commands, mutexes, embedded artifacts, and other artifacts
 - `caveats`: uncertainty or limitations
 - usage/cost fields copied from the OpenRouter response
 
 The LLM verdict intentionally does not include a model confidence score.
 
-## Full Eval
+## Directory Analysis
 
-Run clean + dirty analysis and verdicts:
+Analyze every file in a directory:
 
 ```bash
-.venv/bin/python scripts/run_eval.py \
-  --run-name full_after_change \
-  --clean-dir corpus/clean/gomod \
-  --clean-dir corpus/clean/synthetic \
-  --dirty-dir data \
-  --models google/gemini-2.5-flash-lite \
-  --api-key-env OPENROUTER_KEY \
-  --analysis-jobs 4 \
-  --verdict-jobs 2 \
-  --analysis-timeout 300 \
-  --verdict-timeout 90
+.venv/bin/python scripts/analyze.py data -o output/analysis --jobs 4
 ```
 
-Limit to matching clean/dirty counts:
+The script does not filter by extension. It assumes every direct file in the input directory is a valid executable.
+
+## Directory Verdicts
+
+Run LLM verdicts for every analysis JSON:
 
 ```bash
-.venv/bin/python scripts/run_eval.py \
-  --run-name eval_78_per_label \
-  --clean-dir corpus/clean/gomod \
-  --clean-dir corpus/clean/synthetic \
-  --dirty-dir data \
-  --models google/gemini-2.5-flash-lite \
-  --api-key-env OPENROUTER_KEY \
-  --analysis-jobs 4 \
-  --verdict-jobs 2 \
-  --analysis-timeout 300 \
-  --verdict-timeout 90 \
-  --limit-per-label 78
+.venv/bin/python scripts/eval.py output/analysis -o output/verdicts --jobs 2
 ```
 
 ## Eval Outputs
 
-Each run writes under `eval_runs/<run-name>/`:
+The minimal scripts write flat output directories:
 
 ```text
-dataset.json
-analysis_reports.json
-eval_report.json
-verdict_records.json
-verdict_records.csv
-analysis/<label>/<source>/*.json
-analysis/<label>/<source>/*.txt
-verdicts/<model>/<label>/*.verdict.json
+output/analysis/<sample>.json
+output/analysis/<sample>.txt
+output/verdicts/<sample>.verdict.json
 ```
-
-`verdict_records.csv` is the easiest file for spreadsheet-style inspection. It includes sample label, verdict, behavioral summary, cost, token counts, duration, and error status.
-
-## Metrics Convention
-
-For current evals, `suspicious` is counted as dirty:
-
-```text
-dirty or suspicious -> predicted dirty
-clean               -> predicted clean
-unknown             -> excluded from decisive TP/TN/FP/FN counts
-```
-
-Useful metrics:
-
-- TP: dirty sample predicted dirty/suspicious
-- TN: clean sample predicted clean
-- FP: clean sample predicted suspicious/dirty
-- FN: dirty sample predicted clean
-- FPR: `FP / (FP + TN)`
-- FNR: `FN / (FN + TP)`
-- TPR/recall: `TP / (TP + FN)`
 
 ## Known LLM Operational Issue
 
@@ -128,5 +108,4 @@ Some models occasionally return malformed JSON even with JSON mode enabled. Curr
 - `Unterminated string`
 - `Expecting ',' delimiter`
 
-A practical next improvement is adding a retry or JSON repair path in `scripts/llm_verdict.py`.
-
+A practical next improvement is adding a retry or JSON repair path in `gobbler.passes.llm_verdict`.

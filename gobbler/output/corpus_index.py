@@ -142,13 +142,14 @@ def extract_sample_features(semantics: dict[str, Any]) -> dict[str, dict[str, An
             for feature in features_for_operation_kind(kind):
                 add_feature(features, feature, function, "medium", operation.get("target"))
 
-    if semantics.get("suspicious_data_blobs"):
+    notable_blobs = semantics.get("notable_data_blobs")
+    if notable_blobs:
         add_feature(
             features,
-            "suspicious_static_data",
+            "notable_static_data",
             "<reachable_component>",
             "medium",
-            f"{len(semantics.get('suspicious_data_blobs') or [])} suspicious blobs",
+            f"{len(notable_blobs)} notable static data regions",
         )
 
     return features

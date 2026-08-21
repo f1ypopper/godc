@@ -40,7 +40,7 @@ def rank_interesting_functions(graph: dict[str, list[Any]], semantics: dict[str,
     for transformer in semantics.get("data_transformers") or []:
         add(transformer["function"], 25 if transformer["confidence"] == "high" else 15, "data_transformer")
         if transformer.get("input_sources"):
-            add(transformer["function"], 15, "has_suspicious_input_source")
+            add(transformer["function"], 15, "has_notable_static_data_source")
 
     for loader in semantics.get("loader_behaviors") or []:
         if loader["function"] == "<reachable_component>":
@@ -49,12 +49,12 @@ def rank_interesting_functions(graph: dict[str, list[Any]], semantics: dict[str,
             continue
         add(loader["function"], 30 if loader["confidence"] == "high" else 15, loader["kind"])
 
-    for payload in semantics.get("embedded_payloads") or []:
+    for payload in semantics.get("embedded_artifacts") or []:
         for function in payload.get("transformers", []):
-            add(function, 25, "transforms_embedded_payload")
+            add(function, 25, "transforms_embedded_artifact")
         for loader in payload.get("loaders", []):
             if loader != "<reachable_component>":
-                add(loader, 25, "loads_or_executes_embedded_payload")
+                add(loader, 25, "passes_embedded_artifact_to_loader")
 
     dataflow = semantics.get("dataflow") or {}
     for function, facts in (dataflow.get("functions") or {}).items():
@@ -87,7 +87,7 @@ def rank_interesting_functions(graph: dict[str, list[Any]], semantics: dict[str,
             item["reasons"].insert(0, "application_owned")
         elif is_library_function(function):
             strong_reason = any(
-                reason.startswith(("transforms_embedded_payload", "loads_or_executes"))
+                reason.startswith(("transforms_embedded_artifact", "passes_embedded_artifact_to_loader"))
                 or reason in {"reflective_pe_loader", "dynamic_code_loader"}
                 for reason in item["reasons"]
             )
