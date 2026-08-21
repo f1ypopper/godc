@@ -35,7 +35,7 @@ Examples:
 
 ## Decryption Recovery
 
-XOR recovery is conservative. It probes likely byte sources and only reports outputs with strong artifact evidence.
+Decoded artifact reconstruction is conservative. It tries XOR, base64, hex, gzip, and zlib recovery from likely decoder inputs and only reports outputs with strong artifact evidence such as executable/archive/script/config classification or recovered URLs, paths, commands, and similar indicators.
 
 AES support currently identifies candidates and API paths, but full AES decryption generally requires reconstructing key, mode, IV/nonce, and ciphertext arguments. That reconstruction is not complete.
 

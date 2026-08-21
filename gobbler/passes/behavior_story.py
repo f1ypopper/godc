@@ -184,14 +184,17 @@ class BehaviorStoryBuilder:
     def _decryption_observations(self) -> list[dict[str, Any]]:
         actions = []
         recovery = self.semantics.get("decryption_recovery") or {}
-        for item in recovery.get("xor_recovered_artifacts") or []:
+        decoded_artifacts = recovery.get("decoded_artifacts") or recovery.get("xor_recovered_artifacts") or []
+        for item in decoded_artifacts:
+            if not isinstance(item, dict):
+                continue
             actions.append(
                 clean_action(
                     {
                         "category": "crypto_or_decoding",
-                        "kind": "xor_recovered_artifact",
+                        "kind": "decoded_artifact_recovered",
                         "function": item.get("function"),
-                        "description": "recovers artifact by XOR-decoding static bytes",
+                        "description": decoded_artifact_action_description(item),
                         "confidence": item.get("confidence", "medium"),
                         "artifacts": [artifact_for_decryption(item)],
                         "evidence": [item.get("method"), item.get("description")],
@@ -457,8 +460,10 @@ def artifact_for_decryption(item: dict[str, Any]) -> dict[str, Any]:
     artifact = item.get("artifact") or {}
     details = {
         "method": item.get("method"),
+        "transforms": item.get("transforms"),
         "key_ascii": item.get("key_ascii"),
         "key_hex": item.get("key_hex"),
+        "sha256_prefix": item.get("sha256_prefix"),
         "decoded_size": item.get("decoded_size"),
         "decoded_preview": item.get("decoded_preview"),
     }
@@ -470,6 +475,12 @@ def artifact_for_decryption(item: dict[str, Any]) -> dict[str, Any]:
         "confidence": item.get("confidence", "medium"),
         "details": {key: value for key, value in details.items() if value not in (None, [], {})},
     }
+
+
+def decoded_artifact_action_description(item: dict[str, Any]) -> str:
+    method = item.get("method") or "decode"
+    artifact_type = item.get("artifact_type") or "artifact"
+    return f"recovers {artifact_type} via {method}"
 
 
 def collect_artifacts(actions: list[dict[str, Any]], semantics: dict[str, Any]) -> dict[str, list[Any]]:

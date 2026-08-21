@@ -48,7 +48,7 @@ Important current sections:
 - `behavior_ir`: normalized behavior operations extracted from calls and low-level patterns.
 - `semantic_chains`: connected source-transform-sink chains.
 - `runtime_decoding`: likely runtime decoders and recovered indicators.
-- `decryption_recovery`: conservative XOR recovery and AES candidate information.
+- `decryption_recovery`: conservative decoded artifact reconstruction for XOR/base64/hex/gzip/zlib outputs plus AES candidate information.
 - `artifact_classification`: classifies notable static data and embedded artifact sources as PE, ELF, archive, script/text, or unknown binary; optionally includes Magika output when available.
 - `go_types`: Go package/type metadata and receiver-type hints recovered from GoReSym and function symbols.
 - `sink_args`: evaluator-facing summary of important system sinks and their visible strings, artifacts, arguments, and data sources.

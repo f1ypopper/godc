@@ -560,6 +560,55 @@ def compact_sink(item: dict[str, Any]) -> dict[str, Any]:
     return compacted
 
 
+def compact_decryption_recovery(recovery: Any) -> dict[str, Any]:
+    if not isinstance(recovery, dict):
+        return {}
+    decoded = recovery.get("decoded_artifacts")
+    if not isinstance(decoded, list) or not decoded:
+        decoded = recovery.get("xor_recovered_artifacts")
+    return {
+        "summary": recovery.get("summary", {}),
+        "decoded_artifacts": [compact_decoded_artifact(item) for item in take(decoded, 8) if isinstance(item, dict)],
+        "aes_candidates": take(recovery.get("aes_candidates"), 5),
+        "notes": take(recovery.get("notes"), 3),
+    }
+
+
+def compact_decoded_artifact(item: dict[str, Any]) -> dict[str, Any]:
+    artifact = item.get("artifact") if isinstance(item.get("artifact"), dict) else {}
+    classification = artifact.get("classification") if isinstance(artifact.get("classification"), dict) else {}
+    return {
+        key: value
+        for key, value in {
+            "function": item.get("function"),
+            "method": item.get("method"),
+            "transforms": take(item.get("transforms"), 6),
+            "artifact_type": item.get("artifact_type"),
+            "confidence": item.get("confidence"),
+            "description": item.get("description"),
+            "sha256_prefix": item.get("sha256_prefix"),
+            "decoded_size": item.get("decoded_size"),
+            "decoded_preview": item.get("decoded_preview"),
+            "source_context": item.get("source_context"),
+            "source_summary": item.get("source_summary"),
+            "indicators": take(artifact.get("indicators"), 12),
+            "classification": {
+                key: value
+                for key, value in {
+                    "type": classification.get("type"),
+                    "mime_type": classification.get("mime_type"),
+                    "signals": take(classification.get("signals"), 8),
+                    "strings": take(classification.get("strings"), 12),
+                    "magic_offsets": take(classification.get("magic_offsets"), 6),
+                    "ascii_preview": classification.get("ascii_preview"),
+                }.items()
+                if value not in (None, [], {})
+            },
+        }.items()
+        if value not in (None, [], {})
+    }
+
+
 def build_evaluator_view(report: dict[str, Any], input_path: Path) -> dict[str, Any]:
     semantic = report.get("semantic_analysis") if isinstance(report.get("semantic_analysis"), dict) else {}
     call_graph = report.get("call_graph") if isinstance(report.get("call_graph"), dict) else {}
@@ -572,6 +621,7 @@ def build_evaluator_view(report: dict[str, Any], input_path: Path) -> dict[str, 
         embedded_artifacts
         or loader_behaviors
         or (isinstance(decryption_summary, dict) and decryption_summary.get("xor_recovered_artifact_count"))
+        or (isinstance(decryption_summary, dict) and decryption_summary.get("decoded_artifact_count"))
         or (isinstance(decryption_summary, dict) and decryption_summary.get("aes_decrypted_artifact_count"))
     )
 
@@ -607,7 +657,7 @@ def build_evaluator_view(report: dict[str, Any], input_path: Path) -> dict[str, 
             "assessment_hints": filtered_assessment_hints(semantic.get("assessment_hints"), payload_context),
             "imports": compact_value(semantic.get("imports") or {}, 500),
         },
-        "decryption_recovery": compact_value(decryption_recovery or {}, 500),
+        "decryption_recovery": compact_decryption_recovery(decryption_recovery),
         "artifact_classification": compact_artifact_classification(semantic.get("artifact_classification")),
         "go_types": compact_go_types(semantic.get("go_types")),
         "sink_args": compact_sink_args(semantic.get("sink_args")),

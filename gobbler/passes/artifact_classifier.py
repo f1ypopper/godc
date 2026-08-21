@@ -113,7 +113,7 @@ def analyze_artifacts(analyzer: Any, semantics: dict[str, Any]) -> dict[str, Any
     ]
     decoded_artifacts = [
         summarize_decoded_artifact(item)
-        for item in (semantics.get("decryption_recovery") or {}).get("xor_recovered_artifacts") or []
+        for item in decoded_artifact_sources(semantics)
         if isinstance(item, dict)
     ]
 
@@ -138,6 +138,15 @@ def analyze_artifacts(analyzer: Any, semantics: dict[str, Any]) -> dict[str, Any
         "embedded_artifacts": embedded_artifacts,
         "decoded_artifacts": decoded_artifacts[:40],
     }
+
+
+def decoded_artifact_sources(semantics: dict[str, Any]) -> list[dict[str, Any]]:
+    recovery = semantics.get("decryption_recovery") or {}
+    decoded = recovery.get("decoded_artifacts")
+    if isinstance(decoded, list) and decoded:
+        return decoded
+    legacy = recovery.get("xor_recovered_artifacts")
+    return legacy if isinstance(legacy, list) else []
 
 
 def source_for_blob(blob: dict[str, Any]) -> dict[str, Any]:
@@ -185,10 +194,14 @@ def summarize_decoded_artifact(item: dict[str, Any]) -> dict[str, Any]:
         for key, value in {
             "function": item.get("function"),
             "method": item.get("method"),
+            "transforms": item.get("transforms"),
             "artifact_type": item.get("artifact_type"),
             "confidence": item.get("confidence"),
+            "description": item.get("description"),
+            "sha256_prefix": item.get("sha256_prefix"),
             "decoded_size": item.get("decoded_size"),
             "decoded_preview": item.get("decoded_preview"),
+            "source_context": item.get("source_context"),
             "source_summary": item.get("source_summary"),
             "artifact": artifact,
         }.items()

@@ -122,6 +122,7 @@ def format_behavior_report(semantics: dict[str, Any]) -> str:
                 lines.append(f"      {format_operation(operation)}")
 
     lines.extend(format_runtime_decoding_summary(semantics))
+    lines.extend(format_decoded_artifacts_summary(semantics))
     lines.extend(format_recovered_indicators_summary(semantics))
     lines.extend(format_semantic_chains_summary(semantics))
     lines.extend(format_capability_summary(semantics))
@@ -497,6 +498,43 @@ def format_recovered_indicators_summary(semantics: dict[str, Any]) -> list[str]:
                 f"consumed_by={consumer.get('function')} "
                 f"chain={consumer.get('chain_kind')} sinks=[{sinks}] "
                 f"link={consumer.get('link_type')}"
+            )
+    return lines
+
+
+def format_decoded_artifacts_summary(semantics: dict[str, Any]) -> list[str]:
+    recovery = semantics.get("decryption_recovery") or {}
+    artifacts = recovery.get("decoded_artifacts") or recovery.get("xor_recovered_artifacts") or []
+    if not artifacts:
+        return []
+    summary = recovery.get("summary") or {}
+    lines = ["  decoded_artifacts:"]
+    lines.append(
+        "    - "
+        f"count={summary.get('decoded_artifact_count', len(artifacts))} "
+        f"xor={summary.get('xor_recovered_artifact_count', 0)} "
+        f"base64={summary.get('base64_decoded_artifact_count', 0)} "
+        f"hex={summary.get('hex_decoded_artifact_count', 0)} "
+        f"compressed={summary.get('compressed_decoded_artifact_count', 0)}"
+    )
+    for item in artifacts[:12]:
+        artifact = item.get("artifact") if isinstance(item.get("artifact"), dict) else {}
+        indicators = artifact.get("indicators") or []
+        transform_text = format_recovery_transforms(item.get("transforms") or [])
+        lines.append(
+            "    - "
+            f"{item.get('artifact_type', 'decoded_artifact')} "
+            f"method={item.get('method')} function={item.get('function')} "
+            f"size={item.get('decoded_size')} sha256={item.get('sha256_prefix')} "
+            f"confidence={item.get('confidence', 'medium')}{transform_text}"
+        )
+        preview = item.get("decoded_preview")
+        if preview:
+            lines.append(f"      preview={shorten_literal(preview, 180)!r}")
+        for indicator in indicators[:6]:
+            lines.append(
+                "      "
+                f"{indicator.get('type', 'indicator')}={shorten_literal(indicator.get('value', ''), 160)!r}"
             )
     return lines
 

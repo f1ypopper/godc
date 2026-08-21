@@ -55,7 +55,7 @@ Current semantic passes include:
 - `behavior_ir.py`: turns calls and low-level operations into behavior operations.
 - `semantic.py`: scans reachable functions for notable static data regions, data transformers, loader behavior, embedded artifacts, indirect calls, and PE imports.
 - `runtime_decoding.py`: identifies likely runtime string/data decoders and recovered indicators.
-- `decryption.py`: conservatively attempts XOR recovery and identifies AES candidates.
+- `decryption.py`: conservatively reconstructs decoded artifacts from XOR/base64/hex/gzip/zlib paths and identifies AES candidates.
 - `artifact_classifier.py`: classifies notable static data, embedded artifact sources, and decoded artifacts with magic, entropy, strings, and optional Magika output.
 - `go_types.py`: extracts package/type/receiver metadata from GoReSym and function symbols.
 - `sink_args.py`: summarizes evaluator-facing system sinks and visible arguments/artifacts.
