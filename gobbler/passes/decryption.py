@@ -262,11 +262,7 @@ def possible_decodes(data: bytes, *, require_text_decode: bool = False) -> list[
         return decodes
     cleaned = text.strip()
     if plausible_base64_literal(cleaned):
-        try:
-            decoded = base64.b64decode(cleaned, validate=True)
-        except Exception:
-            decoded = b""
-        if decoded:
+        for decoded in base64_decode_variants(cleaned):
             decodes.append({"kind": "base64_decode", "data": decoded})
     if plausible_hex_literal(cleaned):
         try:
@@ -295,7 +291,7 @@ def encoded_literals_from_text(text: str) -> list[str]:
         stripped = value.strip()
         if plausible_base64_literal(stripped) or plausible_hex_literal(stripped):
             literals.append(stripped)
-        for match in re.finditer(r"(?<![A-Za-z0-9+/=])([A-Za-z0-9+/]{16,}={0,2})(?![A-Za-z0-9+/=])", stripped):
+        for match in re.finditer(r"(?<![A-Za-z0-9+/_=-])([A-Za-z0-9+/_-]{16,}={0,2})(?![A-Za-z0-9+/_=-])", stripped):
             candidate = match.group(1)
             if plausible_base64_literal(candidate):
                 literals.append(candidate)
@@ -310,11 +306,36 @@ def encoded_literals_from_text(text: str) -> list[str]:
 
 def plausible_base64_literal(value: str) -> bool:
     stripped = "".join(value.split())
-    if len(stripped) < 16 or len(stripped) % 4 != 0:
+    if len(stripped) < 16:
         return False
-    if not re.fullmatch(r"[A-Za-z0-9+/]+={0,2}", stripped):
+    if len(stripped) % 4 == 1:
+        return False
+    if not re.fullmatch(r"[A-Za-z0-9+/_-]+={0,2}", stripped):
         return False
     return sum(ch.isalpha() for ch in stripped) >= 4
+
+
+def base64_decode_variants(value: str) -> list[bytes]:
+    stripped = "".join(value.split())
+    if not plausible_base64_literal(stripped):
+        return []
+    candidates = [stripped]
+    padding = (-len(stripped)) % 4
+    if padding:
+        candidates.append(stripped + ("=" * padding))
+    decoded = []
+    seen = set()
+    for candidate in candidates:
+        for decoder in (base64.b64decode, base64.urlsafe_b64decode):
+            try:
+                data = decoder(candidate, validate=True) if decoder is base64.b64decode else decoder(candidate)
+            except Exception:
+                continue
+            if not data or data in seen:
+                continue
+            seen.add(data)
+            decoded.append(data)
+    return decoded
 
 
 def plausible_hex_literal(value: str) -> bool:

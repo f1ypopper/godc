@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -97,9 +98,9 @@ def main() -> int:
 
 
 def required_env(name: str) -> str:
-    value = load_env_file(ENV_FILE, name)
+    value = os.environ.get(name) or load_env_file(ENV_FILE, name)
     if not value:
-        raise SystemExit(f"{name} is required in {ENV_FILE}")
+        raise SystemExit(f"{name} is required in the environment or {ENV_FILE}")
     return value
 
 

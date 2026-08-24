@@ -24,6 +24,7 @@ STRING_ARG_REG_PAIRS = (("RAX", "RBX"), ("RCX", "RDI"), ("RSI", "R8"), ("R9", "R
 MOV_LIKE = {"mov", "movabs", "lea"}
 CALLBACK_CONSUMERS = {"path/filepath.Walk", "path/filepath.WalkDir"}
 MAX_STRING_ARG_LEN = 4096
+DEFAULT_GORESYM_TIMEOUT = 120.0
 
 
 @dataclass(frozen=True)
@@ -54,9 +55,15 @@ class Call:
 
 
 class Analyzer:
-    def __init__(self, binary_path: Path, goresym_path: Path):
+    def __init__(
+        self,
+        binary_path: Path,
+        goresym_path: Path,
+        goresym_timeout: float | None = DEFAULT_GORESYM_TIMEOUT,
+    ):
         self.binary_path = binary_path
         self.goresym_path = goresym_path
+        self.goresym_timeout = goresym_timeout
         self.binary = lief.parse(str(binary_path))
         if self.binary is None:
             raise RuntimeError(f"Could not parse binary: {binary_path}")
@@ -107,7 +114,18 @@ class Analyzer:
             "-d",
             str(self.binary_path),
         ]
-        proc = subprocess.run(command, text=True, capture_output=True, check=False)
+        try:
+            proc = subprocess.run(
+                command,
+                text=True,
+                capture_output=True,
+                timeout=self.goresym_timeout,
+                check=False,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise RuntimeError(
+                f"GoReSym timed out after {self.goresym_timeout}s"
+            ) from exc
         if proc.returncode != 0:
             raise RuntimeError(proc.stderr.strip() or "GoReSym failed")
         return json.loads(proc.stdout)
@@ -404,10 +422,9 @@ class Analyzer:
             if insn.mnemonic == "call":
                 if call is not None:
                     calls.append(call)
-                    if call.via is not None:
-                        last_function_literal = None
                 else:
                     last_function_literal = None
+                last_function_literal = None
                 for reg in ABI_INT_REGS:
                     registers.pop(reg, None)
                 stack_arg_slots.clear()
@@ -426,26 +443,32 @@ class Analyzer:
 
         self.calls_by_function[name] = calls
         return calls
-    def find_function_end(self, start: int) -> int:
+    def find_function_end(self, start: int) -> int | None:
         MAX_SCAN = 0x10000
 
-        code = bytes(
-            self.binary.get_content_from_virtual_address(start, MAX_SCAN)
-        )
+        try:
+            code = bytes(
+                self.binary.get_content_from_virtual_address(start, MAX_SCAN)
+            )
+        except Exception:
+            return None
 
         offset = code.find(b"\xCC")  # INT3
 
         if offset == -1:
-            raise RuntimeError(f"Couldn't find function end for {hex(start)}")
+            return None
 
         return start + offset
 
-    def synthetic_function(self, call: Call)->dict[str, Any]:
+    def synthetic_function(self, call: Call) -> dict[str, Any] | None:
         if call.target_address is None:
-            raise ValueError("Call has no target address")
+            return None
+        end = self.find_function_end(call.target_address)
+        if end is None or end <= call.target_address:
+            return None
         return {
             "Start": call.target_address,
-            "End": self.find_function_end(call.target_address),
+            "End": end,
             "FullName": call.target,
         }
         
@@ -474,7 +497,9 @@ class Analyzer:
                 if call.target_address in self.user_by_start:
                     visit(self.user_by_start[call.target_address])
                 elif call.kind == "unknown":
-                    visit(self.synthetic_function(call))
+                    synthetic = self.synthetic_function(call)
+                    if synthetic is not None:
+                        visit(synthetic)
         visit(entry)
         return graph
 

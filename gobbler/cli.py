@@ -12,7 +12,7 @@ from gobbler.output.diff import diff_analysis_files
 from gobbler.pipeline import analyze_binary, write_analysis_with_options
 
 
-def parse_args() -> argparse.Namespace:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Analyze Go binaries.")
     subparsers = parser.add_subparsers(dest="command")
 
@@ -21,6 +21,12 @@ def parse_args() -> argparse.Namespace:
     analyze.add_argument("--out", type=Path, default=Path("output"))
     analyze.add_argument("--entry", default="main.main")
     analyze.add_argument("--goresym", type=Path, default=Path("GoReSym"))
+    analyze.add_argument(
+        "--goresym-timeout",
+        type=float,
+        default=120.0,
+        help="Timeout for the direct GoReSym invocation in seconds",
+    )
     analyze.add_argument("--compare", type=Path, help="Existing analysis JSON to diff against")
     analyze.add_argument("--index", action="store_true", help="Refresh feature_index.* in the output directory")
     analyze.add_argument("--output-profile", choices=("full", "evaluator"), default="full")
@@ -32,6 +38,12 @@ def parse_args() -> argparse.Namespace:
     batch.add_argument("--out", type=Path, default=Path("output"))
     batch.add_argument("--entry", default="main.main")
     batch.add_argument("--goresym", type=Path, default=Path("GoReSym"))
+    batch.add_argument(
+        "--goresym-timeout",
+        type=float,
+        default=120.0,
+        help="Timeout for the direct GoReSym invocation in seconds",
+    )
     batch.add_argument("--no-index", action="store_true", help="Do not refresh feature_index.* after batch analysis")
     batch.add_argument("--limit", type=int, help="Analyze at most this many matching binaries")
     batch.add_argument("--timeout", type=int, help="Per-binary timeout in seconds")
@@ -56,13 +68,23 @@ def parse_args() -> argparse.Namespace:
     viewer = subparsers.add_parser("viewer", help="Write the standalone single-binary HTML viewer")
     viewer.add_argument("--out", type=Path, default=Path("output/gobbler_viewer.html"))
 
+    return parser
+
+
+def parse_args() -> argparse.Namespace:
+    parser = build_parser()
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     if args.command == "analyze":
-        result = analyze_binary(args.binary, args.goresym, args.entry)
+        result = analyze_binary(
+            args.binary,
+            args.goresym,
+            args.entry,
+            goresym_timeout=args.goresym_timeout,
+        )
         json_path, _text_path = write_analysis_with_options(
             result,
             args.out,
@@ -154,15 +176,10 @@ def main() -> int:
         print(args.out)
         return 0
 
-    # Backward-compatible default: analyze every .exe under data/.
-    for binary in sorted(Path("data").glob("*.exe")):
-        try:
-            result = analyze_binary(binary, Path("GoReSym"), "main.main")
-            write_analysis_with_options(result, Path("output"), binary.stem)
-        except Exception as exc:
-            print(f"failed {binary}: {exc}")
-    write_feature_index(Path("output"))
-    return 0
+    parser = build_parser()
+    parser.print_help(sys.stderr)
+    print("\nerror: missing subcommand", file=sys.stderr)
+    return 2
 
 
 def load_feature_index(output_dir: Path) -> dict:
@@ -184,6 +201,7 @@ def run_analyze_subprocess(
     goresym: Path,
     entry: str,
     timeout: int | None,
+    goresym_timeout: float,
     output_profile: str,
     compact_json: bool,
 ) -> None:
@@ -199,6 +217,8 @@ def run_analyze_subprocess(
         str(goresym),
         "--entry",
         entry,
+        "--goresym-timeout",
+        str(goresym_timeout),
         "--output-profile",
         output_profile,
     ]
@@ -211,8 +231,15 @@ def run_analyze_subprocess(
 
 
 def analyze_batch_binary(args: argparse.Namespace, binary: Path) -> dict:
-    if args.skip_existing and (args.out / f"{binary.stem}.json").exists():
-        return {"sample": binary.name, "status": "skipped_existing"}
+    if args.skip_existing:
+        existing = existing_analysis_status(args.out, binary.stem)
+        if existing == "valid":
+            return {"sample": binary.name, "status": "skipped_existing"}
+        if existing != "missing":
+            print(
+                f"analysis reprocess sample={binary.name} reason=invalid_existing_{existing} path={binary}",
+                flush=True,
+            )
     print(f"analysis start sample={binary.name} path={binary}", flush=True)
     started = time.monotonic()
     try:
@@ -223,11 +250,17 @@ def analyze_batch_binary(args: argparse.Namespace, binary: Path) -> dict:
                 args.goresym,
                 args.entry,
                 args.timeout,
+                args.goresym_timeout,
                 args.output_profile,
                 args.compact_json,
             )
         else:
-            result = analyze_binary(binary, args.goresym, args.entry)
+            result = analyze_binary(
+                binary,
+                args.goresym,
+                args.entry,
+                goresym_timeout=args.goresym_timeout,
+            )
             write_analysis_with_options(
                 result,
                 args.out,
@@ -268,6 +301,27 @@ def print_batch_record(binary: Path, record: dict) -> None:
         print(f"analysis timeout sample={binary.name} status=timeout{elapsed_text} error={record.get('error', '')} path={binary}", flush=True)
     else:
         print(f"analysis failed sample={binary.name} status=failed{elapsed_text} error={record.get('error', '')} path={binary}", flush=True)
+
+
+def existing_analysis_status(output_dir: Path, sample_stem: str) -> str:
+    json_path = output_dir / f"{sample_stem}.json"
+    text_path = output_dir / f"{sample_stem}.txt"
+    if not json_path.exists() and not text_path.exists():
+        return "missing"
+    if not json_path.exists():
+        return "missing_json"
+    if not text_path.exists():
+        return "missing_text"
+    try:
+        json.loads(json_path.read_text())
+    except Exception:
+        return "invalid_json"
+    try:
+        if not text_path.read_text().strip():
+            return "empty_text"
+    except Exception:
+        return "invalid_text"
+    return "valid"
 
 
 def write_batch_report(

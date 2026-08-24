@@ -38,7 +38,7 @@ def complete_json(prompt, config, schema=None):
 
 The default implementation uses an OpenRouter/OpenAI-style chat completions endpoint via `requests`.
 
-`scripts/eval.py` reads the local `.env` file. It expects:
+`scripts/eval.py` reads `LLM_KEY` and `OPENROUTER_MODEL` from the shell environment first, then falls back to the local `.env` file. It expects:
 
 ```dotenv
 LLM_KEY=...

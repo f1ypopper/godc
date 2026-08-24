@@ -36,7 +36,10 @@ SINK_OPERATION_KINDS = {
     "file_write",
     "file_create",
     "file_open",
+    "file_delete",
+    "file_rename",
     "directory_create",
+    "recursive_filesystem_walk",
     "http_network",
     "http_request",
     "http_get",
@@ -65,6 +68,8 @@ DECODER_OPERATION_KINDS = {
 HTTP_OPERATION_KINDS = {"http_network", "http_request", "http_get", "http_post"}
 FILE_WRITE_OPERATION_KINDS = {"file_write", "file_create"}
 FILE_READ_OPERATION_KINDS = {"file_read", "file_open"}
+FILE_MUTATION_OPERATION_KINDS = {"file_delete", "file_rename"}
+FILE_WALK_OPERATION_KINDS = {"recursive_filesystem_walk"}
 PROCESS_OPERATION_KINDS = {"process_launch"}
 LOADER_OPERATION_KINDS = {
     "dynamic_library_load",
@@ -193,6 +198,37 @@ class SemanticChainBuilder:
                     "related_fields": interesting_fields(map_fields),
                     "literals": path_like_literals(literal_values),
                     "evidence": ["file_read_sink"],
+                }
+            )
+
+        if kinds & FILE_MUTATION_OPERATION_KINDS:
+            for chain_kind in sorted(kinds & FILE_MUTATION_OPERATION_KINDS):
+                self._add_chain(
+                    {
+                        "kind": chain_kind,
+                        "function": function,
+                        "confidence": "high" if literal_values else "medium",
+                        "sources": sources + static_source_refs(static_sources),
+                        "transforms": transforms,
+                        "sinks": [op for op in sinks if op["kind"] == chain_kind],
+                        "related_fields": interesting_fields(map_fields),
+                        "literals": path_like_literals(literal_values),
+                        "evidence": [f"{chain_kind}_sink"],
+                    }
+                )
+
+        if kinds & FILE_WALK_OPERATION_KINDS:
+            self._add_chain(
+                {
+                    "kind": "recursive_filesystem_walk",
+                    "function": function,
+                    "confidence": "high" if literal_values else "medium",
+                    "sources": sources + static_source_refs(static_sources),
+                    "transforms": transforms,
+                    "sinks": [op for op in sinks if op["kind"] in FILE_WALK_OPERATION_KINDS],
+                    "related_fields": interesting_fields(map_fields),
+                    "literals": path_like_literals(literal_values),
+                    "evidence": ["recursive_filesystem_walk_sink"],
                 }
             )
 

@@ -564,6 +564,8 @@ class SemanticScanner:
                 score += 1
             if len(ops) >= 2:
                 score += 1
+            if any(op in {"base64", "hex", "gzip", "zlib", "aes", "rc4", "chacha20"} for op in ops):
+                score += 2
             if features["large_copies"]:
                 score += 1
             if score == 0:
@@ -746,17 +748,40 @@ class SemanticScanner:
 
 def analyze_semantics(analyzer: Any, graph: dict[str, list[Any]]) -> dict[str, Any]:
     pass_timings = []
+    pass_errors = []
     total_started = time.monotonic()
 
-    def timed(name: str, callback):
+    def timed(name: str, callback, default=None):
         started = time.monotonic()
-        value = callback()
-        pass_timings.append(
-            {"name": name, "duration_seconds": round(time.monotonic() - started, 3)}
-        )
-        return value
+        try:
+            value = callback()
+            pass_timings.append(
+                {"name": name, "duration_seconds": round(time.monotonic() - started, 3)}
+            )
+            return value
+        except Exception as exc:
+            pass_errors.append(
+                {
+                    "name": name,
+                    "error_type": type(exc).__name__,
+                    "error": str(exc)[:500],
+                }
+            )
+            pass_timings.append(
+                {
+                    "name": name,
+                    "duration_seconds": round(time.monotonic() - started, 3),
+                    "failed": True,
+                    "error_type": type(exc).__name__,
+                }
+            )
+            return default() if callable(default) else default
 
-    semantics = timed("semantic_scanner", lambda: SemanticScanner(analyzer, graph).analyze())
+    semantics = timed(
+        "semantic_scanner",
+        lambda: SemanticScanner(analyzer, graph).analyze(),
+        default={"assessment_hints": []},
+    )
 
     from gobbler.passes.behavior_graph import build_behavior_graph
     from gobbler.passes.behavior_ir import build_behavior_ir
@@ -773,43 +798,85 @@ def analyze_semantics(analyzer: Any, graph: dict[str, list[Any]]) -> dict[str, A
     from gobbler.passes.semantic_chains import build_semantic_chains
     from gobbler.passes.sink_args import analyze_sink_args
 
-    global_constants, _arrays = timed("constants", lambda: analyze_constants(analyzer, graph))
+    global_constants, _arrays = timed(
+        "constants",
+        lambda: analyze_constants(analyzer, graph),
+        default=(
+            {"global_strings": [], "constant_arrays": [], "numeric_constants": []},
+            [],
+        ),
+    )
     semantics["global_constants"] = global_constants
-    semantics["dataflow"] = timed("dataflow", lambda: analyze_dataflow(analyzer, graph, semantics))
-    semantics["cfg"] = timed("cfg", lambda: analyze_cfg(analyzer, graph))
-    semantics["go_types"] = timed("go_types", lambda: analyze_go_types(analyzer))
+    semantics["dataflow"] = timed(
+        "dataflow",
+        lambda: analyze_dataflow(analyzer, graph, semantics),
+        default={"functions": {}, "summary": {}},
+    )
+    semantics["cfg"] = timed("cfg", lambda: analyze_cfg(analyzer, graph), default={"functions": {}, "summary": {}})
+    semantics["go_types"] = timed(
+        "go_types",
+        lambda: analyze_go_types(analyzer),
+        default={"summary": {"available": False, "error": "pass_failed"}},
+    )
     semantics["interesting_functions"] = timed(
-        "interesting_functions", lambda: rank_interesting_functions(graph, semantics)
+        "interesting_functions",
+        lambda: rank_interesting_functions(graph, semantics),
+        default=[],
     )
     semantics["behavior_graph"] = timed(
-        "behavior_graph", lambda: build_behavior_graph(graph, semantics)
+        "behavior_graph",
+        lambda: build_behavior_graph(graph, semantics),
+        default={"nodes": [], "edges": [], "summary": {}},
     )
     semantics["behavior_ir"] = timed(
-        "behavior_ir", lambda: build_behavior_ir(analyzer, graph, semantics)
+        "behavior_ir",
+        lambda: build_behavior_ir(analyzer, graph, semantics),
+        default={"summary": {}, "functions": {}},
     )
     semantics["semantic_chains"] = timed(
-        "semantic_chains", lambda: build_semantic_chains(graph, semantics)
+        "semantic_chains",
+        lambda: build_semantic_chains(graph, semantics),
+        default={"summary": {}, "chains": []},
     )
     semantics["runtime_decoding"] = timed(
-        "runtime_decoding", lambda: analyze_runtime_decoding(analyzer, graph, semantics)
+        "runtime_decoding",
+        lambda: analyze_runtime_decoding(analyzer, graph, semantics),
+        default={"summary": {}, "functions": []},
     )
     semantics["decryption_recovery"] = timed(
-        "decryption_recovery", lambda: analyze_decryption_recovery(analyzer, semantics)
+        "decryption_recovery",
+        lambda: analyze_decryption_recovery(analyzer, semantics),
+        default={"summary": {}, "decoded_artifacts": [], "xor_recovered_artifacts": []},
     )
     semantics["artifact_classification"] = timed(
-        "artifact_classification", lambda: analyze_artifacts(analyzer, semantics)
+        "artifact_classification",
+        lambda: analyze_artifacts(analyzer, semantics),
+        default={"summary": {}, "notable_blobs": [], "embedded_artifacts": []},
     )
-    semantics = timed("indicator_consumers", lambda: attach_indicator_consumers(graph, semantics))
+    semantics = timed(
+        "indicator_consumers",
+        lambda: attach_indicator_consumers(graph, semantics),
+        default=lambda: semantics,
+    )
     semantics["behavior_story"] = timed(
-        "behavior_story", lambda: build_behavior_story(graph, semantics)
+        "behavior_story",
+        lambda: build_behavior_story(graph, semantics),
+        default={"summary": {}, "narrative": [], "execution_flow": []},
     )
     semantics["sink_args"] = timed(
-        "sink_args", lambda: analyze_sink_args(graph, semantics)
+        "sink_args",
+        lambda: analyze_sink_args(graph, semantics),
+        default={"summary": {}, "sinks": []},
     )
     semantics["analysis_timing"] = {
         "total_seconds": round(time.monotonic() - total_started, 3),
         "passes": pass_timings,
     }
+    if pass_errors:
+        semantics["analysis_errors"] = pass_errors
+        semantics.setdefault("assessment_hints", []).append(
+            "One or more optional semantic enrichment passes failed; see analysis_errors."
+        )
     if (semantics["runtime_decoding"].get("summary") or {}).get("likely_string_decoder_count"):
         semantics.setdefault("assessment_hints", []).append(
             "Reachable code contains functions that decode or transform bytes and materialize Go strings at runtime."

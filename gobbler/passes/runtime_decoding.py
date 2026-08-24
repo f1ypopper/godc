@@ -18,6 +18,8 @@ DECODER_TARGETS = {
 
 STRING_MATERIALIZER_KINDS = {"bytes_to_string"}
 MAX_STATIC_SOURCE_BYTES = 0x20000
+CONCRETE_DECODE_DIRECTIONS = {"decode"}
+CONTEXTUAL_TRANSFORM_DIRECTIONS = {"crypto"}
 
 
 def analyze_runtime_decoding(
@@ -168,22 +170,35 @@ def decoder_kind(target: str, kind: str) -> str | None:
     if kind in {"base64_decode_or_encode", "hex_decode_or_encode"}:
         return kind.split("_", 1)[0]
     for needle, label in DECODER_TARGETS.items():
-        if needle in target:
+        if target_matches_package(target, needle):
             return label
     return None
 
 
 def decoder_direction(target: str, kind: str) -> str:
-    lowered = f"{target} {kind}".lower()
-    if "encode" in lowered:
-        return "encode"
-    if "decode" in lowered:
+    lowered_target = str(target or "").lower()
+    lowered = f"{lowered_target} {kind}".lower()
+    if any(marker in lowered_target for marker in ("decode", "decompress", "newreader", ".read")):
         return "decode"
-    if any(needle in lowered for needle in ("aes", "rc4", "cipher", "chacha20")):
+    if "encode" in lowered_target:
+        return "encode"
+    if any(marker in lowered for marker in ("decrypt", "cryptblocks", "xorkeystream", ".open")):
         return "crypto"
     if any(needle in lowered for needle in ("gzip", "zlib", "compress")):
         return "codec"
+    if any(needle in lowered for needle in ("aes", "rc4", "cipher", "chacha20")):
+        return "crypto"
     return "unknown"
+
+
+def target_matches_package(target: str, package: str) -> bool:
+    lowered = str(target or "").lower()
+    package = package.lower()
+    if lowered == package:
+        return True
+    if lowered.startswith(f"{package}.") or lowered.startswith(f"{package}/"):
+        return True
+    return f"/{package}." in lowered or f"/{package}/" in lowered
 
 
 def string_materializers(item: dict[str, Any]) -> list[dict[str, Any]]:
@@ -246,16 +261,21 @@ def classify_decoding_behavior(
     static_sources: list[dict[str, Any]],
     literal_callers: list[dict[str, Any]],
 ) -> str | None:
-    decode_calls = [
+    decode_calls = concrete_decode_calls(decoder_calls)
+    encode_calls = [call for call in decoder_calls if call.get("direction") == "encode"]
+    contextual_transform_calls = [
         call
         for call in decoder_calls
-        if call.get("direction") in {"decode", "crypto", "codec", "unknown"}
+        if call.get("direction") in CONTEXTUAL_TRANSFORM_DIRECTIONS
     ]
-    encode_calls = [call for call in decoder_calls if call.get("direction") == "encode"]
     if decode_calls and materializers:
         return "explicit_string_decoder"
     if decode_calls:
         return "explicit_decoder"
+    if contextual_transform_calls and materializers and (static_sources or literal_callers):
+        return "api_assisted_string_materialization"
+    if contextual_transform_calls and (static_sources or literal_callers):
+        return "transform_api_usage"
     if encode_calls:
         return "encoder_api_usage"
     if transform_loops and materializers and (static_sources or literal_callers):
@@ -274,7 +294,7 @@ def confidence_for_decoding(
     static_recoveries: list[dict[str, Any]],
 ) -> str:
     score = 0
-    if any(call.get("direction") != "encode" for call in decoder_calls):
+    if concrete_decode_calls(decoder_calls):
         score += 2
     elif decoder_calls:
         score += 1
@@ -308,13 +328,19 @@ def decoding_feature_labels(
         labels.add("recovered_indicator")
     if any(call.get("direction") == "encode" for call in decoder_calls):
         labels.add("encoder_api_usage")
-    if any(call.get("direction") != "encode" for call in decoder_calls):
+    if concrete_decode_calls(decoder_calls):
         labels.add("explicit_decoder_api")
+    elif any(call.get("direction") in CONTEXTUAL_TRANSFORM_DIRECTIONS for call in decoder_calls):
+        labels.add("transform_or_codec_api_usage")
     if transform_loops and materializers and (static_sources or literal_callers):
         labels.add("custom_decoder_candidate")
     elif transform_loops and materializers:
         labels.add("runtime_string_materialization")
     return sorted(labels)
+
+
+def concrete_decode_calls(decoder_calls: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [call for call in decoder_calls if call.get("direction") in CONCRETE_DECODE_DIRECTIONS]
 
 
 def confidence_rank(confidence: str) -> int:
@@ -342,11 +368,7 @@ def decoded_previews(strings: list[str]) -> list[dict[str, Any]]:
 
 def decoded_literal_candidates(value: str) -> list[dict[str, Any]]:
     candidates = []
-    try:
-        decoded = base64.b64decode(value, validate=True)
-    except Exception:
-        decoded = b""
-    if decoded:
+    for decoded in base64_decode_variants(value):
         candidates.append({"encoding": "base64", "data": decoded, "transforms": []})
 
     if len(value) % 2 == 0 and re.fullmatch(r"[0-9a-fA-F]+", value or ""):
@@ -366,15 +388,12 @@ def layered_encoded_candidates(candidates: list[dict[str, Any]]) -> list[dict[st
         text = decoded_text(candidate["data"])
         if text is None or not plausible_encoded_literal(text):
             continue
-        try:
-            decoded = base64.b64decode(text, validate=True)
-        except Exception:
-            decoded = b""
-        if decoded:
+        base64_decodes = base64_decode_variants(text)
+        if base64_decodes:
             layered.append(
                 {
                     "encoding": "base64",
-                    "data": decoded,
+                    "data": base64_decodes[0],
                     "transforms": candidate.get("transforms", [])
                     + [{"kind": "nested_decode", "encoding": candidate["encoding"]}],
                 }
@@ -395,6 +414,31 @@ def layered_encoded_candidates(candidates: list[dict[str, Any]]) -> list[dict[st
                     }
                 )
     return layered
+
+
+def base64_decode_variants(value: str) -> list[bytes]:
+    stripped = "".join(str(value or "").split())
+    if len(stripped) < 4:
+        return []
+    if not re.fullmatch(r"[A-Za-z0-9+/_=-]+", stripped):
+        return []
+    candidates = [stripped]
+    padding = (-len(stripped)) % 4
+    if padding:
+        candidates.append(stripped + ("=" * padding))
+    decoded = []
+    seen = set()
+    for candidate in candidates:
+        for decoder in (base64.b64decode, base64.urlsafe_b64decode):
+            try:
+                data = decoder(candidate, validate=True) if decoder is base64.b64decode else decoder(candidate)
+            except Exception:
+                continue
+            if not data or data in seen:
+                continue
+            seen.add(data)
+            decoded.append(data)
+    return decoded
 
 
 def xor_key_candidates(strings: list[str], encoded_value: str) -> list[str]:

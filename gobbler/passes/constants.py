@@ -223,6 +223,11 @@ def merge_array_windows(arrays: list[ArrayDump]) -> list[ArrayDump]:
         prev_end = prev.va + prev.size
         if array.section == prev.section and array.va <= prev_end:
             new_end = min(max(prev_end, array.va + array.size), prev.va + MAX_ARRAY_WINDOW)
+            append_start = max(prev_end, array.va)
+            if append_start < new_end:
+                source_start = append_start - array.va
+                source_end = new_end - array.va
+                prev.data += array.data[source_start:source_end]
             prev.data = prev.data[: new_end - prev.va]
             prev.size = len(prev.data)
             prev.referenced_by = sorted(set(prev.referenced_by) | set(array.referenced_by))

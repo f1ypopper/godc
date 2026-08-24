@@ -4,6 +4,7 @@ from capstone.x86 import *
 
 
 TRANSFORM_MNEMONICS = {"xor", "add", "sub", "rol", "ror", "not"}
+READ_MODIFY_WRITE_MNEMONICS = {"xor", "add", "sub", "rol", "ror", "not"}
 MAX_CFG_INSTRUCTIONS = 50000
 MAX_LOOP_INSTRUCTIONS = 8000
 
@@ -144,9 +145,14 @@ def loop_transform_evidence(insns) -> dict[str, Any]:
     memory_writes = 0
     byte_memory_ops = 0
     for insn in insns:
-        if any(operand.type == X86_OP_MEM for operand in insn.operands[1:]):
+        mnemonic = insn.mnemonic.lower()
+        writes_memory = bool(insn.operands and insn.operands[0].type == X86_OP_MEM)
+        reads_memory = any(operand.type == X86_OP_MEM for operand in insn.operands[1:])
+        if writes_memory and mnemonic in READ_MODIFY_WRITE_MNEMONICS:
+            reads_memory = True
+        if reads_memory:
             memory_reads += 1
-        if insn.operands and insn.operands[0].type == X86_OP_MEM:
+        if writes_memory:
             memory_writes += 1
         if any(operand.type == X86_OP_MEM and getattr(operand, "size", 0) == 1 for operand in insn.operands):
             byte_memory_ops += 1
