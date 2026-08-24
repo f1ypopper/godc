@@ -192,12 +192,19 @@ def collect_chains(semantic_chains: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         chains.append(
             {
-                "kind": chain.get("kind"),
-                "function": chain.get("function"),
-                "confidence": chain.get("confidence"),
-                "evidence": take(chain.get("evidence"), 8),
-                "sinks": take(chain.get("sinks"), 8),
-                "recovered_indicators": take(chain.get("recovered_indicators"), 10),
+                key: value
+                for key, value in {
+                    "kind": chain.get("kind"),
+                    "function": chain.get("function"),
+                    "confidence": chain.get("confidence"),
+                    "process_role": chain.get("process_role"),
+                    "network_role": chain.get("network_role"),
+                    "filesystem_role": chain.get("filesystem_role"),
+                    "evidence": take(chain.get("evidence"), 8),
+                    "sinks": take(chain.get("sinks"), 8),
+                    "recovered_indicators": take(chain.get("recovered_indicators"), 10),
+                }.items()
+                if value not in (None, [], {})
             }
         )
     return chains
@@ -536,7 +543,20 @@ def compact_sink_args(sink_args: Any) -> dict[str, Any]:
 def compact_sink(item: dict[str, Any]) -> dict[str, Any]:
     compacted = {
         key: item.get(key)
-        for key in ("function", "target", "kind", "category", "address", "operation_summary")
+        for key in (
+            "function",
+            "target",
+            "kind",
+            "category",
+            "address",
+            "network_role",
+            "process_role",
+            "filesystem_role",
+            "operation_summary",
+            "http_arguments",
+            "process_arguments",
+            "file_arguments",
+        )
         if item.get(key) not in (None, [], {})
     }
     arg_roles = item.get("arg_roles")
@@ -569,6 +589,7 @@ def compact_decryption_recovery(recovery: Any) -> dict[str, Any]:
     return {
         "summary": recovery.get("summary", {}),
         "decoded_artifacts": [compact_decoded_artifact(item) for item in take(decoded, 8) if isinstance(item, dict)],
+        "suppressed_recoveries": take(recovery.get("suppressed_recoveries"), 8),
         "aes_candidates": take(recovery.get("aes_candidates"), 5),
         "notes": take(recovery.get("notes"), 3),
     }

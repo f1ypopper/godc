@@ -7,9 +7,10 @@ from pathlib import Path
 from typing import Any
 
 import lief
-from capstone import CS_ARCH_X86, CS_MODE_64, Cs
+from capstone import CS_ARCH_X86, Cs
 from capstone.x86 import *
 
+from gobbler.arch import capstone_mode, canonical_register, memory_target
 from gobbler.binary import BinaryView
 from gobbler.output.formatters import format_human_readable_report as format_report
 from gobbler.utils.noise import is_runtime_noise_call
@@ -23,60 +24,6 @@ STRING_ARG_REG_PAIRS = (("RAX", "RBX"), ("RCX", "RDI"), ("RSI", "R8"), ("R9", "R
 MOV_LIKE = {"mov", "movabs", "lea"}
 CALLBACK_CONSUMERS = {"path/filepath.Walk", "path/filepath.WalkDir"}
 MAX_STRING_ARG_LEN = 4096
-
-
-REG_ALIASES = {
-    X86_REG_RAX: "RAX",
-    X86_REG_EAX: "RAX",
-    X86_REG_AX: "RAX",
-    X86_REG_AL: "RAX",
-    X86_REG_AH: "RAX",
-    X86_REG_RBX: "RBX",
-    X86_REG_EBX: "RBX",
-    X86_REG_BX: "RBX",
-    X86_REG_BL: "RBX",
-    X86_REG_BH: "RBX",
-    X86_REG_RCX: "RCX",
-    X86_REG_ECX: "RCX",
-    X86_REG_CX: "RCX",
-    X86_REG_CL: "RCX",
-    X86_REG_CH: "RCX",
-    X86_REG_RDI: "RDI",
-    X86_REG_EDI: "RDI",
-    X86_REG_DI: "RDI",
-    X86_REG_DIL: "RDI",
-    X86_REG_RSI: "RSI",
-    X86_REG_ESI: "RSI",
-    X86_REG_SI: "RSI",
-    X86_REG_SIL: "RSI",
-    X86_REG_R8: "R8",
-    X86_REG_R8D: "R8",
-    X86_REG_R8W: "R8",
-    X86_REG_R8B: "R8",
-    X86_REG_R9: "R9",
-    X86_REG_R9D: "R9",
-    X86_REG_R9W: "R9",
-    X86_REG_R9B: "R9",
-    X86_REG_R10: "R10",
-    X86_REG_R10D: "R10",
-    X86_REG_R10W: "R10",
-    X86_REG_R10B: "R10",
-    X86_REG_R11: "R11",
-    X86_REG_R11D: "R11",
-    X86_REG_R11W: "R11",
-    X86_REG_R11B: "R11",
-    # These are not ABI integer argument registers, but tracking them lets us
-    # follow short register-to-register moves before an argument register is set.
-    X86_REG_RDX: "RDX",
-    X86_REG_EDX: "RDX",
-    X86_REG_DX: "RDX",
-    X86_REG_DL: "RDX",
-    X86_REG_DH: "RDX",
-    X86_REG_RBP: "RBP",
-    X86_REG_EBP: "RBP",
-    X86_REG_BP: "RBP",
-    X86_REG_BPL: "RBP",
-}
 
 
 @dataclass(frozen=True)
@@ -116,7 +63,7 @@ class Analyzer:
         self.binary_view = BinaryView(self.binary)
         self.binary_view.ensure_supported()
 
-        self.disassembler = Cs(CS_ARCH_X86, CS_MODE_64)
+        self.disassembler = Cs(CS_ARCH_X86, capstone_mode(self.binary_view.arch))
         self.disassembler.detail = True
 
         self.goresym = self._run_goresym()
@@ -215,12 +162,14 @@ class Analyzer:
                 return value
             return RegisterValue("int", operand.imm)
 
-        if operand.type == X86_OP_MEM and operand.mem.base == X86_REG_RIP:
-            target = rip_target(insn, operand)
+        if operand.type == X86_OP_MEM:
+            target = memory_target(insn, operand, self.binary_view.arch)
+            if target is None:
+                return None
             value = self.value_from_address(target)
             if value is not None:
                 return value
-            if insn.mnemonic == "lea":
+            if insn.mnemonic.lower() == "lea":
                 return RegisterValue("ptr", target, target)
 
         return None
@@ -275,6 +224,8 @@ class Analyzer:
     def string_args_from_registers(
         self, registers: dict[str, RegisterValue]
     ) -> tuple[list[str], dict[str, str]]:
+        if self.binary_view.arch == "x86":
+            return [], {}
         string_args = []
         arg_registers = {}
         seen_strings = set()
@@ -301,6 +252,28 @@ class Analyzer:
 
         return string_args, arg_registers
 
+    def string_args_from_stack(
+        self,
+        stack_args: list[RegisterValue | None],
+    ) -> tuple[list[str], dict[str, str]]:
+        if self.binary_view.arch != "x86":
+            return [], {}
+
+        string_args = []
+        arg_registers = {}
+        seen_strings = set()
+        for index in range(0, len(stack_args) - 1, 2):
+            pointer = stack_args[index]
+            length = stack_args[index + 1]
+            text = self.string_from_pair(pointer, length)
+            if text is None:
+                continue
+            if text not in seen_strings:
+                string_args.append(text)
+                seen_strings.add(text)
+            arg_registers[f"stack[{index}]/stack[{index + 1}]"] = text
+        return string_args, arg_registers
+
     def update_registers(
         self, insn, registers: dict[str, RegisterValue]
     ) -> RegisterValue | None:
@@ -324,6 +297,26 @@ class Analyzer:
         # Any other write means the old tracked value is stale.
         registers.pop(dest_reg, None)
         return None
+
+    def update_stack_arg_slots(
+        self,
+        insn,
+        registers: dict[str, RegisterValue],
+        stack_arg_slots: dict[int, RegisterValue],
+    ) -> None:
+        if self.binary_view.arch != "x86":
+            return
+        if insn.mnemonic not in {"mov", "movabs"} or len(insn.operands) < 2:
+            return
+        dest, src = insn.operands[0], insn.operands[1]
+        offset = stack_arg_offset(dest)
+        if offset is None:
+            return
+        value = self.value_from_operand(insn, src, registers)
+        if value is None:
+            stack_arg_slots.pop(offset, None)
+            return
+        stack_arg_slots[offset] = value
 
     def call_from_instruction(
         self,
@@ -382,6 +375,13 @@ class Analyzer:
             )
 
         string_args, arg_registers = self.string_args_from_registers(registers)
+        stack_string_args, stack_arg_registers = self.string_args_from_stack(
+            current_stack_args(registers)
+        )
+        for arg in stack_string_args:
+            if arg not in string_args:
+                string_args.append(arg)
+        arg_registers.update(stack_arg_registers)
 
         return Call(insn.address, target_name, op.imm, kind, string_args, arg_registers)
 
@@ -391,9 +391,15 @@ class Analyzer:
             return self.calls_by_function[name]
 
         registers: dict[str, RegisterValue] = {}
+        stack_arg_slots: dict[int, RegisterValue] = {}
+        pushed_args: list[RegisterValue] = []
         last_function_literal: RegisterValue | None = None
         calls = []
         for insn in self.function_content(function):
+            registers["__stack_args__"] = RegisterValue(
+                "stack_args",
+                stack_args_from_state(stack_arg_slots, pushed_args, self.binary_view.pointer_size),
+            )
             call = self.call_from_instruction(insn, registers, last_function_literal)
             if insn.mnemonic == "call":
                 if call is not None:
@@ -404,7 +410,16 @@ class Analyzer:
                     last_function_literal = None
                 for reg in ABI_INT_REGS:
                     registers.pop(reg, None)
+                stack_arg_slots.clear()
+                pushed_args.clear()
                 continue
+            if insn.mnemonic == "push" and insn.operands:
+                value = self.value_from_operand(insn, insn.operands[0], registers)
+                if value is not None:
+                    pushed_args.insert(0, value)
+                    del pushed_args[16:]
+                continue
+            self.update_stack_arg_slots(insn, registers, stack_arg_slots)
             value = self.update_registers(insn, registers)
             if value is not None and value.kind == "function":
                 last_function_literal = value
@@ -465,11 +480,48 @@ class Analyzer:
 
 
 def canonical_reg(reg_id: int) -> str | None:
-    return REG_ALIASES.get(reg_id)
+    return canonical_register(reg_id)
 
 
-def rip_target(insn, operand) -> int:
-    return insn.address + insn.size + operand.mem.disp
+def current_stack_args(registers: dict[str, RegisterValue]) -> list[RegisterValue | None]:
+    stack_args = registers.get("__stack_args__")
+    if stack_args is None or stack_args.kind != "stack_args":
+        return []
+    return list(stack_args.value or [])
+
+
+def stack_args_from_state(
+    slots: dict[int, RegisterValue], pushed_args: list[RegisterValue], pointer_size: int
+) -> list[RegisterValue | None]:
+    max_index = max(
+        [len(pushed_args) - 1]
+        + [offset // pointer_size for offset in slots if offset >= 0 and offset % pointer_size == 0],
+        default=-1,
+    )
+    if max_index < 0:
+        return []
+    args: list[RegisterValue | None] = [None] * (max_index + 1)
+    for index, value in enumerate(pushed_args):
+        args[index] = value
+    for offset, value in slots.items():
+        if offset < 0 or offset % pointer_size != 0:
+            continue
+        index = offset // pointer_size
+        if index < len(args):
+            args[index] = value
+    return args
+
+
+def stack_arg_offset(operand) -> int | None:
+    if operand.type != X86_OP_MEM:
+        return None
+    base = canonical_reg(operand.mem.base)
+    if base != "RSP":
+        return None
+    disp = int(operand.mem.disp)
+    if disp < 0 or disp > 0x100:
+        return None
+    return disp
 
 
 def function_containing(

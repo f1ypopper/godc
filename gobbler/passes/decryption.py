@@ -27,6 +27,7 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
     xor_results = []
     decoded_results = []
     aes_candidates = []
+    suppressed_recoveries = []
 
     for item in functions:
         function = item.get("function")
@@ -34,9 +35,10 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
         key_candidates = candidate_keys(item)
         decoded_results.extend(recover_encoded_artifacts_for_function(analyzer, function, item, sources))
         if "custom_decoder_candidate" in (item.get("feature_labels") or []):
-            recovered = recover_xor_for_function(analyzer, function, sources, key_candidates)
+            recovered, suppressed = recover_xor_for_function(analyzer, function, sources, key_candidates)
             xor_results.extend(recovered)
             decoded_results.extend(recovered)
+            suppressed_recoveries.extend(suppressed)
         if any(call.get("decoder") in {"aes", "cipher"} for call in item.get("decoder_calls") or []):
             aes_candidates.append(aes_candidate_for_function(function, item, sources, key_candidates))
 
@@ -53,9 +55,11 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
             "compressed_decoded_artifact_count": count_any_transform(decoded_results, {"gzip_decompress", "zlib_decompress"}),
             "aes_candidate_count": len(aes_candidates),
             "aes_decrypted_artifact_count": 0,
+            "suppressed_recovery_count": len(suppressed_recoveries),
         },
         "decoded_artifacts": decoded_results,
         "xor_recovered_artifacts": xor_results,
+        "suppressed_recoveries": dedupe_suppressed_recoveries(suppressed_recoveries)[:MAX_RESULTS],
         "aes_candidates": aes_candidates,
         "notes": [
             "XOR recovery is conservative and only reports outputs with strong artifact evidence.",
@@ -137,9 +141,21 @@ def recover_xor_for_function(
     function: str | None,
     sources: list[dict[str, Any]],
     keys: list[bytes],
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     results = []
+    suppressed = []
     for source in sources[:MAX_XOR_SOURCES]:
+        reason = source_suppression_reason(source)
+        if reason:
+            suppressed.append(
+                {
+                    "function": function,
+                    "method": "xor_probe",
+                    "reason": reason,
+                    "source_summary": summarize_source(source),
+                }
+            )
+            continue
         data = read_source_bytes(analyzer, source)
         if len(data) < 8:
             continue
@@ -153,7 +169,7 @@ def recover_xor_for_function(
             if artifact:
                 results.append(format_recovery(function, source, decoded, "xor_repeating_key", key, artifact))
     results.sort(key=recovery_sort_key)
-    return results
+    return results, suppressed
 
 
 def recover_xor_with_probe(data: bytes, key: bytes) -> tuple[dict[str, Any] | None, bytes]:
@@ -417,6 +433,55 @@ def read_source_bytes(analyzer: Any, source: dict[str, Any]) -> bytes:
         return bytes(analyzer.binary.get_content_from_virtual_address(start, length))
     except Exception:
         return b""
+
+
+def source_suppression_reason(source: dict[str, Any]) -> str | None:
+    section = str(source.get("section") or "").lower()
+    reasons = set(source.get("reasons") or [])
+    entropy = source.get("entropy")
+    try:
+        entropy_value = float(entropy)
+    except (TypeError, ValueError):
+        entropy_value = 8.0
+    preview = str(source.get("ascii_preview") or "")
+    lowered_preview = preview.lower()
+    magic = source.get("magic_offsets") or []
+
+    if magic:
+        return None
+    if section in {".gopclntab", ".go.buildinfo", ".typelink", ".itablink"}:
+        return "go_metadata_section"
+    if section in {".rdata", ".rodata", ".data"} and "referenced_global_data" in reasons:
+        go_metadata_terms = (
+            "runtime.",
+            "type:",
+            "go:string",
+            "gostring",
+            "gcbits",
+            "itab",
+            "moduledata",
+            "string",
+            "[]byte",
+            "map[",
+            "chan ",
+            "interface",
+            "reflect.",
+            "panic",
+            "fatal error",
+        )
+        if entropy_value < 6.2 and any(term in lowered_preview for term in go_metadata_terms):
+            return "go_metadata_or_string_table_like_source"
+        if entropy_value < 4.0 and printable_preview_is_pointer_table(preview):
+            return "low_entropy_pointer_table_like_source"
+    return None
+
+
+def printable_preview_is_pointer_table(preview: str) -> bool:
+    if not preview:
+        return False
+    punctuation = sum(ch in ".@\\x00" for ch in preview)
+    alnum = sum(ch.isalnum() for ch in preview)
+    return punctuation > alnum
 
 
 def single_byte_keys() -> list[int]:
@@ -729,6 +794,19 @@ def dedupe_recoveries(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
             item.get("artifact_type"),
             item.get("sha256_prefix") or item.get("decoded_preview")[:80],
         )
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(item)
+    return result
+
+
+def dedupe_suppressed_recoveries(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result = []
+    seen = set()
+    for item in items:
+        source = item.get("source_summary") if isinstance(item.get("source_summary"), dict) else {}
+        key = (item.get("function"), item.get("method"), item.get("reason"), source.get("section"), source.get("size"))
         if key in seen:
             continue
         seen.add(key)

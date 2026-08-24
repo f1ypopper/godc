@@ -25,7 +25,7 @@ chmod +x GoReSym
 .venv/bin/python -m gobbler.cli analyze data/sample.exe --out output
 ```
 
-ELF x86-64 Go binaries can be analyzed the same way:
+ELF Go binaries can be analyzed the same way:
 
 ```bash
 .venv/bin/python -m gobbler.cli analyze data/sample.elf --out output

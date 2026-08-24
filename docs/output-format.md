@@ -51,7 +51,7 @@ Important current sections:
 - `decryption_recovery`: conservative decoded artifact reconstruction for XOR/base64/hex/gzip/zlib outputs plus AES candidate information.
 - `artifact_classification`: classifies notable static data and embedded artifact sources as PE, ELF, archive, script/text, or unknown binary; optionally includes Magika output when available.
 - `go_types`: Go package/type metadata and receiver-type hints recovered from GoReSym and function symbols.
-- `sink_args`: evaluator-facing summary of important system sinks and their visible strings, artifacts, arguments, and data sources.
+- `sink_args`: evaluator-facing summary of important system sinks and their visible strings, artifacts, arguments, data sources, and factual roles such as process role, network direction, and filesystem directory role.
 - `data_transformers`: functions that likely transform byte/string/static data.
 - `notable_data_blobs`: high-entropy, magic-containing, large-copy, or transformer-consumed data regions.
 - `embedded_artifacts`: embedded static data tied to transformers or loader-relevant behavior.
@@ -115,6 +115,17 @@ This section intentionally hides low-value array IDs and implementation details 
       "arg_roles": {
         "urls": ["https://example.com/a"],
         "hosts": ["example.com"]
+      },
+      "http_arguments": {
+        "api_shape": "http_post",
+        "method": "POST",
+        "url": {"value": "https://example.com/upload", "source": "sink_strings"},
+        "content_type": {"value": "application/json", "source": "typed_pointer_length"},
+        "body": {
+          "source": "nearby_static_body_candidate",
+          "classification": "json_like",
+          "preview": "{\"id\":\"abc\"}"
+        }
       }
     }
   ]
@@ -122,6 +133,27 @@ This section intentionally hides low-value array IDs and implementation details 
 ```
 
 `arg_roles` groups recovered values by their use, such as URLs, hosts, paths, files, command parts, process targets, libraries, registry paths, and related static data sources. These are observations from recovered arguments and artifacts, not intent labels.
+
+`http_arguments` is target-specific call-argument recovery for HTTP APIs. It names factual fields such as URL, method, content type, and body provenance when they can be recovered. Body values are previews or provenance summaries, not full buffer dumps.
+
+`process_arguments` is target-specific call-argument recovery for process APIs such as `exec.Command`, `os.StartProcess`, `ForkExec`, and `syscall.Exec`. It can include:
+
+- `api_shape`: the process API family.
+- `executable`: recovered executable/command value.
+- `argv`: recovered argument components when directly tied to the call.
+- `command_line_preview`: a compact executable plus argv preview.
+- `argv_source`: conservative provenance when related static data exists but concrete argv cannot be resolved.
+
+`file_arguments` is target-specific call-argument recovery for file APIs such as `os.WriteFile`, `os.ReadFile`, `os.OpenFile`, and related open/create/read/write calls. It can include:
+
+- `api_shape`: the file API family.
+- `path`: recovered file path or target.
+- `data`: write-content preview or provenance when content is visible.
+- `read_target`: read/open target provenance.
+- `flags`: numeric and decoded `OpenFile` flags when typed integer arguments are available.
+- `mode`: common permission mode such as `0o644` when recovered.
+
+These target-specific fields are intentionally conservative. If the analyzer only sees nearby static arrays or unrelated string-table data, it records provenance or leaves the field unresolved instead of inventing concrete arguments.
 
 ## Full vs Evaluator Output
 

@@ -6,6 +6,8 @@ from typing import Any
 
 from capstone.x86 import *
 
+from gobbler.arch import canonical_register as canonical_x86_register
+from gobbler.arch import memory_target_access
 from gobbler.binary import BinarySection
 
 DEFAULT_ARRAY_WINDOW = 0x100
@@ -97,8 +99,10 @@ def collect_data_references(
         for insn in analyzer.function_content(function):
             for operand in insn.operands:
                 target = None
-                if operand.type == X86_OP_MEM and operand.mem.base == X86_REG_RIP:
-                    target = rip_target(insn, operand)
+                if operand.type == X86_OP_MEM:
+                    resolved = memory_target_access(insn, operand, analyzer.binary_view.arch)
+                    if resolved is not None:
+                        target, _access = resolved
                 elif operand.type == X86_OP_IMM:
                     target = int(operand.imm)
                 if target is None:
@@ -127,12 +131,14 @@ def collect_large_copy_arrays(
                 src = insn.operands[1]
                 if dest and src.type == X86_OP_IMM:
                     register_ints[dest] = int(src.imm)
+                    if section_for_va(sections, int(src.imm)) is not None:
+                        recent_source = int(src.imm)
                 elif dest:
                     register_ints.pop(dest, None)
             if mnemonic == "lea" and len(insn.operands) >= 2 and insn.operands[1].type == X86_OP_MEM:
-                mem = insn.operands[1].mem
-                if mem.base == X86_REG_RIP:
-                    recent_source = rip_target(insn, insn.operands[1])
+                target = memory_target_access(insn, insn.operands[1], analyzer.binary_view.arch)
+                if target is not None:
+                    recent_source = target[0]
             if "movs" not in mnemonic:
                 continue
             size = copy_size_from_instruction(mnemonic, register_ints)
@@ -296,18 +302,8 @@ def read_section_bytes(section: BinarySection, va: int, size: int) -> bytes:
     return section.data[offset : offset + min(size, section.end - va)]
 
 
-def rip_target(insn, operand) -> int:
-    return insn.address + insn.size + operand.mem.disp
-
-
 def canonical_register(reg_id: int) -> str | None:
-    aliases = {
-        X86_REG_RCX: "RCX",
-        X86_REG_ECX: "RCX",
-        X86_REG_RSI: "RSI",
-        X86_REG_ESI: "RSI",
-    }
-    return aliases.get(reg_id)
+    return canonical_x86_register(reg_id)
 
 
 def copy_size_from_instruction(mnemonic: str, register_ints: dict[str, int]) -> int | None:

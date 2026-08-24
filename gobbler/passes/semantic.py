@@ -8,6 +8,8 @@ from typing import Any
 import lief
 from capstone.x86 import *
 
+from gobbler.arch import canonical_register as canonical_x86_register
+from gobbler.arch import memory_target, memory_target_access, rip_target as x86_rip_target
 from gobbler.binary import BinarySection
 
 
@@ -241,13 +243,13 @@ class SemanticScanner:
                     register_ints[dest] = int(src.imm)
                 elif dest:
                     register_ints.pop(dest, None)
-                update_register_provenance(insn, register_provenance)
+                update_register_provenance(insn, register_provenance, self.analyzer.binary_view.arch)
 
             if mnemonic == "lea" and len(insn.operands) >= 2 and insn.operands[1].type == X86_OP_MEM:
-                mem = insn.operands[1].mem
-                if mem.base == X86_REG_RIP:
-                    recent_source = rip_target(insn, insn.operands[1])
-                update_register_provenance(insn, register_provenance)
+                target = memory_target(insn, insn.operands[1], self.analyzer.binary_view.arch)
+                if target is not None:
+                    recent_source = target
+                update_register_provenance(insn, register_provenance, self.analyzer.binary_view.arch)
 
             if "movs" in mnemonic:
                 copy_size = copy_size_from_instruction(mnemonic, register_ints)
@@ -320,7 +322,9 @@ class SemanticScanner:
             return
 
         call_kind = indirect_call_kind(operand)
-        provenance = indirect_call_provenance(operand, register_provenance)
+        provenance = indirect_call_provenance(
+            operand, register_provenance, self.analyzer.binary_view.arch
+        )
         classification, evidence = classify_indirect_call(operand, provenance)
         self.indirect_calls.append(
             IndirectCall(
@@ -338,9 +342,10 @@ class SemanticScanner:
         for operand in insn.operands:
             target = None
             access = "memory"
-            if operand.type == X86_OP_MEM and operand.mem.base == X86_REG_RIP:
-                target = rip_target(insn, operand)
-                access = "rip_relative_memory"
+            if operand.type == X86_OP_MEM:
+                resolved = memory_target_access(insn, operand, self.analyzer.binary_view.arch)
+                if resolved is not None:
+                    target, access = resolved
             elif operand.type == X86_OP_IMM:
                 target = int(operand.imm)
                 access = "immediate"
@@ -813,37 +818,11 @@ def analyze_semantics(analyzer: Any, graph: dict[str, list[Any]]) -> dict[str, A
 
 
 def rip_target(insn, operand) -> int:
-    return insn.address + insn.size + operand.mem.disp
+    return x86_rip_target(insn, operand)
 
 
 def canonical_register(reg_id: int) -> str | None:
-    aliases = {
-        X86_REG_RAX: "RAX",
-        X86_REG_EAX: "RAX",
-        X86_REG_RBX: "RBX",
-        X86_REG_EBX: "RBX",
-        X86_REG_RCX: "RCX",
-        X86_REG_ECX: "RCX",
-        X86_REG_RDX: "RDX",
-        X86_REG_EDX: "RDX",
-        X86_REG_RDI: "RDI",
-        X86_REG_EDI: "RDI",
-        X86_REG_RSI: "RSI",
-        X86_REG_ESI: "RSI",
-        X86_REG_R8: "R8",
-        X86_REG_R8D: "R8",
-        X86_REG_R9: "R9",
-        X86_REG_R9D: "R9",
-        X86_REG_R10: "R10",
-        X86_REG_R10D: "R10",
-        X86_REG_R11: "R11",
-        X86_REG_R11D: "R11",
-        X86_REG_RBP: "RBP",
-        X86_REG_EBP: "RBP",
-        X86_REG_RSP: "RSP",
-        X86_REG_ESP: "RSP",
-    }
-    return aliases.get(reg_id)
+    return canonical_x86_register(reg_id)
 
 
 def operand_text(insn) -> str:
@@ -858,7 +837,9 @@ def indirect_call_kind(operand) -> str:
     return "other_indirect_call"
 
 
-def update_register_provenance(insn, register_provenance: dict[str, dict[str, Any]]) -> None:
+def update_register_provenance(
+    insn, register_provenance: dict[str, dict[str, Any]], arch: str
+) -> None:
     if len(insn.operands) < 2 or insn.operands[0].type != X86_OP_REG:
         return
     dest = canonical_register(insn.operands[0].reg)
@@ -887,12 +868,12 @@ def update_register_provenance(insn, register_provenance: dict[str, dict[str, An
         }
         return
     if src.type == X86_OP_MEM:
-        register_provenance[dest] = memory_provenance(insn, src)
+        register_provenance[dest] = memory_provenance(insn, src, arch)
         return
     register_provenance.pop(dest, None)
 
 
-def memory_provenance(insn, operand) -> dict[str, Any]:
+def memory_provenance(insn, operand, arch: str) -> dict[str, Any]:
     mem = operand.mem
     base = canonical_register(mem.base) if mem.base else None
     index = canonical_register(mem.index) if mem.index else None
@@ -904,9 +885,10 @@ def memory_provenance(insn, operand) -> dict[str, Any]:
         "scale": mem.scale,
         "disp": hex(mem.disp) if mem.disp else None,
     }
-    if mem.base == X86_REG_RIP:
-        provenance["memory_kind"] = "rip_relative_global"
-        provenance["address"] = hex(rip_target(insn, operand))
+    concrete_target = memory_target(insn, operand, arch)
+    if concrete_target is not None:
+        provenance["memory_kind"] = "rip_relative_global" if mem.base == X86_REG_RIP else "absolute_global"
+        provenance["address"] = hex(concrete_target)
     elif base in {"RSP", "RBP"}:
         provenance["memory_kind"] = "stack"
     elif index is not None:
@@ -919,7 +901,7 @@ def memory_provenance(insn, operand) -> dict[str, Any]:
 
 
 def indirect_call_provenance(
-    operand, register_provenance: dict[str, dict[str, Any]]
+    operand, register_provenance: dict[str, dict[str, Any]], arch: str
 ) -> dict[str, Any] | None:
     if operand.type == X86_OP_REG:
         reg = canonical_register(operand.reg)
@@ -927,11 +909,11 @@ def indirect_call_provenance(
             return {"kind": "unknown_register", "register": None}
         return register_provenance.get(reg, {"kind": "unknown_register", "register": reg})
     if operand.type == X86_OP_MEM:
-        return memory_operand_provenance(operand)
+        return memory_operand_provenance(operand, arch)
     return None
 
 
-def memory_operand_provenance(operand) -> dict[str, Any]:
+def memory_operand_provenance(operand, arch: str) -> dict[str, Any]:
     mem = operand.mem
     base = canonical_register(mem.base) if mem.base else None
     index = canonical_register(mem.index) if mem.index else None
@@ -942,7 +924,11 @@ def memory_operand_provenance(operand) -> dict[str, Any]:
         "scale": mem.scale,
         "disp": hex(mem.disp) if mem.disp else None,
     }
-    if base in {"RSP", "RBP"}:
+    concrete_target = int(mem.disp) if arch == "x86" and not mem.base and not mem.index and mem.disp else None
+    if concrete_target is not None:
+        provenance["memory_kind"] = "absolute_global"
+        provenance["address"] = hex(concrete_target)
+    elif base in {"RSP", "RBP"}:
         provenance["memory_kind"] = "stack"
     elif index is not None:
         provenance["memory_kind"] = "indexed_table"
@@ -982,6 +968,9 @@ def classify_indirect_call(
         return "stack_closure_or_defer_call", evidence
     if memory_kind == "rip_relative_global":
         evidence.append("target derives from RIP-relative global memory")
+        return "global_function_pointer_or_dispatch_table", evidence
+    if memory_kind == "absolute_global":
+        evidence.append("target derives from absolute global memory")
         return "global_function_pointer_or_dispatch_table", evidence
     if memory_kind == "indexed_table":
         evidence.append("target uses indexed memory addressing")

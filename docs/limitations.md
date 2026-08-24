@@ -18,7 +18,7 @@ Those are analysis failures, not clean/dirty model decisions.
 
 ## Architecture and Platform
 
-The analyzer currently supports x86-64 PE and x86-64 ELF Go binaries. Other architectures, including ARM64 and LoongArch, are rejected because the disassembly and register tracking are x86-64-specific.
+The analyzer currently supports x86 and x86-64 PE/ELF Go binaries. Other architectures, including ARM64 and LoongArch, are rejected because the disassembly and register tracking are x86-specific.
 
 Mach-O is not currently supported.
 
@@ -51,6 +51,10 @@ Embedded payload detection is evidence-based. Strong signals include:
 - executable memory or dynamic import resolution
 
 Incidental magic bytes in Go data sections are treated as weak evidence unless tied to behavior.
+
+## Behavior Roles
+
+Process launches, network APIs, directory creation, registry use, and persistence mechanisms are reported as factual roles where possible. For example, `net.Listen` is an inbound listener, `http.Get` is an outbound client, build/cache directory creation is not persistence, and process launch is separate from dynamic loader behavior.
 
 ## LLM Verdict Reliability
 

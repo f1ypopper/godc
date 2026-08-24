@@ -4,6 +4,13 @@ import re
 from collections import Counter, deque
 from typing import Any
 
+from gobbler.passes.http_args import (
+    body_producers_from_dataflow,
+    compact_typed_call_args,
+    enrich_http_arguments,
+)
+from gobbler.passes.process_file_args import enrich_process_and_file_arguments
+
 
 MAX_SINKS = 200
 MAX_STRINGS = 12
@@ -51,11 +58,14 @@ LOADER_KINDS = {
     "thread_creation",
 }
 
-REGISTRY_PERSISTENCE_KINDS = {
+REGISTRY_KINDS = {
     "registry_read",
     "registry_write",
     "registry_create",
     "registry_delete",
+}
+
+PERSISTENCE_KINDS = {
     "service_create",
     "scheduled_task_create",
     "persistence_setup",
@@ -66,20 +76,31 @@ KIND_CATEGORIES = {
     **{kind: "network" for kind in NETWORK_KINDS},
     **{kind: "process" for kind in PROCESS_KINDS},
     **{kind: "loader" for kind in LOADER_KINDS},
-    **{kind: "registry_or_persistence" for kind in REGISTRY_PERSISTENCE_KINDS},
+    **{kind: "registry" for kind in REGISTRY_KINDS},
+    **{kind: "persistence" for kind in PERSISTENCE_KINDS},
 }
 
 CHAIN_KIND_CATEGORIES = {
     "outbound_http": "network",
+    "outbound_network_client": "network",
+    "inbound_network_service": "network",
+    "network_activity": "network",
     "file_write": "filesystem",
     "file_read": "filesystem",
+    "process_launch": "process",
+    "dynamic_loader": "loader",
     "execution_or_loader": "loader",
 }
 
 CHAIN_KIND_TO_SINK_KIND = {
     "outbound_http": "http_network",
+    "outbound_network_client": "network_connect",
+    "inbound_network_service": "network_listen",
+    "network_activity": "network_connect",
     "file_write": "file_write",
     "file_read": "file_read",
+    "process_launch": "process_launch",
+    "dynamic_loader": "dynamic_code_or_process_execution",
     "execution_or_loader": "dynamic_code_or_process_execution",
 }
 
@@ -106,6 +127,7 @@ TARGET_HINTS: tuple[tuple[str, str, str], ...] = (
     ("filepath.walkdir", "recursive_filesystem_walk", "filesystem"),
     ("exec.command", "process_launch", "process"),
     ("os/exec.command", "process_launch", "process"),
+    ("os.startprocess", "process_launch", "process"),
     ("cmd.start", "process_launch", "process"),
     ("cmd.run", "process_launch", "process"),
     ("syscall.exec", "process_launch", "process"),
@@ -126,13 +148,13 @@ TARGET_HINTS: tuple[tuple[str, str, str], ...] = (
     ("createthread", "thread_creation", "loader"),
     ("syscall.syscall", "raw_syscall", "loader"),
     ("syscalln", "raw_syscall", "loader"),
-    ("registry.", "registry_write", "registry_or_persistence"),
-    ("windows/registry", "registry_write", "registry_or_persistence"),
-    ("regsetvalue", "registry_write", "registry_or_persistence"),
-    ("regcreatekey", "registry_create", "registry_or_persistence"),
-    ("regopenkey", "registry_read", "registry_or_persistence"),
-    ("createservice", "service_create", "registry_or_persistence"),
-    ("startservice", "service_create", "registry_or_persistence"),
+    ("registry.", "registry_write", "registry"),
+    ("windows/registry", "registry_write", "registry"),
+    ("regsetvalue", "registry_write", "registry"),
+    ("regcreatekey", "registry_create", "registry"),
+    ("regopenkey", "registry_read", "registry"),
+    ("createservice", "service_create", "persistence"),
+    ("startservice", "service_create", "persistence"),
 )
 
 PERSISTENCE_TEXT_PATTERNS = (
@@ -190,6 +212,8 @@ class SinkArgumentSummaryBuilder:
         self.semantics = semantics
         self.sinks: dict[tuple[str, str, str, str | None], dict[str, Any]] = {}
         self.function_order = self._function_order()
+        self.call_args = self._index_call_args()
+        self.body_producers = body_producers_from_dataflow(semantics)
 
     def build(self) -> dict[str, Any]:
         self._collect_from_behavior_ir()
@@ -199,7 +223,7 @@ class SinkArgumentSummaryBuilder:
         self._collect_from_call_graph()
 
         for sink in self.sinks.values():
-            enrich_sink_arguments(sink)
+            enrich_sink_arguments(sink, self.body_producers)
         sinks = sorted(self.sinks.values(), key=self._sink_sort_key)[:MAX_SINKS]
         return {
             "version": 1,
@@ -233,8 +257,10 @@ class SinkArgumentSummaryBuilder:
                     sink["evidence"].extend(f"tag:{tag}" for tag in operation.get("tags") or [])
                 merge_strings(sink, operation.get("string_args") or [])
                 merge_args(sink, operation.get("arguments") or {})
+                merge_typed_call_args(sink, self.call_args.get((function, operation.get("address"))))
                 merge_artifacts(sink, artifacts_from_operation(operation))
                 merge_data_sources(sink, data_sources_from_function(item))
+                merge_role_annotations(sink, operation)
                 if operation.get("via"):
                     add_unique(sink["evidence"], f"via:{operation.get('via')}")
 
@@ -272,6 +298,8 @@ class SinkArgumentSummaryBuilder:
                 merge_artifacts(sink, artifacts_from_strings(chain.get("literals") or []))
                 merge_field_args(sink, chain.get("related_fields") or [])
                 merge_data_sources(sink, chain.get("sources") or [])
+                merge_role_annotations(sink, sink_ref)
+                merge_role_annotations(sink, chain)
                 if chain.get("confidence"):
                     add_unique(sink["evidence"], f"chain_confidence:{chain.get('confidence')}")
 
@@ -286,6 +314,8 @@ class SinkArgumentSummaryBuilder:
                 "process",
                 "execution",
                 "loader",
+                "registry",
+                "persistence",
                 "registry_or_persistence",
             }:
                 continue
@@ -299,6 +329,7 @@ class SinkArgumentSummaryBuilder:
             sink["evidence"].append("behavior_story_action")
             if action.get("description"):
                 add_unique(sink["evidence"], f"description:{action.get('description')}")
+            merge_role_annotations(sink, action)
             merge_artifacts(sink, action.get("artifacts") or [])
             for nested in action.get("sinks") or []:
                 merge_strings(sink, nested.get("strings") or [])
@@ -315,6 +346,8 @@ class SinkArgumentSummaryBuilder:
                     "process",
                     "execution",
                     "loader",
+                    "registry",
+                    "persistence",
                     "registry_or_persistence",
                 }:
                     continue
@@ -326,6 +359,7 @@ class SinkArgumentSummaryBuilder:
                     address=None,
                 )
                 sink["evidence"].append("behavior_story_execution_flow")
+                merge_role_annotations(sink, action)
                 merge_artifacts(sink, action.get("artifacts") or [])
 
     def _collect_from_loader_behaviors(self) -> None:
@@ -379,6 +413,10 @@ class SinkArgumentSummaryBuilder:
                 if arg_registers:
                     sink["args"].setdefault("registers", {})
                     sink["args"]["registers"].update(arg_registers)
+                merge_typed_call_args(
+                    sink,
+                    self.call_args.get((function, hex_address(getattr(call, "address", None)))),
+                )
 
     def _upsert_sink(
         self,
@@ -462,6 +500,16 @@ class SinkArgumentSummaryBuilder:
             order.setdefault(function, len(order))
         return order
 
+    def _index_call_args(self) -> dict[tuple[str, str], dict[str, Any]]:
+        indexed = {}
+        dataflow = self.semantics.get("dataflow") or {}
+        for function, facts in (dataflow.get("functions") or {}).items():
+            for call in facts.get("call_arguments") or []:
+                address = call.get("address")
+                if address:
+                    indexed[(function, address)] = call
+        return indexed
+
     def _sink_sort_key(self, sink: dict[str, Any]) -> tuple[int, int, str, str, str]:
         return (
             self.function_order.get(sink.get("function", ""), 9999),
@@ -496,7 +544,7 @@ def normalize_category(category: Any) -> str:
     text = str(category or "")
     if text == "execution":
         return "loader"
-    if text in {"filesystem", "network", "process", "loader", "registry_or_persistence"}:
+    if text in {"filesystem", "network", "process", "loader", "registry", "persistence", "registry_or_persistence"}:
         return text
     return text
 
@@ -547,6 +595,15 @@ def merge_args(sink: dict[str, Any], args: dict[str, Any]) -> None:
             extend_unique_dict(sink["args"]["symbolic"], symbolic_args, MAX_ARGS_PER_KIND)
 
 
+def merge_typed_call_args(sink: dict[str, Any], call_args: dict[str, Any] | None) -> None:
+    compact = compact_typed_call_args(call_args)
+    for key, values in compact.items():
+        if not values:
+            continue
+        sink["args"].setdefault(key, [])
+        extend_unique_dict(sink["args"][key], values, MAX_ARGS_PER_KIND)
+
+
 def merge_field_args(sink: dict[str, Any], fields: list[Any]) -> None:
     values = [clean_value(field) for field in fields if isinstance(field, str)]
     values = [value for value in values if value]
@@ -571,6 +628,14 @@ def merge_data_sources(sink: dict[str, Any], sources: list[Any]) -> None:
                     merge_artifacts(sink, preview_artifacts)
 
 
+def merge_role_annotations(sink: dict[str, Any], source: dict[str, Any]) -> None:
+    for key in ("network_role", "process_role", "filesystem_role"):
+        value = source.get(key)
+        if value and not sink.get(key):
+            sink[key] = value
+            add_unique(sink["evidence"], f"{key}:{value}")
+
+
 def artifacts_from_operation(operation: dict[str, Any]) -> list[dict[str, Any]]:
     artifacts = []
     artifacts.extend(artifacts_from_strings(operation.get("string_args") or []))
@@ -584,7 +649,14 @@ def artifacts_from_operation(operation: dict[str, Any]) -> list[dict[str, Any]]:
     return artifacts
 
 
-def enrich_sink_arguments(sink: dict[str, Any]) -> None:
+def enrich_sink_arguments(
+    sink: dict[str, Any],
+    body_producers: dict[str, list[dict[str, Any]]] | None = None,
+) -> None:
+    enrich_http_arguments(sink, body_producers)
+    enrich_process_and_file_arguments(sink)
+    strip_internal_data_source_ids(sink)
+    coalesce_data_sources(sink)
     roles = build_arg_roles(sink)
     if roles:
         sink["arg_roles"] = roles
@@ -593,8 +665,46 @@ def enrich_sink_arguments(sink: dict[str, Any]) -> None:
         sink["operation_summary"] = summary
 
 
+def strip_internal_data_source_ids(sink: dict[str, Any]) -> None:
+    for source in sink.get("data_sources") or []:
+        if isinstance(source, dict):
+            source.pop("id", None)
+
+
+def coalesce_data_sources(sink: dict[str, Any]) -> None:
+    sources = []
+    by_key: dict[tuple[Any, ...], dict[str, Any]] = {}
+    for source in sink.get("data_sources") or []:
+        if not isinstance(source, dict):
+            continue
+        key = (
+            source.get("kind"),
+            source.get("section"),
+            source.get("size"),
+            source.get("entropy"),
+            source.get("preview"),
+            source.get("text_preview"),
+        )
+        existing = by_key.get(key)
+        if existing is None:
+            by_key[key] = source
+            sources.append(source)
+            continue
+        for field in ("reasons", "magic_offsets"):
+            if not existing.get(field) and source.get(field):
+                existing[field] = source[field]
+    sink["data_sources"] = sources[:MAX_DATA_SOURCES]
+
+
 def build_arg_roles(sink: dict[str, Any]) -> dict[str, list[Any]]:
     roles: dict[str, list[Any]] = {}
+    for source_key, role_key in (
+        ("network_role", "network_role"),
+        ("process_role", "process_role"),
+        ("filesystem_role", "filesystem_role"),
+    ):
+        if sink.get(source_key):
+            role_add(roles, role_key, sink.get(source_key))
 
     for artifact in sink.get("artifacts") or []:
         add_artifact_to_roles(roles, artifact)
@@ -618,13 +728,14 @@ def build_arg_roles(sink: dict[str, Any]) -> dict[str, list[Any]]:
         add_filesystem_roles(roles, sink)
     elif category == "loader":
         add_loader_roles(roles, sink)
-    elif category == "registry_or_persistence":
+    elif category in {"registry", "persistence", "registry_or_persistence"}:
         add_registry_roles(roles, sink)
 
     if kind in {"file_write", "file_create"} and sink.get("data_sources"):
         role_add(roles, "write_data_sources", compact_role_values(sink.get("data_sources") or [])[:4])
     if kind in {"file_read", "file_open", "stream_read"} and sink.get("data_sources"):
         role_add(roles, "read_related_data_sources", compact_role_values(sink.get("data_sources") or [])[:4])
+    normalize_role_lists(roles)
     return {key: value for key, value in sorted(roles.items()) if value}
 
 
@@ -634,8 +745,9 @@ def add_artifact_to_roles(roles: dict[str, list[Any]], artifact: dict[str, Any])
     if value in (None, "", [], {}):
         return
     if artifact_type == "url":
-        role_add(roles, "urls", value)
-        host = host_from_url(str(value))
+        cleaned_url = clean_url_value(str(value))
+        role_add(roles, "urls", cleaned_url)
+        host = host_from_url(cleaned_url)
         if host:
             role_add(roles, "hosts", host)
     elif artifact_type == "ip_address":
@@ -656,18 +768,29 @@ def add_artifact_to_roles(roles: dict[str, list[Any]], artifact: dict[str, Any])
 
 def add_process_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
     command_parts = []
+    process_targets = []
     for value in sink.get("strings") or []:
         cleaned = clean_value(value)
         if cleaned and useful_process_string(cleaned):
             command_parts.append(cleaned)
     if command_parts:
         role_add(roles, "command_parts", command_parts[:MAX_ARGS_PER_KIND])
+        inferred_role = classify_process_role(command_parts)
+        if not roles.get("process_role") or inferred_role != "process_launch":
+            role_add(roles, "process_role", inferred_role)
     for artifact in sink.get("artifacts") or []:
         if artifact.get("type") in {"command", "file_name", "path", "windows_path"}:
             role_add(roles, "process_targets", artifact.get("value"))
+            process_targets.append(artifact.get("value"))
+    target_role = classify_process_role(process_targets)
+    if target_role != "process_launch":
+        role_add(roles, "process_role", target_role)
+    if not roles.get("process_role"):
+        role_add(roles, "process_role", classify_process_role(sink.get("strings") or []))
 
 
 def add_network_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
+    role_add(roles, "network_role", classify_network_role(sink))
     for value in sink.get("strings") or []:
         cleaned = clean_value(value)
         if not cleaned:
@@ -679,6 +802,9 @@ def add_network_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None
 
 
 def add_filesystem_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
+    role = classify_filesystem_role(sink)
+    if role:
+        role_add(roles, "filesystem_role", role)
     for artifact in sink.get("artifacts") or []:
         if artifact.get("type") in {"windows_path", "path", "file_name", "domain_or_file"}:
             role_add(roles, "filesystem_targets", artifact.get("value"))
@@ -701,10 +827,14 @@ def add_loader_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
 
 
 def add_registry_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
+    if sink.get("category") == "persistence":
+        role_add(roles, "persistence_mechanism", sink.get("kind"))
     for value in sink.get("strings") or []:
         cleaned = clean_value(value)
         if cleaned and ("\\software\\" in cleaned.lower() or "registry" in cleaned.lower()):
             role_add(roles, "registry_paths", cleaned)
+            if is_persistence_location(cleaned):
+                role_add(roles, "persistence_locations", cleaned)
 
 
 def operation_summary(sink: dict[str, Any], roles: dict[str, list[Any]]) -> str | None:
@@ -716,6 +846,9 @@ def operation_summary(sink: dict[str, Any], roles: dict[str, list[Any]]) -> str 
         pieces.append(f"via {target}")
 
     role_order = (
+        "network_role",
+        "process_role",
+        "filesystem_role",
         "urls",
         "hosts",
         "ips",
@@ -727,6 +860,7 @@ def operation_summary(sink: dict[str, Any], roles: dict[str, list[Any]]) -> str 
         "command_parts",
         "process_targets",
         "libraries",
+        "persistence_mechanism",
         "persistence_locations",
         "registry_paths",
     )
@@ -778,6 +912,90 @@ def render_role_values(values: list[Any]) -> str:
 def host_from_url(value: str) -> str | None:
     match = re.match(r"https?://([^/:?#]+)", value)
     return match.group(1) if match else None
+
+
+def clean_url_value(value: str) -> str:
+    match = re.search(r"https?://", value)
+    if not match:
+        return value
+    start = match.start()
+    value = value[start:]
+    scheme_end = match.end() - start
+    repeated = re.search(r"https?:", value[scheme_end:])
+    if repeated:
+        value = value[: scheme_end + repeated.start()]
+    return value.rstrip(".,);]}'\"")
+
+
+def classify_process_role(values: list[Any]) -> str:
+    strings = [clean_value(value) for value in values if clean_value(value)]
+    joined = " ".join(strings).lower()
+    commands = {command_basename(value) for value in strings}
+    commands.discard("")
+    if commands & {"git", "go", "make", "gcc", "g++", "clang", "uname", "whoami", "hostname"}:
+        return "developer_tooling_or_environment_probe"
+    if commands & {"rundll32", "rundll32.exe", "regsvr32", "regsvr32.exe", "mshta", "mshta.exe", "wscript", "wscript.exe", "cscript", "cscript.exe"}:
+        return "lolbin_execution"
+    if commands & {"cmd", "cmd.exe", "powershell", "powershell.exe", "pwsh", "pwsh.exe", "sh", "bash", "zsh"}:
+        if any(marker in joined for marker in (" -enc", "frombase64string", "downloadstring", "iex", "curl ", "wget ")):
+            return "shell_with_encoded_or_download_command"
+        return "shell_execution"
+    if commands & {"curl", "wget"}:
+        return "downloader_command"
+    return "process_launch"
+
+
+def classify_network_role(sink: dict[str, Any]) -> str:
+    kind = str(sink.get("kind") or "")
+    target = str(sink.get("target") or "").lower()
+    if kind == "network_listen" or any(marker in target for marker in ("listen", "listenandserve", ".serve", "handlefunc", ".accept", "grpc.server")):
+        return "inbound_listener"
+    if kind in {"http_get", "http_post", "http_request", "network_connect"} or any(marker in target for marker in ("http.get", "http.post", ".get", ".post", "newrequest", ".dial", "client.do")):
+        return "outbound_client"
+    if "lookup" in target or "resolve" in target:
+        return "dns_lookup"
+    return "network_activity"
+
+
+def classify_filesystem_role(sink: dict[str, Any]) -> str | None:
+    kind = sink.get("kind")
+    if kind != "directory_create":
+        return None
+    values = []
+    values.extend(sink.get("strings") or [])
+    for artifact in sink.get("artifacts") or []:
+        values.append(artifact.get("value"))
+    joined = " ".join(str(value).lower() for value in values if isinstance(value, str))
+    if is_persistence_location(joined):
+        return "startup_or_persistence_location"
+    if any(marker in joined for marker in ("tmp", "temp", "cache", "build", "dist", "workspace", "bigstorageenv", "tmproot")):
+        return "workspace_or_cache_directory"
+    if any(marker in joined for marker in ("config", ".config", "appdata")):
+        return "config_directory"
+    return "directory_create"
+
+
+def is_persistence_location(value: str) -> bool:
+    return any(pattern.search(value) for pattern in PERSISTENCE_TEXT_PATTERNS)
+
+
+def command_basename(value: str) -> str:
+    token = value.strip().strip("\"'").split(" ", 1)[0]
+    return token.rsplit("\\", 1)[-1].rsplit("/", 1)[-1].lower()
+
+
+def normalize_role_lists(roles: dict[str, list[Any]]) -> None:
+    if "process_role" in roles and len(roles["process_role"]) > 1:
+        specific = [role for role in roles["process_role"] if role != "process_launch"]
+        if specific:
+            roles["process_role"] = specific
+    if "network_role" in roles and len(roles["network_role"]) > 1:
+        specific = [role for role in roles["network_role"] if role not in {"network_activity", "outbound_network_client", "inbound_network_service"}]
+        roles["network_role"] = specific or roles["network_role"]
+    if "filesystem_role" in roles and len(roles["filesystem_role"]) > 1:
+        specific = [role for role in roles["filesystem_role"] if role != "directory_create"]
+        if specific:
+            roles["filesystem_role"] = specific
 
 
 def artifacts_from_strings(values: list[Any]) -> list[dict[str, Any]]:
@@ -866,17 +1084,26 @@ def compact_data_source(source: Any) -> dict[str, Any] | None:
         return None
     preview = source.get("preview") or source.get("ascii_preview") or source.get("value")
     compact_preview = None
+    text_preview = None
     if isinstance(preview, str):
         cleaned_preview = clean_value(preview)
         if cleaned_preview:
             preview_artifacts = extract_artifacts(cleaned_preview)
             if preview_artifacts:
                 compact_preview = preview_artifacts[0].get("value")
+                text_preview = compact_http_relevant_preview(cleaned_preview)
+            elif content_type_from_text(cleaned_preview):
+                compact_preview = content_type_from_text(cleaned_preview)
+                text_preview = compact_http_relevant_preview(cleaned_preview)
+            elif body_candidate_from_text(cleaned_preview):
+                compact_preview = body_candidate_from_text(cleaned_preview)
+                text_preview = compact_http_relevant_preview(cleaned_preview)
             elif kind == "string" and useful_sink_string(cleaned_preview):
                 compact_preview = cleaned_preview
     if kind in {"constant_array", "data_blob"} and not should_keep_data_source(source, compact_preview):
         return None
     result = {
+        "id": source.get("id"),
         "kind": kind,
         "section": source.get("section"),
         "size": source.get("size"),
@@ -884,6 +1111,7 @@ def compact_data_source(source: Any) -> dict[str, Any] | None:
         "magic_offsets": compact_magic_offsets(source.get("magic_offsets") or []),
         "reasons": source.get("reasons")[:6] if isinstance(source.get("reasons"), list) else None,
         "preview": compact_preview,
+        "text_preview": text_preview,
     }
     return clean_dict(result)
 
@@ -901,6 +1129,47 @@ def should_keep_data_source(source: dict[str, Any], preview: str | None) -> bool
         return False
     generic_reasons = {"referenced_global_data"}
     return any(reason not in generic_reasons for reason in reasons)
+
+
+def compact_http_relevant_preview(value: str) -> str | None:
+    parts = []
+    body = body_candidate_from_text(value)
+    if body:
+        parts.append(body)
+    content_type = content_type_from_text(value)
+    if content_type:
+        parts.append(content_type)
+    for artifact in extract_artifacts(value):
+        if artifact.get("type") == "url" and artifact.get("value"):
+            parts.append(str(artifact["value"]))
+            break
+    if not parts:
+        return None
+    rendered = " ".join(parts)
+    return rendered[:240] + ("...<truncated>" if len(rendered) > 240 else "")
+
+
+def content_type_from_text(value: str) -> str | None:
+    common = re.search(
+        r"(application/json|application/x-www-form-urlencoded|application/octet-stream|multipart/form-data|text/plain|text/html|text/xml)",
+        value,
+        flags=re.IGNORECASE,
+    )
+    if common:
+        return common.group(1)
+    match = re.search(
+        r"(?:application|text|multipart|image|audio|video)/[A-Za-z0-9_.+-]+",
+        value,
+    )
+    return match.group(0) if match else None
+
+
+def body_candidate_from_text(value: str) -> str | None:
+    json_match = re.search(r"(\{[^{}]{2,240}\}|\[[^\[\]]{2,240}\])", value)
+    if json_match:
+        return json_match.group(1)
+    form_match = re.search(r"\b[A-Za-z0-9_.-]+=[^&\s]{1,120}(?:&[A-Za-z0-9_.-]+=[^&\s]{1,120})+", value)
+    return form_match.group(0) if form_match else None
 
 
 def compact_magic_offsets(values: list[Any]) -> list[dict[str, Any]]:
@@ -1052,7 +1321,8 @@ def useful_sink_string(value: str) -> bool:
 
 
 def useful_process_string(value: str) -> bool:
-    if classify_artifact(value):
+    artifact = classify_artifact(value)
+    if artifact and artifact.get("type") in {"command", "file_name", "path", "windows_path"}:
         return True
     if value.startswith(("-", "/")) and len(value) <= 80:
         return True
@@ -1209,7 +1479,9 @@ def category_rank(category: Any) -> int:
         "loader": 1,
         "network": 2,
         "filesystem": 3,
-        "registry_or_persistence": 4,
+        "persistence": 4,
+        "registry": 5,
+        "registry_or_persistence": 6,
     }.get(str(category or ""), 9)
 
 

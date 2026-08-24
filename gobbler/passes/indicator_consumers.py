@@ -5,7 +5,9 @@ from typing import Any
 
 CONSUMER_CHAIN_KINDS = {
     "outbound_http",
-    "execution_or_loader",
+    "outbound_network_client",
+    "dynamic_loader",
+    "process_launch",
     "file_write",
     "file_read",
     "network_connect",
@@ -139,11 +141,11 @@ def select_consumers(indicator: dict[str, Any], consumers: list[dict[str, Any]])
 def consumer_matches_indicator_type(consumer: dict[str, Any], indicator_type: str | None) -> bool:
     kind = consumer.get("chain_kind")
     if indicator_type in {"url", "domain", "path_or_url_fragment"}:
-        return kind in {"outbound_http", "network_connect", "execution_or_loader"}
+        return kind in {"outbound_http", "outbound_network_client", "network_connect"}
     if indicator_type in {"windows_path", "file_name_or_path"}:
-        return kind in {"file_read", "file_write", "execution_or_loader"}
+        return kind in {"file_read", "file_write", "dynamic_loader"}
     if indicator_type == "command":
-        return kind == "execution_or_loader"
+        return kind == "process_launch"
     return True
 
 
@@ -151,8 +153,8 @@ def consumer_kind_rank(kind: str, indicator_type: str | None) -> int:
     if indicator_type in {"url", "domain", "path_or_url_fragment"}:
         return {
             "outbound_http": 0,
-            "network_connect": 1,
-            "execution_or_loader": 2,
+            "outbound_network_client": 1,
+            "network_connect": 2,
             "file_write": 3,
             "file_read": 4,
         }.get(kind, 9)
@@ -160,15 +162,17 @@ def consumer_kind_rank(kind: str, indicator_type: str | None) -> int:
         return {
             "file_write": 0,
             "file_read": 1,
-            "execution_or_loader": 2,
+            "dynamic_loader": 2,
             "outbound_http": 3,
-            "network_connect": 4,
+            "outbound_network_client": 4,
+            "network_connect": 5,
         }.get(kind, 9)
     if indicator_type == "command":
-        return {"execution_or_loader": 0}.get(kind, 9)
+        return {"process_launch": 0}.get(kind, 9)
     return {
         "outbound_http": 0,
-        "execution_or_loader": 1,
+        "outbound_network_client": 1,
+        "dynamic_loader": 2,
         "file_write": 2,
         "file_read": 3,
     }.get(kind, 9)

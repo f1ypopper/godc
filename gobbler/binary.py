@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from gobbler.arch import SUPPORTED_ARCHES, word_size
+
 
 @dataclass(frozen=True)
 class BinarySection:
@@ -22,8 +24,12 @@ class BinaryView:
     def ensure_supported(self) -> None:
         if self.format not in {"pe", "elf"}:
             raise RuntimeError(f"Unsupported binary format: {self.format}")
-        if self.arch != "x86_64":
+        if self.arch not in SUPPORTED_ARCHES:
             raise RuntimeError(f"Unsupported architecture for {self.format}: {self.arch}")
+
+    @property
+    def pointer_size(self) -> int:
+        return word_size(self.arch)
 
     def section_va(self, section: Any) -> int:
         virtual_address = int(getattr(section, "virtual_address", 0) or 0)
@@ -110,4 +116,3 @@ def elf_imports(binary: Any) -> dict[str, Any]:
         if name:
             functions.append(str(name))
     return {"format": "elf", "libraries": libraries, "functions": sorted(set(functions))}
-

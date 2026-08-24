@@ -58,8 +58,8 @@ Current semantic passes include:
 - `decryption.py`: conservatively reconstructs decoded artifacts from XOR/base64/hex/gzip/zlib paths and identifies AES candidates.
 - `artifact_classifier.py`: classifies notable static data, embedded artifact sources, and decoded artifacts with magic, entropy, strings, and optional Magika output.
 - `go_types.py`: extracts package/type/receiver metadata from GoReSym and function symbols.
-- `sink_args.py`: summarizes evaluator-facing system sinks and visible arguments/artifacts.
-- `semantic_chains.py`: connects sources, transformations, and sinks into behavior chains.
+- `sink_args.py`: summarizes evaluator-facing system sinks, visible arguments/artifacts, and factual roles for process launches, network direction, filesystem directories, registry use, and persistence mechanisms.
+- `semantic_chains.py`: connects sources, transformations, and sinks into factual behavior chains such as process launch, inbound network service, outbound network client, file access, and dynamic loader activity.
 - `behavior_story.py`: builds an evaluator-facing behavior flow and narrative.
 - `interesting.py`: scores user functions that are likely relevant to analysis.
 - `behavior_graph.py`: builds graph-style behavior relationships for visualization and deeper review.

@@ -65,8 +65,8 @@ DECODER_OPERATION_KINDS = {
 HTTP_OPERATION_KINDS = {"http_network", "http_request", "http_get", "http_post"}
 FILE_WRITE_OPERATION_KINDS = {"file_write", "file_create"}
 FILE_READ_OPERATION_KINDS = {"file_read", "file_open"}
+PROCESS_OPERATION_KINDS = {"process_launch"}
 LOADER_OPERATION_KINDS = {
-    "process_launch",
     "dynamic_library_load",
     "dynamic_import_resolution",
     "dynamic_syscall_call",
@@ -147,19 +147,22 @@ class SemanticChainBuilder:
                 }
             )
 
-        if kinds & HTTP_OPERATION_KINDS:
+        if kinds & (HTTP_OPERATION_KINDS | {"network_connect", "network_listen"}):
             related_fields = interesting_fields(map_fields + caller_map_fields(function, self.behavior_functions, self.callers))
+            network_kind = network_chain_kind(operations)
+            network_sinks = [op for op in sinks if op["kind"] in HTTP_OPERATION_KINDS | {"network_connect", "network_listen"}]
             self._add_chain(
                 {
-                    "kind": "outbound_http",
+                    "kind": network_kind,
                     "function": function,
                     "confidence": "high" if related_fields or literal_values else "medium",
                     "sources": sources + static_source_refs(static_sources),
                     "transforms": transforms,
-                    "sinks": [op for op in sinks if op["kind"] in HTTP_OPERATION_KINDS],
+                    "sinks": network_sinks,
                     "related_fields": related_fields,
                     "literals": literal_values[:12],
-                    "evidence": ["http_sink"] + (["request_fields"] if related_fields else []),
+                    "network_role": network_role_for_chain_kind(network_kind),
+                    "evidence": [network_kind] + (["request_fields"] if related_fields else []),
                 }
             )
 
@@ -193,27 +196,44 @@ class SemanticChainBuilder:
                 }
             )
 
+        if kinds & PROCESS_OPERATION_KINDS:
+            process_sinks = [op for op in sinks if op["kind"] in PROCESS_OPERATION_KINDS]
+            role = process_chain_role(process_sinks, literal_values)
+            self._add_chain(
+                {
+                    "kind": "process_launch",
+                    "function": function,
+                    "confidence": "high" if process_sinks else "medium",
+                    "sources": sources + static_source_refs(static_sources),
+                    "transforms": transforms,
+                    "sinks": process_sinks,
+                    "literals": literal_values[:12],
+                    "process_role": role,
+                    "evidence": ["process_launch_sink", f"process_role:{role}"],
+                }
+            )
+
         if kinds & LOADER_OPERATION_KINDS:
             loader_sinks = [op for op in sinks if op["kind"] in LOADER_OPERATION_KINDS]
             if is_library_function(function) and not any(
-                sink["kind"] in {"process_launch", "dynamic_library_load", "dynamic_import_resolution"}
+                sink["kind"] in {"dynamic_library_load", "dynamic_import_resolution"}
                 for sink in loader_sinks
             ):
                 loader_sinks = []
             if loader_sinks and (
-                "process_launch" in kinds
-                or function in self.promoted_loader_functions
+                function in self.promoted_loader_functions
+                or kinds & {"dynamic_library_load", "dynamic_import_resolution"}
             ):
                 self._add_chain(
                     {
-                        "kind": "execution_or_loader",
+                        "kind": "dynamic_loader",
                         "function": function,
-                        "confidence": "high" if (kinds & {"process_launch", "dynamic_library_load"}) else "medium",
+                        "confidence": "high" if (kinds & {"dynamic_library_load"}) else "medium",
                         "sources": sources + static_source_refs(static_sources),
                         "transforms": transforms,
                         "sinks": loader_sinks,
                         "literals": literal_values[:12],
-                        "evidence": ["execution_or_loader_sink"],
+                        "evidence": ["dynamic_loader_sink"],
                     }
                 )
 
@@ -317,7 +337,78 @@ def operation_ref(operation: dict[str, Any]) -> dict[str, Any]:
     strings = operation.get("string_args") or []
     if strings:
         result["strings"] = strings[:6]
+    for key in ("process_role", "network_role", "filesystem_role"):
+        if operation.get(key):
+            result[key] = operation.get(key)
     return result
+
+
+def network_chain_kind(operations: list[dict[str, Any]]) -> str:
+    network_ops = [operation for operation in operations if operation.get("kind") in HTTP_OPERATION_KINDS | {"network_connect", "network_listen"}]
+    if any((operation.get("network_role") or "") in {"inbound_listener", "inbound_http_server"} for operation in network_ops):
+        return "inbound_network_service"
+    if any(operation.get("kind") == "network_listen" for operation in network_ops):
+        return "inbound_network_service"
+    if any(is_inbound_network_target(operation.get("target")) for operation in network_ops):
+        return "inbound_network_service"
+    if any((operation.get("network_role") or "") in {"outbound_client", "outbound_http_client"} for operation in network_ops):
+        return "outbound_network_client"
+    if any(operation.get("kind") in {"http_get", "http_post", "http_request", "network_connect"} for operation in network_ops):
+        return "outbound_network_client"
+    return "network_activity"
+
+
+def network_role_for_chain_kind(kind: str) -> str:
+    return {
+        "inbound_network_service": "inbound_listener",
+        "outbound_network_client": "outbound_client",
+    }.get(kind, "network_activity")
+
+
+def is_inbound_network_target(target: Any) -> bool:
+    lowered = str(target or "").lower()
+    return any(
+        marker in lowered
+        for marker in (
+            "listen",
+            "serve",
+            "handlefunc",
+            "http.server",
+            "grpc.server",
+            ".accept",
+        )
+    )
+
+
+def process_chain_role(sinks: list[dict[str, Any]], literals: list[str]) -> str:
+    values = []
+    for sink in sinks:
+        values.extend(sink.get("strings") or [])
+    values.extend(literals)
+    joined = " ".join(str(value).lower() for value in values)
+    names = {first_command_token(value) for value in values}
+    names.discard("")
+    if names & {"git", "go", "make", "gcc", "g++", "clang", "uname", "whoami", "hostname"}:
+        return "developer_tooling_or_environment_probe"
+    if names & {"cmd", "cmd.exe", "powershell", "powershell.exe", "pwsh", "pwsh.exe", "sh", "bash", "zsh"}:
+        if any(marker in joined for marker in (" -enc", "frombase64string", "downloadstring", "iex", "curl ", "wget ")):
+            return "shell_with_encoded_or_download_command"
+        return "shell_execution"
+    if names & {"curl", "wget"}:
+        return "downloader_command"
+    if any(marker in joined for marker in ("powershell -enc", "frombase64string", "downloadstring", "rundll32", "regsvr32", "mshta", "wscript", "cscript")):
+        return "shell_or_lolbin_execution"
+    if any(marker in joined for marker in ("curl ", "wget ", "chmod +x", "schtasks", "sc create")):
+        return "system_command_execution"
+    return "process_launch"
+
+
+def first_command_token(value: Any) -> str:
+    if not isinstance(value, str):
+        return ""
+    token = value.strip().strip("\"'").split(" ", 1)[0]
+    token = token.rsplit("\\", 1)[-1].rsplit("/", 1)[-1].lower()
+    return token
 
 
 def static_data_sources(data: dict[str, Any]) -> list[dict[str, Any]]:
@@ -454,6 +545,9 @@ def compact_chain(chain: dict[str, Any]) -> dict[str, Any]:
         values = chain.get(key)
         if values:
             result[key] = values[:limit]
+    for key in ("process_role", "network_role", "filesystem_role"):
+        if chain.get(key):
+            result[key] = chain.get(key)
     return result
 
 

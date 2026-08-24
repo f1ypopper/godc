@@ -192,6 +192,9 @@ class BehaviorIRBuilder:
         semantic_args = compress_call_args(args)
         if semantic_args:
             operation["arguments"] = semantic_args
+        role = operation_role(kind, target, call.string_args)
+        if role:
+            operation.update(role)
         return operation
 
     def _function_data(self, function_name: str) -> dict[str, Any]:
@@ -320,6 +323,64 @@ def classify_runtime_call(target: str) -> tuple[str, str] | None:
         if target.startswith(prefix) or prefix in target:
             return kind
     return None
+
+
+def operation_role(kind: str, target: str, strings: list[str]) -> dict[str, str]:
+    if kind == "process_launch":
+        return {"process_role": process_role(target, strings)}
+    if kind in {"http_network", "http_request", "http_get", "http_post", "network_connect", "network_listen"}:
+        return {"network_role": network_role(kind, target)}
+    if kind in {"directory_create", "file_create", "file_write", "file_open", "file_read"}:
+        role = filesystem_role(kind, strings)
+        return {"filesystem_role": role} if role else {}
+    return {}
+
+
+def network_role(kind: str, target: str) -> str:
+    lowered = target.lower()
+    if kind == "network_listen" or any(marker in lowered for marker in ("listen", "listenandserve", ".serve", "handlefunc", ".accept", "grpc.server")):
+        return "inbound_listener"
+    if kind in {"http_get", "http_post", "http_request", "network_connect"}:
+        return "outbound_client"
+    if "client" in lowered or ".do" in lowered:
+        return "outbound_client"
+    if "server" in lowered or "serve" in lowered:
+        return "inbound_listener"
+    return "network_activity"
+
+
+def process_role(target: str, strings: list[str]) -> str:
+    values = [str(value) for value in strings if isinstance(value, str)]
+    joined = " ".join(values).lower()
+    names = {command_name(value) for value in values}
+    names.discard("")
+    if names & {"git", "go", "make", "gcc", "g++", "clang", "uname", "whoami", "hostname"}:
+        return "developer_tooling_or_environment_probe"
+    if any(marker in joined for marker in ("powershell -enc", "frombase64string", "downloadstring", "rundll32", "regsvr32", "mshta", "wscript", "cscript")):
+        return "shell_or_lolbin_execution"
+    if any(marker in joined for marker in ("curl ", "wget ", "chmod +x", "schtasks", "sc create")):
+        return "system_command_execution"
+    if target.lower().endswith(("createprocess", "shellexecute", "winexec", "execve", "posix_spawn")):
+        return "native_process_api"
+    return "process_launch"
+
+
+def filesystem_role(kind: str, strings: list[str]) -> str | None:
+    if kind != "directory_create":
+        return None
+    joined = " ".join(str(value).lower() for value in strings if isinstance(value, str))
+    if not joined:
+        return "directory_create"
+    if any(marker in joined for marker in ("startup", "start menu\\programs\\startup", "\\currentversion\\run", "systemd", "/etc/cron", "launchagents", "launchdaemons")):
+        return "persistence_location_create"
+    if any(marker in joined for marker in ("tmp", "temp", "cache", "build", "dist", "workspace", "bigstorageenv", "tmproot")):
+        return "workspace_or_cache_directory"
+    return "directory_create"
+
+
+def command_name(value: str) -> str:
+    token = value.strip().strip("\"'").split(" ", 1)[0]
+    return token.rsplit("\\", 1)[-1].rsplit("/", 1)[-1].lower()
 
 
 def is_noise_call(target: str) -> bool:

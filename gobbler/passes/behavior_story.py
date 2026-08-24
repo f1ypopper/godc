@@ -116,6 +116,9 @@ class BehaviorStoryBuilder:
                     "artifacts": dedupe_artifacts(artifacts)[:20],
                     "data_summary": data_summary_for_function(item),
                 }
+                for role_key in ("network_role", "process_role", "filesystem_role"):
+                    if operation.get(role_key):
+                        action[role_key] = operation.get(role_key)
                 actions.append(clean_action(action))
         actions.extend(self._semantic_chain_actions())
         return actions
@@ -136,20 +139,20 @@ class BehaviorStoryBuilder:
                 continue
             artifacts = artifacts_for_chain(chain)
             artifacts.extend(self.indicators_by_function.get(function, []))
-            actions.append(
-                clean_action(
-                    {
-                        "category": category,
-                        "kind": chain.get("kind"),
-                        "function": function,
-                        "description": description_for_chain(chain),
-                        "confidence": chain.get("confidence", "medium"),
-                        "sinks": compact_sinks(chain.get("sinks") or []),
-                        "artifacts": dedupe_artifacts(artifacts)[:20],
-                        "evidence": chain.get("evidence", [])[:8],
-                    }
-                )
-            )
+            action = {
+                "category": category,
+                "kind": chain.get("kind"),
+                "function": function,
+                "description": description_for_chain(chain),
+                "confidence": chain.get("confidence", "medium"),
+                "sinks": compact_sinks(chain.get("sinks") or []),
+                "artifacts": dedupe_artifacts(artifacts)[:20],
+                "evidence": chain.get("evidence", [])[:8],
+            }
+            for role_key in ("network_role", "process_role", "filesystem_role"):
+                if chain.get(role_key):
+                    action[role_key] = chain.get(role_key)
+            actions.append(clean_action(action))
         return actions
 
     def _embedded_artifact_observations(self) -> list[dict[str, Any]]:
@@ -421,8 +424,13 @@ def data_summary_for_function(item: dict[str, Any]) -> dict[str, Any]:
 def category_for_chain(kind: str | None) -> str | None:
     return {
         "outbound_http": "network",
+        "outbound_network_client": "network",
+        "inbound_network_service": "network",
+        "network_activity": "network",
         "file_write": "filesystem",
         "file_read": "filesystem",
+        "process_launch": "process",
+        "dynamic_loader": "execution",
         "execution_or_loader": "execution",
         "generated_identifier": "filesystem",
         "runtime_string_materialization": "crypto_or_decoding",
@@ -432,9 +440,14 @@ def category_for_chain(kind: str | None) -> str | None:
 def description_for_chain(chain: dict[str, Any]) -> str:
     return {
         "outbound_http": "communicates over HTTP",
+        "outbound_network_client": "opens outbound network/client connections",
+        "inbound_network_service": "listens for inbound network connections",
+        "network_activity": "uses network APIs",
         "file_write": "writes data to the filesystem",
         "file_read": "reads data from the filesystem",
-        "execution_or_loader": "executes or loads code/APIs",
+        "process_launch": "launches an external process",
+        "dynamic_loader": "uses dynamic loading or low-level execution APIs",
+        "execution_or_loader": "uses dynamic loading or low-level execution APIs",
         "generated_identifier": "generates identifier-like data",
         "runtime_string_materialization": "materializes strings or data at runtime",
     }.get(chain.get("kind"), "performs behavior")
@@ -523,7 +536,20 @@ def add_artifact_to_bucket(buckets: dict[str, list[Any]], artifact: dict[str, An
         add_unique(buckets["domains"], artifact)
     elif kind == "embedded_artifact":
         add_unique(buckets["embedded_artifacts"], artifact)
-    elif kind in {"embedded_pe", "zip_archive", "gzip_stream", "decoded_indicators", "decoded_text_config"}:
+    elif kind in {
+        "embedded_pe",
+        "embedded_elf",
+        "zip_archive",
+        "gzip_stream",
+        "decoded_indicators",
+        "decoded_text_config",
+        "decoded_pe",
+        "decoded_elf",
+        "decoded_zip",
+        "decoded_gzip",
+        "decoded_zlib",
+        "decoded_script",
+    }:
         add_unique(buckets["decoded_artifacts"], artifact)
     elif kind == "field_name":
         add_unique(buckets["fields"], artifact)
@@ -533,11 +559,20 @@ def narrative_for_actions(actions: list[dict[str, Any]], artifacts: dict[str, An
     lines = []
     categories = Counter(action.get("category") for action in actions)
     if categories.get("network"):
-        lines.append("The binary contains network/HTTP behavior" + artifact_suffix(artifacts.get("urls"), "URLs") + ".")
+        inbound = sum(1 for action in actions if action.get("network_role") == "inbound_listener")
+        outbound = sum(1 for action in actions if action.get("network_role") == "outbound_client")
+        if inbound and not outbound:
+            lines.append("The binary listens for inbound network connections.")
+        elif outbound:
+            lines.append("The binary opens outbound network/client connections" + artifact_suffix(artifacts.get("urls"), "URLs") + ".")
+        else:
+            lines.append("The binary uses network APIs" + artifact_suffix(artifacts.get("urls"), "URLs") + ".")
     if categories.get("filesystem"):
         lines.append("The binary performs filesystem reads/writes" + artifact_suffix(artifacts.get("paths"), "paths") + ".")
-    if categories.get("process") or categories.get("execution"):
-        lines.append("The binary launches processes, resolves APIs, invokes syscalls, or loads executable code.")
+    if categories.get("process"):
+        lines.append("The binary launches external processes" + artifact_suffix(artifacts.get("commands"), "commands") + ".")
+    if categories.get("execution"):
+        lines.append("The binary uses dynamic loading, executable memory, or low-level syscall/API behavior.")
     if categories.get("embedded_artifact"):
         lines.append("The binary contains embedded static data connected to transformation and loader-relevant code.")
     if categories.get("crypto_or_decoding"):
