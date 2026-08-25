@@ -512,34 +512,64 @@ class SemanticScanner:
 
     def _large_copy_blob_spans(self) -> list[dict[str, Any]]:
         blobs = []
-        for copy in self.large_copies:
-            if copy.source is None or copy.size is None:
-                continue
-            section = self._section_for_va(copy.source)
-            if section is None or is_excluded_data_section(section.name):
-                continue
-            offset = copy.source - section.va
-            size = min(copy.size, section.end - copy.source)
-            if size < MIN_BLOB_SIZE:
-                continue
+        for span in self._merged_large_copy_spans():
+            section = span["section"]
+            source = span["start"]
+            size = span["end"] - source
+            offset = source - section.va
             data = section.data[offset : offset + min(size, ENTROPY_SAMPLE_LIMIT)]
             entropy_sample = data[: min(len(data), ENTROPY_SAMPLE_LIMIT)]
             blobs.append(
                 {
                     "id": f"blob_{len(blobs)}",
                     "section": section.name,
-                    "va": hex(copy.source),
+                    "va": hex(source),
                     "size": hex(size),
                     "entropy": round(shannon_entropy(entropy_sample), 3),
                     "entropy_sampled": size > len(entropy_sample),
                     "sha256_prefix": hashlib.sha256(data).hexdigest()[:16],
-                    "referenced_by": [copy.function],
-                    "reference_count": 1,
+                    "referenced_by": sorted(span["functions"]),
+                    "reference_count": span["reference_count"],
                     "magic_offsets": magic_offsets(data[: min(len(data), 0x20000)])[:8],
                     "reasons": ["large_copy_source"],
                 }
             )
         return blobs
+
+    def _merged_large_copy_spans(self) -> list[dict[str, Any]]:
+        spans = []
+        for copy in self.large_copies:
+            if copy.source is None or copy.size is None:
+                continue
+            section = self._section_for_va(copy.source)
+            if section is None or is_excluded_data_section(section.name):
+                continue
+            size = min(copy.size, section.end - copy.source)
+            if size < MIN_BLOB_SIZE:
+                continue
+            spans.append(
+                {
+                    "section": section,
+                    "start": copy.source,
+                    "end": copy.source + size,
+                    "functions": {copy.function},
+                    "reference_count": 1,
+                }
+            )
+        spans.sort(key=lambda item: (item["section"].name, item["start"], item["end"]))
+        merged = []
+        for span in spans:
+            if not merged:
+                merged.append(span)
+                continue
+            previous = merged[-1]
+            if span["section"] is previous["section"] and span["start"] <= previous["end"]:
+                previous["end"] = max(previous["end"], span["end"])
+                previous["functions"].update(span["functions"])
+                previous["reference_count"] += span["reference_count"]
+                continue
+            merged.append(span)
+        return merged
 
     def _referenced_chunks(self) -> dict[tuple[str, int], list[DataReference]]:
         chunks: dict[tuple[str, int], list[DataReference]] = {}

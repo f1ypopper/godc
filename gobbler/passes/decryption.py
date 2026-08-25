@@ -6,6 +6,7 @@ import gzip
 import hashlib
 import re
 import zlib
+from functools import lru_cache
 from typing import Any
 
 from gobbler.passes.artifact_classifier import classify_bytes
@@ -19,6 +20,18 @@ MAX_RESULTS = 40
 MAX_DECODED_ARTIFACTS = 60
 MAX_LAYER_DEPTH = 4
 MAX_LITERAL_STRINGS = 80
+FAST_XOR_SIGNAL_BYTES = 0x2000
+
+URL_BYTES_RE = re.compile(rb"https?://[A-Za-z0-9.-]+(?:/[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]*)?")
+WINDOWS_PATH_BYTES_RE = re.compile(rb"[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+")
+COMMAND_BYTES_RE = re.compile(
+    rb"(^|[^A-Za-z0-9_])(cmd\.exe|powershell(?:\.exe)?|rundll32(?:\.exe)?|regsvr32(?:\.exe)?|wscript(?:\.exe)?|cscript(?:\.exe)?|/bin/sh|/bin/bash)($|[^A-Za-z0-9_])",
+    re.IGNORECASE,
+)
+INTERESTING_FILE_BYTES_RE = re.compile(
+    rb"(^|[^A-Za-z0-9_.-])[A-Za-z0-9_. $(){}-]{3,}\.(?:exe|dll|ps1|bat|cmd|sh|zip|json)(?:$|[^A-Za-z0-9_.-])",
+    re.IGNORECASE,
+)
 
 
 def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dict[str, Any]:
@@ -159,12 +172,17 @@ def recover_xor_for_function(
         data = read_source_bytes(analyzer, source)
         if len(data) < 8:
             continue
+        seen_keys: set[bytes] = set()
         for key in single_byte_keys():
             key_bytes = bytes([key])
+            seen_keys.add(key_bytes)
             artifact, decoded = recover_xor_with_probe(data, key_bytes)
             if artifact:
                 results.append(format_recovery(function, source, decoded, "xor_single_byte", key_bytes, artifact))
         for key in keys[:MAX_REPEATING_KEYS]:
+            if not key or key in seen_keys:
+                continue
+            seen_keys.add(key)
             artifact, decoded = recover_xor_with_probe(data, key)
             if artifact:
                 results.append(format_recovery(function, source, decoded, "xor_repeating_key", key, artifact))
@@ -174,14 +192,30 @@ def recover_xor_for_function(
 
 def recover_xor_with_probe(data: bytes, key: bytes) -> tuple[dict[str, Any] | None, bytes]:
     probe = xor_repeating(data[: min(len(data), XOR_PROBE_BYTES)], key)
+    if not fast_decoded_artifact_signal(probe):
+        return None, probe
     artifact = classify_decoded_artifact(probe)
     if not artifact:
         return None, probe
-    if len(data) <= len(probe):
+    if len(data) <= len(probe) or not should_full_decode_xor_artifact(artifact):
         return artifact, probe
     decoded = xor_repeating(data, key)
     full_artifact = classify_decoded_artifact(decoded)
     return full_artifact or artifact, decoded
+
+
+def should_full_decode_xor_artifact(artifact: dict[str, Any]) -> bool:
+    return artifact.get("type") in {
+        "decoded_pe",
+        "decoded_elf",
+        "embedded_pe",
+        "embedded_elf",
+        "decoded_zip",
+        "decoded_gzip",
+        "decoded_zlib",
+        "zip_archive",
+        "gzip_stream",
+    }
 
 
 def recover_literal_artifacts(
@@ -512,7 +546,42 @@ def single_byte_keys() -> list[int]:
 def xor_repeating(data: bytes, key: bytes) -> bytes:
     if not key:
         return data
+    if len(key) == 1:
+        return data.translate(single_byte_xor_table(key[0]))
     return bytes(byte ^ key[index % len(key)] for index, byte in enumerate(data))
+
+
+@lru_cache(maxsize=256)
+def single_byte_xor_table(key: int) -> bytes:
+    return bytes(value ^ key for value in range(256))
+
+
+def fast_decoded_artifact_signal(data: bytes) -> bool:
+    if not data:
+        return False
+    if valid_pe_offset(data) is not None:
+        return True
+    if data.find(b"\x7fELF", 0, min(len(data), 0x1000)) != -1:
+        return True
+    if data.startswith((b"PK\x03\x04", b"PK\x05\x06", b"PK\x07\x08", b"\x1f\x8b")):
+        return True
+    if looks_like_zlib(data):
+        return True
+
+    sample = data[:FAST_XOR_SIGNAL_BYTES]
+    lowered = sample.lower()
+    if any(marker in lowered for marker in SCRIPT_MARKER_BYTES):
+        return True
+    if URL_BYTES_RE.search(sample):
+        return True
+    if any(
+        is_robust_windows_path(match.group(0).decode("ascii", errors="ignore"))
+        for match in WINDOWS_PATH_BYTES_RE.finditer(sample)
+    ):
+        return True
+    if COMMAND_BYTES_RE.search(sample):
+        return True
+    return bool(INTERESTING_FILE_BYTES_RE.search(sample))
 
 
 def classify_decoded_artifact(data: bytes) -> dict[str, Any] | None:
