@@ -5,10 +5,38 @@ build/
 dist/
 wheels/
 *.egg-info
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Virtual environments
 .venv
 
-# Generated clean corpus artifacts
+# Local configuration and platform files
+.env
+.env.*
+!.env.example
+.DS_Store
+.python-version
+
+# Local tools and binaries
+GoReSym
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.out
+
+# Generated analysis and corpus artifacts
+data/
+data_old/
+/output/
+eval_*/
+eval_runs/
 corpus/.cache/
 corpus/clean/
+dirty_hashes.txt
+verdict_records*.csv
+verdict*.json
+verdict*.jsonl

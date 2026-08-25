@@ -1,10 +1,12 @@
 [project]
 name = "gobbler"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
+description = "Static semantic analyzer for Go binaries"
+readme = "docs/README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "capstone>=5.0",
+    "lief>=0.14",
     "requests>=2.31",
 ]
 

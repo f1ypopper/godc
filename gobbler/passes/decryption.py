@@ -516,6 +516,8 @@ def xor_repeating(data: bytes, key: bytes) -> bytes:
 
 
 def classify_decoded_artifact(data: bytes) -> dict[str, Any] | None:
+    if not plausible_decoded_artifact_candidate(data):
+        return None
     classification = classify_bytes(data)
     classification_type = classification.get("type")
     if classification_type in {"pe", "elf", "zip", "gzip", "zlib", "script"}:
@@ -577,6 +579,38 @@ def classify_decoded_artifact(data: bytes) -> dict[str, Any] | None:
             "classification": classification,
         }
     return None
+
+
+def plausible_decoded_artifact_candidate(data: bytes) -> bool:
+    if not data:
+        return False
+    if valid_pe_offset(data) is not None:
+        return True
+    if data.find(b"\x7fELF", 0, min(len(data), 0x1000)) != -1:
+        return True
+    if data.startswith((b"PK\x03\x04", b"PK\x05\x06", b"PK\x07\x08", b"\x1f\x8b")):
+        return True
+    if looks_like_zlib(data):
+        return True
+    lowered_head = data[:0x2000].lower()
+    if any(marker in lowered_head for marker in SCRIPT_MARKER_BYTES):
+        return True
+    strings = extract_ascii_strings(data[: min(len(data), 0x4000)])
+    if strong_indicators(strings):
+        return True
+    return bool(embedded_behavior_indicators(strings))
+
+
+SCRIPT_MARKER_BYTES = (
+    b"#!/bin/sh",
+    b"#!/bin/bash",
+    b"#!/usr/bin/env",
+    b"powershell",
+    b"cmd.exe",
+    b"@echo off",
+    b"function ",
+    b"param(",
+)
 
 
 def indicators_from_classification(classification: dict[str, Any]) -> list[dict[str, str]]:
@@ -727,6 +761,24 @@ def strong_indicators(strings: list[str]) -> list[dict[str, str]]:
             results.append({"type": "windows_path", "value": stripped[:240]})
         elif is_robust_command_indicator(stripped):
             results.append({"type": "command", "value": stripped[:240]})
+    return dedupe_indicator_values(results)
+
+
+def embedded_behavior_indicators(strings: list[str]) -> list[dict[str, str]]:
+    results = []
+    for value in strings:
+        for match in re.finditer(r"https?://[A-Za-z0-9.-]+(?:/[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]*)?", value):
+            results.append({"type": "url", "value": match.group(0)[:240]})
+        for match in re.finditer(r"[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+", value):
+            path = match.group(0)
+            if is_robust_windows_path(path):
+                results.append({"type": "windows_path", "value": path[:240]})
+        for match in re.finditer(
+            r"(^|[^A-Za-z0-9_])(cmd\.exe|powershell(?:\.exe)?|rundll32(?:\.exe)?|regsvr32(?:\.exe)?|wscript(?:\.exe)?|cscript(?:\.exe)?|/bin/sh|/bin/bash)($|[^A-Za-z0-9_])",
+            value,
+            re.IGNORECASE,
+        ):
+            results.append({"type": "command", "value": match.group(2)[:240]})
     return dedupe_indicator_values(results)
 
 

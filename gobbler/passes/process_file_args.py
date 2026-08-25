@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import shlex
 from typing import Any
 
 from gobbler.passes.http_args import typed_arguments
@@ -29,12 +30,21 @@ def process_arguments(sink: dict[str, Any]) -> dict[str, Any]:
     values = ordered_strings(sink)
     executable = first_process_executable(sink, values)
     argv = process_argv(values, executable)
+    array_argv = process_argv_from_argument_arrays(sink, executable)
+    if array_argv:
+        argv = append_argument_values(argv, array_argv, MAX_COMPONENTS)
     result: dict[str, Any] = {"api_shape": shape}
     if executable:
         result["executable"] = executable
     if argv:
         result["argv"] = argv[:MAX_COMPONENTS]
         result["command_line_preview"] = command_line_preview(executable, argv)
+        if array_argv:
+            result["argv_provenance"] = {
+                "source": "argument_array_or_slice",
+                "classification": "process_argument_components",
+                "component_count": len(array_argv),
+            }
     elif sink.get("data_sources"):
         result["argv_source"] = {
             "source": "related_static_data",
@@ -58,6 +68,7 @@ def file_arguments(sink: dict[str, Any]) -> dict[str, Any]:
             "source": path.get("source") if path else "unresolved_argument",
             "classification": "path" if path else "unknown_read_target",
         }
+        result["read_result"] = file_read_result(path)
     flags = file_flags(sink)
     if flags:
         result["flags"] = flags
@@ -168,6 +179,85 @@ def process_argv(
     return result
 
 
+def process_argv_from_argument_arrays(
+    sink: dict[str, Any],
+    executable: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    result = []
+    executable_value = executable.get("value") if executable else None
+    for component in argument_array_components(sink):
+        text = component.get("value")
+        if not isinstance(text, str) or not useful_argv_part(text):
+            continue
+        if text == executable_value:
+            continue
+        result.append(argument_value(text, component.get("source"), component.get("location")))
+    return dedupe(result)
+
+
+def argument_array_components(sink: dict[str, Any]) -> list[dict[str, Any]]:
+    components = []
+    args = sink.get("args") or {}
+    for source_key in ("slices", "symbolic"):
+        for index, item in enumerate(args.get(source_key) or []):
+            if not isinstance(item, dict):
+                continue
+            components.extend(components_from_symbolic_argument(item, f"{source_key}[{index}]"))
+    return dedupe(components)
+
+
+def components_from_symbolic_argument(item: dict[str, Any], location: str) -> list[dict[str, Any]]:
+    values = []
+    value = item.get("value")
+    if isinstance(value, str):
+        values.extend(split_argument_preview(value))
+    source = item.get("source") if isinstance(item.get("source"), dict) else {}
+    values.extend(preview_components_from_source(source))
+    return [
+        {"value": value, "source": "argument_array_or_slice", "location": location}
+        for value in values
+    ]
+
+
+def preview_components_from_source(source: dict[str, Any]) -> list[str]:
+    values = []
+    for key in ("text_preview", "preview"):
+        value = source.get(key)
+        if isinstance(value, str):
+            values.extend(split_argument_preview(value))
+    return unique_strings(values)
+
+
+def split_argument_preview(value: str) -> list[str]:
+    text = value.replace("\x00", " ").replace("\r", " ").replace("\n", " ").replace("\t", " ")
+    text = " ".join(text.split())
+    if not text or len(text) > 1000:
+        return []
+    try:
+        parts = shlex.split(text, posix=False)
+    except ValueError:
+        parts = re.findall(r'"[^"]{1,240}"|\'[^\']{1,240}\'|\S{1,240}', text)
+    return [part.strip("\"'") for part in parts if part.strip("\"'")]
+
+
+def append_argument_values(
+    existing: list[dict[str, Any]],
+    extra: list[dict[str, Any]],
+    limit: int,
+) -> list[dict[str, Any]]:
+    result = list(existing)
+    seen = {item.get("value") for item in result}
+    for item in extra:
+        value = item.get("value")
+        if value in seen:
+            continue
+        seen.add(value)
+        result.append(item)
+        if len(result) >= limit:
+            break
+    return result
+
+
 def first_path_value(sink: dict[str, Any], values: list[dict[str, Any]]) -> dict[str, Any] | None:
     for artifact in sink.get("artifacts") or []:
         value = artifact.get("value")
@@ -200,6 +290,9 @@ def file_write_data(sink: dict[str, Any], values: list[dict[str, Any]]) -> dict[
                 "classification": classify_data_preview(text),
                 "preview": preview(text),
             }
+    slice_candidate = data_candidate_from_argument_arrays(sink)
+    if slice_candidate:
+        return slice_candidate
     sources = sink.get("data_sources") or []
     data_candidate = data_candidate_from_sources(sources)
     if data_candidate:
@@ -214,6 +307,16 @@ def file_write_data(sink: dict[str, Any], values: list[dict[str, Any]]) -> dict[
         "source": "unresolved_argument",
         "classification": "unknown_write_data",
     }
+
+
+def file_read_result(path: dict[str, Any] | None) -> dict[str, Any]:
+    result = {
+        "source": "filesystem_runtime",
+        "classification": "file_contents",
+    }
+    if path and path.get("value"):
+        result["path"] = path.get("value")
+    return result
 
 
 def file_mode(sink: dict[str, Any]) -> dict[str, Any] | None:
@@ -287,6 +390,19 @@ def data_candidate_from_sources(sources: list[Any]) -> dict[str, Any] | None:
     for source in sources:
         if not isinstance(source, dict):
             continue
+        magic_names = [
+            item.get("magic")
+            for item in source.get("magic_offsets") or []
+            if isinstance(item, dict) and item.get("magic")
+        ]
+        if magic_names:
+            return {
+                "source": "related_static_data",
+                "classification": classify_magic_data(magic_names),
+                "size": source.get("size"),
+                "magic": magic_names[:6],
+                "source_kind": source.get("kind"),
+            }
         for key in ("text_preview", "preview"):
             value = source.get(key)
             if not isinstance(value, str):
@@ -299,6 +415,71 @@ def data_candidate_from_sources(sources: list[Any]) -> dict[str, Any] | None:
                     "preview": preview(candidate),
                     "source_kind": source.get("kind"),
                 }
+    return None
+
+
+def classify_magic_data(magic_names: list[str]) -> str:
+    names = {str(name).upper() for name in magic_names}
+    if names & {"MZ", "PE", "ELF"}:
+        return "executable_or_object_data"
+    if names & {"PK", "GZIP", "ZLIB"}:
+        return "archive_or_compressed_data"
+    return "static_binary_data"
+
+
+def data_candidate_from_argument_arrays(sink: dict[str, Any]) -> dict[str, Any] | None:
+    candidates = []
+    args = sink.get("args") or {}
+    for source_key in ("slices", "symbolic"):
+        for item in args.get(source_key) or []:
+            if not isinstance(item, dict):
+                continue
+            source = item.get("source") if isinstance(item.get("source"), dict) else {}
+            candidate = data_candidate_from_symbolic_argument(item, source_key, source)
+            if candidate:
+                candidates.append(candidate)
+    return candidates[0] if candidates else None
+
+
+def data_candidate_from_symbolic_argument(
+    item: dict[str, Any],
+    source_key: str,
+    source: dict[str, Any],
+) -> dict[str, Any] | None:
+    previews = []
+    if isinstance(item.get("value"), str):
+        previews.append(item["value"])
+    for key in ("text_preview", "preview"):
+        value = source.get(key)
+        if isinstance(value, str):
+            previews.append(value)
+
+    for text in previews:
+        candidate = extract_data_candidate(text) or (text if useful_file_data_literal(text) else None)
+        if not candidate:
+            continue
+        result = {
+            "source": "argument_array_or_slice",
+            "classification": classify_data_preview(candidate),
+            "preview": preview(candidate),
+            "source_kind": source.get("kind") or item.get("kind") or source_key,
+        }
+        size = item.get("length") or source.get("size")
+        if size:
+            result["size"] = size
+        return result
+
+    if source:
+        result = {
+            "source": "argument_array_or_slice",
+            "classification": "byte_slice_or_buffer",
+            "source_kind": source.get("kind") or item.get("kind") or source_key,
+            "components": compact_components([source]),
+        }
+        size = item.get("length") or source.get("size")
+        if size:
+            result["size"] = size
+        return result
     return None
 
 
@@ -319,6 +500,8 @@ def useful_command_part(value: str) -> bool:
     if not value or len(value) > 500:
         return False
     if "\x00" in value or "\n" in value:
+        return False
+    if runtime_string_table_fragment(value):
         return False
     if len(value) > 40 and not re.search(r"[\s\"']", value) and not value.startswith(("-", "/")):
         return False
@@ -401,10 +584,21 @@ def command_like_filename(value: str) -> bool:
 
 
 def runtime_string_table_fragment(value: str) -> bool:
-    return bool(
-        re.search(
-            r"(?i)\b(?:forcegc|gctrace|cpuprof|allocm|unknown|PATHEXT|trap console)\b",
-            value,
+    lowered = value.lower()
+    return any(
+        marker in lowered
+        for marker in (
+            "forcegc",
+            "gctrace",
+            "cpuprof",
+            "allocm",
+            "pathext",
+            "trap console",
+            "file too large",
+            "is a directory",
+            "illegal instruction",
+            "waitforsingleobject",
+            "regenumvalue",
         )
     )
 
@@ -470,6 +664,17 @@ def dedupe(values: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if key in seen:
             continue
         seen.add(key)
+        result.append(value)
+    return result
+
+
+def unique_strings(values: list[str]) -> list[str]:
+    seen = set()
+    result = []
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
         result.append(value)
     return result
 

@@ -70,6 +70,6 @@ Current semantic passes include:
 `write_analysis_with_options()` supports two JSON profiles:
 
 - `full`: complete analysis document.
-- `evaluator`: smaller report used for eval and LLM verdicts. It keeps behavior, payload, decoding, loader, chain, timing, and assessment evidence while dropping lower-value debug sections.
+- `evaluator`: compact evidence-card report used for eval and LLM verdicts. It keeps behavior flow, concrete system-interaction arguments, decoded artifacts, loader activity, indicators, timing, and limitations while dropping raw call graphs, raw behavior IR, raw chains, array IDs, addresses, and entropy-only blob metadata.
 
 The text report is always written from the full in-memory analysis.

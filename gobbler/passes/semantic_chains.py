@@ -53,6 +53,7 @@ SINK_OPERATION_KINDS = {
     "raw_syscall",
     "permission_change",
     "environment_write",
+    "start_goroutine",
 }
 
 DECODER_OPERATION_KINDS = {
@@ -71,6 +72,7 @@ FILE_READ_OPERATION_KINDS = {"file_read", "file_open"}
 FILE_MUTATION_OPERATION_KINDS = {"file_delete", "file_rename"}
 FILE_WALK_OPERATION_KINDS = {"recursive_filesystem_walk"}
 PROCESS_OPERATION_KINDS = {"process_launch"}
+GOROUTINE_OPERATION_KINDS = {"start_goroutine"}
 LOADER_OPERATION_KINDS = {
     "dynamic_library_load",
     "dynamic_import_resolution",
@@ -249,6 +251,21 @@ class SemanticChainBuilder:
                 }
             )
 
+        if kinds & GOROUTINE_OPERATION_KINDS:
+            goroutine_sinks = [op for op in sinks if op["kind"] in GOROUTINE_OPERATION_KINDS]
+            self._add_chain(
+                {
+                    "kind": "goroutine_spawn",
+                    "function": function,
+                    "confidence": "high" if goroutine_sinks else "medium",
+                    "sources": sources + static_source_refs(static_sources),
+                    "transforms": transforms,
+                    "sinks": goroutine_sinks,
+                    "literals": literal_values[:12],
+                    "evidence": ["runtime.newproc", "goroutine_spawn"],
+                }
+            )
+
         if kinds & LOADER_OPERATION_KINDS:
             loader_sinks = [op for op in sinks if op["kind"] in LOADER_OPERATION_KINDS]
             if is_library_function(function) and not any(
@@ -376,6 +393,8 @@ def operation_ref(operation: dict[str, Any]) -> dict[str, Any]:
     for key in ("process_role", "network_role", "filesystem_role"):
         if operation.get(key):
             result[key] = operation.get(key)
+    if operation.get("via"):
+        result["via"] = operation.get("via")
     return result
 
 

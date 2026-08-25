@@ -11,6 +11,7 @@ from gobbler.analyzer import (
     add_fallback_entry_graphs,
     call_to_dict,
 )
+from gobbler.output.evaluator import build_evaluator_document
 from gobbler.output.formatters import format_human_readable_report
 from gobbler.passes.semantic import analyze_semantics
 
@@ -93,33 +94,4 @@ def serializable_for_profile(document: dict[str, Any], output_profile: str) -> d
         return document
     if output_profile != "evaluator":
         raise ValueError(f"unknown output profile: {output_profile}")
-    semantics = document.get("semantic_analysis") or {}
-    keep_semantic_keys = {
-        "analysis_timing",
-        "analysis_errors",
-        "artifact_classification",
-        "assessment_hints",
-        "binary_info",
-        "behavior_ir",
-        "behavior_story",
-        "data_transformers",
-        "decryption_recovery",
-        "embedded_artifacts",
-        "go_types",
-        "interesting_functions",
-        "imports",
-        "loader_behaviors",
-        "notable_data_blobs",
-        "pe_imports",
-        "runtime_decoding",
-        "scanner_timing",
-        "semantic_chains",
-        "sink_args",
-    }
-    return {
-        "call_graph": document.get("call_graph", {}),
-        "semantic_analysis": {
-            key: value for key, value in semantics.items() if key in keep_semantic_keys
-        },
-        "output_profile": "evaluator",
-    }
+    return build_evaluator_document(document)

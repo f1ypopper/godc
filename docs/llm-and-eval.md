@@ -2,7 +2,7 @@
 
 Gobbler separates static analysis from LLM verdicting.
 
-The analyzer produces JSON. The LLM verdict pass reads that JSON, builds a compact evaluator view, and asks an LLM provider for a strict JSON verdict. `scripts/eval.py` is the minimal directory-level script wrapper around `gobbler.passes.llm_verdict`.
+The analyzer produces JSON. The LLM verdict pass reads that JSON, uses the same compact evaluator projection written by `--output-profile evaluator`, and asks an LLM provider for a strict JSON verdict. `scripts/eval.py` is the minimal directory-level script wrapper around `gobbler.passes.llm_verdict`.
 
 ## Provider Interface
 
@@ -47,19 +47,20 @@ OPENROUTER_MODEL=google/gemini-2.5-flash-lite
 
 ## LLM Prompt Evidence
 
-`gobbler.passes.llm_verdict` does not pass the entire Gobbler JSON directly. It builds a compact view containing:
+`gobbler.passes.llm_verdict` does not pass the full Gobbler JSON directly. It uses the evaluator document containing:
 
-- `behavior_story`
-- `top_level_summary`
-- `decryption_recovery`
-- `behavior_operations`
-- `semantic_chains`
-- `runtime_decoding`
+- `binary`
+- `execution_summary`
+- `behavior_flow`
+- `evidence_cards`
+- `decoded_artifacts`
 - `embedded_artifacts`
-- `loader_behaviors`
-- `notable_static_data`
-- `behavior_strings`
-- `top_interesting_functions`
+- `runtime_decoding`
+- `loader_activity`
+- `indicators`
+- `limitations`
+
+Weak evidence is intentionally demoted. XOR/codec/compression use without recovered artifacts, recovered indicators, or downstream system interaction is summarized as weak runtime-decoding context. Entropy-only blob metadata and raw array/string-table fragments are not sent to the model.
 
 The prompt asks the model to return valid JSON with:
 

@@ -33,6 +33,7 @@ ACTION_KINDS = {
     "thread_creation": ("execution", "creates thread"),
     "environment_read": ("environment", "reads environment variable"),
     "environment_write": ("environment", "writes environment variable"),
+    "start_goroutine": ("concurrency", "starts goroutine"),
 }
 
 ACTION_RANK = {
@@ -40,9 +41,10 @@ ACTION_RANK = {
     "filesystem": 1,
     "process": 2,
     "execution": 3,
-    "environment": 4,
-    "crypto_or_decoding": 5,
-    "embedded_artifact": 6,
+    "concurrency": 4,
+    "environment": 5,
+    "crypto_or_decoding": 6,
+    "embedded_artifact": 7,
 }
 
 LOW_LEVEL_EXECUTION_KINDS = {
@@ -265,6 +267,7 @@ class BehaviorStoryBuilder:
             "network_action_count": categories.get("network", 0),
             "filesystem_action_count": categories.get("filesystem", 0),
             "process_or_execution_action_count": categories.get("process", 0) + categories.get("execution", 0),
+            "concurrency_action_count": categories.get("concurrency", 0),
             "embedded_artifact_action_count": categories.get("embedded_artifact", 0),
             "artifact_counts": {key: len(value) for key, value in artifacts.items()},
         }
@@ -436,6 +439,7 @@ def category_for_chain(kind: str | None) -> str | None:
         "file_rename": "filesystem",
         "recursive_filesystem_walk": "filesystem",
         "process_launch": "process",
+        "goroutine_spawn": "concurrency",
         "dynamic_loader": "execution",
         "execution_or_loader": "execution",
         "generated_identifier": "filesystem",
@@ -455,6 +459,7 @@ def description_for_chain(chain: dict[str, Any]) -> str:
         "file_rename": "renames filesystem paths",
         "recursive_filesystem_walk": "walks filesystem paths recursively",
         "process_launch": "launches an external process",
+        "goroutine_spawn": "starts a goroutine",
         "dynamic_loader": "uses dynamic loading or low-level execution APIs",
         "execution_or_loader": "uses dynamic loading or low-level execution APIs",
         "generated_identifier": "generates identifier-like data",

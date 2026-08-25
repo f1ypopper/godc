@@ -48,6 +48,10 @@ PROCESS_KINDS = {
     "process_execution",
 }
 
+CONCURRENCY_KINDS = {
+    "start_goroutine",
+}
+
 LOADER_KINDS = {
     "dynamic_library_load",
     "dynamic_import_resolution",
@@ -75,6 +79,7 @@ KIND_CATEGORIES = {
     **{kind: "filesystem" for kind in FILE_KINDS},
     **{kind: "network" for kind in NETWORK_KINDS},
     **{kind: "process" for kind in PROCESS_KINDS},
+    **{kind: "concurrency" for kind in CONCURRENCY_KINDS},
     **{kind: "loader" for kind in LOADER_KINDS},
     **{kind: "registry" for kind in REGISTRY_KINDS},
     **{kind: "persistence" for kind in PERSISTENCE_KINDS},
@@ -88,6 +93,7 @@ CHAIN_KIND_CATEGORIES = {
     "file_write": "filesystem",
     "file_read": "filesystem",
     "process_launch": "process",
+    "goroutine_spawn": "concurrency",
     "dynamic_loader": "loader",
     "execution_or_loader": "loader",
 }
@@ -100,6 +106,7 @@ CHAIN_KIND_TO_SINK_KIND = {
     "file_write": "file_write",
     "file_read": "file_read",
     "process_launch": "process_launch",
+    "goroutine_spawn": "start_goroutine",
     "dynamic_loader": "dynamic_code_or_process_execution",
     "execution_or_loader": "dynamic_code_or_process_execution",
 }
@@ -137,10 +144,18 @@ TARGET_HINTS: tuple[tuple[str, str, str], ...] = (
     ("winexec", "process_launch", "process"),
     ("execve", "process_launch", "process"),
     ("posix_spawn", "process_launch", "process"),
+    ("newlazysystemdll", "dynamic_library_load", "loader"),
+    ("newlazydll", "dynamic_library_load", "loader"),
+    ("loaddll", "dynamic_library_load", "loader"),
     ("loadlibrary", "dynamic_library_load", "loader"),
     ("dlopen", "dynamic_library_load", "loader"),
+    ("lazydll).newproc", "dynamic_import_resolution", "loader"),
+    ("lazydll.newproc", "dynamic_import_resolution", "loader"),
+    ("findproc", "dynamic_import_resolution", "loader"),
     ("getprocaddress", "dynamic_import_resolution", "loader"),
     ("dlsym", "dynamic_import_resolution", "loader"),
+    ("lazyproc).call", "dynamic_syscall_call", "loader"),
+    ("lazyproc.call", "dynamic_syscall_call", "loader"),
     ("virtualalloc", "executable_memory_allocation", "loader"),
     ("mmap", "executable_memory_allocation", "loader"),
     ("virtualprotect", "memory_protection_change", "loader"),
@@ -312,6 +327,7 @@ class SinkArgumentSummaryBuilder:
                 "filesystem",
                 "network",
                 "process",
+                "concurrency",
                 "execution",
                 "loader",
                 "registry",
@@ -344,6 +360,7 @@ class SinkArgumentSummaryBuilder:
                     "filesystem",
                     "network",
                     "process",
+                    "concurrency",
                     "execution",
                     "loader",
                     "registry",
@@ -655,6 +672,7 @@ def enrich_sink_arguments(
 ) -> None:
     enrich_http_arguments(sink, body_producers)
     enrich_process_and_file_arguments(sink)
+    enrich_loader_arguments(sink)
     strip_internal_data_source_ids(sink)
     coalesce_data_sources(sink)
     roles = build_arg_roles(sink)
@@ -744,6 +762,8 @@ def add_artifact_to_roles(roles: dict[str, list[Any]], artifact: dict[str, Any])
     value = artifact.get("value")
     if value in (None, "", [], {}):
         return
+    if isinstance(value, str) and looks_like_concatenated_runtime_text(value):
+        return
     if artifact_type == "url":
         cleaned_url = clean_url_value(str(value))
         role_add(roles, "urls", cleaned_url)
@@ -811,6 +831,14 @@ def add_filesystem_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> N
 
 
 def add_loader_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
+    loader_args = sink.get("loader_arguments") if isinstance(sink.get("loader_arguments"), dict) else {}
+    library = loader_args.get("library") if isinstance(loader_args.get("library"), dict) else {}
+    procedure = loader_args.get("procedure") if isinstance(loader_args.get("procedure"), dict) else {}
+    if library.get("value"):
+        role_add(roles, "libraries", library.get("value"))
+    if procedure.get("value"):
+        role_add(roles, "procedure_names", procedure.get("value"))
+
     for artifact in sink.get("artifacts") or []:
         value = artifact.get("value")
         if not isinstance(value, str):
@@ -820,6 +848,8 @@ def add_loader_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None:
             role_add(roles, "libraries", value)
         elif artifact.get("type") in {"file_name", "path", "windows_path"}:
             role_add(roles, "loader_artifacts", value)
+        elif artifact.get("type") in {"windows_api_name", "procedure_name"}:
+            role_add(roles, "procedure_names", value)
     args = sink.get("args") or {}
     for key in ("allocation_constants", "protection_constants"):
         if args.get(key):
@@ -860,6 +890,7 @@ def operation_summary(sink: dict[str, Any], roles: dict[str, list[Any]]) -> str 
         "command_parts",
         "process_targets",
         "libraries",
+        "procedure_names",
         "persistence_mechanism",
         "persistence_locations",
         "registry_paths",
@@ -945,6 +976,182 @@ def classify_process_role(values: list[Any]) -> str:
     return "process_launch"
 
 
+def enrich_loader_arguments(sink: dict[str, Any]) -> None:
+    if sink.get("category") != "loader":
+        return
+    shape = loader_shape(sink)
+    if shape is None:
+        return
+
+    values = ordered_loader_strings(sink)
+    library = first_loader_library(values)
+    procedure = first_loader_procedure(values, shape, library)
+    result: dict[str, Any] = {"api_shape": shape}
+    if library:
+        result["library"] = library
+        merge_artifacts(sink, [{"type": "dll_name", "value": library.get("value"), "confidence": "high"}])
+    if procedure:
+        result["procedure"] = procedure
+        merge_artifacts(
+            sink,
+            [{"type": "windows_api_name", "value": procedure.get("value"), "confidence": "medium"}],
+        )
+    if values:
+        result["recovered_string_args"] = values[:MAX_ARGS_PER_KIND]
+    if len(result) > 1:
+        sink["loader_arguments"] = result
+
+
+def loader_shape(sink: dict[str, Any]) -> str | None:
+    kind = str(sink.get("kind") or "").lower()
+    target = str(sink.get("target") or sink.get("api") or "").lower()
+    if kind == "dynamic_library_load" or any(
+        marker in target
+        for marker in ("loadlibrary", "loaddll", "newlazydll", "newlazysystemdll", "dlopen")
+    ):
+        return "load_library"
+    if kind == "dynamic_import_resolution" or any(
+        marker in target
+        for marker in ("getprocaddress", "findproc", "newproc", "dlsym")
+    ):
+        return "resolve_procedure"
+    if kind == "dynamic_syscall_call" or any(marker in target for marker in ("lazyproc).call", "lazyproc.call")):
+        return "call_resolved_procedure"
+    if kind == "raw_syscall" or "syscall" in target:
+        return "raw_syscall"
+    return None
+
+
+def ordered_loader_strings(sink: dict[str, Any]) -> list[dict[str, Any]]:
+    values: list[dict[str, Any]] = []
+    args = sink.get("args") or {}
+    for item in args.get("typed_string_args") or []:
+        if isinstance(item, dict) and isinstance(item.get("value"), str):
+            values.append(
+                clean_dict(
+                    {
+                        "value": clean_value(item.get("value")),
+                        "source": "dataflow",
+                        "location": item.get("location"),
+                    }
+                )
+            )
+    for key, value in (args.get("registers") or {}).items():
+        if isinstance(value, str):
+            values.append({"value": value, "source": "call_graph", "location": key})
+    for item in args.get("strings") or []:
+        if isinstance(item, str):
+            values.append({"value": item, "source": "behavior_ir_arguments"})
+    for index, value in enumerate(sink.get("strings") or []):
+        if isinstance(value, str):
+            values.append({"value": value, "source": "sink_strings", "location": f"strings[{index}]"})
+    return dedupe_argument_values(
+        [
+            clean_dict(
+                {
+                    "value": clean_value(item.get("value")),
+                    "source": item.get("source"),
+                    "location": item.get("location"),
+                }
+            )
+            for item in values
+            if isinstance(item, dict)
+        ]
+    )
+
+
+def first_loader_library(values: list[dict[str, Any]]) -> dict[str, Any] | None:
+    for item in values:
+        value = item.get("value")
+        if isinstance(value, str) and is_library_name(value):
+            return argument_from_loader_string(item)
+    return None
+
+
+def first_loader_procedure(
+    values: list[dict[str, Any]],
+    shape: str,
+    library: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if shape != "resolve_procedure":
+        return None
+    library_value = library.get("value") if isinstance(library, dict) else None
+    for item in values:
+        value = item.get("value")
+        if not isinstance(value, str):
+            continue
+        if value == library_value or is_library_name(value):
+            continue
+        if is_procedure_name_candidate(value):
+            return argument_from_loader_string(item)
+    return None
+
+
+def argument_from_loader_string(item: dict[str, Any]) -> dict[str, Any]:
+    return clean_dict(
+        {
+            "value": item.get("value"),
+            "source": item.get("source") or "recovered_argument",
+            "location": item.get("location"),
+        }
+    )
+
+
+def is_library_name(value: str) -> bool:
+    lowered = clean_value(value)
+    if lowered is None:
+        return False
+    lowered = lowered.lower()
+    if lowered.endswith((".dll", ".so", ".dylib")):
+        return True
+    return lowered in {
+        "advapi32",
+        "bcrypt",
+        "crypt32",
+        "kernel32",
+        "ntdll",
+        "psapi",
+        "shell32",
+        "urlmon",
+        "user32",
+        "winhttp",
+        "wininet",
+        "ws2_32",
+    }
+
+
+def is_procedure_name_candidate(value: str) -> bool:
+    cleaned = clean_value(value)
+    if cleaned is None:
+        return False
+    if len(cleaned) < 3 or len(cleaned) > 128:
+        return False
+    if classify_artifact(cleaned) and not cleaned.endswith(("@4", "@8", "@12", "@16")):
+        return False
+    if looks_noisy(cleaned) or looks_like_binary_preview(cleaned):
+        return False
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_@.]{2,127}", cleaned):
+        return False
+    if "." in cleaned and not cleaned.lower().endswith((".dll", ".so", ".dylib")):
+        return False
+    return bool(re.search(r"[A-Z]", cleaned))
+
+
+def dedupe_argument_values(values: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result = []
+    seen = set()
+    for item in values:
+        value = item.get("value")
+        if not isinstance(value, str) or not value:
+            continue
+        key = (value, item.get("source"), item.get("location"))
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(item)
+    return result
+
+
 def classify_network_role(sink: dict[str, Any]) -> str:
     kind = str(sink.get("kind") or "")
     target = str(sink.get("target") or "").lower()
@@ -985,6 +1192,14 @@ def command_basename(value: str) -> str:
 
 
 def normalize_role_lists(roles: dict[str, list[Any]]) -> None:
+    for role, values in list(roles.items()):
+        roles[role] = [
+            value
+            for value in values
+            if not (isinstance(value, str) and looks_like_concatenated_runtime_text(value))
+        ]
+        if not roles[role]:
+            roles.pop(role, None)
     if "process_role" in roles and len(roles["process_role"]) > 1:
         specific = [role for role in roles["process_role"] if role != "process_launch"]
         if specific:
@@ -1219,6 +1434,8 @@ def compact_artifact(artifact: Any) -> dict[str, Any] | None:
     if not isinstance(artifact, dict):
         return None
     value = artifact.get("value")
+    if isinstance(value, str) and looks_like_concatenated_runtime_text(value):
+        return None
     compact = {
         "type": artifact.get("type") or artifact.get("kind"),
         "value": clean_value(value) if isinstance(value, str) else value,
@@ -1302,6 +1519,8 @@ def useful_sink_string(value: str) -> bool:
     if classify_artifact(value):
         return True
     if len(value) < 2:
+        return False
+    if looks_like_concatenated_runtime_text(value):
         return False
     if len(value) <= 3:
         return value.startswith("-") or value in {"sh", "cmd", "run"}
@@ -1394,13 +1613,18 @@ def looks_like_concatenated_runtime_text(value: str) -> bool:
         "vpclmulqdq",
         "sha2-512",
         "getfileinformationbyhandle",
+        "waitforsingleobject",
+        "regenumvaluew",
+        "file too large",
+        "is a directory",
+        "illegal instruction",
         "float32float64",
         "uintptr",
         "chandir",
         "forcegc",
     )
     hits = sum(1 for marker in markers if marker in lowered)
-    return hits >= 2 or (len(value) > 80 and hits >= 1)
+    return hits >= 2 or (len(value) >= 64 and hits >= 1)
 
 
 def looks_like_binary_preview(value: str) -> bool:
@@ -1479,9 +1703,10 @@ def category_rank(category: Any) -> int:
         "loader": 1,
         "network": 2,
         "filesystem": 3,
-        "persistence": 4,
-        "registry": 5,
-        "registry_or_persistence": 6,
+        "concurrency": 4,
+        "persistence": 5,
+        "registry": 6,
+        "registry_or_persistence": 7,
     }.get(str(category or ""), 9)
 
 

@@ -378,6 +378,17 @@ class Analyzer:
                 visible=False,
             )
 
+        if target_name.startswith("runtime.newproc"):
+            function_literal = self.function_literal_from_runtime_newproc_args(registers)
+            if function_literal is not None:
+                return Call(
+                    insn.address,
+                    function_literal.value,
+                    function_literal.address,
+                    "user",
+                    via=target_name,
+                    visible=False,
+                )
 
         if (
             last_function_literal is not None
@@ -402,6 +413,42 @@ class Analyzer:
         arg_registers.update(stack_arg_registers)
 
         return Call(insn.address, target_name, op.imm, kind, string_args, arg_registers)
+
+    def function_literal_from_runtime_newproc_args(
+        self, registers: dict[str, RegisterValue]
+    ) -> RegisterValue | None:
+        candidates = []
+        candidates.extend(registers.get(reg) for reg in ABI_INT_REGS)
+        candidates.extend(current_stack_args(registers))
+        for value in candidates:
+            function = self.function_literal_from_funcval(value)
+            if function is not None:
+                return function
+        return None
+
+    def function_literal_from_funcval(self, value: RegisterValue | None) -> RegisterValue | None:
+        if value is None:
+            return None
+        if value.kind == "function":
+            return value
+        if value.kind not in {"ptr", "int"} or value.address is None:
+            return None
+        for offset in (0, self.binary_view.pointer_size):
+            try:
+                raw = bytes(
+                    self.binary.get_content_from_virtual_address(
+                        value.address + offset,
+                        self.binary_view.pointer_size,
+                    )
+                )
+            except Exception:
+                continue
+            if len(raw) != self.binary_view.pointer_size:
+                continue
+            target = int.from_bytes(raw, "little", signed=False)
+            if target in self.user_by_start:
+                return RegisterValue("function", self.user_by_start[target]["FullName"], target)
+        return None
 
     def analyze_function(self, function: dict[str, Any]) -> list[Call]:
         name = function["FullName"]

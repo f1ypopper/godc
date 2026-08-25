@@ -7,15 +7,36 @@ Each analysis writes:
 
 ## Top-Level JSON Shape
 
+Full output:
+
 ```json
 {
   "call_graph": {},
-  "semantic_analysis": {},
-  "output_profile": "evaluator"
+  "semantic_analysis": {}
 }
 ```
 
-`output_profile` is present when the evaluator profile is used. Full output omits this marker and includes the complete semantic document.
+Evaluator output:
+
+```json
+{
+  "schema_version": 2,
+  "output_profile": "evaluator",
+  "binary": {},
+  "execution_summary": {},
+  "behavior_flow": [],
+  "evidence_cards": [],
+  "decoded_artifacts": [],
+  "embedded_artifacts": [],
+  "runtime_decoding": {},
+  "loader_activity": [],
+  "indicators": {},
+  "limitations": [],
+  "analysis_timing": {}
+}
+```
+
+`full` output is for debugging the analyzer. `evaluator` output is the compact, human/LLM-facing projection used by verdicting.
 
 ## `call_graph`
 
@@ -52,6 +73,7 @@ Important current sections:
 - `artifact_classification`: classifies notable static data and embedded artifact sources as PE, ELF, archive, script/text, or unknown binary; optionally includes Magika output when available.
 - `go_types`: Go package/type metadata and receiver-type hints recovered from GoReSym and function symbols.
 - `sink_args`: evaluator-facing summary of important system sinks and their visible strings, artifacts, arguments, data sources, and factual roles such as process role, network direction, and filesystem directory role.
+- goroutine starts created through `runtime.newproc` are represented as `start_goroutine` operations and `goroutine_spawn` chains when the spawned function can be resolved.
 - `data_transformers`: functions that likely transform byte/string/static data.
 - `notable_data_blobs`: high-entropy, magic-containing, large-copy, or transformer-consumed data regions.
 - `embedded_artifacts`: embedded static data tied to transformers or loader-relevant behavior.
@@ -155,18 +177,43 @@ This section intentionally hides low-value array IDs and implementation details 
 
 These target-specific fields are intentionally conservative. If the analyzer only sees nearby static arrays or unrelated string-table data, it records provenance or leaves the field unresolved instead of inventing concrete arguments.
 
-## Full vs Evaluator Output
+## Evaluator Evidence Cards
 
-The `full` profile is better for debugging the analyzer.
+The evaluator profile is centered on `evidence_cards`. Cards describe factual system interactions with recovered arguments:
 
-The `evaluator` profile is better for LLM/human verdicts. It keeps:
+```json
+{
+  "kind": "network_request",
+  "category": "network",
+  "function": "main.main",
+  "target_api": "net/http.Post",
+  "role": "outbound_client",
+  "url": "https://example.com/upload",
+  "arguments": {
+    "method": "POST",
+    "content_type": "application/json"
+  },
+  "body": {
+    "source": "literal_body_reader",
+    "classification": "json_like",
+    "preview": "{\"id\":\"abc\"}"
+  }
+}
+```
+
+Common card categories are `network`, `filesystem`, `process`, `loader`, `registry`, `persistence`, `concurrency`, `decoded_artifact`, and `runtime_decoding`.
+
+The evaluator profile keeps:
 
 - behavior flow
-- decoded/recovered artifacts
-- embedded artifact and loader evidence
-- chains and behavior IR
-- notable static data regions
+- concrete sink cards with URLs, paths, commands, body/content provenance, and factual roles
+- decoded/recovered artifacts when reconstruction succeeds
+- embedded artifact and loader evidence when tied to behavior or concrete artifact classification
+- runtime decoding summaries when indicators/artifacts or strong decoder APIs are visible
+- inbound-vs-outbound network role, process role, and filesystem role
 - timing
-- assessment hints
+- limitations
 
-The LLM verdict script applies an additional compact projection on top of evaluator JSON before prompting the model.
+The evaluator profile drops raw `call_graph`, raw `behavior_ir`, raw `semantic_chains`, raw `sink_args`, raw `notable_data_blobs`, entropy-only blob facts, array IDs, and addresses. These remain available in `full` output.
+
+The LLM verdict pass uses this same evaluator document as prompt evidence. There is no separate broad projection for the model.
