@@ -1229,10 +1229,11 @@ def extract_artifacts(value: Any) -> list[dict[str, Any]]:
     if not stripped:
         return []
     artifacts = []
-    for match in re.finditer(r"https?://[^\s\"'<>`]+", stripped):
-        url = trim_url(match.group(0))
-        if valid_url_artifact(url):
-            artifacts.append({"type": "url", "value": url})
+    if "http://" in stripped or "https://" in stripped:
+        for match in re.finditer(r"https?://[^\s\"'<>`]+", stripped):
+            url = trim_url(match.group(0))
+            if valid_url_artifact(url):
+                artifacts.append({"type": "url", "value": url})
     if artifacts:
         return artifacts[:8]
     artifact = classify_artifact(stripped)

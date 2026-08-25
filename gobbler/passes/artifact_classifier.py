@@ -37,6 +37,7 @@ MAGIC_SIGNATURES: tuple[tuple[str, bytes, str], ...] = (
     ("zip", b"PK\x07\x08", "application/zip"),
     ("gzip", b"\x1f\x8b\x08", "application/gzip"),
 )
+DOMAIN_OR_FILE_RE = re.compile(r"\.[a-z0-9]{2,8}($|[:/\\])")
 
 
 def classify_bytes(data: bytes) -> dict[str, Any]:
@@ -494,22 +495,31 @@ def extract_ascii_strings(data: bytes) -> list[str]:
 
 
 def select_interesting_strings(strings: list[str]) -> list[dict[str, str]]:
-    ranked = sorted(strings, key=string_rank)
+    ranked = sorted(classified_normalized_strings(strings), key=lambda item: string_rank(item[0], item[1]))
     selected = []
     seen = set()
-    for value in ranked:
-        clean = normalize_string(value)
-        if not clean or clean in seen:
+    for clean, classification in ranked:
+        if clean in seen:
             continue
         seen.add(clean)
-        selected.append({"type": classify_string(clean), "value": clean})
+        selected.append({"type": classification, "value": clean})
         if len(selected) >= MAX_STRINGS:
             break
     return selected
 
 
-def string_rank(value: str) -> tuple[int, int]:
-    classification = classify_string(value)
+def classified_normalized_strings(strings: list[str]) -> list[tuple[str, str]]:
+    items = []
+    for value in strings:
+        clean = normalize_string(value)
+        if not clean:
+            continue
+        items.append((clean, classify_string(clean)))
+    return items
+
+
+def string_rank(value: str, classification: str | None = None) -> tuple[int, int]:
+    classification = classification or classify_string(value)
     priority = {
         "url": 0,
         "ip_address": 1,
@@ -524,19 +534,40 @@ def string_rank(value: str) -> tuple[int, int]:
 
 def classify_string(value: str) -> str:
     lowered = value.lower()
-    if re.search(r"https?://|tcp://|udp://|wss?://", lowered):
+    if any(scheme in lowered for scheme in ("http://", "https://", "tcp://", "udp://", "ws://", "wss://")):
         return "url"
-    if re.fullmatch(r"(?:\d{1,3}\.){3}\d{1,3}(?::\d{1,5})?", value):
+    if looks_like_ip_address(value):
         return "ip_address"
-    if re.search(r"[a-z]:\\|\\\\[a-z0-9_.-]+\\", lowered):
+    if looks_like_windows_path_fragment(lowered):
         return "windows_path"
     if value.startswith(("/", "./", "../")) or "/" in value:
         return "path"
     if any(token in lowered for token in ("cmd.exe", "powershell", "/bin/sh", "/bin/bash", "chmod ", "curl ", "wget ")):
         return "command"
-    if re.search(r"\.[a-z0-9]{2,8}($|[:/\\])", lowered):
+    if "." in lowered and DOMAIN_OR_FILE_RE.search(lowered):
         return "domain_or_file"
     return "text"
+
+
+def looks_like_ip_address(value: str) -> bool:
+    host, separator, port = value.partition(":")
+    if separator and (not port.isdigit() or not 0 <= int(port) <= 65535):
+        return False
+    parts = host.split(".")
+    if len(parts) != 4:
+        return False
+    for part in parts:
+        if not part.isdigit():
+            return False
+        if not 0 <= int(part) <= 255:
+            return False
+    return True
+
+
+def looks_like_windows_path_fragment(lowered: str) -> bool:
+    if len(lowered) >= 3 and lowered[1:3] == ":\\" and lowered[0].isalpha():
+        return True
+    return lowered.startswith("\\\\") and "\\" in lowered[2:]
 
 
 def normalize_string(value: str) -> str | None:

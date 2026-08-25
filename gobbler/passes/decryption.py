@@ -21,6 +21,9 @@ MAX_DECODED_ARTIFACTS = 60
 MAX_LAYER_DEPTH = 4
 MAX_LITERAL_STRINGS = 80
 FAST_XOR_SIGNAL_BYTES = 0x2000
+SMALL_XOR_BRUTE_FORCE_BYTES = 0x4000
+MAX_LARGE_XOR_BRUTE_FORCE_SOURCES = 2
+SINGLE_BYTE_XOR_KEYS = tuple(range(1, 256))
 
 URL_BYTES_RE = re.compile(rb"https?://[A-Za-z0-9.-]+(?:/[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]*)?")
 WINDOWS_PATH_BYTES_RE = re.compile(rb"[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+")
@@ -28,10 +31,18 @@ COMMAND_BYTES_RE = re.compile(
     rb"(^|[^A-Za-z0-9_])(cmd\.exe|powershell(?:\.exe)?|rundll32(?:\.exe)?|regsvr32(?:\.exe)?|wscript(?:\.exe)?|cscript(?:\.exe)?|/bin/sh|/bin/bash)($|[^A-Za-z0-9_])",
     re.IGNORECASE,
 )
-INTERESTING_FILE_BYTES_RE = re.compile(
-    rb"(^|[^A-Za-z0-9_.-])[A-Za-z0-9_. $(){}-]{3,}\.(?:exe|dll|ps1|bat|cmd|sh|zip|json)(?:$|[^A-Za-z0-9_.-])",
+BASE64_LITERAL_RE = re.compile(r"(?<![A-Za-z0-9+/_=-])([A-Za-z0-9+/_-]{16,}={0,2})(?![A-Za-z0-9+/_=-])")
+HEX_LITERAL_RE = re.compile(r"(?<![0-9A-Fa-f])([0-9A-Fa-f]{24,})(?![0-9A-Fa-f])")
+WINDOWS_PATH_RE = re.compile(r"^[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+")
+COMMAND_RE = re.compile(
+    r"(^|[^A-Za-z0-9_])(cmd\.exe|powershell(?:\.exe)?|rundll32(?:\.exe)?|regsvr32(?:\.exe)?|wscript(?:\.exe)?|cscript(?:\.exe)?|/bin/sh|/bin/bash)($|[^A-Za-z0-9_])",
     re.IGNORECASE,
 )
+PATH_COMMAND_RE = re.compile(
+    r"(^|[/\\])(cmd|powershell|rundll32|regsvr32|wscript|cscript|sh|bash)\.?(exe)?($|\s|[/\\])"
+)
+URL_RE = re.compile(r"https?://[A-Za-z0-9.-]+(?:/[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]*)?")
+EMBEDDED_WINDOWS_PATH_RE = re.compile(r"[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+")
 
 
 def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dict[str, Any]:
@@ -41,14 +52,15 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
     decoded_results = []
     aes_candidates = []
     suppressed_recoveries = []
+    stats = empty_recovery_stats()
 
     for item in functions:
         function = item.get("function")
         sources = item.get("static_sources") or []
         key_candidates = candidate_keys(item)
-        decoded_results.extend(recover_encoded_artifacts_for_function(analyzer, function, item, sources))
+        decoded_results.extend(recover_encoded_artifacts_for_function(analyzer, function, item, sources, stats))
         if "custom_decoder_candidate" in (item.get("feature_labels") or []):
-            recovered, suppressed = recover_xor_for_function(analyzer, function, sources, key_candidates)
+            recovered, suppressed = recover_xor_for_function(analyzer, function, item, sources, key_candidates, stats)
             xor_results.extend(recovered)
             decoded_results.extend(recovered)
             suppressed_recoveries.extend(suppressed)
@@ -74,6 +86,7 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
         "xor_recovered_artifacts": xor_results,
         "suppressed_recoveries": dedupe_suppressed_recoveries(suppressed_recoveries)[:MAX_RESULTS],
         "aes_candidates": aes_candidates,
+        "recovery_stats": stats,
         "notes": [
             "XOR recovery is conservative and only reports outputs with strong artifact evidence.",
             "Base64/hex/gzip/zlib reconstruction reports only decoded outputs that classify as concrete artifacts or contain strong indicators.",
@@ -87,9 +100,18 @@ def recover_encoded_artifacts_for_function(
     function: str | None,
     item: dict[str, Any],
     sources: list[dict[str, Any]],
+    stats: dict[str, int],
 ) -> list[dict[str, Any]]:
     results = []
     for source in sources[:MAX_XOR_SOURCES]:
+        reason = source_suppression_reason(source)
+        if reason and not has_explicit_decode_api(item):
+            stats["encoded_static_sources_suppressed"] += 1
+            continue
+        if not should_scan_static_encoded_source(item, source):
+            stats["encoded_static_sources_skipped"] += 1
+            continue
+        stats["encoded_static_sources_scanned"] += 1
         data = read_source_bytes(analyzer, source)
         if len(data) >= 8:
             for candidate in layered_decode_candidates(data, [{"kind": "static_blob"}]):
@@ -152,14 +174,19 @@ def recover_encoded_artifacts_for_function(
 def recover_xor_for_function(
     analyzer: Any,
     function: str | None,
+    item: dict[str, Any],
     sources: list[dict[str, Any]],
     keys: list[bytes],
+    stats: dict[str, int],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     results = []
     suppressed = []
-    for source in sources[:MAX_XOR_SOURCES]:
+    brute_force_budget = MAX_LARGE_XOR_BRUTE_FORCE_SOURCES if has_strong_xor_transform_loop(item) else 0
+    for source in ranked_xor_sources(sources)[:MAX_XOR_SOURCES]:
+        stats["xor_sources_considered"] += 1
         reason = source_suppression_reason(source)
         if reason:
+            stats["xor_sources_suppressed"] += 1
             suppressed.append(
                 {
                     "function": function,
@@ -171,23 +198,71 @@ def recover_xor_for_function(
             continue
         data = read_source_bytes(analyzer, source)
         if len(data) < 8:
+            stats["xor_sources_skipped"] += 1
             continue
         seen_keys: set[bytes] = set()
-        for key in single_byte_keys():
-            key_bytes = bytes([key])
-            seen_keys.add(key_bytes)
-            artifact, decoded = recover_xor_with_probe(data, key_bytes)
-            if artifact:
-                results.append(format_recovery(function, source, decoded, "xor_single_byte", key_bytes, artifact))
+        should_brute_force = len(data) <= SMALL_XOR_BRUTE_FORCE_BYTES
+        if not should_brute_force and brute_force_budget > 0:
+            should_brute_force = True
+            brute_force_budget -= 1
+        if should_brute_force:
+            stats["xor_sources_bruteforced"] += 1
+            for key in SINGLE_BYTE_XOR_KEYS:
+                key_bytes = bytes([key])
+                seen_keys.add(key_bytes)
+                stats["xor_keys_tested"] += 1
+                artifact, decoded = recover_xor_with_probe(data, key_bytes)
+                if artifact:
+                    stats["xor_probe_hits"] += 1
+                    results.append(format_recovery(function, source, decoded, "xor_single_byte", key_bytes, artifact))
+        elif keys:
+            stats["xor_sources_keyed_only"] += 1
+            suppressed.append(
+                {
+                    "function": function,
+                    "method": "xor_single_byte",
+                    "reason": "large_source_without_strong_xor_loop",
+                    "source_summary": summarize_source(source),
+                }
+            )
         for key in keys[:MAX_REPEATING_KEYS]:
             if not key or key in seen_keys:
                 continue
             seen_keys.add(key)
+            stats["xor_keys_tested"] += 1
             artifact, decoded = recover_xor_with_probe(data, key)
             if artifact:
+                stats["xor_probe_hits"] += 1
                 results.append(format_recovery(function, source, decoded, "xor_repeating_key", key, artifact))
     results.sort(key=recovery_sort_key)
     return results, suppressed
+
+
+def has_strong_xor_transform_loop(item: dict[str, Any]) -> bool:
+    for loop in item.get("transform_loops") or []:
+        evidence = loop.get("evidence") if isinstance(loop, dict) else {}
+        transform_ops = set(evidence.get("transform_ops") or [])
+        if "xor" not in transform_ops:
+            continue
+        if int(evidence.get("memory_reads") or 0) and int(evidence.get("memory_writes") or 0):
+            return True
+    return False
+
+
+def ranked_xor_sources(sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(sources, key=xor_source_sort_key)
+
+
+def xor_source_sort_key(source: dict[str, Any]) -> tuple[int, int, int, int]:
+    size = parse_hex_int(source.get("size")) or 0
+    kind = str(source.get("kind") or "")
+    entropy = source_entropy(source)
+    has_magic = bool(source.get("magic_offsets"))
+    large_penalty = 1 if size > SMALL_XOR_BRUTE_FORCE_BYTES else 0
+    kind_rank = 0 if kind in {"data_blob", "constant_array"} else 1
+    magic_penalty = 1 if has_magic else 0
+    entropy_rank = -int(entropy * 100)
+    return (large_penalty, kind_rank, magic_penalty, entropy_rank)
 
 
 def recover_xor_with_probe(data: bytes, key: bytes) -> tuple[dict[str, Any] | None, bytes]:
@@ -248,6 +323,47 @@ def recover_literal_artifacts(
         }
         results.append(formatted)
     return results
+
+
+def empty_recovery_stats() -> dict[str, int]:
+    return {
+        "encoded_static_sources_scanned": 0,
+        "encoded_static_sources_skipped": 0,
+        "encoded_static_sources_suppressed": 0,
+        "xor_sources_considered": 0,
+        "xor_sources_suppressed": 0,
+        "xor_sources_skipped": 0,
+        "xor_sources_bruteforced": 0,
+        "xor_sources_keyed_only": 0,
+        "xor_keys_tested": 0,
+        "xor_probe_hits": 0,
+    }
+
+
+def has_explicit_decode_api(item: dict[str, Any]) -> bool:
+    return any(call.get("direction") == "decode" for call in item.get("decoder_calls") or [])
+
+
+def should_scan_static_encoded_source(item: dict[str, Any], source: dict[str, Any]) -> bool:
+    preview = str(source.get("ascii_preview") or "")
+    if has_explicit_decode_api(item):
+        return True
+    if "recovered_indicator" in (item.get("feature_labels") or []):
+        return True
+    if has_strong_xor_transform_loop(item):
+        return True
+    if preview and preview_has_encoded_literal(preview):
+        return True
+    return False
+
+
+def preview_has_encoded_literal(preview: str) -> bool:
+    if len(preview) < 16:
+        return False
+    if base64_alphabet_ratio(preview) >= 0.9:
+        return True
+    hex_chars = sum(ch in "0123456789abcdefABCDEF" for ch in preview)
+    return hex_chars >= 24 and hex_chars / len(preview) >= 0.85
 
 
 def layered_decode_candidates(
@@ -325,14 +441,16 @@ def encoded_literals_from_text(text: str) -> list[str]:
         stripped = value.strip()
         if plausible_base64_literal(stripped) or plausible_hex_literal(stripped):
             literals.append(stripped)
-        for match in re.finditer(r"(?<![A-Za-z0-9+/_=-])([A-Za-z0-9+/_-]{16,}={0,2})(?![A-Za-z0-9+/_=-])", stripped):
-            candidate = match.group(1)
-            if plausible_base64_literal(candidate):
-                literals.append(candidate)
-        for match in re.finditer(r"(?<![0-9A-Fa-f])([0-9A-Fa-f]{24,})(?![0-9A-Fa-f])", stripped):
-            candidate = match.group(1)
-            if plausible_hex_literal(candidate):
-                literals.append(candidate)
+        if base64_alphabet_ratio(stripped) >= 0.75:
+            for match in BASE64_LITERAL_RE.finditer(stripped):
+                candidate = match.group(1)
+                if plausible_base64_literal(candidate):
+                    literals.append(candidate)
+        if hex_alphabet_ratio(stripped) >= 0.75:
+            for match in HEX_LITERAL_RE.finditer(stripped):
+                candidate = match.group(1)
+                if plausible_hex_literal(candidate):
+                    literals.append(candidate)
         if len(literals) >= MAX_LITERAL_STRINGS:
             break
     return dedupe_strings(literals)
@@ -344,7 +462,7 @@ def plausible_base64_literal(value: str) -> bool:
         return False
     if len(stripped) % 4 == 1:
         return False
-    if not re.fullmatch(r"[A-Za-z0-9+/_-]+={0,2}", stripped):
+    if not is_base64ish_text(stripped):
         return False
     return sum(ch.isalpha() for ch in stripped) >= 4
 
@@ -376,9 +494,38 @@ def plausible_hex_literal(value: str) -> bool:
     stripped = "".join(value.split())
     if len(stripped) < 24 or len(stripped) % 2 != 0:
         return False
-    if not re.fullmatch(r"[0-9a-fA-F]+", stripped):
+    if not all(ch in "0123456789abcdefABCDEF" for ch in stripped):
         return False
     return len(set(stripped.lower())) >= 4
+
+
+def is_base64ish_text(value: str) -> bool:
+    padding_started = False
+    padding_count = 0
+    for ch in value:
+        if ch == "=":
+            padding_started = True
+            padding_count += 1
+            if padding_count > 2:
+                return False
+            continue
+        if padding_started:
+            return False
+        if not (ch.isalnum() or ch in "+/_-"):
+            return False
+    return True
+
+
+def base64_alphabet_ratio(value: str) -> float:
+    if not value:
+        return 0.0
+    return sum(ch.isalnum() or ch in "+/_-=" for ch in value) / len(value)
+
+
+def hex_alphabet_ratio(value: str) -> float:
+    if not value:
+        return 0.0
+    return sum(ch in "0123456789abcdefABCDEF" for ch in value) / len(value)
 
 
 def decoded_ascii_text(data: bytes) -> str | None:
@@ -531,17 +678,33 @@ def source_suppression_reason(source: dict[str, Any]) -> str | None:
     return None
 
 
+def parse_hex_int(value: Any) -> int | None:
+    if isinstance(value, int):
+        return value
+    if value is None:
+        return None
+    try:
+        return int(str(value), 16)
+    except (TypeError, ValueError):
+        try:
+            return int(str(value), 10)
+        except (TypeError, ValueError):
+            return None
+
+
+def source_entropy(source: dict[str, Any]) -> float:
+    try:
+        return float(source.get("entropy") or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def printable_preview_is_pointer_table(preview: str) -> bool:
     if not preview:
         return False
     punctuation = sum(ch in ".@\\x00" for ch in preview)
     alnum = sum(ch.isalnum() for ch in preview)
     return punctuation > alnum
-
-
-def single_byte_keys() -> list[int]:
-    return list(range(1, 256))
-
 
 def xor_repeating(data: bytes, key: bytes) -> bytes:
     if not key:
@@ -572,16 +735,54 @@ def fast_decoded_artifact_signal(data: bytes) -> bool:
     lowered = sample.lower()
     if any(marker in lowered for marker in SCRIPT_MARKER_BYTES):
         return True
-    if URL_BYTES_RE.search(sample):
+    if (b"http://" in lowered or b"https://" in lowered) and URL_BYTES_RE.search(sample):
         return True
-    if any(
+    if b":\\" in sample and any(
         is_robust_windows_path(match.group(0).decode("ascii", errors="ignore"))
         for match in WINDOWS_PATH_BYTES_RE.finditer(sample)
     ):
         return True
-    if COMMAND_BYTES_RE.search(sample):
+    if has_command_marker(lowered) and COMMAND_BYTES_RE.search(sample):
         return True
-    return bool(INTERESTING_FILE_BYTES_RE.search(sample))
+    return has_interesting_file_suffix(lowered)
+
+
+def has_command_marker(data: bytes) -> bool:
+    return any(
+        marker in data
+        for marker in (
+            b"cmd.exe",
+            b"powershell",
+            b"rundll32",
+            b"regsvr32",
+            b"wscript",
+            b"cscript",
+            b"/bin/sh",
+            b"/bin/bash",
+        )
+    )
+
+
+def has_interesting_file_suffix(data: bytes) -> bool:
+    for suffix in (b".exe", b".dll", b".ps1", b".bat", b".cmd", b".sh", b".zip", b".json"):
+        index = data.find(suffix)
+        while index != -1:
+            before = data[index - 1] if index > 0 else 0
+            after_index = index + len(suffix)
+            after = data[after_index] if after_index < len(data) else 0
+            if is_filename_byte(before) and not is_filename_byte(after):
+                return True
+            index = data.find(suffix, index + 1)
+    return False
+
+
+def is_filename_byte(value: int) -> bool:
+    return (
+        48 <= value <= 57
+        or 65 <= value <= 90
+        or 97 <= value <= 122
+        or value in {32, 36, 40, 41, 45, 46, 95, 123, 125}
+    )
 
 
 def classify_decoded_artifact(data: bytes) -> dict[str, Any] | None:
@@ -727,7 +928,7 @@ def valid_compressed_artifact(data: bytes, classification_type: str) -> bool:
 
 def is_robust_windows_path(value: str) -> bool:
     stripped = value.strip()
-    if not re.match(r"^[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+", stripped):
+    if not WINDOWS_PATH_RE.match(stripped):
         return False
     lowered = stripped.lower()
     return any(
@@ -748,13 +949,7 @@ def is_robust_windows_path(value: str) -> bool:
 
 
 def is_robust_command_indicator(value: str) -> bool:
-    return bool(
-        re.search(
-            r"(^|[^A-Za-z0-9_])(cmd\.exe|powershell(?:\.exe)?|rundll32(?:\.exe)?|regsvr32(?:\.exe)?|wscript(?:\.exe)?|cscript(?:\.exe)?|/bin/sh|/bin/bash)($|[^A-Za-z0-9_])",
-            value,
-            re.IGNORECASE,
-        )
-    )
+    return bool(COMMAND_RE.search(value))
 
 
 def is_robust_path_indicator(value: str) -> bool:
@@ -766,7 +961,7 @@ def is_robust_path_indicator(value: str) -> bool:
         return True
     if lowered.startswith(("http://", "https://")):
         return True
-    return bool(re.search(r"(^|[/\\])(cmd|powershell|rundll32|regsvr32|wscript|cscript|sh|bash)\.?(exe)?($|\\s|[/\\])", lowered))
+    return bool(PATH_COMMAND_RE.search(lowered))
 
 
 def is_robust_domain_or_file_indicator(value: str) -> bool:
@@ -824,7 +1019,7 @@ def strong_indicators(strings: list[str]) -> list[dict[str, str]]:
     results = []
     for value in strings:
         stripped = value.strip()
-        if re.match(r"^https?://[A-Za-z0-9.-]+", stripped):
+        if stripped.startswith(("http://", "https://")) and URL_RE.match(stripped):
             results.append({"type": "url", "value": stripped[:240]})
         elif is_robust_windows_path(stripped):
             results.append({"type": "windows_path", "value": stripped[:240]})
@@ -836,18 +1031,18 @@ def strong_indicators(strings: list[str]) -> list[dict[str, str]]:
 def embedded_behavior_indicators(strings: list[str]) -> list[dict[str, str]]:
     results = []
     for value in strings:
-        for match in re.finditer(r"https?://[A-Za-z0-9.-]+(?:/[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]*)?", value):
-            results.append({"type": "url", "value": match.group(0)[:240]})
-        for match in re.finditer(r"[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+", value):
-            path = match.group(0)
-            if is_robust_windows_path(path):
-                results.append({"type": "windows_path", "value": path[:240]})
-        for match in re.finditer(
-            r"(^|[^A-Za-z0-9_])(cmd\.exe|powershell(?:\.exe)?|rundll32(?:\.exe)?|regsvr32(?:\.exe)?|wscript(?:\.exe)?|cscript(?:\.exe)?|/bin/sh|/bin/bash)($|[^A-Za-z0-9_])",
-            value,
-            re.IGNORECASE,
-        ):
-            results.append({"type": "command", "value": match.group(2)[:240]})
+        lowered = value.lower()
+        if "http://" in lowered or "https://" in lowered:
+            for match in URL_RE.finditer(value):
+                results.append({"type": "url", "value": match.group(0)[:240]})
+        if ":\\" in value:
+            for match in EMBEDDED_WINDOWS_PATH_RE.finditer(value):
+                path = match.group(0)
+                if is_robust_windows_path(path):
+                    results.append({"type": "windows_path", "value": path[:240]})
+        if has_command_marker(lowered.encode("utf-8", errors="ignore")):
+            for match in COMMAND_RE.finditer(value):
+                results.append({"type": "command", "value": match.group(2)[:240]})
     return dedupe_indicator_values(results)
 
 

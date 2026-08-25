@@ -9,6 +9,14 @@ from gobbler.passes.http_args import typed_arguments
 
 MAX_COMPONENTS = 12
 MAX_PREVIEW = 240
+JSON_OBJECT_RE = re.compile(r"(\{[^{}]{2,240}\})")
+SCRIPT_COMMAND_RE = re.compile(r"((?:#![^\n]+|powershell\s+-|cmd\.exe\s+/|/bin/(?:sh|bash)\s+-).{0,240})", re.IGNORECASE)
+ASSIGNMENT_RE = re.compile(r"\b[A-Za-z_][A-Za-z0-9_]{1,40}=[^\s]{1,180}")
+COMMAND_PART_RE = re.compile(r"[A-Za-z0-9_.:\\/-]{1,160}")
+LOWER_ARG_RE = re.compile(r"[a-z0-9_.-]{1,80}")
+UPPER_ARG_RE = re.compile(r"[A-Z_]{2,80}")
+WINDOWS_PATH_PREFIX_RE = re.compile(r"^[A-Za-z]:[\\/]")
+FILE_NAME_RE = re.compile(r"[A-Za-z0-9_. -]{1,160}\.[A-Za-z0-9]{1,8}")
 
 
 def enrich_process_and_file_arguments(sink: dict[str, Any]) -> None:
@@ -484,15 +492,19 @@ def data_candidate_from_symbolic_argument(
 
 
 def extract_data_candidate(value: str) -> str | None:
-    json_match = re.search(r"(\{[^{}]{2,240}\})", value)
-    if json_match and looks_like_structured_json(json_match.group(1)):
-        return json_match.group(1)
-    script_match = re.search(r"(?i)((?:#![^\n]+|powershell\s+-|cmd\.exe\s+/|/bin/(?:sh|bash)\s+-).{0,240})", value)
-    if script_match:
-        return script_match.group(1)
-    assignment = re.search(r"\b[A-Za-z_][A-Za-z0-9_]{1,40}=[^\s]{1,180}", value)
-    if assignment:
-        return assignment.group(0)
+    if "{" in value and "}" in value:
+        json_match = JSON_OBJECT_RE.search(value)
+        if json_match and looks_like_structured_json(json_match.group(1)):
+            return json_match.group(1)
+    lowered = value.lower()
+    if "#!" in value or "powershell -" in lowered or "cmd.exe /" in lowered or "/bin/sh -" in lowered or "/bin/bash -" in lowered:
+        script_match = SCRIPT_COMMAND_RE.search(value)
+        if script_match:
+            return script_match.group(1)
+    if "=" in value:
+        assignment = ASSIGNMENT_RE.search(value)
+        if assignment:
+            return assignment.group(0)
     return None
 
 
@@ -503,7 +515,7 @@ def useful_command_part(value: str) -> bool:
         return False
     if runtime_string_table_fragment(value):
         return False
-    if len(value) > 40 and not re.search(r"[\s\"']", value) and not value.startswith(("-", "/")):
+    if len(value) > 40 and not has_command_separator(value) and not value.startswith(("-", "/")):
         return False
     if looks_like_url(value):
         return False
@@ -511,7 +523,7 @@ def useful_command_part(value: str) -> bool:
         return True
     if value.startswith("-") or value.startswith("/"):
         return True
-    return bool(re.fullmatch(r"[A-Za-z0-9_.:\\/-]{1,160}", value))
+    return bool(COMMAND_PART_RE.fullmatch(value))
 
 
 def useful_argv_part(value: str) -> bool:
@@ -523,9 +535,9 @@ def useful_argv_part(value: str) -> bool:
         return True
     if looks_like_path(value):
         return True
-    if re.fullmatch(r"[a-z0-9_.-]{1,80}", value):
+    if LOWER_ARG_RE.fullmatch(value):
         return True
-    if re.fullmatch(r"[A-Z_]{2,80}", value):
+    if UPPER_ARG_RE.fullmatch(value):
         return True
     return False
 
@@ -541,7 +553,7 @@ def useful_file_data_literal(value: str) -> bool:
 
 
 def looks_like_path(value: str) -> bool:
-    if re.match(r"^[A-Za-z]:[\\/]", value) or value.startswith("\\\\"):
+    if WINDOWS_PATH_PREFIX_RE.match(value) or value.startswith("\\\\"):
         return True
     if value.startswith(("/", "./", "../")):
         return True
@@ -549,7 +561,7 @@ def looks_like_path(value: str) -> bool:
         return True
     if "/" in value and not looks_like_url(value):
         return True
-    return bool(re.search(r"\.[A-Za-z0-9]{1,8}$", value))
+    return has_short_extension(value)
 
 
 def path_argument_candidate(value: str) -> bool:
@@ -559,15 +571,15 @@ def path_argument_candidate(value: str) -> bool:
         return False
     if runtime_string_table_fragment(value):
         return False
-    if re.match(r"^[A-Za-z]:[\\/]", value) or value.startswith("\\\\"):
+    if WINDOWS_PATH_PREFIX_RE.match(value) or value.startswith("\\\\"):
         return True
     if value.startswith(("/", "./", "../")):
         return not looks_like_url(value)
-    if "/" in value and not looks_like_url(value) and not re.search(r"\s", value):
+    if "/" in value and not looks_like_url(value) and not any(ch.isspace() for ch in value):
         return True
     if "\\" in value:
         return False
-    return bool(re.fullmatch(r"[A-Za-z0-9_. -]{1,160}\.[A-Za-z0-9]{1,8}", value))
+    return "." in value and bool(FILE_NAME_RE.fullmatch(value))
 
 
 def command_like_filename(value: str) -> bool:
@@ -604,7 +616,18 @@ def runtime_string_table_fragment(value: str) -> bool:
 
 
 def looks_like_url(value: str) -> bool:
-    return bool(re.match(r"https?://", value))
+    return value.startswith(("http://", "https://"))
+
+
+def has_command_separator(value: str) -> bool:
+    return any(ch.isspace() or ch in "\"'" for ch in value)
+
+
+def has_short_extension(value: str) -> bool:
+    if "." not in value:
+        return False
+    extension = value.rsplit(".", 1)[-1]
+    return extension.isalnum() and 1 <= len(extension) <= 8
 
 
 def classify_data_preview(value: str) -> str:
