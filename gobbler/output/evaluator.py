@@ -5,10 +5,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 MAX_FLOW_FUNCTIONS = 20
 MAX_ACTIONS_PER_FUNCTION = 8
 MAX_CARDS = 120
+MAX_CHAIN_EVENTS = 40
+MAX_UNLINKED_EVENTS = 30
 MAX_LIST_ITEMS = 40
 MAX_STRING_LEN = 240
 
@@ -56,11 +58,12 @@ def build_evaluator_document(
     decoder_cards = cards_from_runtime_decoding(semantic.get("runtime_decoding"), decoded_artifacts)
     artifact_cards = cards_from_decoded_artifacts(decoded_artifacts)
     loader_cards = cards_from_loader_activity(loader_activity)
+    chain_cards = dedupe_cards(sink_cards + loader_cards + artifact_cards + decoder_cards)[:MAX_CARDS]
     evidence_cards = sorted(
-        dedupe_cards(sink_cards + loader_cards + artifact_cards + decoder_cards),
+        chain_cards,
         key=card_sort_key,
     )[:MAX_CARDS]
-    behavior_flow = compact_behavior_flow(semantic.get("behavior_story"), evidence_cards)
+    behavior_flow = compact_behavior_flow(semantic.get("behavior_story"), chain_cards)
     embedded_artifacts = compact_embedded_artifacts(
         semantic.get("embedded_artifacts"),
         semantic.get("artifact_classification"),
@@ -68,28 +71,25 @@ def build_evaluator_document(
     )
     runtime_decoding = compact_runtime_decoding(semantic.get("runtime_decoding"), decoded_artifacts)
     indicators = collect_indicators(evidence_cards, decoded_artifacts, semantic)
+    paths = call_paths(call_graph)
+    chains, linked_event_keys = build_behavior_chains(behavior_flow, chain_cards, call_graph, paths)
+    unlinked_events = [
+        event
+        for event in (event_from_mapping(card, paths) for card in chain_cards)
+        if event and event_key(event) not in linked_event_keys
+    ][:MAX_UNLINKED_EVENTS]
 
     output: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "output_profile": "evaluator",
-        "binary": compact_binary_info(semantic),
-        "execution_summary": execution_summary(
-            semantic,
-            evidence_cards,
-            decoded_artifacts,
-            embedded_artifacts,
-            loader_activity,
-            len(call_graph),
-        ),
-        "behavior_flow": behavior_flow,
-        "evidence_cards": evidence_cards,
+        "entry_function": entry_function(call_graph, behavior_flow),
+        "behavior_chains": chains,
+        "unlinked_events": unlinked_events,
         "decoded_artifacts": decoded_artifacts,
         "embedded_artifacts": embedded_artifacts,
         "runtime_decoding": runtime_decoding,
-        "loader_activity": loader_activity,
         "indicators": indicators,
         "limitations": limitations(semantic, runtime_decoding),
-        "analysis_timing": compact_mapping(semantic.get("analysis_timing") or semantic.get("scanner_timing")),
     }
     if input_path is not None:
         output["input_file"] = str(input_path)
@@ -195,11 +195,285 @@ def compact_behavior_flow(story: Any, cards: list[dict[str, Any]]) -> list[dict[
             match = first_matching_card(card_index, function, action.get("kind"), action.get("target_api"))
             if match:
                 compacted = merge_action_card(compacted, match)
+            if function and compacted.get("function") in (None, "", "<unknown>"):
+                compacted["function"] = function
             if compacted:
                 actions.append(compacted)
         if actions:
             flow.append({"function": function, "actions": actions})
     return flow or flow_from_cards(cards)
+
+
+def build_behavior_chains(
+    behavior_flow: list[dict[str, Any]],
+    cards: list[dict[str, Any]],
+    graph: dict[str, Any],
+    paths: dict[str, list[str]] | None = None,
+) -> tuple[list[dict[str, Any]], set[tuple[Any, ...]]]:
+    paths = paths or call_paths(graph)
+    source_events = []
+    for step in behavior_flow:
+        if not isinstance(step, dict):
+            continue
+        for action in step.get("actions") or []:
+            event = event_from_mapping(action, paths)
+            if event:
+                source_events.append(event)
+    source_events.extend(event for event in (event_from_mapping(card, paths) for card in cards) if event)
+
+    events = dedupe_events(source_events)[:MAX_CHAIN_EVENTS]
+    add_event_links(events)
+    if not events:
+        return [], set()
+
+    chain = prune_empty(
+        {
+            "chain_id": "chain_0",
+            "entry": entry_function(graph, behavior_flow),
+            "path": chain_path(events),
+            "events": events,
+        }
+    )
+    linked_keys = {event_key(event) for event in events}
+    linked_keys.update(event_key(event) for event in source_events if covered_sparse_event(event, events))
+    return [chain], linked_keys
+
+
+def event_from_mapping(item: dict[str, Any], paths: dict[str, list[str]]) -> dict[str, Any] | None:
+    if not isinstance(item, dict):
+        return None
+    kind = event_kind(item)
+    function = item.get("function")
+    api = item.get("target_api") or item.get("api")
+    args = event_arguments(item)
+    event = prune_empty(
+        {
+            "event": kind,
+            "function": function,
+            "call_path": paths.get(str(function or "")),
+            "api": api,
+            "call": render_call(api, kind, args),
+            "direction": event_direction(item),
+            "args": args,
+        }
+    )
+    return event if event.get("event") or event.get("call") else None
+
+
+def event_arguments(item: dict[str, Any]) -> dict[str, Any]:
+    args = {}
+    for key in ("method", "url", "host", "ip", "listen_addr", "path", "library", "procedure"):
+        if item.get(key) not in (None, "", [], {}):
+            args[key] = item.get(key)
+    if item.get("executable"):
+        args["executable"] = item.get("executable")
+    if item.get("argv"):
+        args["argv"] = item.get("argv")
+    if item.get("command_line"):
+        args["command_line"] = item.get("command_line")
+    if item.get("argv_provenance"):
+        args["argv_provenance"] = item.get("argv_provenance")
+    nested = item.get("arguments") if isinstance(item.get("arguments"), dict) else {}
+    for key in ("method", "content_type", "flags", "mode", "api_shape", "memory_protection", "syscall_numbers"):
+        if nested.get(key) not in (None, "", [], {}):
+            args[key] = nested.get(key)
+    if item.get("content"):
+        args["content"] = item.get("content")
+    if item.get("read_content"):
+        args["read_content"] = item.get("read_content")
+    if item.get("body"):
+        args["body"] = item.get("body")
+    return prune_empty(compact_value(args))
+
+
+def event_kind(item: dict[str, Any]) -> Any:
+    category = normalize_category(item.get("category"))
+    return card_kind(item.get("kind"), category, item.get("role")) if category else item.get("kind")
+
+
+def event_direction(item: dict[str, Any]) -> str | None:
+    role = str(item.get("role") or "")
+    if role.startswith("inbound"):
+        return "inbound"
+    if role.startswith("outbound"):
+        return "outbound"
+    return None
+
+
+def render_call(api: Any, kind: Any, args: dict[str, Any]) -> str | None:
+    name = str(api or kind or "")
+    if not name:
+        return None
+    ordered_keys = (
+        "method",
+        "url",
+        "content_type",
+        "body",
+        "path",
+        "content",
+        "executable",
+        "argv",
+        "library",
+        "procedure",
+        "listen_addr",
+        "host",
+        "ip",
+        "flags",
+        "mode",
+        "memory_protection",
+        "syscall_numbers",
+    )
+    parts = []
+    for key in ordered_keys:
+        if key not in args:
+            continue
+        value = args[key]
+        if isinstance(value, dict):
+            value = value.get("preview") or value.get("classification") or value.get("value") or value
+        parts.append(f"{key}={jsonish(value)}")
+        if len(parts) >= 5:
+            break
+    return f"{name}({', '.join(parts)})" if parts else f"{name}()"
+
+
+def jsonish(value: Any) -> str:
+    if isinstance(value, str):
+        return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    if isinstance(value, list):
+        return "[" + ", ".join(jsonish(item) for item in value[:8]) + "]"
+    if isinstance(value, dict):
+        preview = {key: value[key] for key in list(value)[:4]}
+        return str(preview)
+    return str(value)
+
+
+def call_paths(graph: dict[str, Any]) -> dict[str, list[str]]:
+    if not isinstance(graph, dict) or not graph:
+        return {}
+    entry = "main.main" if "main.main" in graph else next(iter(graph))
+    paths = {entry: [entry]}
+    queue = [entry]
+    while queue:
+        function = queue.pop(0)
+        if len(paths.get(function, [])) >= 12:
+            continue
+        for target in graph_targets(graph.get(function)):
+            if target not in graph or target in paths:
+                continue
+            paths[target] = paths[function] + [target]
+            queue.append(target)
+    return paths
+
+
+def graph_targets(calls: Any) -> list[str]:
+    targets = []
+    for call in calls or []:
+        target = call.get("target") if isinstance(call, dict) else getattr(call, "target", None)
+        if isinstance(target, str) and target not in targets:
+            targets.append(target)
+    return targets
+
+
+def entry_function(graph: dict[str, Any], behavior_flow: list[dict[str, Any]]) -> str:
+    if isinstance(graph, dict) and "main.main" in graph:
+        return "main.main"
+    for step in behavior_flow or []:
+        function = step.get("function") if isinstance(step, dict) else None
+        if isinstance(function, str) and function:
+            return function
+    if isinstance(graph, dict) and graph:
+        return str(next(iter(graph)))
+    return "main.main"
+
+
+def chain_path(events: list[dict[str, Any]]) -> list[str]:
+    path = []
+    for event in events:
+        event_path = event.get("call_path")
+        if isinstance(event_path, list) and event_path:
+            for function in event_path:
+                add_unique(path, function, 20)
+            continue
+        add_unique(path, event.get("function"), 20)
+    return path
+
+
+def add_event_links(events: list[dict[str, Any]]) -> None:
+    written_paths: dict[str, str] = {}
+    for index, event in enumerate(events):
+        event["id"] = f"event_{index}"
+        args = event.get("args") if isinstance(event.get("args"), dict) else {}
+        if event.get("event") == "file_write" and isinstance(args.get("path"), str):
+            written_paths[args["path"].lower()] = event["id"]
+        executable = args.get("executable")
+        if isinstance(executable, str) and executable.lower() in written_paths:
+            event["uses"] = {"file_written_by": written_paths[executable.lower()]}
+
+
+def dedupe_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    positions: dict[tuple[Any, ...], int] = {}
+    for event in events:
+        key = event_key(event)
+        previous = positions.get(key)
+        if previous is None:
+            positions[key] = len(out)
+            out.append(event)
+            continue
+        if event_quality(event) > event_quality(out[previous]):
+            out[previous] = event
+    return [event for event in out if not covered_sparse_event(event, out)]
+
+
+def event_key(event: dict[str, Any]) -> tuple[Any, ...]:
+    args = event.get("args") if isinstance(event.get("args"), dict) else {}
+    content = args.get("content") if isinstance(args.get("content"), dict) else {}
+    return (
+        event.get("event"),
+        event.get("function"),
+        args.get("url"),
+        args.get("path"),
+        args.get("executable"),
+        tuple(args.get("argv") or []),
+        args.get("library"),
+        args.get("procedure"),
+        content.get("preview") or content.get("classification"),
+    )
+
+
+def event_quality(event: dict[str, Any]) -> int:
+    args = event.get("args") if isinstance(event.get("args"), dict) else {}
+    api = str(event.get("api") or "")
+    kind = str(event.get("event") or "")
+    score = 0
+    if args:
+        score += 10 + len(args)
+    if api and api != kind and "." in api:
+        score += 6
+    if event.get("direction"):
+        score += 2
+    call = str(event.get("call") or "")
+    if "(" in call and not call.endswith("()"):
+        score += 3
+    return score
+
+
+def covered_sparse_event(event: dict[str, Any], events: list[dict[str, Any]]) -> bool:
+    if event.get("args"):
+        return False
+    function = event.get("function")
+    api = event.get("api")
+    kind = event.get("event")
+    for other in events:
+        if other is event or other.get("function") != function or not other.get("args"):
+            continue
+        if other.get("event") == kind:
+            return True
+        if api and other.get("api") == api:
+            return True
+        if kind == "network_activity" and other.get("event") in {"network_request", "inbound_listener"}:
+            return True
+    return False
 
 
 def flow_from_cards(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -239,6 +513,7 @@ def card_to_action(card: dict[str, Any]) -> dict[str, Any]:
         {
             "kind": card.get("kind"),
             "category": card.get("category"),
+            "function": card.get("function"),
             "target_api": card.get("target_api"),
             "role": card.get("role"),
             "arguments": card.get("arguments"),
@@ -922,7 +1197,7 @@ def card_kind(kind: Any, category: str, role: Any) -> str:
     if category == "network":
         if role in {"inbound_listener", "inbound_http_server"}:
             return "inbound_listener"
-        return "network_request" if "http" in kind_text.lower() else "network_activity"
+        return "network_request" if kind_text in {"network_request", "http_get", "http_post", "http_request", "http_network"} or "http" in kind_text.lower() else "network_activity"
     if category == "process":
         return "process_launch"
     if category == "filesystem":
@@ -996,8 +1271,10 @@ def dedupe_scalars(items: list[Any], limit: int) -> list[Any]:
     return out
 
 
-def add_unique(items: list[Any], value: Any) -> None:
+def add_unique(items: list[Any], value: Any, limit: int | None = None) -> None:
     if value in (None, "", [], {}):
+        return
+    if limit is not None and len(items) >= limit:
         return
     if value not in items:
         items.append(compact_value(value))
