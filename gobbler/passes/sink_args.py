@@ -4,6 +4,13 @@ import re
 from collections import Counter, deque
 from typing import Any
 
+from gobbler.passes.artifact_validators import (
+    command_argument_part,
+    strict_command,
+    strict_host,
+    strict_path,
+    strict_url,
+)
 from gobbler.passes.http_args import (
     body_producers_from_dataflow,
     compact_typed_call_args,
@@ -271,6 +278,7 @@ class SinkArgumentSummaryBuilder:
                 if operation.get("tags"):
                     sink["evidence"].extend(f"tag:{tag}" for tag in operation.get("tags") or [])
                 merge_strings(sink, operation.get("string_args") or [])
+                merge_direct_strings(sink, operation.get("string_args") or [], "behavior_ir_string_args")
                 merge_args(sink, operation.get("arguments") or {})
                 merge_typed_call_args(sink, self.call_args.get((function, operation.get("address"))))
                 merge_artifacts(sink, artifacts_from_operation(operation))
@@ -425,6 +433,7 @@ class SinkArgumentSummaryBuilder:
                 if via:
                     add_unique(sink["evidence"], f"via:{via}")
                 merge_strings(sink, getattr(call, "string_args", []) or [])
+                merge_direct_strings(sink, getattr(call, "string_args", []) or [], "call_graph_string_args")
                 merge_artifacts(sink, artifacts_from_strings(getattr(call, "string_args", []) or []))
                 arg_registers = getattr(call, "arg_registers", None)
                 if arg_registers:
@@ -610,6 +619,19 @@ def merge_args(sink: dict[str, Any], args: dict[str, Any]) -> None:
         if symbolic_args:
             sink["args"].setdefault("symbolic", [])
             extend_unique_dict(sink["args"]["symbolic"], symbolic_args, MAX_ARGS_PER_KIND)
+
+
+def merge_direct_strings(sink: dict[str, Any], values: list[Any], source: str) -> None:
+    direct = []
+    for index, value in enumerate(values):
+        if isinstance(value, dict):
+            value = value.get("value")
+        cleaned = clean_value(value) if isinstance(value, str) else None
+        if cleaned and useful_direct_sink_argument(cleaned):
+            direct.append({"value": cleaned, "source": source, "location": f"string_args[{index}]"})
+    if direct:
+        sink["args"].setdefault("direct_strings", [])
+        extend_unique_dict(sink["args"]["direct_strings"], direct, MAX_ARGS_PER_KIND)
 
 
 def merge_typed_call_args(sink: dict[str, Any], call_args: dict[str, Any] | None) -> None:
@@ -1170,11 +1192,12 @@ def classify_filesystem_role(sink: dict[str, Any]) -> str | None:
         return None
     values = []
     values.extend(sink.get("strings") or [])
+    for item in (sink.get("args") or {}).get("direct_strings") or []:
+        if isinstance(item, dict):
+            values.append(item.get("value"))
     for artifact in sink.get("artifacts") or []:
         values.append(artifact.get("value"))
     joined = " ".join(str(value).lower() for value in values if isinstance(value, str))
-    if is_persistence_location(joined):
-        return "startup_or_persistence_location"
     if any(marker in joined for marker in ("tmp", "temp", "cache", "build", "dist", "workspace", "bigstorageenv", "tmproot")):
         return "workspace_or_cache_directory"
     if any(marker in joined for marker in ("config", ".config", "appdata")):
@@ -1253,30 +1276,31 @@ def classify_artifact(value: Any) -> dict[str, Any] | None:
         return None
     if looks_like_concatenated_runtime_text(stripped):
         return None
-    for pattern in PERSISTENCE_TEXT_PATTERNS:
-        if pattern.search(stripped):
-            return {"type": "persistence_indicator", "value": stripped}
-    if lowered.startswith(("http://", "https://")):
+    if strict_url(stripped):
         return {"type": "url", "value": stripped}
     if re.fullmatch(r"(?:\d{1,3}\.){3}\d{1,3}(?::\d{1,5})?", stripped):
         return {"type": "ip_address", "value": stripped}
-    if lowered in COMMAND_NAME_ALLOWLIST or any(
-        token in lowered for token in ("cmd.exe", "powershell", "rundll32", "regsvr32", "wscript", "cscript", "/bin/sh", "/bin/bash")
+    if lowered in COMMAND_NAME_ALLOWLIST or (
+        command_like_filename(stripped) and strict_path(stripped, allow_plain_file=True)
     ):
         return {"type": "command", "value": stripped}
-    if stripped.startswith("\\\\") or re.match(r"^[A-Za-z]:[\\/]", stripped):
+    if strict_path(stripped, allow_plain_file=False) and (
+        stripped.startswith("\\\\") or re.match(r"^[A-Za-z]:[\\/]", stripped)
+    ):
         return {"type": "windows_path", "value": stripped}
-    if "/" in stripped or "\\" in stripped:
-        if is_plausible_path(stripped):
-            return {"type": "path", "value": stripped}
-        return None
-    if lowered.endswith((".exe", ".dll", ".so", ".dylib", ".ps1", ".bat", ".cmd", ".sh", ".zip", ".dat", ".json", ".txt")):
+    if strict_path(stripped, allow_plain_file=False):
+        return {"type": "path", "value": stripped}
+    if strict_path(stripped, allow_plain_file=True) and lowered.endswith((".exe", ".dll", ".so", ".dylib", ".ps1", ".bat", ".cmd", ".sh", ".zip", ".dat", ".json", ".txt")):
         return {"type": "file_name", "value": stripped}
     if looks_noisy(stripped):
         return None
-    if is_plausible_domain(stripped):
+    if strict_host(stripped):
         return {"type": "domain_or_file", "value": stripped}
     return None
+
+
+def command_like_filename(value: str) -> bool:
+    return value.lower().rsplit("\\", 1)[-1].rsplit("/", 1)[-1] in COMMAND_NAME_ALLOWLIST
 
 
 def data_sources_from_function(function_item: dict[str, Any]) -> list[dict[str, Any]]:
@@ -1314,6 +1338,9 @@ def compact_data_source(source: Any) -> dict[str, Any] | None:
             elif body_candidate_from_text(cleaned_preview):
                 compact_preview = body_candidate_from_text(cleaned_preview)
                 text_preview = compact_http_relevant_preview(cleaned_preview)
+            elif process_or_script_preview(cleaned_preview):
+                compact_preview = cleaned_preview[:240]
+                text_preview = compact_preview
             elif kind == "string" and useful_sink_string(cleaned_preview):
                 compact_preview = cleaned_preview
     if kind in {"constant_array", "data_blob"} and not should_keep_data_source(source, compact_preview):
@@ -1386,6 +1413,20 @@ def body_candidate_from_text(value: str) -> str | None:
         return json_match.group(1)
     form_match = re.search(r"\b[A-Za-z0-9_.-]+=[^&\s]{1,120}(?:&[A-Za-z0-9_.-]+=[^&\s]{1,120})+", value)
     return form_match.group(0) if form_match else None
+
+
+def process_or_script_preview(value: str) -> bool:
+    lowered = value.lower()
+    if "#!" in value or "powershell -" in lowered or "cmd.exe /" in lowered:
+        return True
+    parts = value.replace("\x00", " ").split()
+    if not 1 <= len(parts) <= 16:
+        return False
+    if len(parts) == 1:
+        part = parts[0]
+        return strict_command(part, direct_exec_arg=True) or strict_url(part) or strict_path(part, allow_plain_file=True)
+    useful = sum(1 for part in parts if command_argument_part(part))
+    return useful >= min(2, len(parts))
 
 
 def compact_magic_offsets(values: list[Any]) -> list[dict[str, Any]]:
@@ -1531,6 +1572,8 @@ def useful_sink_string(value: str) -> bool:
         return False
     if looks_like_binary_preview(value):
         return False
+    if ("/" in value or "\\" in value) and not strict_path(value, allow_plain_file=True):
+        return False
     if noisy_symbol_ratio(value) > 0.35:
         return False
     if is_unqualified_bare_word(value):
@@ -1540,13 +1583,31 @@ def useful_sink_string(value: str) -> bool:
     return True
 
 
+def useful_direct_sink_argument(value: str) -> bool:
+    if len(value) < 1 or len(value) > MAX_VALUE_LENGTH:
+        return False
+    if looks_like_concatenated_runtime_text(value):
+        return False
+    if value.startswith(("-", "/")) and len(value) <= 120 and not any(ch in value for ch in "\r\n\x00"):
+        return True
+    if looks_like_binary_preview(value) or looks_noisy(value):
+        return False
+    if strict_url(value) or strict_path(value, allow_plain_file=True):
+        return True
+    if strict_command(value, direct_exec_arg=True):
+        return True
+    if len(value) <= 80 and re.fullmatch(r"[A-Za-z0-9_.:=,+@%-]{1,80}", value):
+        return True
+    return False
+
+
 def useful_process_string(value: str) -> bool:
     artifact = classify_artifact(value)
     if artifact and artifact.get("type") in {"command", "file_name", "path", "windows_path"}:
         return True
     if value.startswith(("-", "/")) and len(value) <= 80:
         return True
-    return value.lower() in COMMAND_NAME_ALLOWLIST
+    return strict_command(value, direct_exec_arg=True) or value.lower() in COMMAND_NAME_ALLOWLIST
 
 
 def is_unqualified_bare_word(value: str) -> bool:
@@ -1583,11 +1644,7 @@ def trim_url(value: str) -> str:
 
 
 def valid_url_artifact(value: str) -> bool:
-    match = re.match(r"https?://([^/:?#]+)", value)
-    if not match:
-        return False
-    host = match.group(1)
-    return host in {"localhost"} or "." in host or re.fullmatch(r"(?:\d{1,3}\.){3}\d{1,3}", host) is not None
+    return strict_url(value)
 
 
 def is_plausible_domain(value: str) -> bool:

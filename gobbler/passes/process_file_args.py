@@ -4,6 +4,13 @@ import re
 import shlex
 from typing import Any
 
+from gobbler.passes.artifact_validators import (
+    command_argument_part,
+    strict_command,
+    strict_file_argument,
+    strict_path,
+    strict_url,
+)
 from gobbler.passes.http_args import typed_arguments
 
 
@@ -125,6 +132,18 @@ def file_shape(sink: dict[str, Any]) -> str:
 
 def ordered_strings(sink: dict[str, Any]) -> list[dict[str, Any]]:
     values = []
+    for key, value in (sink.get("args") or {}).get("registers", {}).items():
+        if isinstance(value, str):
+            values.append({"value": value, "source": "call_graph", "location": key})
+    for item in (sink.get("args") or {}).get("direct_strings", []):
+        if isinstance(item, dict) and isinstance(item.get("value"), str):
+            values.append(
+                {
+                    "value": item["value"],
+                    "source": item.get("source") or "direct_string_args",
+                    "location": item.get("location"),
+                }
+            )
     for item in (sink.get("args") or {}).get("typed_string_args", []):
         if isinstance(item, dict) and isinstance(item.get("value"), str):
             values.append(
@@ -134,9 +153,6 @@ def ordered_strings(sink: dict[str, Any]) -> list[dict[str, Any]]:
                     "location": item.get("location"),
                 }
             )
-    for key, value in (sink.get("args") or {}).get("registers", {}).items():
-        if isinstance(value, str):
-            values.append({"value": value, "source": "call_graph", "location": key})
     for index, value in enumerate(sink.get("strings") or []):
         if isinstance(value, str):
             values.append({"value": value, "source": "sink_strings", "location": f"strings[{index}]"})
@@ -146,19 +162,16 @@ def ordered_strings(sink: dict[str, Any]) -> list[dict[str, Any]]:
 def first_process_executable(
     sink: dict[str, Any], values: list[dict[str, Any]]
 ) -> dict[str, Any] | None:
+    for value in values:
+        if value.get("source") == "sink_strings":
+            continue
+        text = value["value"]
+        if strict_command(text, direct_exec_arg=True):
+            return argument_value(text, value.get("source"), value.get("location"))
     for artifact in sink.get("artifacts") or []:
         if artifact.get("type") == "command":
             value = artifact.get("value")
-            if isinstance(value, str) and useful_command_part(value):
-                return argument_value(value, "artifact", None)
-    for value in values:
-        text = value["value"]
-        if useful_command_part(text):
-            return argument_value(text, value.get("source"), value.get("location"))
-    for artifact in sink.get("artifacts") or []:
-        if artifact.get("type") in {"command", "file_name", "path", "windows_path"}:
-            value = artifact.get("value")
-            if isinstance(value, str) and useful_command_part(value):
+            if isinstance(value, str) and strict_command(value, direct_exec_arg=True):
                 return argument_value(value, "artifact", None)
     return None
 
@@ -170,10 +183,13 @@ def process_argv(
     seen = set()
     executable_value = executable.get("value") if executable else None
     skipped_executable = False
-    has_direct_arg_evidence = any(value.get("source") in {"dataflow", "call_graph"} for value in values)
+    has_direct_arg_evidence = any(
+        value.get("source") in {"call_graph", "behavior_ir_string_args", "call_graph_string_args", "direct_string_args"}
+        for value in values
+    )
     for value in values:
         text = value["value"]
-        if has_direct_arg_evidence and value.get("source") == "sink_strings":
+        if has_direct_arg_evidence and value.get("source") in {"sink_strings", "dataflow"}:
             continue
         if not useful_argv_part(text):
             continue
@@ -267,6 +283,10 @@ def append_argument_values(
 
 
 def first_path_value(sink: dict[str, Any], values: list[dict[str, Any]]) -> dict[str, Any] | None:
+    for value in values:
+        text = value["value"]
+        if path_argument_candidate(text, direct_sink_argument=True):
+            return argument_value(text, value.get("source"), value.get("location"))
     for artifact in sink.get("artifacts") or []:
         value = artifact.get("value")
         if artifact.get("type") == "windows_path":
@@ -275,14 +295,10 @@ def first_path_value(sink: dict[str, Any], values: list[dict[str, Any]]) -> dict
         if artifact.get("type") == "path":
             if isinstance(value, str) and path_argument_candidate(value):
                 return argument_value(value, "artifact", None)
-    for value in values:
-        text = value["value"]
-        if path_argument_candidate(text):
-            return argument_value(text, value.get("source"), value.get("location"))
     for artifact in sink.get("artifacts") or []:
         if artifact.get("type") == "file_name":
             value = artifact.get("value")
-            if isinstance(value, str) and not command_like_filename(value):
+            if isinstance(value, str) and strict_file_argument(value) and not command_like_filename(value):
                 return argument_value(value, "artifact", None)
     return None
 
@@ -517,13 +533,13 @@ def useful_command_part(value: str) -> bool:
         return False
     if len(value) > 40 and not has_command_separator(value) and not value.startswith(("-", "/")):
         return False
-    if looks_like_url(value):
+    if strict_url(value):
         return False
-    if looks_like_path(value):
+    if strict_path(value, allow_plain_file=True):
         return True
     if value.startswith("-") or value.startswith("/"):
         return True
-    return bool(COMMAND_PART_RE.fullmatch(value))
+    return strict_command(value, direct_exec_arg=True)
 
 
 def useful_argv_part(value: str) -> bool:
@@ -533,19 +549,19 @@ def useful_argv_part(value: str) -> bool:
         return False
     if value.startswith(("-", "/")):
         return True
-    if looks_like_path(value):
+    if strict_path(value, allow_plain_file=True):
         return True
     if LOWER_ARG_RE.fullmatch(value):
         return True
     if UPPER_ARG_RE.fullmatch(value):
         return True
-    return False
+    return command_argument_part(value)
 
 
 def useful_file_data_literal(value: str) -> bool:
     if not value or len(value) > 2000:
         return False
-    if looks_like_path(value) or looks_like_url(value):
+    if looks_like_path(value) or strict_url(value):
         return False
     if len(value) >= 12 and any(ch in value for ch in "{}[]= \t"):
         return True
@@ -553,6 +569,12 @@ def useful_file_data_literal(value: str) -> bool:
 
 
 def looks_like_path(value: str) -> bool:
+    if strict_path(value, allow_plain_file=True):
+        return True
+    return False
+
+
+def legacy_looks_like_path(value: str) -> bool:
     if WINDOWS_PATH_PREFIX_RE.match(value) or value.startswith("\\\\"):
         return True
     if value.startswith(("/", "./", "../")):
@@ -564,22 +586,14 @@ def looks_like_path(value: str) -> bool:
     return has_short_extension(value)
 
 
-def path_argument_candidate(value: str) -> bool:
+def path_argument_candidate(value: str, *, direct_sink_argument: bool = False) -> bool:
     if not value or len(value) > 500:
         return False
     if command_like_filename(value):
         return False
     if runtime_string_table_fragment(value):
         return False
-    if WINDOWS_PATH_PREFIX_RE.match(value) or value.startswith("\\\\"):
-        return True
-    if value.startswith(("/", "./", "../")):
-        return not looks_like_url(value)
-    if "/" in value and not looks_like_url(value) and not any(ch.isspace() for ch in value):
-        return True
-    if "\\" in value:
-        return False
-    return "." in value and bool(FILE_NAME_RE.fullmatch(value))
+    return strict_file_argument(value) if direct_sink_argument else strict_path(value, allow_plain_file=False)
 
 
 def command_like_filename(value: str) -> bool:
@@ -616,7 +630,7 @@ def runtime_string_table_fragment(value: str) -> bool:
 
 
 def looks_like_url(value: str) -> bool:
-    return value.startswith(("http://", "https://"))
+    return strict_url(value)
 
 
 def has_command_separator(value: str) -> bool:

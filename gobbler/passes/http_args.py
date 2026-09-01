@@ -3,6 +3,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from gobbler.passes.artifact_validators import strict_url
+
 
 MAX_PREVIEW = 240
 MAX_BODY_COMPONENTS = 8
@@ -34,12 +36,12 @@ def enrich_http_arguments(
     producers = (body_producers or {}).get(sink.get("function") or "", [])
 
     if shape == "http_get":
-        url = string_at(ordered_strings, 0) or first_url_candidate(sink)
+        url = strict_url_argument(string_at(ordered_strings, 0)) or first_url_candidate(sink)
         if url:
             named["method"] = "GET"
             named["url"] = argument_value(url)
     elif shape == "http_post":
-        url = first_url_candidate(sink) or string_at(ordered_strings, 0)
+        url = strict_url_argument(string_at(ordered_strings, 0)) or first_url_candidate(sink)
         content_type = first_content_type_candidate(sink) or string_at(ordered_strings, 1)
         if url:
             named["method"] = "POST"
@@ -49,7 +51,7 @@ def enrich_http_arguments(
         named["body"] = infer_body_argument(sink, typed_args, producers)
     elif shape == "http_new_request":
         method = string_at(ordered_strings, 0)
-        url = string_at(ordered_strings, 1) or first_url_candidate(sink)
+        url = strict_url_argument(string_at(ordered_strings, 1)) or first_url_candidate(sink)
         if method and method["value"].upper() in HTTP_METHODS:
             named["method"] = argument_value(method, transform=str.upper)
         if url:
@@ -100,6 +102,15 @@ def ordered_string_arguments(sink: dict[str, Any]) -> list[dict[str, Any]]:
                     "source": "dataflow",
                 }
             )
+    for item in (sink.get("args") or {}).get("direct_strings", []):
+        if isinstance(item, dict) and isinstance(item.get("value"), str):
+            values.append(
+                {
+                    "location": item.get("location"),
+                    "value": item.get("value"),
+                    "source": item.get("source") or "direct_string_args",
+                }
+            )
     if not values:
         for index, value in enumerate(sink.get("strings") or []):
             if isinstance(value, str):
@@ -121,6 +132,17 @@ def string_at(values: list[dict[str, Any]], index: int) -> dict[str, Any] | None
     if index >= len(values):
         return None
     return values[index]
+
+
+def strict_url_argument(item: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(item, dict) or not isinstance(item.get("value"), str):
+        return None
+    cleaned = clean_url(item["value"])
+    if not strict_url(cleaned):
+        return None
+    out = dict(item)
+    out["value"] = cleaned
+    return out
 
 
 def first_url_candidate(sink: dict[str, Any]) -> dict[str, Any] | None:
@@ -407,7 +429,7 @@ def parse_hex(value: Any) -> int | None:
 
 
 def looks_like_url(value: str) -> bool:
-    return bool(re.match(r"https?://[A-Za-z0-9_.:-]+", value))
+    return strict_url(clean_url(value))
 
 
 def clean_url(value: str) -> str:

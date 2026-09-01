@@ -9,6 +9,14 @@ import zlib
 from pathlib import Path
 from typing import Any
 
+from gobbler.passes.artifact_validators import (
+    strict_command,
+    strict_file_argument,
+    strict_host,
+    strict_path,
+    strict_url,
+)
+
 MAX_CLASSIFY_BYTES = 0x20000
 MAX_SOURCE_READ_BYTES = 0x20000
 MAX_STRING_SCAN_BYTES = 0x10000
@@ -38,6 +46,27 @@ MAGIC_SIGNATURES: tuple[tuple[str, bytes, str], ...] = (
     ("gzip", b"\x1f\x8b\x08", "application/gzip"),
 )
 DOMAIN_OR_FILE_RE = re.compile(r"\.[a-z0-9]{2,8}($|[:/\\])")
+STRICT_URL_IN_TEXT_RE = re.compile(r"https?://[^\s\"'<>`{},]+")
+GENERIC_COMMAND_NAMES = {
+    "bash",
+    "cmd",
+    "cmd.exe",
+    "cscript",
+    "cscript.exe",
+    "curl",
+    "powershell",
+    "powershell.exe",
+    "pwsh",
+    "pwsh.exe",
+    "regsvr32",
+    "regsvr32.exe",
+    "rundll32",
+    "rundll32.exe",
+    "sh",
+    "wget",
+    "wscript",
+    "wscript.exe",
+}
 
 
 def classify_bytes(data: bytes) -> dict[str, Any]:
@@ -514,6 +543,10 @@ def classified_normalized_strings(strings: list[str]) -> list[tuple[str, str]]:
         clean = normalize_string(value)
         if not clean:
             continue
+        embedded = strict_urls_in_text(clean)
+        if embedded:
+            items.extend((url, "url") for url in embedded)
+            continue
         items.append((clean, classify_string(clean)))
     return items
 
@@ -534,19 +567,28 @@ def string_rank(value: str, classification: str | None = None) -> tuple[int, int
 
 def classify_string(value: str) -> str:
     lowered = value.lower()
-    if any(scheme in lowered for scheme in ("http://", "https://", "tcp://", "udp://", "ws://", "wss://")):
+    if strict_url(value):
         return "url"
     if looks_like_ip_address(value):
         return "ip_address"
-    if looks_like_windows_path_fragment(lowered):
+    if strict_path(value) and looks_like_windows_path_fragment(lowered):
         return "windows_path"
-    if value.startswith(("/", "./", "../")) or "/" in value:
+    if strict_path(value):
         return "path"
-    if any(token in lowered for token in ("cmd.exe", "powershell", "/bin/sh", "/bin/bash", "chmod ", "curl ", "wget ")):
+    if lowered in GENERIC_COMMAND_NAMES or strict_command(value, direct_exec_arg=False):
         return "command"
-    if "." in lowered and DOMAIN_OR_FILE_RE.search(lowered):
+    if strict_file_argument(value) or strict_host(value):
         return "domain_or_file"
     return "text"
+
+
+def strict_urls_in_text(value: str) -> list[str]:
+    results = []
+    for match in STRICT_URL_IN_TEXT_RE.finditer(value):
+        candidate = match.group(0).rstrip(".,);]}'\"")
+        if strict_url(candidate) and candidate not in results:
+            results.append(candidate)
+    return results[:8]
 
 
 def looks_like_ip_address(value: str) -> bool:

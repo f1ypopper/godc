@@ -4,6 +4,7 @@ import re
 from collections import defaultdict
 from typing import Any
 
+from gobbler.passes.artifact_validators import strict_path
 from gobbler.utils.ownership import is_library_function
 
 
@@ -537,7 +538,7 @@ def path_like_literals(values: list[str]) -> list[str]:
     return [
         value
         for value in values
-        if ("/" in value or "\\" in value or "." in value) and plausible_path_literal(value)
+        if plausible_path_literal(value) and strict_path(value, allow_plain_file=True)
     ][:12]
 
 

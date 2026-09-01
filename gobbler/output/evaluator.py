@@ -20,8 +20,6 @@ SYSTEM_CATEGORIES = {
     "loader",
     "execution",
     "registry",
-    "persistence",
-    "registry_or_persistence",
 }
 
 CARD_CATEGORY_ORDER = {
@@ -31,8 +29,6 @@ CARD_CATEGORY_ORDER = {
     "network": 2,
     "filesystem": 3,
     "registry": 4,
-    "persistence": 4,
-    "registry_or_persistence": 4,
     "concurrency": 5,
     "decoded_artifact": 6,
     "runtime_decoding": 7,
@@ -64,7 +60,6 @@ def build_evaluator_document(
         dedupe_cards(sink_cards + loader_cards + artifact_cards + decoder_cards),
         key=card_sort_key,
     )[:MAX_CARDS]
-    indicators = collect_indicators(evidence_cards, decoded_artifacts, semantic)
     behavior_flow = compact_behavior_flow(semantic.get("behavior_story"), evidence_cards)
     embedded_artifacts = compact_embedded_artifacts(
         semantic.get("embedded_artifacts"),
@@ -72,6 +67,7 @@ def build_evaluator_document(
         payload_context=bool(decoded_artifacts or loader_activity),
     )
     runtime_decoding = compact_runtime_decoding(semantic.get("runtime_decoding"), decoded_artifacts)
+    indicators = collect_indicators(evidence_cards, decoded_artifacts, semantic)
 
     output: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -224,8 +220,8 @@ def compact_action(action: dict[str, Any]) -> dict[str, Any]:
             "kind": action.get("kind"),
             "category": normalize_category(action.get("category")),
             "target_api": action.get("target_api"),
-            "role": role,
-            "description": action.get("description"),
+            "role": neutralize_evaluator_text(role),
+            "description": neutralize_evaluator_text(action.get("description")),
             "artifacts": [compact_artifact(item) for item in take(action.get("artifacts"), 4)],
         }
     )
@@ -280,8 +276,8 @@ def base_sink_card(sink: dict[str, Any], category: str) -> dict[str, Any]:
         "category": category,
         "function": sink.get("function"),
         "target_api": sink.get("target"),
-        "role": role,
-        "operation": sink.get("operation_summary"),
+        "role": neutralize_evaluator_text(role),
+        "operation": neutralize_evaluator_text(sink.get("operation_summary")),
         "evidence": compact_evidence(sink.get("evidence")),
     }
 
@@ -318,7 +314,7 @@ def argument_fields_for_sink(sink: dict[str, Any], category: str) -> dict[str, A
 def network_fields(sink: dict[str, Any]) -> dict[str, Any]:
     http_args = sink.get("http_arguments") if isinstance(sink.get("http_arguments"), dict) else {}
     arg_roles = sink.get("arg_roles") if isinstance(sink.get("arg_roles"), dict) else {}
-    url = extract_value(http_args.get("url")) or first(arg_roles.get("urls")) or first(sink.get("strings"))
+    url = extract_value(http_args.get("url")) or first(arg_roles.get("urls"))
     body = http_args.get("body") if isinstance(http_args.get("body"), dict) else {}
     out = {
         "url": url,
@@ -359,7 +355,7 @@ def loader_fields(sink: dict[str, Any]) -> dict[str, Any]:
 def process_fields(sink: dict[str, Any]) -> dict[str, Any]:
     process_args = sink.get("process_arguments") if isinstance(sink.get("process_arguments"), dict) else {}
     arg_roles = sink.get("arg_roles") if isinstance(sink.get("arg_roles"), dict) else {}
-    executable = extract_value(process_args.get("executable")) or first(arg_roles.get("commands")) or first(sink.get("strings"))
+    executable = extract_value(process_args.get("executable")) or first(arg_roles.get("commands"))
     argv = [extract_value(item) for item in take(process_args.get("argv"), 12)]
     argv = [item for item in argv if item not in (None, "")]
     out = {
@@ -377,7 +373,7 @@ def process_fields(sink: dict[str, Any]) -> dict[str, Any]:
 def filesystem_fields(sink: dict[str, Any]) -> dict[str, Any]:
     file_args = sink.get("file_arguments") if isinstance(sink.get("file_arguments"), dict) else {}
     arg_roles = sink.get("arg_roles") if isinstance(sink.get("arg_roles"), dict) else {}
-    path = extract_value(file_args.get("path")) or first(arg_roles.get("filesystem_targets")) or first(arg_roles.get("paths")) or first(sink.get("strings"))
+    path = extract_value(file_args.get("path")) or first(arg_roles.get("filesystem_targets")) or first(arg_roles.get("paths"))
     data = file_args.get("data") if isinstance(file_args.get("data"), dict) else {}
     read_result = file_args.get("read_result") if isinstance(file_args.get("read_result"), dict) else {}
     out = {
@@ -556,10 +552,8 @@ def cards_from_runtime_decoding(runtime_decoding: Any, decoded_artifacts: list[d
     for item in take(runtime_decoding.get("functions"), 50):
         if not isinstance(item, dict):
             continue
-        labels = set(item.get("feature_labels") or [])
-        indicators = item.get("recovered_indicators") or []
-        strong = bool(indicators or item.get("function") in recovered_functions or labels.intersection({"explicit_decoder_api", "custom_decoder_candidate", "recovered_indicator"}))
-        if not strong:
+        decision = runtime_decoding_decision(item, recovered_functions)
+        if not decision["include"]:
             continue
         cards.append(
             prune_empty(
@@ -568,8 +562,9 @@ def cards_from_runtime_decoding(runtime_decoding: Any, decoded_artifacts: list[d
                     "category": "runtime_decoding",
                     "function": item.get("function"),
                     "classification": item.get("classification"),
-                    "evidence": take(item.get("feature_labels"), 8),
-                    "decoded_indicators": take(indicators, 12),
+                    "evidence": decision["evidence"],
+                    "decoded_indicators": take(decision["indicators"], 12),
+                    "consumed_by": take(decision["consumers"], 8),
                 }
             )
         )
@@ -581,36 +576,126 @@ def compact_runtime_decoding(runtime_decoding: Any, decoded_artifacts: list[dict
         return {}
     recovered_functions = {item.get("function") for item in decoded_artifacts if item.get("function")}
     functions = []
-    weak_candidate_count = 0
+    recovered_indicators = []
     for item in take(runtime_decoding.get("functions"), 100):
         if not isinstance(item, dict):
             continue
-        labels = set(item.get("feature_labels") or [])
-        indicators = item.get("recovered_indicators") or []
-        strong = bool(indicators or item.get("function") in recovered_functions or labels.intersection({"explicit_decoder_api", "custom_decoder_candidate", "recovered_indicator"}))
-        if not strong:
-            weak_candidate_count += 1
+        decision = runtime_decoding_decision(item, recovered_functions)
+        if not decision["include"]:
             continue
+        recovered_indicators.extend(decision["indicators"])
         functions.append(
             prune_empty(
                 {
                     "function": item.get("function"),
                     "classification": item.get("classification"),
-                    "evidence": take(item.get("feature_labels"), 8),
-                    "decoded_indicators": take(indicators, 12),
-                    "consumed_by": take(item.get("consumed_by"), 8),
+                    "evidence": decision["evidence"],
+                    "decoded_indicators": take(decision["indicators"], 12),
+                    "consumed_by": take(decision["consumers"], 8),
                 }
             )
         )
+    recovered_indicators = dedupe_indicator_objects(recovered_indicators)[:40]
+    if not functions and not recovered_indicators:
+        return {}
     return prune_empty(
         {
-            "summary": runtime_decoding.get("summary"),
+            "summary": runtime_decoding_summary(functions, recovered_indicators),
             "functions": functions[:20],
-            "recovered_indicators": take(runtime_decoding.get("recovered_indicators"), 40),
-            "weak_candidate_count": weak_candidate_count,
-            "note": "XOR, codec, or compression use alone is reported as weak unless a decoded artifact, recovered indicator, or downstream system interaction is visible.",
+            "recovered_indicators": recovered_indicators,
         }
     )
+
+
+def runtime_decoding_decision(item: dict[str, Any], recovered_functions: set[Any]) -> dict[str, Any]:
+    indicators = [indicator for indicator in item.get("recovered_indicators") or [] if isinstance(indicator, dict)]
+    consumed_indicators = [indicator for indicator in indicators if indicator_consumed_by_sink(indicator)]
+    labels = set(item.get("feature_labels") or [])
+    has_decoded_artifact = item.get("function") in recovered_functions
+    has_explicit_decoder_output = "explicit_decoder_api" in labels and bool(indicators)
+    include = bool(has_decoded_artifact or consumed_indicators or has_explicit_decoder_output)
+    evidence = []
+    if has_decoded_artifact:
+        evidence.append("decoded_artifact_recovered")
+    if consumed_indicators:
+        evidence.append("decoded_value_consumed_by_sink")
+    if has_explicit_decoder_output:
+        evidence.append("explicit_decoder_api_output")
+    consumers = dedupe_consumers(
+        consumer
+        for indicator in consumed_indicators
+        for consumer in indicator.get("consumed_by") or []
+        if isinstance(consumer, dict)
+    )
+    return {
+        "include": include,
+        "evidence": evidence,
+        "indicators": consumed_indicators if consumed_indicators else indicators,
+        "consumers": consumers,
+    }
+
+
+def indicator_consumed_by_sink(indicator: dict[str, Any]) -> bool:
+    consumers = indicator.get("consumed_by")
+    if not isinstance(consumers, list):
+        return False
+    for consumer in consumers:
+        if not isinstance(consumer, dict):
+            continue
+        if consumer.get("sinks"):
+            return True
+        if consumer.get("chain_kind") in {"outbound_http", "outbound_network_client", "network_connect", "process_launch", "file_write", "file_read", "dynamic_loader"}:
+            return True
+    return False
+
+
+def runtime_decoding_summary(functions: list[dict[str, Any]], indicators: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "function_count": len(functions),
+        "recovered_indicator_count": len(indicators),
+        "decoded_artifact_function_count": sum(
+            1 for item in functions if "decoded_artifact_recovered" in (item.get("evidence") or [])
+        ),
+        "sink_consumed_value_count": sum(
+            1 for item in functions if "decoded_value_consumed_by_sink" in (item.get("evidence") or [])
+        ),
+        "explicit_decoder_api_output_count": sum(
+            1 for item in functions if "explicit_decoder_api_output" in (item.get("evidence") or [])
+        ),
+    }
+
+
+def dedupe_indicator_objects(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out = []
+    seen = set()
+    for item in items:
+        marker = (
+            item.get("type") or item.get("kind"),
+            item.get("value") or item.get("indicator") or item.get("text"),
+            item.get("producer"),
+            item.get("caller"),
+        )
+        if marker in seen:
+            continue
+        seen.add(marker)
+        out.append(compact_value(item))
+    return out
+
+
+def dedupe_consumers(items: Any) -> list[dict[str, Any]]:
+    out = []
+    seen = set()
+    for item in items:
+        marker = (
+            item.get("function"),
+            item.get("chain_kind"),
+            tuple((sink.get("kind"), sink.get("target")) for sink in item.get("sinks") or [] if isinstance(sink, dict)),
+        )
+        if marker in seen:
+            continue
+        seen.add(marker)
+        out.append(compact_value(item))
+    return out
 
 
 def compact_embedded_artifacts(payloads: Any, classification: Any, payload_context: bool) -> list[dict[str, Any]]:
@@ -682,7 +767,14 @@ def collect_indicators(
         for string in classification.get("strings") or []:
             add_string_indicator(indicators, string)
     runtime = semantic.get("runtime_decoding") if isinstance(semantic.get("runtime_decoding"), dict) else {}
-    for item in take(runtime.get("recovered_indicators"), 60):
+    recovered_functions = {item.get("function") for item in decoded_artifacts if item.get("function")}
+    concrete_runtime_indicators = []
+    for item in take(runtime.get("functions"), 100):
+        if isinstance(item, dict):
+            decision = runtime_decoding_decision(item, recovered_functions)
+            if decision["include"]:
+                concrete_runtime_indicators.extend(decision["indicators"])
+    for item in dedupe_indicator_objects(concrete_runtime_indicators)[:60]:
         add_indicator_object(indicators, item)
     return {key: values[:MAX_LIST_ITEMS] for key, values in indicators.items() if values}
 
@@ -733,8 +825,6 @@ def limitations(semantic: dict[str, Any], runtime_decoding: dict[str, Any]) -> l
     out = []
     for error in take(semantic.get("analysis_errors"), 20):
         out.append(str(error))
-    if runtime_decoding.get("weak_candidate_count"):
-        out.append("Runtime decoding candidates without recovered artifacts are summarized as weak evidence.")
     sink_limitations = (semantic.get("sink_args") or {}).get("limitations") if isinstance(semantic.get("sink_args"), dict) else []
     for item in take(sink_limitations, 2):
         out.append(str(item))
@@ -744,7 +834,7 @@ def limitations(semantic: dict[str, Any], runtime_decoding: dict[str, Any]) -> l
 def compact_artifact(item: Any) -> dict[str, Any]:
     if not isinstance(item, dict):
         return {}
-    return prune_empty({key: item.get(key) for key in ("type", "value", "confidence", "kind")})
+    return prune_empty({key: neutralize_evaluator_text(item.get(key)) for key in ("type", "value", "confidence", "kind")})
 
 
 def compact_artifacts(items: Any) -> list[dict[str, Any]]:
@@ -767,7 +857,7 @@ def compact_evidence(items: Any) -> list[str]:
             continue
         if item.startswith(("description:", "tag:")):
             continue
-        out.append(item)
+        out.append(neutralize_evaluator_text(item))
     return dedupe_scalars(out, 8)
 
 
@@ -789,7 +879,32 @@ def normalize_category(value: Any) -> str:
     text = str(value or "").lower()
     if text == "execution":
         return "loader"
+    if text == "persistence":
+        return "filesystem"
+    if text == "registry_or_persistence":
+        return "registry"
     return text
+
+
+def neutralize_evaluator_text(value: Any) -> Any:
+    if not isinstance(value, str):
+        return value
+    replacements = {
+        "registry_or_persistence": "registry_or_autorun",
+        "startup_or_persistence_location": "startup_or_autorun_location",
+        "persistence_location_create": "startup_or_autorun_location_create",
+        "persistence_locations": "startup_or_autorun_locations",
+        "persistence_mechanism": "autorun_mechanism",
+        "persistence": "autorun",
+        "exfiltration": "data_transfer",
+        "C2-like": "remote_control_like",
+        "c2-like": "remote_control_like",
+        "suspicious": "notable",
+    }
+    out = value
+    for old, new in replacements.items():
+        out = out.replace(old, new)
+    return out
 
 
 def category_for_card(card: dict[str, Any]) -> str | None:

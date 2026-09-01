@@ -6,24 +6,17 @@ import gzip
 import hashlib
 import re
 import zlib
-from functools import lru_cache
 from typing import Any
 
 from gobbler.passes.artifact_classifier import classify_bytes
 
 
 MAX_SOURCE_BYTES = 0x40000
-XOR_PROBE_BYTES = 0x2000
-MAX_XOR_SOURCES = 8
-MAX_REPEATING_KEYS = 8
+MAX_ENCODED_STATIC_SOURCES = 8
 MAX_RESULTS = 40
 MAX_DECODED_ARTIFACTS = 60
 MAX_LAYER_DEPTH = 4
 MAX_LITERAL_STRINGS = 80
-FAST_XOR_SIGNAL_BYTES = 0x2000
-SMALL_XOR_BRUTE_FORCE_BYTES = 0x4000
-MAX_LARGE_XOR_BRUTE_FORCE_SOURCES = 2
-SINGLE_BYTE_XOR_KEYS = tuple(range(1, 256))
 
 URL_BYTES_RE = re.compile(rb"https?://[A-Za-z0-9.-]+(?:/[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]*)?")
 WINDOWS_PATH_BYTES_RE = re.compile(rb"[A-Za-z]:\\[A-Za-z0-9_. $(){}\\-]+(?:\\[A-Za-z0-9_. $(){}\\-]+)+")
@@ -59,11 +52,6 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
         sources = item.get("static_sources") or []
         key_candidates = candidate_keys(item)
         decoded_results.extend(recover_encoded_artifacts_for_function(analyzer, function, item, sources, stats))
-        if "custom_decoder_candidate" in (item.get("feature_labels") or []):
-            recovered, suppressed = recover_xor_for_function(analyzer, function, item, sources, key_candidates, stats)
-            xor_results.extend(recovered)
-            decoded_results.extend(recovered)
-            suppressed_recoveries.extend(suppressed)
         if any(call.get("decoder") in {"aes", "cipher"} for call in item.get("decoder_calls") or []):
             aes_candidates.append(aes_candidate_for_function(function, item, sources, key_candidates))
 
@@ -88,7 +76,7 @@ def analyze_decryption_recovery(analyzer: Any, semantics: dict[str, Any]) -> dic
         "aes_candidates": aes_candidates,
         "recovery_stats": stats,
         "notes": [
-            "XOR recovery is conservative and only reports outputs with strong artifact evidence.",
+            "XOR recovery is disabled.",
             "Base64/hex/gzip/zlib reconstruction reports only decoded outputs that classify as concrete artifacts or contain strong indicators.",
             "AES paths are identified, but AES decryption requires key, mode, IV/nonce, and ciphertext argument reconstruction.",
         ],
@@ -103,7 +91,7 @@ def recover_encoded_artifacts_for_function(
     stats: dict[str, int],
 ) -> list[dict[str, Any]]:
     results = []
-    for source in sources[:MAX_XOR_SOURCES]:
+    for source in sources[:MAX_ENCODED_STATIC_SOURCES]:
         reason = source_suppression_reason(source)
         if reason and not has_explicit_decode_api(item):
             stats["encoded_static_sources_suppressed"] += 1
@@ -171,128 +159,6 @@ def recover_encoded_artifacts_for_function(
     return results
 
 
-def recover_xor_for_function(
-    analyzer: Any,
-    function: str | None,
-    item: dict[str, Any],
-    sources: list[dict[str, Any]],
-    keys: list[bytes],
-    stats: dict[str, int],
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    results = []
-    suppressed = []
-    brute_force_budget = MAX_LARGE_XOR_BRUTE_FORCE_SOURCES if has_strong_xor_transform_loop(item) else 0
-    for source in ranked_xor_sources(sources)[:MAX_XOR_SOURCES]:
-        stats["xor_sources_considered"] += 1
-        reason = source_suppression_reason(source)
-        if reason:
-            stats["xor_sources_suppressed"] += 1
-            suppressed.append(
-                {
-                    "function": function,
-                    "method": "xor_probe",
-                    "reason": reason,
-                    "source_summary": summarize_source(source),
-                }
-            )
-            continue
-        data = read_source_bytes(analyzer, source)
-        if len(data) < 8:
-            stats["xor_sources_skipped"] += 1
-            continue
-        seen_keys: set[bytes] = set()
-        should_brute_force = len(data) <= SMALL_XOR_BRUTE_FORCE_BYTES
-        if not should_brute_force and brute_force_budget > 0:
-            should_brute_force = True
-            brute_force_budget -= 1
-        if should_brute_force:
-            stats["xor_sources_bruteforced"] += 1
-            for key in SINGLE_BYTE_XOR_KEYS:
-                key_bytes = bytes([key])
-                seen_keys.add(key_bytes)
-                stats["xor_keys_tested"] += 1
-                artifact, decoded = recover_xor_with_probe(data, key_bytes)
-                if artifact:
-                    stats["xor_probe_hits"] += 1
-                    results.append(format_recovery(function, source, decoded, "xor_single_byte", key_bytes, artifact))
-        elif keys:
-            stats["xor_sources_keyed_only"] += 1
-            suppressed.append(
-                {
-                    "function": function,
-                    "method": "xor_single_byte",
-                    "reason": "large_source_without_strong_xor_loop",
-                    "source_summary": summarize_source(source),
-                }
-            )
-        for key in keys[:MAX_REPEATING_KEYS]:
-            if not key or key in seen_keys:
-                continue
-            seen_keys.add(key)
-            stats["xor_keys_tested"] += 1
-            artifact, decoded = recover_xor_with_probe(data, key)
-            if artifact:
-                stats["xor_probe_hits"] += 1
-                results.append(format_recovery(function, source, decoded, "xor_repeating_key", key, artifact))
-    results.sort(key=recovery_sort_key)
-    return results, suppressed
-
-
-def has_strong_xor_transform_loop(item: dict[str, Any]) -> bool:
-    for loop in item.get("transform_loops") or []:
-        evidence = loop.get("evidence") if isinstance(loop, dict) else {}
-        transform_ops = set(evidence.get("transform_ops") or [])
-        if "xor" not in transform_ops:
-            continue
-        if int(evidence.get("memory_reads") or 0) and int(evidence.get("memory_writes") or 0):
-            return True
-    return False
-
-
-def ranked_xor_sources(sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return sorted(sources, key=xor_source_sort_key)
-
-
-def xor_source_sort_key(source: dict[str, Any]) -> tuple[int, int, int, int]:
-    size = parse_hex_int(source.get("size")) or 0
-    kind = str(source.get("kind") or "")
-    entropy = source_entropy(source)
-    has_magic = bool(source.get("magic_offsets"))
-    large_penalty = 1 if size > SMALL_XOR_BRUTE_FORCE_BYTES else 0
-    kind_rank = 0 if kind in {"data_blob", "constant_array"} else 1
-    magic_penalty = 1 if has_magic else 0
-    entropy_rank = -int(entropy * 100)
-    return (large_penalty, kind_rank, magic_penalty, entropy_rank)
-
-
-def recover_xor_with_probe(data: bytes, key: bytes) -> tuple[dict[str, Any] | None, bytes]:
-    probe = xor_repeating(data[: min(len(data), XOR_PROBE_BYTES)], key)
-    if not fast_decoded_artifact_signal(probe):
-        return None, probe
-    artifact = classify_decoded_artifact(probe)
-    if not artifact:
-        return None, probe
-    if len(data) <= len(probe) or not should_full_decode_xor_artifact(artifact):
-        return artifact, probe
-    decoded = xor_repeating(data, key)
-    full_artifact = classify_decoded_artifact(decoded)
-    return full_artifact or artifact, decoded
-
-
-def should_full_decode_xor_artifact(artifact: dict[str, Any]) -> bool:
-    return artifact.get("type") in {
-        "decoded_pe",
-        "decoded_elf",
-        "embedded_pe",
-        "embedded_elf",
-        "decoded_zip",
-        "decoded_gzip",
-        "decoded_zlib",
-        "zip_archive",
-        "gzip_stream",
-    }
-
-
 def recover_literal_artifacts(
     function: str | None,
     literal: str,
@@ -349,8 +215,6 @@ def should_scan_static_encoded_source(item: dict[str, Any], source: dict[str, An
     if has_explicit_decode_api(item):
         return True
     if "recovered_indicator" in (item.get("feature_labels") or []):
-        return True
-    if has_strong_xor_transform_loop(item):
         return True
     if preview and preview_has_encoded_literal(preview):
         return True
@@ -705,47 +569,6 @@ def printable_preview_is_pointer_table(preview: str) -> bool:
     punctuation = sum(ch in ".@\\x00" for ch in preview)
     alnum = sum(ch.isalnum() for ch in preview)
     return punctuation > alnum
-
-def xor_repeating(data: bytes, key: bytes) -> bytes:
-    if not key:
-        return data
-    if len(key) == 1:
-        return data.translate(single_byte_xor_table(key[0]))
-    return bytes(byte ^ key[index % len(key)] for index, byte in enumerate(data))
-
-
-@lru_cache(maxsize=256)
-def single_byte_xor_table(key: int) -> bytes:
-    return bytes(value ^ key for value in range(256))
-
-
-def fast_decoded_artifact_signal(data: bytes) -> bool:
-    if not data:
-        return False
-    if valid_pe_offset(data) is not None:
-        return True
-    if data.find(b"\x7fELF", 0, min(len(data), 0x1000)) != -1:
-        return True
-    if data.startswith((b"PK\x03\x04", b"PK\x05\x06", b"PK\x07\x08", b"\x1f\x8b")):
-        return True
-    if looks_like_zlib(data):
-        return True
-
-    sample = data[:FAST_XOR_SIGNAL_BYTES]
-    lowered = sample.lower()
-    if any(marker in lowered for marker in SCRIPT_MARKER_BYTES):
-        return True
-    if (b"http://" in lowered or b"https://" in lowered) and URL_BYTES_RE.search(sample):
-        return True
-    if b":\\" in sample and any(
-        is_robust_windows_path(match.group(0).decode("ascii", errors="ignore"))
-        for match in WINDOWS_PATH_BYTES_RE.finditer(sample)
-    ):
-        return True
-    if has_command_marker(lowered) and COMMAND_BYTES_RE.search(sample):
-        return True
-    return has_interesting_file_suffix(lowered)
-
 
 def has_command_marker(data: bytes) -> bool:
     return any(

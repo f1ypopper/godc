@@ -352,17 +352,6 @@ def decoded_previews(strings: list[str]) -> list[dict[str, Any]]:
     for value in strings:
         for candidate in decoded_literal_candidates(value):
             previews.append(format_decoded_preview(value, candidate))
-            for key in xor_key_candidates(strings, value):
-                xored = xor_repeating(candidate["data"], key.encode("utf-8"))
-                if not useful_recovered_text(xored):
-                    continue
-                chained = {
-                    "encoding": candidate["encoding"],
-                    "data": xored,
-                    "transforms": candidate.get("transforms", [])
-                    + [{"kind": "xor_repeating_key", "key": key}],
-                }
-                previews.append(format_decoded_preview(value, chained))
     return dedupe_previews(previews)[:8]
 
 
@@ -439,27 +428,6 @@ def base64_decode_variants(value: str) -> list[bytes]:
             seen.add(data)
             decoded.append(data)
     return decoded
-
-
-def xor_key_candidates(strings: list[str], encoded_value: str) -> list[str]:
-    keys = []
-    for value in strings:
-        if value == encoded_value:
-            continue
-        if not (1 <= len(value) <= 64):
-            continue
-        if not all(32 <= ord(ch) <= 126 for ch in value):
-            continue
-        if plausible_encoded_literal(value) and len(value) > 12:
-            continue
-        keys.append(value)
-    return keys[:6]
-
-
-def xor_repeating(data: bytes, key: bytes) -> bytes:
-    if not key:
-        return data
-    return bytes(byte ^ key[index % len(key)] for index, byte in enumerate(data))
 
 
 def useful_recovered_text(data: bytes) -> bool:
