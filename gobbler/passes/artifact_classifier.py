@@ -212,6 +212,9 @@ def source_for_embedded_artifact(artifact: dict[str, Any]) -> dict[str, Any]:
             "evidence": artifact.get("evidence"),
             "transformers": artifact.get("transformers"),
             "loaders": artifact.get("loaders"),
+            "relationship_status": artifact.get("relationship_status", "unverified"),
+            "candidate_loader_relationships": artifact.get("candidate_loader_relationships", []),
+            "unresolved_reasons": artifact.get("unresolved_reasons", []),
         }.items()
         if value not in (None, [], {})
     }

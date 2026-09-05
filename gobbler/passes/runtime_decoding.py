@@ -3,7 +3,7 @@ import binascii
 import re
 from typing import Any
 
-from gobbler.utils.ownership import is_library_function
+from gobbler.utils.ownership import should_analyze_function
 
 
 DECODER_TARGETS = {
@@ -68,7 +68,7 @@ def analyze_runtime_decoding(
             and not literal_callers
         ):
             continue
-        if is_library_function(function) and classification != "explicit_string_decoder":
+        if not should_analyze_function(function, semantics) and classification != "explicit_string_decoder":
             continue
 
         static_recoveries = recover_static_source_previews(analyzer, static_sources)

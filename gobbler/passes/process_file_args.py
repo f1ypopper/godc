@@ -12,6 +12,7 @@ from gobbler.passes.artifact_validators import (
     strict_url,
 )
 from gobbler.passes.http_args import typed_arguments
+from gobbler.passes.process_semantics import is_cmd_execution
 
 
 MAX_COMPONENTS = 12
@@ -41,7 +42,13 @@ def enrich_process_and_file_arguments(sink: dict[str, Any]) -> None:
 def process_arguments(sink: dict[str, Any]) -> dict[str, Any]:
     shape = process_shape(sink)
     if shape == "process_object_run":
-        return {}
+        return {
+            "api_shape": shape,
+            "command_object": {
+                "status": "unresolved",
+                "reason": "Cmd receiver identity and current Path/Args fields are not established by this analysis",
+            },
+        }
     values = ordered_strings(sink)
     executable = first_process_executable(sink, values)
     argv = process_argv(values, executable)
@@ -105,9 +112,9 @@ def process_shape(sink: dict[str, Any]) -> str:
         return "fork_exec"
     if "syscall.exec" in target or target.endswith("execve"):
         return "syscall_exec"
-    if ".run" in target or ".start" in target:
+    if is_cmd_execution(target):
         return "process_object_run"
-    return "process_launch"
+    return "process_start_attempt"
 
 
 def file_shape(sink: dict[str, Any]) -> str:

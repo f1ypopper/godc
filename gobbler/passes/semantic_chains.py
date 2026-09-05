@@ -4,8 +4,10 @@ import re
 from collections import defaultdict
 from typing import Any
 
+from gobbler.passes.process_semantics import is_cmd_execution
+
 from gobbler.passes.artifact_validators import strict_path
-from gobbler.utils.ownership import is_library_function
+from gobbler.utils.ownership import should_analyze_function
 
 
 SOURCE_OPERATION_KINDS = {
@@ -47,7 +49,8 @@ SINK_OPERATION_KINDS = {
     "http_post",
     "network_connect",
     "network_listen",
-    "process_launch",
+    "command_constructed",
+    "process_start_attempt",
     "dynamic_library_load",
     "dynamic_import_resolution",
     "dynamic_syscall_call",
@@ -72,7 +75,7 @@ FILE_WRITE_OPERATION_KINDS = {"file_write", "file_create"}
 FILE_READ_OPERATION_KINDS = {"file_read", "file_open"}
 FILE_MUTATION_OPERATION_KINDS = {"file_delete", "file_rename"}
 FILE_WALK_OPERATION_KINDS = {"recursive_filesystem_walk"}
-PROCESS_OPERATION_KINDS = {"process_launch"}
+PROCESS_OPERATION_KINDS = {"process_start_attempt"}
 GOROUTINE_OPERATION_KINDS = {"start_goroutine"}
 LOADER_OPERATION_KINDS = {
     "dynamic_library_load",
@@ -114,7 +117,7 @@ class SemanticChainBuilder:
     def _add_function_chains(self, function: str, item: dict[str, Any]) -> None:
         operations = item.get("flow") or []
         kinds = {operation.get("kind") for operation in operations}
-        if is_library_function(function) and not has_high_level_loader_behavior(kinds):
+        if not should_analyze_function(function, self.semantics) and not has_high_level_loader_behavior(kinds):
             return
         data = item.get("data") or {}
         control = item.get("control") or {}
@@ -235,20 +238,27 @@ class SemanticChainBuilder:
                 }
             )
 
+        if "command_constructed" in kinds:
+            self._add_chain({
+                "kind": "command_constructed",
+                "function": function,
+                "confidence": "high",
+                "sinks": [op for op in sinks if op["kind"] == "command_constructed"],
+                "process_role": "command_construction",
+                "evidence": ["command_constructor_call"],
+            })
+
         if kinds & PROCESS_OPERATION_KINDS:
             process_sinks = [op for op in sinks if op["kind"] in PROCESS_OPERATION_KINDS]
-            role = process_chain_role(process_sinks, literal_values)
+            role = process_chain_role(process_sinks, [])
             self._add_chain(
                 {
-                    "kind": "process_launch",
+                    "kind": "process_start_attempt",
                     "function": function,
                     "confidence": "high" if process_sinks else "medium",
-                    "sources": sources + static_source_refs(static_sources),
-                    "transforms": transforms,
                     "sinks": process_sinks,
-                    "literals": literal_values[:12],
                     "process_role": role,
-                    "evidence": ["process_launch_sink", f"process_role:{role}"],
+                    "evidence": ["process_start_attempt_sink", f"process_role:{role}"],
                 }
             )
 
@@ -269,7 +279,7 @@ class SemanticChainBuilder:
 
         if kinds & LOADER_OPERATION_KINDS:
             loader_sinks = [op for op in sinks if op["kind"] in LOADER_OPERATION_KINDS]
-            if is_library_function(function) and not any(
+            if not should_analyze_function(function, self.semantics) and not any(
                 sink["kind"] in {"dynamic_library_load", "dynamic_import_resolution"}
                 for sink in loader_sinks
             ):
@@ -439,7 +449,8 @@ def is_inbound_network_target(target: Any) -> bool:
 def process_chain_role(sinks: list[dict[str, Any]], literals: list[str]) -> str:
     values = []
     for sink in sinks:
-        values.extend(sink.get("strings") or [])
+        if not is_cmd_execution(sink.get("target")):
+            values.extend(sink.get("strings") or [])
     values.extend(literals)
     joined = " ".join(str(value).lower() for value in values)
     names = {first_command_token(value) for value in values}
@@ -456,7 +467,7 @@ def process_chain_role(sinks: list[dict[str, Any]], literals: list[str]) -> str:
         return "shell_or_lolbin_execution"
     if any(marker in joined for marker in ("curl ", "wget ", "chmod +x", "schtasks", "sc create")):
         return "system_command_execution"
-    return "process_launch"
+    return "process_start_attempt"
 
 
 def first_command_token(value: Any) -> str:
@@ -590,6 +601,9 @@ def compact_chain(chain: dict[str, Any]) -> dict[str, Any]:
         "function": chain["function"],
         "confidence": chain["confidence"],
         "evidence": chain.get("evidence", [])[:8],
+        "relationship_status": "same_function_cooccurrence",
+        "ordering": "not_established",
+        "unresolved": ["Source, transform, and sink co-occurrence does not establish a shared value flow."],
     }
     for key, limit in (
         ("sources", 12),
@@ -612,4 +626,4 @@ def confidence_rank(confidence: str) -> int:
 
 
 def has_high_level_loader_behavior(kinds: set[str | None]) -> bool:
-    return bool(kinds & {"process_launch", "dynamic_library_load", "dynamic_import_resolution"})
+    return bool(kinds & {"process_start_attempt", "dynamic_library_load", "dynamic_import_resolution"})

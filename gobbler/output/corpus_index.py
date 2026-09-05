@@ -5,7 +5,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from gobbler.utils.ownership import is_library_function
+from gobbler.utils.ownership import should_analyze_function
 
 
 def build_feature_index(output_dir: Path) -> dict[str, Any]:
@@ -59,7 +59,7 @@ def extract_sample_features(semantics: dict[str, Any]) -> dict[str, dict[str, An
         kind = chain.get("kind")
         if not kind:
             continue
-        if is_library_function(chain.get("function", "")):
+        if not should_analyze_function(chain.get("function", ""), semantics):
             continue
         add_feature(
             features,
@@ -127,14 +127,15 @@ def extract_sample_features(semantics: dict[str, Any]) -> dict[str, dict[str, An
     behavior_ir = semantics.get("behavior_ir") or {}
     functions = behavior_ir.get("functions") or {}
     for function, item in functions.items():
-        library_function = is_library_function(function)
+        library_function = not should_analyze_function(function, semantics)
         tags = set(item.get("tags") or [])
         if "has_transform_loop" in tags and not library_function:
             add_feature(features, "transform_loop", function, "medium", "probable byte/data transform loop")
         for operation in item.get("flow") or []:
             kind = operation.get("kind")
             if library_function and kind not in {
-                "process_launch",
+                "command_constructed",
+                "process_start_attempt",
                 "dynamic_library_load",
                 "dynamic_import_resolution",
             }:
@@ -189,7 +190,8 @@ def feature_for_chain_kind(kind: str) -> str:
         "network_activity": "network_activity",
         "file_write": "file_write",
         "file_read": "file_read",
-        "process_launch": "process_launch",
+        "command_constructed": "command_constructed",
+        "process_start_attempt": "process_start_attempt",
         "dynamic_loader": "dynamic_loader",
         "execution_or_loader": "dynamic_loader",
         "runtime_string_materialization": "runtime_string_materialization",
@@ -208,7 +210,10 @@ def features_for_operation_kind(kind: str | None) -> list[str]:
         "file_create": ["file_write"],
         "file_read": ["file_read"],
         "file_open": ["file_read"],
-        "process_launch": ["process_launch"],
+        "command_constructed": ["command_constructed"],
+        "process_start_attempt": ["process_start_attempt"],
+        "memory_allocation": ["memory_allocation"],
+        "memory_protection_change": ["memory_protection_change"],
         "dynamic_library_load": ["dynamic_loading", "dynamic_loader"],
         "dynamic_import_resolution": ["dynamic_loading", "dynamic_loader"],
         "dynamic_syscall_call": ["dynamic_syscall", "dynamic_loader"],

@@ -12,6 +12,8 @@ import re
 from collections import Counter, defaultdict
 from typing import Any
 
+from gobbler.utils.ownership import OwnershipClassifier, package_from_function
+
 
 MAX_PACKAGES = 200
 MAX_TYPE_NAMES = 500
@@ -74,27 +76,6 @@ INTERESTING_TERMS = (
     "zip",
 )
 
-NOISY_PACKAGE_PREFIXES = (
-    "runtime",
-    "internal/",
-    "internal.",
-    "sync",
-    "syscall",
-    "reflect",
-    "unsafe",
-    "errors",
-    "fmt",
-    "io",
-    "os",
-    "path",
-    "strings",
-    "strconv",
-    "slices",
-    "sort",
-    "unicode",
-)
-
-
 def analyze_go_types(analyzer: Any) -> dict[str, Any]:
     """Extract compact Go package/type metadata from an analyzer instance.
 
@@ -125,6 +106,7 @@ class GoTypeExtractor:
     def __init__(self, analyzer: Any, goresym: dict[str, Any]):
         self.analyzer = analyzer
         self.goresym = goresym
+        self.ownership = OwnershipClassifier(goresym)
         self.notes: list[str] = []
         self.package_stats: dict[str, dict[str, Any]] = {}
         self.type_items_by_name: dict[str, dict[str, Any]] = {}
@@ -222,7 +204,7 @@ class GoTypeExtractor:
             name = _safe_str(function.get("FullName") or function.get("Name"))
             if not name:
                 continue
-            package = _package_from_function(name)
+            package = package_from_function(name, self.ownership.modules)
             if package:
                 stats = self._package(package, "function_symbols")
                 stats["function_count"] += 1
@@ -387,7 +369,8 @@ class GoTypeExtractor:
         for path, stats in self.package_stats.items():
             item = {
                 "path": path,
-                "kind": _package_kind(path, self._module_path()),
+                "kind": self.ownership.classify_package(path)["classification"],
+                "ownership": self.ownership.classify_package(path),
                 "source": sorted(stats["sources"]),
                 "function_count": stats["function_count"],
                 "type_count": len(stats["type_names"]),
@@ -450,14 +433,7 @@ class GoTypeExtractor:
         return build_info if isinstance(build_info, dict) else {}
 
     def _module_path(self) -> str:
-        build_info = self._build_info()
-        path = _safe_str(build_info.get("Path"))
-        if path:
-            return path
-        main = build_info.get("Main")
-        if isinstance(main, dict):
-            return _safe_str(main.get("Path"))
-        return ""
+        return self.ownership.main_module
 
     def _note(self, text: str) -> None:
         _append_unique(self.notes, text, MAX_NOTES)
@@ -518,16 +494,7 @@ def _path_from_build_dep(dep: Any) -> str:
 
 
 def _package_from_function(name: str) -> str:
-    name = _strip_instantiation(name)
-    receiver_start = name.find(".(")
-    if receiver_start >= 0:
-        return name[:receiver_start]
-    receiver_match = re.match(r"^(?P<pkg>.+)\.[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*", name)
-    if receiver_match:
-        return receiver_match.group("pkg")
-    if "." in name:
-        return name.rsplit(".", 1)[0]
-    return ""
+    return package_from_function(name)
 
 
 def _receiver_type_from_function(name: str) -> dict[str, str] | None:
@@ -626,22 +593,6 @@ def _matched_terms(text: str) -> list[str]:
     return [term for term in INTERESTING_TERMS if term in lowered][:12]
 
 
-def _package_kind(path: str, module_path: str) -> str:
-    path = _safe_str(path)
-    module_path = _safe_str(module_path)
-    if module_path and path == module_path:
-        return "main_module"
-    if module_path and path.startswith(module_path + "/"):
-        return "main_module"
-    if path.startswith(NOISY_PACKAGE_PREFIXES):
-        return "standard_or_runtime"
-    if "." in path.split("/", 1)[0]:
-        return "third_party_or_dependency"
-    if path == "main" or path.startswith("main."):
-        return "main_package"
-    return "unknown"
-
-
 def _append_unique(values: list[Any], value: Any, limit: int) -> None:
     if value in values or len(values) >= limit:
         return
@@ -660,11 +611,11 @@ def package_frequency(function_names: list[str]) -> Counter[str]:
 
 
 def likely_application_packages(packages: list[dict[str, Any]]) -> list[str]:
-    """Return non-runtime-looking package paths from an analyze_go_types result."""
+    """Return packages attributed to the application by build/symbol metadata."""
 
     result = []
     for package in packages:
         path = _safe_str(package.get("path") if isinstance(package, dict) else package)
-        if path and not path.startswith(NOISY_PACKAGE_PREFIXES):
+        if path and isinstance(package, dict) and package.get("kind") == "application":
             result.append(path)
     return result

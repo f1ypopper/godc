@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 3
+from gobbler.passes.process_semantics import is_cmd_execution
+from gobbler.utils.ownership import lookup_function_ownership
+
+SCHEMA_VERSION = 4
 MAX_FLOW_FUNCTIONS = 20
 MAX_ACTIONS_PER_FUNCTION = 8
 MAX_CARDS = 120
@@ -43,11 +48,8 @@ def build_evaluator_document(
 ) -> dict[str, Any]:
     """Return the concise human/LLM evaluator view for a full Gobbler report."""
 
-    if report.get("schema_version") == SCHEMA_VERSION and report.get("output_profile") == "evaluator":
-        out = dict(report)
-        if input_path is not None:
-            out["input_file"] = str(input_path)
-        return out
+    if report.get("output_profile") == "evaluator":
+        return upgrade_evaluator_document(report)
 
     semantic = report.get("semantic_analysis") if isinstance(report.get("semantic_analysis"), dict) else {}
     call_graph = report.get("call_graph") if isinstance(report.get("call_graph"), dict) else {}
@@ -58,11 +60,11 @@ def build_evaluator_document(
     decoder_cards = cards_from_runtime_decoding(semantic.get("runtime_decoding"), decoded_artifacts)
     artifact_cards = cards_from_decoded_artifacts(decoded_artifacts)
     loader_cards = cards_from_loader_activity(loader_activity)
-    chain_cards = dedupe_cards(sink_cards + loader_cards + artifact_cards + decoder_cards)[:MAX_CARDS]
+    chain_cards = dedupe_cards(sink_cards + loader_cards + artifact_cards + decoder_cards)
     evidence_cards = sorted(
         chain_cards,
         key=card_sort_key,
-    )[:MAX_CARDS]
+    )
     behavior_flow = compact_behavior_flow(semantic.get("behavior_story"), chain_cards)
     embedded_artifacts = compact_embedded_artifacts(
         semantic.get("embedded_artifacts"),
@@ -77,7 +79,7 @@ def build_evaluator_document(
         event
         for event in (event_from_mapping(card, paths) for card in chain_cards)
         if event and event_key(event) not in linked_event_keys
-    ][:MAX_UNLINKED_EVENTS]
+    ]
 
     output: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -90,24 +92,129 @@ def build_evaluator_document(
         "runtime_decoding": runtime_decoding,
         "indicators": indicators,
         "limitations": limitations(semantic, runtime_decoding),
+        "relationships": possible_call_relationships(call_graph),
+        "ownership": {key: value for key, value in (semantic.get("ownership") or {}).items() if key != "functions"},
     }
-    if input_path is not None:
-        output["input_file"] = str(input_path)
-    return prune_empty(output)
+    for event in [event for group in chains for event in group["events"]] + unlinked_events:
+        event["ownership"] = lookup_function_ownership(str(event.get("function") or ""), semantic)
+        event["id"] = stable_id({key: value for key, value in event.items() if key != "id"})
+    return finalize_document(output)
+
+
+def stable_id(value: Any, prefix: str = "ev") -> str:
+    encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+    return f"{prefix}_{hashlib.sha256(encoded.encode()).hexdigest()[:16]}"
+
+
+def possible_call_relationships(graph: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {"id": stable_id([source, target], "rel"), "status": "possible",
+         "type": "possible_call", "source_function": source, "target_function": target,
+         "basis": "static_call_graph", "execution_order": "not_established",
+         "data_flow": "not_established"}
+        for source in sorted(graph) for target in sorted(graph_targets(graph[source]))
+    ]
+
+
+def finalize_document(output: dict[str, Any]) -> dict[str, Any]:
+    # All bounds are applied here, with the exact omitted location and count.
+    omissions = []
+    def bounded(value: Any, path: str) -> Any:
+        if isinstance(value, list):
+            limit = MAX_CHAIN_EVENTS if path.endswith(".events") else MAX_LIST_ITEMS
+            if len(value) > limit:
+                omissions.append({"path": path, "omitted_items": len(value) - limit})
+            return [bounded(item, f"{path}[{index}]") for index, item in enumerate(value[:limit])]
+        if isinstance(value, dict):
+            count_before = len(omissions)
+            result = {key: bounded(item, f"{path}.{key}") for key, item in value.items()
+                      if key not in {"input_file", "input_path"}}
+            if len(omissions) > count_before and ("id" in value or path.startswith(("$.decoded_artifacts[", "$.embedded_artifacts["))):
+                result["projection_status"] = "partial"
+            return result
+        if isinstance(value, str) and len(value) > MAX_STRING_LEN:
+            omissions.append({"path": path, "omitted_characters": len(value) - MAX_STRING_LEN})
+            return value[:MAX_STRING_LEN] + " [truncated]"
+        return value
+    result = bounded(output, "$")
+    events = [event for group in result.get("behavior_chains", []) for event in group.get("events", [])]
+    events.extend(result.get("unlinked_events", []))
+    # IDs identify the complete fact before presentation bounds, never list position.
+    result["evidence_index"] = {event["id"]: dict(event) for event in events}
+    for name in ("decoded_artifacts", "embedded_artifacts"):
+        for fact in result.get(name, []):
+            fact.setdefault("event", "decoded_artifact" if name == "decoded_artifacts" else "embedded_artifact")
+            fact.setdefault("id", stable_id(fact))
+            result["evidence_index"][fact["id"]] = dict(fact)
+    result["projection_omissions"] = omissions
+    result["evidence_semantics"] = {
+        "event_order": "presentation_only",
+        "groups": "same_function_cooccurrence",
+        "call_edges": "possible_invocation_only",
+        "missing_relationship": "not_established",
+    }
+    return prune_empty(result)
+
+
+def upgrade_evaluator_document(report: dict[str, Any]) -> dict[str, Any]:
+    if report.get("schema_version") == SCHEMA_VERSION:
+        out = dict(report)
+        out.pop("input_file", None)
+        out.pop("input_path", None)
+        return out
+    events = [event for group in report.get("behavior_chains", []) if isinstance(group, dict)
+              for event in group.get("events", []) if isinstance(event, dict)]
+    events.extend(event for event in report.get("unlinked_events", []) if isinstance(event, dict))
+    # Schema 2 represented observations as cards instead of grouped events.
+    for card in report.get("evidence_cards", []) or []:
+        event = event_from_mapping(card, {})
+        if event:
+            events.append(event)
+    migrated = []
+    for original in events:
+        event = dict(original)
+        old_relations = {key: event.pop(key) for key in ("uses", "call_path", "relationships") if key in event}
+        event.pop("id", None)
+        event["provenance"] = {"source": "legacy_evaluator", "status": "legacy_unverified",
+                               "source_schema_version": report.get("schema_version")}
+        if old_relations:
+            event["unverified_legacy_relationships"] = old_relations
+        event["confidence"] = event.get("confidence", "unknown")
+        event["reachability"] = {"status": "not_established"}
+        event["ordering"] = "not_established"
+        event["id"] = stable_id(event)
+        migrated.append(event)
+    out = {key: report[key] for key in ("decoded_artifacts", "embedded_artifacts", "runtime_decoding", "indicators", "limitations") if key in report}
+    out.update(schema_version=SCHEMA_VERSION, output_profile="evaluator", behavior_chains=group_events(migrated))
+    out["limitations"] = list(out.get("limitations") or [])
+    out.setdefault("limitations", []).append("Legacy evaluator facts and relationships are unverified; reanalyze the binary for current semantics.")
+    for name in ("decoded_artifacts", "embedded_artifacts", "runtime_decoding"):
+        if name in out:
+            out[name] = mark_legacy(out[name])
+    return finalize_document(out)
+
+
+def mark_legacy(value: Any) -> Any:
+    if isinstance(value, list):
+        return [mark_legacy(item) for item in value]
+    if isinstance(value, dict):
+        return {**{key: mark_legacy(item) for key, item in value.items()}, "verification_status": "legacy_unverified"}
+    return value
 
 
 def take(items: Any, limit: int) -> list[Any]:
     if not isinstance(items, list):
         return []
-    return items[:limit]
+    # Selection limits are applied centrally with path-specific omission counts.
+    return items
 
 
 def compact_value(value: Any, max_len: int = MAX_STRING_LEN) -> Any:
+    # Keep evidence intact until the final, auditable projection bound.
     if isinstance(value, str):
-        value = value.replace("\x00", "")
-        return value if len(value) <= max_len else value[: max_len - 3] + "..."
+        return value.replace("\x00", "")
     if isinstance(value, list):
-        return [compact_value(item, max_len) for item in value[:20]]
+        return [compact_value(item, max_len) for item in value]
     if isinstance(value, dict):
         return {str(key): compact_value(val, max_len) for key, val in value.items()}
     return value
@@ -167,7 +274,8 @@ def execution_summary(
             "sink_summary": sink_summary,
             "has_outbound_network": any(card.get("role") in {"outbound_client", "outbound_http_client"} for card in evidence_cards),
             "has_inbound_listener": any(card.get("role") in {"inbound_listener", "inbound_http_server"} for card in evidence_cards),
-            "has_process_launch": any(card.get("category") == "process" for card in evidence_cards),
+            "has_process_start_attempt": any(card.get("kind") == "process_start_attempt" for card in evidence_cards),
+            "has_command_construction": any(card.get("kind") == "command_constructed" for card in evidence_cards),
             "has_loader_activity": bool(loader_activity),
             "has_decoded_artifacts": bool(decoded_artifacts),
             "has_embedded_artifacts": bool(embedded_artifacts),
@@ -177,7 +285,7 @@ def execution_summary(
 
 def compact_behavior_flow(story: Any, cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if not isinstance(story, dict):
-        return flow_from_cards(cards)
+        return []
     card_index = index_cards(cards)
     flow = []
     for step in take(story.get("execution_flow"), MAX_FLOW_FUNCTIONS):
@@ -192,51 +300,50 @@ def compact_behavior_flow(story: Any, cards: list[dict[str, Any]]) -> list[dict[
             if category not in SYSTEM_CATEGORIES and action.get("kind") != "start_goroutine":
                 continue
             compacted = compact_action(action)
-            match = first_matching_card(card_index, function, action.get("kind"), action.get("target_api"))
-            if match:
-                compacted = merge_action_card(compacted, match)
             if function and compacted.get("function") in (None, "", "<unknown>"):
                 compacted["function"] = function
             if compacted:
                 actions.append(compacted)
         if actions:
             flow.append({"function": function, "actions": actions})
-    return flow or flow_from_cards(cards)
+    return flow
+
+
+def group_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for event in events:
+        function = str(event.get("function") or "<unknown>")
+        # Unknown owners cannot be assumed to share a function.
+        key = function if function != "<unknown>" else event["id"]
+        groups.setdefault(key, []).append(event)
+    return [{"chain_id": stable_id(function, "group"), "grouping": "same_function_cooccurrence",
+             "function": items[0].get("function"), "ordering": "not_established",
+             "events": sorted(items, key=lambda event: event["id"])}
+            for function, items in sorted(groups.items())]
 
 
 def build_behavior_chains(
-    behavior_flow: list[dict[str, Any]],
-    cards: list[dict[str, Any]],
-    graph: dict[str, Any],
-    paths: dict[str, list[str]] | None = None,
+    behavior_flow: list[dict[str, Any]], cards: list[dict[str, Any]],
+    graph: dict[str, Any], paths: dict[str, list[str]] | None = None,
 ) -> tuple[list[dict[str, Any]], set[tuple[Any, ...]]]:
-    paths = paths or call_paths(graph)
-    source_events = []
+    paths = call_paths(graph) if paths is None else paths
+    source_events = [event for event in (event_from_mapping(card, paths) for card in cards) if event]
     for step in behavior_flow:
-        if not isinstance(step, dict):
-            continue
         for action in step.get("actions") or []:
+            action = dict(action)
+            action.setdefault("function", step.get("function"))
+            action.setdefault("provenance", {"source": "behavior_story", "status": "heuristic"})
             event = event_from_mapping(action, paths)
-            if event:
+            if event and not any(same_callsite(event, card) for card in source_events):
                 source_events.append(event)
-    source_events.extend(event for event in (event_from_mapping(card, paths) for card in cards) if event)
+    events = dedupe_events(source_events)
+    return group_events(events), {event_key(event) for event in events}
 
-    events = dedupe_events(source_events)[:MAX_CHAIN_EVENTS]
-    add_event_links(events)
-    if not events:
-        return [], set()
 
-    chain = prune_empty(
-        {
-            "chain_id": "chain_0",
-            "entry": entry_function(graph, behavior_flow),
-            "path": chain_path(events),
-            "events": events,
-        }
-    )
-    linked_keys = {event_key(event) for event in events}
-    linked_keys.update(event_key(event) for event in source_events if covered_sparse_event(event, events))
-    return [chain], linked_keys
+def same_callsite(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    return bool(left.get("callsite") and left.get("callsite") == right.get("callsite")
+                and left.get("function") == right.get("function") and left.get("api") == right.get("api")
+                and left.get("event") == right.get("event"))
 
 
 def event_from_mapping(item: dict[str, Any], paths: dict[str, list[str]]) -> dict[str, Any] | None:
@@ -246,18 +353,29 @@ def event_from_mapping(item: dict[str, Any], paths: dict[str, list[str]]) -> dic
     function = item.get("function")
     api = item.get("target_api") or item.get("api")
     args = event_arguments(item)
-    event = prune_empty(
-        {
-            "event": kind,
-            "function": function,
-            "call_path": paths.get(str(function or "")),
-            "api": api,
-            "call": render_call(api, kind, args),
-            "direction": event_direction(item),
-            "args": args,
-        }
-    )
-    return event if event.get("event") or event.get("call") else None
+    event = prune_empty({
+        "event": kind, "function": function, "api": api,
+        "call": render_call(api, kind, args), "direction": event_direction(item), "args": args,
+        "callsite": item.get("callsite") or item.get("address"),
+        "confidence": item.get("confidence", "unknown"),
+        "evidence": item.get("evidence"),
+        "provenance": item.get("provenance") or {"source": "unspecified", "status": "unknown"},
+        "uncertainty": item.get("uncertainty"),
+        "relationship_status": item.get("relationship_status"),
+        "unresolved_reasons": item.get("unresolved_reasons"),
+        "candidate_relationships": item.get("candidate_relationships"),
+        "decoded_indicators": item.get("decoded_indicators"),
+        "consumed_by": item.get("consumed_by"),
+        "artifact": {key: item[key] for key in ("classification", "method", "decoded_size", "sha256_prefix", "indicators") if key in item},
+        "observed_capabilities": item.get("observed_capabilities"),
+        "reachability": {"status": "possible_static_call_path" if function in paths else "not_established",
+                         "possible_call_path": paths.get(str(function or ""))},
+        "ordering": "not_established",
+    })
+    if not event.get("event") and not event.get("call"):
+        return None
+    event["id"] = stable_id(event)
+    return event
 
 
 def event_arguments(item: dict[str, Any]) -> dict[str, Any]:
@@ -265,6 +383,8 @@ def event_arguments(item: dict[str, Any]) -> dict[str, Any]:
     for key in ("method", "url", "host", "ip", "listen_addr", "path", "library", "procedure"):
         if item.get(key) not in (None, "", [], {}):
             args[key] = item.get(key)
+    if item.get("command_object"):
+        args["command_object"] = item.get("command_object")
     if item.get("executable"):
         args["executable"] = item.get("executable")
     if item.get("argv"):
@@ -350,14 +470,16 @@ def jsonish(value: Any) -> str:
 def call_paths(graph: dict[str, Any]) -> dict[str, list[str]]:
     if not isinstance(graph, dict) or not graph:
         return {}
-    entry = "main.main" if "main.main" in graph else next(iter(graph))
+    if "main.main" not in graph:
+        return {}
+    entry = "main.main"
     paths = {entry: [entry]}
     queue = [entry]
     while queue:
         function = queue.pop(0)
         if len(paths.get(function, [])) >= 12:
             continue
-        for target in graph_targets(graph.get(function)):
+        for target in sorted(graph_targets(graph.get(function))):
             if target not in graph or target in paths:
                 continue
             paths[target] = paths[function] + [target]
@@ -399,46 +521,18 @@ def chain_path(events: list[dict[str, Any]]) -> list[str]:
 
 
 def add_event_links(events: list[dict[str, Any]]) -> None:
-    written_paths: dict[str, str] = {}
-    for index, event in enumerate(events):
-        event["id"] = f"event_{index}"
-        args = event.get("args") if isinstance(event.get("args"), dict) else {}
-        if event.get("event") == "file_write" and isinstance(args.get("path"), str):
-            written_paths[args["path"].lower()] = event["id"]
-        executable = args.get("executable")
-        if isinstance(executable, str) and executable.lower() in written_paths:
-            event["uses"] = {"file_written_by": written_paths[executable.lower()]}
+    """Assign stable identities without inferring data flow from filenames or order."""
+    for event in events:
+        event.setdefault("id", stable_id({key: value for key, value in event.items() if key != "id"}))
 
 
 def dedupe_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    out: list[dict[str, Any]] = []
-    positions: dict[tuple[Any, ...], int] = {}
-    for event in events:
-        key = event_key(event)
-        previous = positions.get(key)
-        if previous is None:
-            positions[key] = len(out)
-            out.append(event)
-            continue
-        if event_quality(event) > event_quality(out[previous]):
-            out[previous] = event
-    return [event for event in out if not covered_sparse_event(event, out)]
+    return list({event_key(event): event for event in events}.values())
 
 
 def event_key(event: dict[str, Any]) -> tuple[Any, ...]:
-    args = event.get("args") if isinstance(event.get("args"), dict) else {}
-    content = args.get("content") if isinstance(args.get("content"), dict) else {}
-    return (
-        event.get("event"),
-        event.get("function"),
-        args.get("url"),
-        args.get("path"),
-        args.get("executable"),
-        tuple(args.get("argv") or []),
-        args.get("library"),
-        args.get("procedure"),
-        content.get("preview") or content.get("classification"),
-    )
+    # Include arguments, callsite, and provenance: different observations must not merge.
+    return (stable_id({key: value for key, value in event.items() if key != "id"}),)
 
 
 def event_quality(event: dict[str, Any]) -> int:
@@ -459,21 +553,8 @@ def event_quality(event: dict[str, Any]) -> int:
 
 
 def covered_sparse_event(event: dict[str, Any], events: list[dict[str, Any]]) -> bool:
-    if event.get("args"):
-        return False
-    function = event.get("function")
-    api = event.get("api")
-    kind = event.get("event")
-    for other in events:
-        if other is event or other.get("function") != function or not other.get("args"):
-            continue
-        if other.get("event") == kind:
-            return True
-        if api and other.get("api") == api:
-            return True
-        if kind == "network_activity" and other.get("event") in {"network_request", "inbound_listener"}:
-            return True
-    return False
+    return any(other is not event and same_callsite(event, other) and other.get("args")
+               for other in events) if not event.get("args") else False
 
 
 def flow_from_cards(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -482,8 +563,8 @@ def flow_from_cards(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
         function = str(card.get("function") or "<unknown>")
         grouped.setdefault(function, []).append(card_to_action(card))
     return [
-        {"function": function, "actions": actions[:MAX_ACTIONS_PER_FUNCTION]}
-        for function, actions in list(grouped.items())[:MAX_FLOW_FUNCTIONS]
+        {"function": function, "actions": actions}
+        for function, actions in list(grouped.items())
     ]
 
 
@@ -491,6 +572,10 @@ def compact_action(action: dict[str, Any]) -> dict[str, Any]:
     role = action.get("network_role") or action.get("process_role") or action.get("filesystem_role")
     return prune_empty(
         {
+            "address": action.get("address"),
+            "confidence": action.get("confidence", "unknown"),
+            "evidence": action.get("evidence"),
+            "provenance": action.get("provenance") or {"source": "behavior_story", "status": "heuristic"},
             "kind": action.get("kind"),
             "category": normalize_category(action.get("category")),
             "target_api": action.get("target_api"),
@@ -502,7 +587,7 @@ def compact_action(action: dict[str, Any]) -> dict[str, Any]:
 
 
 def merge_action_card(action: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
-    for key in ("role", "target_api", "arguments", "url", "path", "executable", "argv", "content", "body"):
+    for key in ("role", "target_api", "arguments", "url", "path", "executable", "argv", "command_object", "content", "body"):
         if card.get(key) not in (None, [], {}) and action.get(key) in (None, [], {}):
             action[key] = card.get(key)
     return action
@@ -511,6 +596,10 @@ def merge_action_card(action: dict[str, Any], card: dict[str, Any]) -> dict[str,
 def card_to_action(card: dict[str, Any]) -> dict[str, Any]:
     return prune_empty(
         {
+            "address": card.get("address"),
+            "confidence": card.get("confidence", "unknown"),
+            "evidence": card.get("evidence"),
+            "provenance": card.get("provenance"),
             "kind": card.get("kind"),
             "category": card.get("category"),
             "function": card.get("function"),
@@ -520,6 +609,7 @@ def card_to_action(card: dict[str, Any]) -> dict[str, Any]:
             "url": card.get("url"),
             "path": card.get("path"),
             "executable": card.get("executable"),
+            "command_object": card.get("command_object"),
             "argv": card.get("argv"),
             "content": card.get("content"),
             "body": card.get("body"),
@@ -547,6 +637,13 @@ def base_sink_card(sink: dict[str, Any], category: str) -> dict[str, Any]:
     role = first_role(sink, category)
     kind = card_kind(sink.get("kind"), category, role)
     return {
+        "address": sink.get("address"),
+        "confidence": sink.get("confidence", "unknown"),
+        "uncertainty": sink.get("uncertainty"),
+        "relationship_status": sink.get("relationship_status"),
+        "unresolved_reasons": sink.get("unresolved_reasons"),
+        "provenance": {"source": "sink_args", "recovery": compact_args(sink),
+                       "data_sources": sink.get("data_sources"), "upstream": sink.get("provenance")},
         "kind": kind,
         "category": category,
         "function": sink.get("function"),
@@ -629,6 +726,8 @@ def loader_fields(sink: dict[str, Any]) -> dict[str, Any]:
 
 def process_fields(sink: dict[str, Any]) -> dict[str, Any]:
     process_args = sink.get("process_arguments") if isinstance(sink.get("process_arguments"), dict) else {}
+    if is_cmd_execution(sink.get("target") or sink.get("api")):
+        return {"command_object": process_args.get("command_object") or {"status": "unresolved"}}
     arg_roles = sink.get("arg_roles") if isinstance(sink.get("arg_roles"), dict) else {}
     executable = extract_value(process_args.get("executable")) or first(arg_roles.get("commands"))
     argv = [extract_value(item) for item in take(process_args.get("argv"), 12)]
@@ -719,6 +818,8 @@ def compact_decoded_artifacts(recovery: Any) -> list[dict[str, Any]]:
                 {
                     "kind": decoded_artifact_kind(item, classification),
                     "function": item.get("function"),
+                    "confidence": item.get("confidence", "unknown"),
+                    "provenance": {"source": "decryption_recovery", "status": "recovered"},
                     "method": item.get("method"),
                     "transforms": take(item.get("transforms"), 6),
                     "artifact_type": item.get("artifact_type"),
@@ -785,6 +886,10 @@ def compact_loader_activity(loaders: Any) -> list[dict[str, Any]]:
         out.append(
             prune_empty(
                 {
+                    "relationship_status": loader.get("relationship_status", "legacy_unverified"),
+                    "unresolved_reasons": loader.get("unresolved_reasons"),
+                    "candidate_relationships": loader.get("candidate_relationships"),
+                    "observed_capabilities": loader.get("observed_capabilities"),
                     "kind": loader.get("kind"),
                     "function": loader.get("function"),
                     "confidence": loader.get("confidence"),
@@ -804,6 +909,11 @@ def cards_from_loader_activity(loader_activity: list[dict[str, Any]]) -> list[di
         cards.append(
             prune_empty(
                 {
+                    "relationship_status": item.get("relationship_status"),
+                    "unresolved_reasons": item.get("unresolved_reasons"),
+                    "candidate_relationships": item.get("candidate_relationships"),
+                    "observed_capabilities": item.get("observed_capabilities"),
+                    "provenance": {"source": "loader_behaviors", "status": item.get("relationship_status", "unknown")},
                     "kind": item.get("kind") or "loader_activity",
                     "category": "loader",
                     "function": item.get("function"),
@@ -870,13 +980,13 @@ def compact_runtime_decoding(runtime_decoding: Any, decoded_artifacts: list[dict
                 }
             )
         )
-    recovered_indicators = dedupe_indicator_objects(recovered_indicators)[:40]
+    recovered_indicators = dedupe_indicator_objects(recovered_indicators)
     if not functions and not recovered_indicators:
         return {}
     return prune_empty(
         {
             "summary": runtime_decoding_summary(functions, recovered_indicators),
-            "functions": functions[:20],
+            "functions": functions,
             "recovered_indicators": recovered_indicators,
         }
     )
@@ -917,9 +1027,11 @@ def indicator_consumed_by_sink(indicator: dict[str, Any]) -> bool:
     for consumer in consumers:
         if not isinstance(consumer, dict):
             continue
+        if consumer.get("relationship_status") not in {"verified", "verified_data_flow"}:
+            continue
         if consumer.get("sinks"):
             return True
-        if consumer.get("chain_kind") in {"outbound_http", "outbound_network_client", "network_connect", "process_launch", "file_write", "file_read", "dynamic_loader"}:
+        if consumer.get("chain_kind") in {"outbound_http", "outbound_network_client", "network_connect", "process_start_attempt", "file_write", "file_read", "dynamic_loader"}:
             return True
     return False
 
@@ -978,7 +1090,7 @@ def compact_embedded_artifacts(payloads: Any, classification: Any, payload_conte
     for payload in take(payloads, 20):
         if not isinstance(payload, dict):
             continue
-        has_context = payload_context or payload.get("loaders") or payload.get("transformers") or payload.get("evidence")
+        has_context = payload_context or payload.get("loaders") or payload.get("transformers") or payload.get("evidence") or payload.get("candidate_loader_relationships") or payload.get("candidate_transformers")
         if not has_context:
             continue
         out.append(
@@ -987,7 +1099,14 @@ def compact_embedded_artifacts(payloads: Any, classification: Any, payload_conte
                     "kind": payload.get("kind"),
                     "confidence": payload.get("confidence"),
                     "classification": artifact_type_from_payload(payload),
-                    "connected_to": take(payload.get("loaders") or payload.get("transformers"), 6),
+                    "candidate_loader_relationships": payload.get("candidate_loader_relationships"),
+                    "candidate_transformers": payload.get("candidate_transformers"),
+                    "unverified_legacy_connections": payload.get("loaders") or payload.get("transformers"),
+                    "relationship_status": payload.get("relationship_status", "unverified"),
+                    "unresolved_reasons": payload.get("unresolved_reasons"),
+                    "blob_id": payload.get("source_blob") or payload.get("blob_id") or payload.get("id"),
+                    "source": payload.get("source"),
+                    "referenced_by": payload.get("referenced_by"),
                     "evidence": take(payload.get("evidence"), 8),
                 }
             )
@@ -1009,7 +1128,7 @@ def compact_embedded_artifacts(payloads: Any, classification: Any, payload_conte
                 }
             )
         )
-    return dedupe_cards([item for item in out if item])[:10]
+    return dedupe_cards([item for item in out if item])
 
 
 def artifact_type_from_payload(payload: dict[str, Any]) -> Any:
@@ -1049,9 +1168,9 @@ def collect_indicators(
             decision = runtime_decoding_decision(item, recovered_functions)
             if decision["include"]:
                 concrete_runtime_indicators.extend(decision["indicators"])
-    for item in dedupe_indicator_objects(concrete_runtime_indicators)[:60]:
+    for item in dedupe_indicator_objects(concrete_runtime_indicators):
         add_indicator_object(indicators, item)
-    return {key: values[:MAX_LIST_ITEMS] for key, values in indicators.items() if values}
+    return {key: values for key, values in indicators.items() if values}
 
 
 def add_indicator_from_card(indicators: dict[str, list[Any]], card: dict[str, Any]) -> None:
@@ -1199,7 +1318,7 @@ def card_kind(kind: Any, category: str, role: Any) -> str:
             return "inbound_listener"
         return "network_request" if kind_text in {"network_request", "http_get", "http_post", "http_request", "http_network"} or "http" in kind_text.lower() else "network_activity"
     if category == "process":
-        return "process_launch"
+        return kind_text
     if category == "filesystem":
         return kind_text
     if category == "concurrency":
@@ -1236,23 +1355,7 @@ def first_matching_card(index: dict[tuple[Any, Any, Any], dict[str, Any]], funct
 
 
 def dedupe_cards(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    seen = set()
-    out = []
-    for item in items:
-        marker = (
-            item.get("kind"),
-            item.get("function"),
-            item.get("target_api"),
-            item.get("url"),
-            item.get("path"),
-            item.get("executable"),
-            item.get("sha256_prefix"),
-        )
-        if marker in seen:
-            continue
-        seen.add(marker)
-        out.append(item)
-    return out
+    return list({stable_id(item): item for item in items}.values())
 
 
 def dedupe_scalars(items: list[Any], limit: int) -> list[Any]:
@@ -1266,15 +1369,11 @@ def dedupe_scalars(items: list[Any], limit: int) -> list[Any]:
             continue
         seen.add(marker)
         out.append(item)
-        if len(out) >= limit:
-            break
     return out
 
 
 def add_unique(items: list[Any], value: Any, limit: int | None = None) -> None:
     if value in (None, "", [], {}):
-        return
-    if limit is not None and len(items) >= limit:
         return
     if value not in items:
         items.append(compact_value(value))

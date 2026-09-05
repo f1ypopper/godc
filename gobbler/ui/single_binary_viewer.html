@@ -226,7 +226,7 @@
 
     const notableOperationKinds = new Set([
       "http_network", "http_request", "http_get", "http_post", "network_connect", "network_listen",
-      "file_write", "file_create", "file_read", "file_open", "process_launch",
+      "file_write", "file_create", "file_read", "file_open", "command_constructed", "process_start_attempt",
       "dynamic_library_load", "dynamic_import_resolution", "dynamic_syscall_call", "raw_syscall",
       "executable_memory_allocation", "memory_protection_change", "thread_creation",
       "aes_crypto", "cipher_crypto", "chacha20_crypto", "base64_decode_or_encode",
@@ -380,7 +380,7 @@
         if (runtimeByFunction.has(name) || transformers.has(name) || tags.has("has_transform_loop")) return "decode";
         if ([...kinds].some(kind => kind.startsWith("http_") || kind.startsWith("network_"))) return "network";
         if ([...kinds].some(kind => kind.startsWith("file_"))) return "file";
-        if (kinds.has("process_launch")) return "process";
+        if (kinds.has("command_constructed") || kinds.has("process_start_attempt")) return "process";
         return "function";
       }
 

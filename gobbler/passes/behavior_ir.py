@@ -1,6 +1,7 @@
 from typing import Any
 
 from gobbler.passes.behavior_graph import classify_call_behavior
+from gobbler.passes.process_semantics import is_cmd_execution
 from gobbler.utils.noise import RUNTIME_NOISE_PREFIXES, is_runtime_noise_call
 
 
@@ -187,9 +188,9 @@ class BehaviorIRBuilder:
         }
         if via:
             operation["via"] = via
-        if call.string_args:
+        if call.string_args and not is_cmd_execution(target):
             operation["string_args"] = call.string_args
-        semantic_args = compress_call_args(args)
+        semantic_args = {} if is_cmd_execution(target) else compress_call_args(args)
         if semantic_args:
             operation["arguments"] = semantic_args
         role = operation_role(kind, target, call.string_args)
@@ -326,8 +327,10 @@ def classify_runtime_call(target: str) -> tuple[str, str] | None:
 
 
 def operation_role(kind: str, target: str, strings: list[str]) -> dict[str, str]:
-    if kind == "process_launch":
-        return {"process_role": process_role(target, strings)}
+    if kind == "command_constructed":
+        return {"process_role": "command_construction"}
+    if kind == "process_start_attempt":
+        return {"process_role": "process_start_attempt" if is_cmd_execution(target) else process_role(target, strings)}
     if kind in {"http_network", "http_request", "http_get", "http_post", "network_connect", "network_listen"}:
         return {"network_role": network_role(kind, target)}
     if kind in {"directory_create", "file_create", "file_write", "file_open", "file_read"}:
@@ -362,7 +365,7 @@ def process_role(target: str, strings: list[str]) -> str:
         return "system_command_execution"
     if target.lower().endswith(("createprocess", "shellexecute", "winexec", "execve", "posix_spawn")):
         return "native_process_api"
-    return "process_launch"
+    return "process_start_attempt"
 
 
 def filesystem_role(kind: str, strings: list[str]) -> str | None:

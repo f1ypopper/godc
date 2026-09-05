@@ -1,5 +1,6 @@
 import hashlib
 import math
+import re
 import time
 from bisect import bisect_right
 from dataclasses import dataclass, field
@@ -11,6 +12,7 @@ from capstone.x86 import *
 from gobbler.arch import canonical_register as canonical_x86_register
 from gobbler.arch import memory_target, memory_target_access, rip_target as x86_rip_target
 from gobbler.binary import BinarySection
+from gobbler.utils.ownership import build_ownership, should_analyze_function
 
 
 HIGH_ENTROPY_THRESHOLD = 7.2
@@ -78,17 +80,18 @@ LOADER_CALL_HINTS = {
     "syscall.(*LazyProc).Call": "dynamic_syscall_call",
     "syscall.Syscall": "raw_syscall",
     "syscall.SyscallN": "raw_syscall",
-    "syscall.Mmap": "executable_memory_allocation",
+    "syscall.Mmap": "memory_allocation",
     "syscall.Mprotect": "memory_protection_change",
-    "golang.org/x/sys/unix.Mmap": "executable_memory_allocation",
+    "golang.org/x/sys/unix.Mmap": "memory_allocation",
     "golang.org/x/sys/unix.Mprotect": "memory_protection_change",
-    "unix.Mmap": "executable_memory_allocation",
+    "unix.Mmap": "memory_allocation",
     "unix.Mprotect": "memory_protection_change",
     "syscall.Exec": "process_execution",
     "syscall.ForkExec": "process_execution",
-    "os/exec.Command": "process_execution",
     "os/exec.(*Cmd).Start": "process_execution",
     "os/exec.(*Cmd).Run": "process_execution",
+    "os/exec.(*Cmd).Output": "process_execution",
+    "os/exec.(*Cmd).CombinedOutput": "process_execution",
     "dlopen": "dynamic_library_load",
     "dlsym": "dynamic_import_resolution",
     "golang.org/x/sys/windows.LoadDLL": "dynamic_library_load",
@@ -107,7 +110,7 @@ LOADER_CALL_HINTS = {
     "windows.(*LazyDLL).NewProc": "dynamic_import_resolution",
     "windows.(*LazyProc).Find": "dynamic_import_resolution",
     "windows.(*LazyProc).Call": "dynamic_syscall_call",
-    "VirtualAlloc": "executable_memory_allocation",
+    "VirtualAlloc": "memory_allocation",
     "VirtualProtect": "memory_protection_change",
     "LoadLibrary": "dynamic_library_load",
     "GetProcAddress": "dynamic_import_resolution",
@@ -161,6 +164,7 @@ class SemanticScanner:
     analyzer: Any
     graph: dict[str, list[Any]]
     sections: list[BinarySection] = field(init=False)
+    ownership: dict[str, Any] = field(init=False)
     data_references: list[DataReference] = field(default_factory=list)
     large_copies: list[LargeCopy] = field(default_factory=list)
     mid_function_transfers: list[MidFunctionTransfer] = field(default_factory=list)
@@ -171,6 +175,7 @@ class SemanticScanner:
     std_range_starts: list[int] = field(init=False)
 
     def __post_init__(self) -> None:
+        self.ownership = build_ownership(getattr(self.analyzer, "goresym", {}), self.graph)
         self.sections = self._section_ranges()
         self.user_range_starts = [function["Start"] for function in self.analyzer.user_ranges]
         self.std_range_starts = [function["Start"] for function in self.analyzer.std_ranges]
@@ -188,6 +193,7 @@ class SemanticScanner:
 
         return {
             "binary_info": self.analyzer.binary_view.info(),
+            "ownership": self.ownership,
             "imports": self.analyzer.binary_view.imports(),
             "pe_imports": pe_imports(self.analyzer.binary),
             "mid_function_control_transfers": mid_function_transfers,
@@ -195,6 +201,11 @@ class SemanticScanner:
             "notable_data_blobs": blobs,
             "data_transformers": transformers,
             "loader_behaviors": loaders,
+            "memory_operations": [
+                operation
+                for features in self.function_features.values()
+                for operation in features.get("memory_operations", [])
+            ],
             "embedded_artifacts": embedded_artifacts,
             "assessment_hints": assessment_hints(
                 blobs,
@@ -296,6 +307,9 @@ class SemanticScanner:
                 if hint in call.target:
                     features["transform_ops"].add(label)
 
+        features["memory_operations"] = recover_memory_operations(
+            self.analyzer, name, function, self.graph.get(name, [])
+        )
         return features
 
     def _record_mid_function_transfer(
@@ -601,7 +615,7 @@ class SemanticScanner:
             if not has_buffer_evidence:
                 continue
             if (
-                is_library_function(function)
+                not should_analyze_function(function, getattr(self, "ownership", {}))
                 and not input_sources
                 and not features["large_copies"]
                 and not strong_transform_api
@@ -630,7 +644,13 @@ class SemanticScanner:
                         "backward_jumps": features["backward_jumps"],
                         "byte_memory_ops": features["byte_memory_ops"],
                     },
-                    "input_sources": input_sources,
+                    "input_sources": [],
+                    "candidate_input_sources": input_sources,
+                    "source_relationships": [
+                        {"source_blob": source, "relationship": "function_references_blob",
+                         "status": "candidate", "unresolved_reasons": ["blob_to_transform_argument_flow_not_verified"]}
+                        for source in input_sources
+                    ],
                     "large_copies": [large_copy_to_dict(copy) for copy in features["large_copies"]],
                     "confidence": confidence(score),
                 }
@@ -670,11 +690,18 @@ class SemanticScanner:
                 {
                     "function": function,
                     "kind": kind,
-                    "confidence": confidence(score),
+                    "confidence": "low" if kind.endswith("_candidate") else confidence(score),
+                    "relationship_status": "candidate" if kind.endswith("_candidate") else "observation",
+                    "evidence_scope": "function_cooccurrence",
+                    "unresolved_reasons": [
+                        "image_or_buffer_to_mapping_flow_not_verified",
+                        "mapped_buffer_to_control_transfer_flow_not_verified",
+                    ] if kind.endswith("_candidate") else [],
                     "evidence": sorted(hints),
                     "called_transformers": called_transformers,
                     "allocation_constants": sorted(features["allocation_constants"]),
                     "protection_constants": sorted(features["protection_constants"]),
+                    "memory_operations": features.get("memory_operations", []),
                 }
             )
         component_loader = self._component_loader_behavior(loaders, transformers)
@@ -685,57 +712,8 @@ class SemanticScanner:
     def _component_loader_behavior(
         self, loaders: list[dict[str, Any]], transformers: list[dict[str, Any]]
     ) -> dict[str, Any] | None:
-        evidence = set()
-        functions = set()
-        for loader in loaders:
-            evidence.update(loader["evidence"])
-            functions.add(loader["function"])
-        if not evidence:
-            return None
-
-        if {
-            "pe_header_parsing",
-            "dynamic_import_resolution",
-        }.issubset(evidence) and (
-            "dynamic_syscall_call" in evidence or "executable_memory_requested" in evidence
-        ):
-            kind = "reflective_pe_loader"
-        elif {
-            "elf_header_parsing",
-            "dynamic_import_resolution",
-        }.issubset(evidence) and (
-            "dynamic_syscall_call" in evidence or "executable_memory_requested" in evidence
-        ):
-            kind = "reflective_elf_loader"
-        elif "executable_memory_requested" in evidence and (
-            "dynamic_import_resolution" in evidence or "thread_creation" in evidence
-        ):
-            kind = "dynamic_code_loader"
-        else:
-            return None
-
-        return {
-            "function": "<reachable_component>",
-            "kind": kind,
-            "confidence": "high",
-            "evidence": sorted(evidence),
-            "functions": sorted(functions),
-            "called_transformers": sorted({item["function"] for item in transformers if item["input_sources"]}),
-            "allocation_constants": sorted(
-                {
-                    value
-                    for loader in loaders
-                    for value in loader.get("allocation_constants", [])
-                }
-            ),
-            "protection_constants": sorted(
-                {
-                    value
-                    for loader in loaders
-                    for value in loader.get("protection_constants", [])
-                }
-            ),
-        }
+        # Reachable-function unions do not establish shared buffers or execution order.
+        return None
 
     def _embedded_artifacts(
         self,
@@ -744,56 +722,60 @@ class SemanticScanner:
         loaders: list[dict[str, Any]],
     ) -> list[dict[str, Any]]:
         artifacts = []
-        if not blobs or not loaders:
-            return artifacts
-        reflective_loaders = [
-            loader for loader in loaders if loader["kind"] in {"reflective_pe_loader", "reflective_elf_loader", "dynamic_code_loader"}
-        ]
-        if not reflective_loaders:
-            return artifacts
-
-        for blob in blobs[:8]:
+        for blob in blobs:
             reasons = set(blob.get("reasons") or [])
             magic = {item.get("magic") for item in blob.get("magic_offsets") or []}
+            referenced_by = set(blob.get("referenced_by") or [])
             related_transformers = [
-                item["function"] for item in transformers if blob["id"] in item.get("input_sources", [])
+                item["function"] for item in transformers
+                if blob["id"] in item.get("candidate_input_sources", [])
             ]
             has_large_copy = "large_copy_source" in reasons
             has_executable_magic = bool(magic & {"MZ", "PE", "ELF"})
             has_archive_magic = bool(magic & {"PK", "gzip", "zlib"})
-            has_transformer_consumer = bool(related_transformers)
-            if not blob["referenced_by"] and not has_large_copy:
+            if not referenced_by and not has_large_copy:
                 continue
-            if blob["entropy"] < HIGH_ENTROPY_THRESHOLD and not has_large_copy and not has_executable_magic:
+            if not (has_large_copy or has_executable_magic or has_archive_magic
+                    or blob["entropy"] >= HIGH_ENTROPY_THRESHOLD):
                 continue
-            if not (
-                has_large_copy
-                or has_executable_magic
-                or (has_archive_magic and has_transformer_consumer)
-                or loader_consumes_transformer(reflective_loaders, related_transformers)
-            ):
-                continue
-            artifacts.append(
-                {
-                    "kind": "encoded_or_encrypted_embedded_artifact",
-                    "confidence": embedded_artifact_confidence(has_executable_magic, has_large_copy, related_transformers),
-                    "source_blob": blob["id"],
-                    "source": {
-                        "section": blob["section"],
-                        "va": blob["va"],
-                        "size": blob["size"],
-                        "entropy": blob["entropy"],
-                    },
-                    "transformers": related_transformers,
-                    "loaders": [item["function"] for item in reflective_loaders],
-                    "evidence": [
-                        "static data blob is connected to loader-relevant behavior",
-                    ]
-                    + (["blob has executable file magic"] if has_executable_magic else [])
-                    + (["blob is copied in a large contiguous transfer"] if has_large_copy else [])
-                    + (["blob is consumed by byte transformation code"] if related_transformers else []),
-                }
-            )
+            candidate_loaders = []
+            for loader in loaders:
+                function = loader["function"]
+                if function == "<reachable_component>":
+                    continue
+                bases = []
+                if function in referenced_by:
+                    bases.append("loader_candidate_function_references_blob")
+                if set(loader.get("called_transformers") or []) & set(related_transformers):
+                    bases.append("calls_transformer_with_candidate_blob_reference")
+                if bases:
+                    candidate_loaders.append({
+                        "function": function,
+                        "relationship": "possible_blob_use",
+                        "status": "candidate",
+                        "evidence": bases,
+                        "unresolved_reasons": ["blob_to_loader_argument_flow_not_verified"],
+                    })
+            artifacts.append({
+                "kind": "embedded_static_artifact",
+                "confidence": "medium",
+                "source_blob": blob["id"],
+                "source": {"section": blob["section"], "va": blob["va"],
+                           "size": blob["size"], "entropy": blob["entropy"]},
+                "referenced_by": sorted(referenced_by),
+                # Reserved for verified data-flow relationships.
+                "transformers": [],
+                "loaders": [],
+                "candidate_transformers": related_transformers,
+                "candidate_loader_relationships": candidate_loaders,
+                "relationship_status": "unresolved",
+                "unresolved_reasons": ["transformation_of_blob_not_verified", "loading_or_execution_of_blob_not_verified"],
+                "evidence": ["static data region identified"]
+                + (["blob has executable file magic"] if has_executable_magic else [])
+                + (["blob has archive file magic"] if has_archive_magic else [])
+                + (["blob is copied in a large contiguous transfer"] if has_large_copy else [])
+                + (["blob has high entropy"] if blob["entropy"] >= HIGH_ENTROPY_THRESHOLD else []),
+            })
         return artifacts
 
 
@@ -1331,16 +1313,23 @@ def propagate_transformer_sources(
     transformers: list[dict[str, Any]], graph: dict[str, list[Any]]
 ) -> None:
     by_function = {item["function"]: item for item in transformers}
+    # Snapshot direct references so iteration never fabricates transitive flow.
+    direct_sources = {name: list(item.get("candidate_input_sources") or [])
+                      for name, item in by_function.items()}
     for caller, calls in graph.items():
-        caller_item = by_function.get(caller)
-        if caller_item is None or not caller_item["input_sources"]:
-            continue
         for call in calls:
             callee_item = by_function.get(call.target)
-            if callee_item is None or callee_item["input_sources"]:
+            if callee_item is None:
                 continue
-            callee_item["input_sources"] = caller_item["input_sources"]
-            callee_item["source_inference"] = f"called_by:{caller}"
+            for source in direct_sources.get(caller, []):
+                candidates = callee_item.setdefault("candidate_input_sources", [])
+                if source not in candidates:
+                    candidates.append(source)
+                callee_item.setdefault("source_relationships", []).append({
+                    "source_blob": source, "relationship": "caller_references_blob",
+                    "caller": caller, "status": "candidate",
+                    "unresolved_reasons": ["call_argument_buffer_flow_not_verified"],
+                })
 
 
 def large_copy_to_dict(copy: LargeCopy) -> dict[str, Any]:
@@ -1360,16 +1349,185 @@ def confidence(score: int) -> str:
     return "low"
 
 
+def memory_api_spec(target: str) -> tuple[str, str, int] | None:
+    """Known Go signatures: (operation, protection convention, ABI word index)."""
+    name = target.removesuffix(".abi0")
+    for prefix in ("syscall.", "golang.org/x/sys/unix.", "unix."):
+        if name == prefix + "Mmap":
+            return "memory_allocation", "unix", 3
+        if name == prefix + "(*mmapper).Mmap":
+            # Inlined public Mmap wrappers expose the internal receiver argument.
+            return "memory_allocation", "unix", 4
+        if name == prefix + "Mprotect":
+            # A Go slice occupies three argument words.
+            return "memory_protection_change", "unix", 3
+    for prefix in ("golang.org/x/sys/windows.", "windows."):
+        if name == prefix + "VirtualAlloc":
+            return "memory_allocation", "windows", 3
+        if name == prefix + "VirtualProtect":
+            return "memory_protection_change", "windows", 2
+    # A resolved native name alone does not identify the calling convention.
+    if name in {"VirtualAlloc", "VirtualProtect", "mmap", "mprotect"}:
+        kind = "memory_protection_change" if name in {"VirtualProtect", "mprotect"} else "memory_allocation"
+        return kind, "unknown", 0
+    return None
+
+
+def memory_protection_status(value: int | None, convention: str, goos: str) -> str:
+    if value is None:
+        return "unknown"
+    if convention == "windows" and goos == "windows":
+        base = value & 0xFF
+        if base in EXECUTE_PROTECTIONS:
+            return "executable"
+        if base in {0x01, 0x02, 0x04, 0x08}:
+            return "non_executable"
+    if convention == "unix" and goos == "linux":
+        # Linux PROT_EXEC=4; allow PROT_GROWSDOWN/PROT_GROWSUP modifiers.
+        if value >= 0 and not value & ~0x03000007:
+            return "executable" if value & 4 else "non_executable"
+    return "unknown"
+
+
+def memory_argument_location(analyzer: Any, target: str, spec: tuple[str, str, int]) -> str | int | None:
+    """Return a register or pre-call SP offset only for a known Go ABI."""
+    _kind, convention, index = spec
+    arch = analyzer.binary_view.arch
+    if convention == "unknown" or arch not in {"x86", "x86_64"}:
+        return None
+    if arch == "x86":
+        # Mmap's offset is int64, occupying two stack words on 386.
+        return (index + 1) * 4 if target.removesuffix(".abi0").endswith(".Mmap") else index * 4
+    goresym = getattr(analyzer, "goresym", {}) or {}
+    build_info = goresym.get("BuildInfo") or {}
+    version = str(goresym.get("Version") or build_info.get("GoVersion") or "")
+    match = re.fullmatch(r"(?:go)?1\.(\d+)(?:[.\w-]*)", version)
+    if target.endswith(".abi0"):
+        return index * 8
+    if match is None:
+        return None
+    settings = build_info.get("Settings") or []
+    experiment = next(
+        (str(item.get("Value", "")) for item in settings if isinstance(item, dict) and item.get("Key") == "GOEXPERIMENT"),
+        "",
+    )
+    if int(match.group(1)) < 17 or {"noregabi", "noregabiargs"} & set(experiment.split(",")):
+        return index * 8
+    return ("RAX", "RBX", "RCX", "RDI", "RSI", "R8", "R9", "R10", "R11")[index]
+
+
+def recover_memory_operations(
+    analyzer: Any, function_name: str, function: dict[str, Any], calls: list[Any]
+) -> list[dict[str, Any]]:
+    """Conservative constant recovery within a single basic block.
+
+    Never reuse values across calls, branches, or merge points. Unsupported
+    instructions invalidate written registers; unresolved/dynamic APIs stay
+    unknown instead of borrowing constants from another call or function.
+    """
+    candidates = {call.address: (call, memory_api_spec(call.target)) for call in calls if memory_api_spec(call.target)}
+    if not candidates:
+        return []
+    instructions = list(analyzer.function_content(function))
+    branch_targets = {
+        int(insn.operands[0].imm)
+        for insn in instructions
+        if insn.mnemonic.startswith(("j", "loop")) and insn.operands and insn.operands[0].type == X86_OP_IMM
+    }
+    registers: dict[str, int] = {}
+    stack: dict[int, tuple[int, int]] = {}
+    operations = []
+    goos = str((getattr(analyzer, "goresym", {}) or {}).get("OS", "")).lower()
+    for insn in instructions:
+        if insn.address in branch_targets:
+            registers.clear()
+            stack.clear()
+        mnemonic = insn.mnemonic.lower()
+        if insn.address in candidates:
+            call, spec = candidates[insn.address]
+            location = memory_argument_location(analyzer, call.target, spec)
+            direct = mnemonic == "call" and insn.operands and insn.operands[0].type == X86_OP_IMM and not getattr(call, "via", None)
+            value = None
+            if direct and isinstance(location, str):
+                value = registers.get(location)
+            elif direct and isinstance(location, int):
+                stored = stack.get(location)
+                if stored and stored[0] >= (4 if analyzer.binary_view.arch == "x86" or spec[1] == "windows" else 8):
+                    value = stored[1]
+            protection = {
+                "status": memory_protection_status(value, spec[1], goos),
+                "recovery_method": "basic_block_constant" if value is not None else "unresolved",
+            }
+            if location is not None:
+                protection["argument_location"] = location if isinstance(location, str) else f"SP+{hex(location)}"
+            if value is not None:
+                protection["value"] = value
+            if protection["status"] == "unknown":
+                protection["reason"] = "unresolved_argument_or_unsupported_abi" if value is None else "unsupported_protection_value_or_os"
+            operations.append({
+                "function": function_name,
+                "address": hex(insn.address),
+                "target_api": call.target,
+                "kind": spec[0],
+                "memory_protection": protection,
+            })
+        if mnemonic == "call" or mnemonic.startswith(("j", "ret", "loop")):
+            registers.clear()
+            stack.clear()
+            continue
+
+        operands = insn.operands
+        value = None
+        if len(operands) >= 2 and mnemonic in {"mov", "movabs"}:
+            source = operands[1]
+            if source.type == X86_OP_IMM:
+                value = int(source.imm)
+            elif source.type == X86_OP_REG and source.size >= 4:
+                value = registers.get(canonical_register(source.reg))
+        elif len(operands) == 2 and mnemonic == "xor" and operands[0].type == operands[1].type == X86_OP_REG and operands[0].reg == operands[1].reg:
+            value = 0
+        try:
+            _reads, writes = insn.regs_access()
+        except (AttributeError, ValueError):
+            registers.clear()
+            stack.clear()
+            continue
+        for register in writes:
+            name = canonical_register(register)
+            registers.pop(name, None)
+            if name == "RSP":
+                stack.clear()
+        if not operands:
+            continue
+        dest = operands[0]
+        if dest.type == X86_OP_REG and dest.size >= 4 and value is not None:
+            registers[canonical_register(dest.reg)] = value & ((1 << (dest.size * 8)) - 1)
+        for operand in operands:
+            if operand.type != X86_OP_MEM or not operand.access & 2:
+                continue
+            if canonical_register(operand.mem.base) == "RSP" and not operand.mem.index:
+                offset = int(operand.mem.disp)
+                for old_offset, (size, _value) in list(stack.items()):
+                    if old_offset < offset + operand.size and offset < old_offset + size:
+                        del stack[old_offset]
+                if operand is dest and value is not None and dest.size >= 4:
+                    stack[offset] = (dest.size, value & ((1 << (dest.size * 8)) - 1))
+            else:
+                stack.clear()
+    return operations
+
+
 def normalized_loader_hints(features: dict[str, Any]) -> set[str]:
     hints = set(features["loader_hints"])
-    explicit_exec_api = bool(hints & {"executable_memory_allocation", "memory_protection_change"})
-    syscall_exec_context = (
-        bool(hints & {"raw_syscall", "dynamic_syscall_call"})
-        and bool(features["allocation_constants"])
-        and bool(features["protection_constants"])
-        and bool(features["large_copies"])
-    )
-    if explicit_exec_api or syscall_exec_context:
+    # Function-wide constants and API names do not establish call arguments.
+    hints.discard("executable_memory_requested")
+    if "executable_memory_allocation" in hints:
+        hints.remove("executable_memory_allocation")
+        hints.add("memory_allocation")
+    if any(
+        operation.get("memory_protection", {}).get("status") == "executable"
+        for operation in features.get("memory_operations", [])
+    ):
         hints.add("executable_memory_requested")
     return hints
 
@@ -1381,81 +1539,41 @@ def should_promote_loader(
     called_transformers: list[str],
     transformers: list[dict[str, Any]],
 ) -> bool:
-    if kind in {"reflective_pe_loader", "reflective_elf_loader", "dynamic_code_loader"}:
-        return True
-    if bool(hints & {"pe_header_parsing", "elf_header_parsing"}) and bool(hints & {"dynamic_import_resolution", "dynamic_syscall_call", "raw_syscall"}):
-        return True
-    transformer_by_function = {item["function"]: item for item in transformers}
-    if called_transformers and any(
-        transformer_by_function.get(function, {}).get("input_sources")
-        for function in called_transformers
-    ):
-        return True
-    return False
-
-
-def loader_consumes_transformer(loaders: list[dict[str, Any]], transformers: list[str]) -> bool:
-    transformer_set = set(transformers)
-    if not transformer_set:
-        return False
-    return any(transformer_set & set(loader.get("called_transformers") or []) for loader in loaders)
-
-
-def embedded_artifact_confidence(
-    has_executable_magic: bool,
-    has_large_copy: bool,
-    related_transformers: list[str],
-) -> str:
-    score = int(has_executable_magic) + int(has_large_copy) + int(bool(related_transformers))
-    return confidence(score + 1)
+    # Keep neutral observations even when no loading hypothesis is justified.
+    return bool(hints & {
+        "pe_header_parsing", "elf_header_parsing", "dynamic_import_resolution",
+        "dynamic_library_load", "executable_memory_requested", "memory_allocation",
+        "memory_protection_change", "thread_creation", "raw_syscall", "dynamic_syscall_call",
+    })
 
 
 def classify_loader(hints: set[str]) -> str:
     if "pe_header_parsing" in hints and "dynamic_import_resolution" in hints:
-        return "reflective_pe_loader"
+        return "pe_loader_candidate"
     if "elf_header_parsing" in hints and "dynamic_import_resolution" in hints:
-        return "reflective_elf_loader"
+        return "elf_loader_candidate"
     if "executable_memory_requested" in hints and (
         "dynamic_import_resolution" in hints
         or "thread_creation" in hints
         or "pe_header_parsing" in hints
         or "elf_header_parsing" in hints
     ):
-        return "dynamic_code_loader"
+        return "dynamic_code_loader_candidate"
     if "dynamic_import_resolution" in hints or "dynamic_library_load" in hints:
         return "dynamic_api_resolution"
+    if "pe_header_parsing" in hints:
+        return "pe_header_parsing"
+    if "elf_header_parsing" in hints:
+        return "elf_header_parsing"
+    if "executable_memory_requested" in hints:
+        return "executable_memory_request"
+    if "memory_protection_change" in hints:
+        return "memory_protection_change"
+    if "memory_allocation" in hints:
+        return "memory_allocation"
     if "raw_syscall" in hints:
         return "native_api_usage"
     return "runtime_behavior_pattern"
-
-
-def is_library_function(function: str) -> bool:
-    return function.startswith(
-        (
-            "github.com/lxn/",
-            "golang.org/x/",
-            "gopkg.in/",
-            "internal/",
-            "slices.",
-            "syscall.",
-            "runtime.",
-            "reflect.",
-            "sync.",
-            "os.",
-            "io.",
-            "fmt.",
-            "log.",
-            "net/",
-            "net.",
-            "encoding/",
-            "compress/",
-            "crypto/",
-            "path/",
-            "strings.",
-            "strconv.",
-            "github.com/op/",
-        )
-    )
 
 
 def describe_allocation_type(value: int) -> str:
@@ -1509,12 +1627,12 @@ def assessment_hints(
         hints.append("Reachable code contains indirect calls through computed or dynamically sourced function pointers.")
     if transformers:
         hints.append("Reachable functions contain byte transformation loops that may encode/decode data or generate/fill buffers at runtime.")
-    if any(loader["kind"] == "reflective_pe_loader" for loader in loaders):
-        hints.append("Reachable code parses PE headers and uses dynamic loading or executable-memory APIs.")
-    elif any(loader["kind"] == "reflective_elf_loader" for loader in loaders):
-        hints.append("Reachable code parses ELF headers and uses dynamic loading or executable-memory APIs.")
-    elif any(loader["kind"] == "dynamic_code_loader" for loader in loaders):
-        hints.append("Reachable code uses dynamic code allocation or execution-related APIs.")
+    if any(loader["kind"] == "pe_loader_candidate" for loader in loaders):
+        hints.append("PE-header and dynamic-API hints co-occur; reflective loading and buffer flow are not verified.")
+    elif any(loader["kind"] == "elf_loader_candidate" for loader in loaders):
+        hints.append("ELF-header and dynamic-API hints co-occur; loading and buffer flow are not verified.")
+    elif any(loader["kind"] == "dynamic_code_loader_candidate" for loader in loaders):
+        hints.append("Executable-memory and dynamic-API hints co-occur; loading and control transfer are not verified.")
     if payloads:
-        hints.append("An embedded static artifact is connected to transformation and loader-relevant behavior.")
+        hints.append("Embedded static artifacts were identified; their transformation, loading, and execution are not verified.")
     return hints

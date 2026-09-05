@@ -4,7 +4,7 @@ import re
 from collections import Counter, defaultdict, deque
 from typing import Any
 
-from gobbler.utils.ownership import is_app_function
+from gobbler.utils.ownership import should_analyze_function
 
 
 ACTION_KINDS = {
@@ -23,11 +23,13 @@ ACTION_KINDS = {
     "directory_create": ("filesystem", "creates directory"),
     "recursive_filesystem_walk": ("filesystem", "walks filesystem tree"),
     "permission_change": ("filesystem", "changes file permissions"),
-    "process_launch": ("process", "launches process"),
+    "command_constructed": ("process", "constructs a command object"),
+    "process_start_attempt": ("process", "attempts to start a process"),
     "dynamic_library_load": ("execution", "loads dynamic library"),
     "dynamic_import_resolution": ("execution", "resolves dynamic import"),
     "dynamic_syscall_call": ("execution", "invokes dynamically resolved syscall/API"),
     "raw_syscall": ("execution", "invokes raw syscall"),
+    "memory_allocation": ("execution", "requests a memory allocation"),
     "executable_memory_allocation": ("execution", "allocates executable memory"),
     "memory_protection_change": ("execution", "changes memory protection"),
     "thread_creation": ("execution", "creates thread"),
@@ -87,7 +89,9 @@ class BehaviorStoryBuilder:
         artifacts = collect_artifacts(actions, self.semantics)
         return {
             "version": 1,
-            "purpose": "evaluator_facing_behavior_flow",
+            "purpose": "evaluator_facing_observations",
+            "ordering": "presentation_only",
+            "relationship_status": "same_function_cooccurrence",
             "summary": self._summary(actions, artifacts),
             "execution_flow": self._execution_flow(actions),
             "actions": actions[:120],
@@ -99,7 +103,7 @@ class BehaviorStoryBuilder:
     def _actions(self) -> list[dict[str, Any]]:
         actions = []
         for function, item in self.functions.items():
-            if not is_app_function(function):
+            if not should_analyze_function(function, self.semantics):
                 continue
             for operation in item.get("flow") or []:
                 kind = operation.get("kind")
@@ -136,8 +140,13 @@ class BehaviorStoryBuilder:
     def _semantic_chain_actions(self) -> list[dict[str, Any]]:
         actions = []
         for chain in (self.semantics.get("semantic_chains") or {}).get("chains") or []:
+            if chain.get("kind") in {"command_constructed", "process_start_attempt"}:
+                # Individual IR calls already describe these operations. A
+                # function-wide aggregate would invent another process event
+                # and mix arguments from distinct command objects.
+                continue
             function = chain.get("function")
-            if not function or not is_app_function(function):
+            if not function or not should_analyze_function(function, self.semantics):
                 continue
             category = category_for_chain(chain.get("kind"))
             if not category:
@@ -171,6 +180,9 @@ class BehaviorStoryBuilder:
                     "source": payload.get("source"),
                     "transformers": payload.get("transformers", [])[:8],
                     "loaders": payload.get("loaders", [])[:8],
+                    "relationship_status": payload.get("relationship_status", "unverified"),
+                    "candidate_loader_relationships": payload.get("candidate_loader_relationships", []),
+                    "unresolved_reasons": payload.get("unresolved_reasons", []),
                 },
             }
             for function in payload.get("loaders") or payload.get("transformers") or ["<reachable_component>"]:
@@ -180,7 +192,7 @@ class BehaviorStoryBuilder:
                             "category": "embedded_artifact",
                             "kind": payload.get("kind", "embedded_artifact"),
                             "function": function,
-                            "description": "contains embedded static data that is transformed and/or passed to loader-relevant code",
+                            "description": "contains embedded static data; transformation and loader consumption require separate evidence",
                             "confidence": payload.get("confidence", "medium"),
                             "artifacts": [artifact],
                             "evidence": payload.get("evidence", [])[:8],
@@ -245,8 +257,11 @@ class BehaviorStoryBuilder:
             flow.append(
                 {
                     "function": function,
+                    "ordering": "not_established",
                     "actions": [
                         {
+                            "address": action.get("address"),
+                            "confidence": action.get("confidence", "unknown"),
                             "kind": action.get("kind"),
                             "category": action.get("category"),
                             "description": action.get("description"),
@@ -438,7 +453,8 @@ def category_for_chain(kind: str | None) -> str | None:
         "file_delete": "filesystem",
         "file_rename": "filesystem",
         "recursive_filesystem_walk": "filesystem",
-        "process_launch": "process",
+        "command_constructed": "process",
+        "process_start_attempt": "process",
         "goroutine_spawn": "concurrency",
         "dynamic_loader": "execution",
         "execution_or_loader": "execution",
@@ -458,7 +474,8 @@ def description_for_chain(chain: dict[str, Any]) -> str:
         "file_delete": "deletes filesystem paths",
         "file_rename": "renames filesystem paths",
         "recursive_filesystem_walk": "walks filesystem paths recursively",
-        "process_launch": "launches an external process",
+        "command_constructed": "constructs a command object",
+        "process_start_attempt": "attempts to start an external process",
         "goroutine_spawn": "starts a goroutine",
         "dynamic_loader": "uses dynamic loading or low-level execution APIs",
         "execution_or_loader": "uses dynamic loading or low-level execution APIs",
@@ -584,11 +601,14 @@ def narrative_for_actions(actions: list[dict[str, Any]], artifacts: dict[str, An
     if categories.get("filesystem"):
         lines.append("The binary performs filesystem reads/writes" + artifact_suffix(artifacts.get("paths"), "paths") + ".")
     if categories.get("process"):
-        lines.append("The binary launches external processes" + artifact_suffix(artifacts.get("commands"), "commands") + ".")
+        if any(action.get("kind") == "process_start_attempt" for action in actions):
+            lines.append("The binary contains process start attempts; successful execution is not established.")
+        if any(action.get("kind") == "command_constructed" for action in actions):
+            lines.append("The binary constructs command objects" + artifact_suffix(artifacts.get("commands"), "commands") + ".")
     if categories.get("execution"):
-        lines.append("The binary uses dynamic loading, executable memory, or low-level syscall/API behavior.")
+        lines.append("The binary contains memory or low-level API operations; their effects require argument and flow evidence.")
     if categories.get("embedded_artifact"):
-        lines.append("The binary contains embedded static data connected to transformation and loader-relevant code.")
+        lines.append("The binary contains embedded static data; its execution or loader consumption is not established by presence alone.")
     if categories.get("crypto_or_decoding"):
         lines.append("The binary materializes or decodes runtime data; recovered plaintext is listed only when confidence is strong.")
     if artifacts.get("commands"):
@@ -644,7 +664,7 @@ def add_unique(items: list[Any], value: Any) -> None:
 def confidence_for_operation(operation: dict[str, Any], artifacts: list[dict[str, Any]]) -> str:
     if artifacts:
         return "high"
-    if operation.get("kind") in {"raw_syscall", "dynamic_syscall_call", "process_launch", "http_post", "http_get"}:
+    if operation.get("kind") in {"raw_syscall", "dynamic_syscall_call", "process_start_attempt", "http_post", "http_get"}:
         return "high"
     return "medium"
 

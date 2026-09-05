@@ -1,31 +1,7 @@
 from typing import Any
 
 
-APP_PREFIXES = ("main.", "ConvertyFile/")
-LIBRARY_PREFIXES = (
-    "github.com/lxn/",
-    "golang.org/x/",
-    "gopkg.in/",
-    "internal/",
-    "slices.",
-    "syscall.",
-    "runtime.",
-    "reflect.",
-    "sync.",
-    "os.",
-    "io.",
-    "fmt.",
-    "log.",
-    "net/",
-    "net.",
-    "encoding/",
-    "compress/",
-    "crypto/",
-    "path/",
-    "strings.",
-    "strconv.",
-    "github.com/op/",
-)
+from gobbler.utils.ownership import lookup_function_ownership
 
 
 def rank_interesting_functions(graph: dict[str, list[Any]], semantics: dict[str, Any]) -> list[dict[str, Any]]:
@@ -82,30 +58,13 @@ def rank_interesting_functions(graph: dict[str, list[Any]], semantics: dict[str,
                 add(function, 10, f"calls_behavioral_api:{target}")
 
     for function, item in scores.items():
-        if is_app_function(function):
-            item["score"] += 35
-            item["reasons"].insert(0, "application_owned")
-        elif is_library_function(function):
-            strong_reason = any(
-                reason.startswith(("transforms_embedded_artifact", "passes_embedded_artifact_to_loader"))
-                or reason in {"reflective_pe_loader", "dynamic_code_loader"}
-                for reason in item["reasons"]
-            )
-            if not strong_reason:
-                item["score"] = max(0, item["score"] - 45)
-                item["reasons"].append("deprioritized_library_code")
+        ownership = lookup_function_ownership(function, semantics)
+        item["ownership"] = ownership
+        # Ownership supplies context only. Do not suppress dependency behavior
+        # or reward unfamiliar symbols by assuming that they are application code.
+        item["reasons"].append("ownership:" + ownership["classification"])
 
     ranked = sorted(scores.values(), key=lambda item: (-item["score"], item["function"]))
     for item in ranked:
         item["reasons"] = item["reasons"][:12]
     return ranked[:50]
-
-
-def is_app_function(function: str) -> bool:
-    if function.startswith(APP_PREFIXES):
-        return True
-    return bool(function) and not is_library_function(function)
-
-
-def is_library_function(function: str) -> bool:
-    return function.startswith(LIBRARY_PREFIXES)

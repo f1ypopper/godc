@@ -1,5 +1,8 @@
 from typing import Any
 
+from gobbler.passes.process_semantics import classify_process_api
+from gobbler.passes.semantic import memory_api_spec
+
 
 API_BEHAVIOR_HINTS = {
     "os.ReadFile": ("file_read", "filesystem"),
@@ -24,8 +27,6 @@ API_BEHAVIOR_HINTS = {
     "http.NewRequest": ("http_request", "network"),
     "http.Get": ("http_get", "network"),
     "http.Post": ("http_post", "network"),
-    "os/exec.Command": ("process_launch", "process"),
-    "exec.Command": ("process_launch", "process"),
     "syscall.LoadLibrary": ("dynamic_library_load", "loader"),
     "syscall.NewLazyDLL": ("dynamic_library_load", "loader"),
     "syscall.NewLazySystemDLL": ("dynamic_library_load", "loader"),
@@ -37,16 +38,12 @@ API_BEHAVIOR_HINTS = {
     "syscall.Syscall": ("raw_syscall", "execution"),
     "syscall.SyscallN": ("raw_syscall", "execution"),
     "syscall.(*LazyProc).Call": ("dynamic_syscall_call", "execution"),
-    "syscall.Mmap": ("executable_memory_allocation", "loader"),
+    "syscall.Mmap": ("memory_allocation", "loader"),
     "syscall.Mprotect": ("memory_protection_change", "loader"),
-    "golang.org/x/sys/unix.Mmap": ("executable_memory_allocation", "loader"),
+    "golang.org/x/sys/unix.Mmap": ("memory_allocation", "loader"),
     "golang.org/x/sys/unix.Mprotect": ("memory_protection_change", "loader"),
-    "unix.Mmap": ("executable_memory_allocation", "loader"),
+    "unix.Mmap": ("memory_allocation", "loader"),
     "unix.Mprotect": ("memory_protection_change", "loader"),
-    "syscall.Exec": ("process_launch", "process"),
-    "syscall.ForkExec": ("process_launch", "process"),
-    "os/exec.(*Cmd).Start": ("process_launch", "process"),
-    "os/exec.(*Cmd).Run": ("process_launch", "process"),
     "dlopen": ("dynamic_library_load", "loader"),
     "dlsym": ("dynamic_import_resolution", "loader"),
     "golang.org/x/sys/windows.LoadDLL": ("dynamic_library_load", "loader"),
@@ -290,9 +287,9 @@ class BehaviorGraphBuilder:
                 self._add_edge(
                     source_id,
                     target_id,
-                    "flows_to_call",
+                    "candidate_flow_to_call",
                     flow.get("address"),
-                    flow,
+                    {**flow, "relationship_status": "candidate", "data_flow": "not_established"},
                 )
             for call in facts.get("call_arguments", [])[:50]:
                 call_id = f"typed_call:{function}:{call['address']}:{call['target']}"
@@ -393,7 +390,7 @@ class BehaviorGraphBuilder:
                 self._add_edge(function_id, loader_id, "contributes_to")
             for transformer in loader.get("called_transformers", []):
                 transformer_id = self._function_node(transformer, ["data_transformer"])
-                self._add_edge(transformer_id, loader_id, "feeds_loader")
+                self._add_edge(loader_id, transformer_id, "calls_transformer", metadata={"relationship_status": "possible_call", "data_flow": "not_established"})
 
     def _add_embedded_artifacts(self) -> None:
         for index, payload in enumerate(self.semantics.get("embedded_artifacts") or []):
@@ -410,10 +407,11 @@ class BehaviorGraphBuilder:
                 blob_id = f"blob:{source_blob}"
                 if blob_id in self.nodes:
                     self._add_edge(blob_id, payload_id, "source_for_embedded_artifact")
-            for transformer in payload.get("transformers", []):
+            for transformer in [*payload.get("transformers", []), *payload.get("candidate_transformers", [])]:
                 transformer_id = self._function_node(transformer, ["data_transformer"])
-                self._add_edge(transformer_id, payload_id, "transforms_into")
-            for loader in payload.get("loaders", []):
+                self._add_edge(transformer_id, payload_id, "candidate_transformer", metadata={"relationship_status": "unverified"})
+            for loader in [*payload.get("loaders", []),
+                           *(item["function"] for item in payload.get("candidate_loader_relationships", []))]:
                 loader_targets = [
                     node_id
                     for node_id, node in self.nodes.items()
@@ -421,7 +419,7 @@ class BehaviorGraphBuilder:
                     and node["metadata"].get("function") == loader
                 ]
                 for loader_id in loader_targets:
-                    self._add_edge(payload_id, loader_id, "passed_to_loader")
+                    self._add_edge(payload_id, loader_id, "candidate_loader", metadata={"relationship_status": "unverified"})
 
     def _add_indirect_calls(self) -> None:
         for call in self.semantics.get("indirect_calls") or []:
@@ -467,6 +465,12 @@ class BehaviorGraphBuilder:
 
 
 def classify_call_behavior(target: str) -> tuple[str, str] | None:
+    process_kind = classify_process_api(target)
+    if process_kind:
+        return process_kind, "process"
+    memory = memory_api_spec(target)
+    if memory:
+        return memory[0], "loader"
     for needle, behavior in API_BEHAVIOR_HINTS.items():
         if needle in target:
             return behavior

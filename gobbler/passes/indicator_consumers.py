@@ -7,7 +7,7 @@ CONSUMER_CHAIN_KINDS = {
     "outbound_http",
     "outbound_network_client",
     "dynamic_loader",
-    "process_launch",
+    "process_start_attempt",
     "file_write",
     "file_read",
     "network_connect",
@@ -33,15 +33,17 @@ def attach_indicator_consumers(
         if caller:
             consumers.extend(consumers_for_sibling_calls(caller, graph, chain_by_function, producer))
             consumers.extend(consumers_for_function(caller, chain_by_function, "caller_function"))
-        indicator["consumed_by"] = select_consumers(indicator, dedupe_consumers(consumers))
+        indicator["candidate_consumers"] = select_consumers(indicator, dedupe_consumers(consumers))
+        indicator["consumed_by"] = []
 
     by_key = {
-        indicator_key(indicator): indicator.get("consumed_by", [])
+        indicator_key(indicator): indicator.get("candidate_consumers", [])
         for indicator in indicators
     }
     for item in runtime_decoding.get("functions") or []:
         for indicator in item.get("recovered_indicators") or []:
-            indicator["consumed_by"] = by_key.get(indicator_key(indicator), [])
+            indicator["candidate_consumers"] = by_key.get(indicator_key(indicator), [])
+            indicator["consumed_by"] = []
     return semantics
 
 
@@ -86,7 +88,9 @@ def consumers_for_function(
             {
                 "function": function,
                 "chain_kind": chain.get("kind"),
-                "confidence": chain.get("confidence", "medium"),
+                "confidence": "low",
+                "relationship_status": "candidate",
+                "unresolved": ["Shared function or caller does not establish indicator data flow to this sink."],
                 "link_type": link_type,
                 "sinks": sinks[:6],
                 "literals": (chain.get("literals") or [])[:6],
@@ -145,7 +149,7 @@ def consumer_matches_indicator_type(consumer: dict[str, Any], indicator_type: st
     if indicator_type in {"windows_path", "file_name_or_path"}:
         return kind in {"file_read", "file_write", "dynamic_loader"}
     if indicator_type == "command":
-        return kind == "process_launch"
+        return kind == "process_start_attempt"
     return True
 
 
@@ -168,7 +172,7 @@ def consumer_kind_rank(kind: str, indicator_type: str | None) -> int:
             "network_connect": 5,
         }.get(kind, 9)
     if indicator_type == "command":
-        return {"process_launch": 0}.get(kind, 9)
+        return {"process_start_attempt": 0}.get(kind, 9)
     return {
         "outbound_http": 0,
         "outbound_network_client": 1,

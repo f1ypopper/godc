@@ -1,6 +1,6 @@
 from typing import Any
 
-from gobbler.utils.ownership import is_app_function, is_library_function
+from gobbler.utils.ownership import should_analyze_function
 
 LOW_SIGNAL_TARGET_PREFIXES = (
     "runtime.convT",
@@ -30,7 +30,10 @@ HIGH_SIGNAL_OP_KINDS = {
     "http_post",
     "network_connect",
     "network_listen",
-    "process_launch",
+    "command_constructed",
+    "process_start_attempt",
+    "memory_allocation",
+    "memory_protection_change",
     "crypto_random",
     "aes_crypto",
     "cipher_crypto",
@@ -62,14 +65,14 @@ def format_graph(
     lines = []
     shown_functions = 0
     for function, calls in sorted(
-        graph.items(), key=lambda item: (not is_app_function(item[0]), item[0])
+        graph.items(), key=lambda item: (not should_analyze_function(item[0], semantics), item[0])
     ):
         visible_calls = [
             call
             for call in calls
-            if call.visible and (not compact or is_reportable_call(function, call))
+            if call.visible and (not compact or is_reportable_call(function, call, semantics))
         ]
-        if compact and not visible_calls and not is_app_function(function):
+        if compact and not visible_calls and not should_analyze_function(function, semantics):
             continue
         if max_functions is not None and shown_functions >= max_functions:
             lines.append("... truncated raw call graph ...")
@@ -113,7 +116,7 @@ def format_behavior_report(semantics: dict[str, Any]) -> str:
             f"edges={summary.get('edge_count', 0)} "
             f"static_data_functions={summary.get('functions_with_static_data', 0)}"
         )
-        for function, item in selected_behavior_functions(behavior_ir):
+        for function, item in selected_behavior_functions(behavior_ir, semantics):
             lines.append(f"    {function}")
             tags = [tag for tag in item.get("tags", []) if is_reportable_tag(tag)]
             if tags:
@@ -162,7 +165,7 @@ def format_behavior_story_summary(semantics: dict[str, Any]) -> list[str]:
 
     actions = story.get("actions") or []
     if actions:
-        lines.append("    flow:")
+        lines.append("    observations (presentation order; data flow not established):")
         for action in actions[:18]:
             artifact_text = ""
             artifacts = action.get("artifacts") or []
@@ -334,13 +337,13 @@ def _format_slice_arg(slice_arg: dict[str, Any]) -> str:
     )
 
 
-def selected_behavior_functions(behavior_ir: dict[str, Any]) -> list[tuple[str, dict[str, Any]]]:
+def selected_behavior_functions(behavior_ir: dict[str, Any], semantics: dict[str, Any] | None = None) -> list[tuple[str, dict[str, Any]]]:
     functions = behavior_ir.get("functions") or {}
     selected = []
     for function, item in sorted(
-        functions.items(), key=lambda pair: (not is_app_function(pair[0]), pair[0])
+        functions.items(), key=lambda pair: (not should_analyze_function(pair[0], semantics), pair[0])
     ):
-        if not is_app_function(function):
+        if not should_analyze_function(function, semantics):
             continue
         if selected_operations(item):
             selected.append((function, item))
@@ -356,7 +359,7 @@ def selected_operations(item: dict[str, Any]) -> list[dict[str, Any]]:
         if target.startswith(LOW_SIGNAL_TARGET_PREFIXES):
             continue
         if operation.get("kind") == "call_user" and not (
-            is_app_function(target) or is_capability_target(target)
+            should_analyze_function(target) or is_capability_target(target)
         ):
             continue
         operations.append(operation)
@@ -395,7 +398,7 @@ def format_capability_summary(semantics: dict[str, Any]) -> list[str]:
     functions = behavior_ir.get("functions") or {}
     capabilities: dict[str, set[str]] = {}
     for function, item in functions.items():
-        if not is_app_function(function):
+        if not should_analyze_function(function, semantics):
             continue
         for operation in item.get("flow", []):
             for tag in operation.get("tags", []):
@@ -604,11 +607,11 @@ def format_app_interesting_functions(semantics: dict[str, Any]) -> list[str]:
     interesting = [
         item
         for item in semantics.get("interesting_functions") or []
-        if is_app_function(item.get("function", ""))
+        if should_analyze_function(item.get("function", ""), semantics)
     ]
     if not interesting:
         return []
-    lines = ["  high_signal_app_functions:"]
+    lines = ["  high_signal_functions:"]
     for item in interesting[:12]:
         lines.append(
             "    - "
@@ -618,17 +621,17 @@ def format_app_interesting_functions(semantics: dict[str, Any]) -> list[str]:
     return lines
 
 
-def is_reportable_call(function: str, call: Any) -> bool:
+def is_reportable_call(function: str, call: Any, semantics: dict[str, Any] | None = None) -> bool:
     target = call.target
     if target.startswith(LOW_SIGNAL_TARGET_PREFIXES):
         return False
-    if is_app_function(function):
+    if should_analyze_function(function, semantics):
         return (
-            is_app_function(target)
+            should_analyze_function(target, semantics)
             or is_capability_target(target)
             or bool(getattr(call, "string_args", []))
         )
-    return is_app_function(target) or is_capability_target(target)
+    return should_analyze_function(target, semantics) or is_capability_target(target)
 
 
 def is_capability_target(target: str) -> bool:
@@ -806,7 +809,7 @@ def format_semantics(semantics: dict[str, Any]) -> str:
     transformers = [
         transformer
         for transformer in transformers
-        if is_app_function(transformer.get("function", ""))
+        if should_analyze_function(transformer.get("function", ""), semantics)
         or transformer.get("input_sources")
         or transformer.get("confidence") == "high"
     ]
@@ -824,7 +827,7 @@ def format_semantics(semantics: dict[str, Any]) -> str:
         loader
         for loader in loaders
         if loader.get("function") == "<reachable_component>"
-        or is_app_function(loader.get("function", ""))
+        or should_analyze_function(loader.get("function", ""), semantics)
         or loader.get("confidence") == "high"
     ]
     if loaders:
@@ -911,7 +914,7 @@ def format_semantics(semantics: dict[str, Any]) -> str:
     interesting = [
         item
         for item in interesting
-        if is_app_function(item.get("function", ""))
+        if should_analyze_function(item.get("function", ""), semantics)
         or any(
             reason.startswith(("transforms_embedded_artifact", "passes_embedded_artifact_to_loader"))
             for reason in item.get("reasons", [])

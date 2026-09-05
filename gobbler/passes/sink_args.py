@@ -17,6 +17,7 @@ from gobbler.passes.http_args import (
     enrich_http_arguments,
 )
 from gobbler.passes.process_file_args import enrich_process_and_file_arguments
+from gobbler.passes.process_semantics import classify_process_api, is_cmd_execution
 
 
 MAX_SINKS = 200
@@ -51,7 +52,8 @@ NETWORK_KINDS = {
 }
 
 PROCESS_KINDS = {
-    "process_launch",
+    "command_constructed",
+    "process_start_attempt",
     "process_execution",
 }
 
@@ -65,6 +67,7 @@ LOADER_KINDS = {
     "dynamic_syscall_call",
     "raw_syscall",
     "executable_memory_allocation",
+    "memory_allocation",
     "memory_protection_change",
     "thread_creation",
 }
@@ -99,7 +102,8 @@ CHAIN_KIND_CATEGORIES = {
     "network_activity": "network",
     "file_write": "filesystem",
     "file_read": "filesystem",
-    "process_launch": "process",
+    "command_constructed": "process",
+    "process_start_attempt": "process",
     "goroutine_spawn": "concurrency",
     "dynamic_loader": "loader",
     "execution_or_loader": "loader",
@@ -112,7 +116,8 @@ CHAIN_KIND_TO_SINK_KIND = {
     "network_activity": "network_connect",
     "file_write": "file_write",
     "file_read": "file_read",
-    "process_launch": "process_launch",
+    "command_constructed": "command_constructed",
+    "process_start_attempt": "process_start_attempt",
     "goroutine_spawn": "start_goroutine",
     "dynamic_loader": "dynamic_code_or_process_execution",
     "execution_or_loader": "dynamic_code_or_process_execution",
@@ -139,18 +144,6 @@ TARGET_HINTS: tuple[tuple[str, str, str], ...] = (
     ("os.mkdir", "directory_create", "filesystem"),
     ("filepath.walk", "recursive_filesystem_walk", "filesystem"),
     ("filepath.walkdir", "recursive_filesystem_walk", "filesystem"),
-    ("exec.command", "process_launch", "process"),
-    ("os/exec.command", "process_launch", "process"),
-    ("os.startprocess", "process_launch", "process"),
-    ("cmd.start", "process_launch", "process"),
-    ("cmd.run", "process_launch", "process"),
-    ("syscall.exec", "process_launch", "process"),
-    ("forkexec", "process_launch", "process"),
-    ("createprocess", "process_launch", "process"),
-    ("shellexecute", "process_launch", "process"),
-    ("winexec", "process_launch", "process"),
-    ("execve", "process_launch", "process"),
-    ("posix_spawn", "process_launch", "process"),
     ("newlazysystemdll", "dynamic_library_load", "loader"),
     ("newlazydll", "dynamic_library_load", "loader"),
     ("loaddll", "dynamic_library_load", "loader"),
@@ -163,8 +156,8 @@ TARGET_HINTS: tuple[tuple[str, str, str], ...] = (
     ("dlsym", "dynamic_import_resolution", "loader"),
     ("lazyproc).call", "dynamic_syscall_call", "loader"),
     ("lazyproc.call", "dynamic_syscall_call", "loader"),
-    ("virtualalloc", "executable_memory_allocation", "loader"),
-    ("mmap", "executable_memory_allocation", "loader"),
+    ("virtualalloc", "memory_allocation", "loader"),
+    ("mmap", "memory_allocation", "loader"),
     ("virtualprotect", "memory_protection_change", "loader"),
     ("mprotect", "memory_protection_change", "loader"),
     ("createthread", "thread_creation", "loader"),
@@ -246,6 +239,16 @@ class SinkArgumentSummaryBuilder:
 
         for sink in self.sinks.values():
             enrich_sink_arguments(sink, self.body_producers)
+        memory_operations = {
+            (item.get("function"), item.get("address")): item
+            for item in self.semantics.get("memory_operations") or []
+        }
+        for sink in self.sinks.values():
+            memory = memory_operations.get((sink.get("function"), sink.get("address")))
+            if memory and sink.get("kind") in {"memory_allocation", "memory_protection_change"}:
+                protection = memory.get("memory_protection")
+                if protection:
+                    sink.setdefault("loader_arguments", {})["memory_protection"] = protection
         sinks = sorted(self.sinks.values(), key=self._sink_sort_key)[:MAX_SINKS]
         return {
             "version": 1,
@@ -316,11 +319,13 @@ class SinkArgumentSummaryBuilder:
                 sink["evidence"].append(f"semantic_chain:{chain_kind}")
                 sink["evidence"].extend(chain.get("evidence") or [])
                 merge_strings(sink, sink_ref.get("strings") or [])
-                merge_strings(sink, chain.get("literals") or [])
                 merge_artifacts(sink, artifacts_from_strings(sink_ref.get("strings") or []))
-                merge_artifacts(sink, artifacts_from_strings(chain.get("literals") or []))
-                merge_field_args(sink, chain.get("related_fields") or [])
-                merge_data_sources(sink, chain.get("sources") or [])
+                sink.setdefault("context", []).append({
+                    "source": "semantic_chain",
+                    "relationship_status": "same_function_cooccurrence",
+                    "literals": chain.get("literals") or [],
+                    "sources": chain.get("sources") or [],
+                })
                 merge_role_annotations(sink, sink_ref)
                 merge_role_annotations(sink, chain)
                 if chain.get("confidence"):
@@ -354,38 +359,7 @@ class SinkArgumentSummaryBuilder:
             if action.get("description"):
                 add_unique(sink["evidence"], f"description:{action.get('description')}")
             merge_role_annotations(sink, action)
-            merge_artifacts(sink, action.get("artifacts") or [])
-            for nested in action.get("sinks") or []:
-                merge_strings(sink, nested.get("strings") or [])
-                merge_artifacts(sink, artifacts_from_strings(nested.get("strings") or []))
-
-        for flow_item in story.get("execution_flow") or []:
-            function = flow_item.get("function") or "<unknown>"
-            for action in flow_item.get("actions") or []:
-                category = normalize_category(action.get("category"))
-                kind = action.get("kind")
-                if not category_for_kind_or_target(kind, action.get("target_api")) and category not in {
-                    "filesystem",
-                    "network",
-                    "process",
-                    "concurrency",
-                    "execution",
-                    "loader",
-                    "registry",
-                    "persistence",
-                    "registry_or_persistence",
-                }:
-                    continue
-                sink = self._upsert_sink(
-                    function=function,
-                    kind=kind or "unknown_sink",
-                    category="loader" if category == "execution" else category,
-                    target=action.get("target_api"),
-                    address=None,
-                )
-                sink["evidence"].append("behavior_story_execution_flow")
-                merge_role_annotations(sink, action)
-                merge_artifacts(sink, action.get("artifacts") or [])
+            sink.setdefault("context", []).append({"source": "behavior_story", "artifacts": action.get("artifacts") or [], "relationship_status": "unverified"})
 
     def _collect_from_loader_behaviors(self) -> None:
         for loader in self.semantics.get("loader_behaviors") or []:
@@ -400,6 +374,9 @@ class SinkArgumentSummaryBuilder:
             )
             sink["evidence"].append("loader_behavior")
             sink["evidence"].extend(loader.get("evidence") or [])
+            for key in ("confidence", "relationship_status", "unresolved", "unresolved_reasons", "candidate_loader_relationships"):
+                if loader.get(key) is not None:
+                    sink[key] = loader[key]
             for key in ("allocation_constants", "protection_constants"):
                 values = loader.get(key) or []
                 if values:
@@ -559,6 +536,9 @@ def category_for_kind_or_target(kind: Any, target: Any) -> str | None:
 def classify_target(target: Any) -> tuple[str, str | None]:
     if not isinstance(target, str) or not target:
         return "unknown_sink", None
+    process_kind = classify_process_api(target)
+    if process_kind:
+        return process_kind, "process"
     lowered = target.lower()
     for needle, kind, category in TARGET_HINTS:
         if needle in lowered:
@@ -738,6 +718,10 @@ def coalesce_data_sources(sink: dict[str, Any]) -> None:
 
 def build_arg_roles(sink: dict[str, Any]) -> dict[str, list[Any]]:
     roles: dict[str, list[Any]] = {}
+    if is_cmd_execution(sink.get("target") or sink.get("api")):
+        # Receiver methods have no executable/argv string parameters. Nearby
+        # literals cannot establish the contents or identity of that Cmd.
+        return {"process_role": ["process_start_attempt"]}
     for source_key, role_key in (
         ("network_role", "network_role"),
         ("process_role", "process_role"),
@@ -815,17 +799,22 @@ def add_process_roles(roles: dict[str, list[Any]], sink: dict[str, Any]) -> None
         cleaned = clean_value(value)
         if cleaned and useful_process_string(cleaned):
             command_parts.append(cleaned)
+    if sink.get("kind") == "command_constructed":
+        roles["process_role"] = ["command_construction"]
+        if command_parts:
+            role_add(roles, "command_parts", command_parts[:MAX_ARGS_PER_KIND])
+        return
     if command_parts:
         role_add(roles, "command_parts", command_parts[:MAX_ARGS_PER_KIND])
         inferred_role = classify_process_role(command_parts)
-        if not roles.get("process_role") or inferred_role != "process_launch":
+        if not roles.get("process_role") or inferred_role != "process_start_attempt":
             role_add(roles, "process_role", inferred_role)
     for artifact in sink.get("artifacts") or []:
         if artifact.get("type") in {"command", "file_name", "path", "windows_path"}:
             role_add(roles, "process_targets", artifact.get("value"))
             process_targets.append(artifact.get("value"))
     target_role = classify_process_role(process_targets)
-    if target_role != "process_launch":
+    if target_role != "process_start_attempt":
         role_add(roles, "process_role", target_role)
     if not roles.get("process_role"):
         role_add(roles, "process_role", classify_process_role(sink.get("strings") or []))
@@ -995,7 +984,7 @@ def classify_process_role(values: list[Any]) -> str:
         return "shell_execution"
     if commands & {"curl", "wget"}:
         return "downloader_command"
-    return "process_launch"
+    return "process_start_attempt"
 
 
 def enrich_loader_arguments(sink: dict[str, Any]) -> None:
@@ -1224,7 +1213,7 @@ def normalize_role_lists(roles: dict[str, list[Any]]) -> None:
         if not roles[role]:
             roles.pop(role, None)
     if "process_role" in roles and len(roles["process_role"]) > 1:
-        specific = [role for role in roles["process_role"] if role != "process_launch"]
+        specific = [role for role in roles["process_role"] if role != "process_start_attempt"]
         if specific:
             roles["process_role"] = specific
     if "network_role" in roles and len(roles["network_role"]) > 1:
